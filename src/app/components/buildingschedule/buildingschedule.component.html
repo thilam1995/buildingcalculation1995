@@ -1,0 +1,53 @@
+<h1>Start Building Schedule</h1>
+<!-- <pre>{{ state$ | async | json }}</pre> -->
+<div class="row">
+    <div class="col-md-12 jumbotron">
+      <table class="table table-sm">
+        <tr>
+          <th>Project</th>
+          <th>Target Rating</th>
+          <th>Climate Category</th>
+          <th>Completed By</th>
+          <th>Drawing Set</th>
+          <th>Typology/Dwelling</th>
+          <th>Floor Area</th>
+          <th># of Habitation Room</th>
+        </tr>
+        <tr>
+          <td *ngIf="stateobject.ID != null">{{stateobject.ID}}</td>
+          <td *ngIf="stateobject.TargetRating != null">{{stateobject.TargetRating.HomeStar}}</td>
+          <td *ngIf="stateobject.Location != null">{{stateobject.Location.ClimateZone}}</td>
+          <td *ngIf="stateobject.CompletedBy != null">{{stateobject.CompletedBy}}</td>
+          <td *ngIf="stateobject.DrawingSet != null">{{stateobject.DrawingSet}}</td>
+          <td *ngIf="stateobject.Typology != null">{{stateobject.Typology}}</td>
+          <td *ngIf="stateobject.FloorArea != null">{{stateobject.FloorArea}}</td>
+          <td *ngIf="stateobject.NumofHabitationroom != null">{{stateobject.NumofHabitationroom}}</td>
+        </tr>
+      </table>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <mat-tab-group animationDuration="0ms" mat-align-tabs="center" dynamicHeight>
+      <mat-tab label="Schedules">
+        <app-schedule [windowobject]="windowobject" [wallobject]="wallobject" [doorobject]="doorobject" [windowobjectlist]="windowobjectlist"
+        [wallobjectlist]="wallobjectlist" [doorobjectlist]="doorobjectlist"
+        [skylightsobject]="skylightsobject" [roofobject]="roofobject" [floorobject]="floorobject" [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist" [floorobjectlist]="floorobjectlist"></app-schedule>
+      </mat-tab>
+      <mat-tab label="Building Model">
+        <app-buildingmodel [windowobjectlist]="windowobjectlist"
+        [wallobjectlist]="wallobjectlist" [doorobjectlist]="doorobjectlist"
+        [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist"
+        [floorobjectlist]="floorobjectlist"
+        [wallwindowdoorobject]="wallwindowdoorobject" [roofskylightobject]="roofskylightobject"
+        [floorsobject]="floorsobject" [wallwindowdoorobjectlist]="wallwindowdoorobjectlist"
+        [roofskylightobjectlist]="roofskylightobjectlist" [fieldarrayfloor]="fieldarrayfloor"></app-buildingmodel>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="col-md-12 buttonsection">
+        <!-- <button class="btn btn-primary" (click)="submiteproject()">Add</button> -->
+    </div>
+    <button class="btn btn-primary" (click)="getcalculate()">Calculate</button>
+  </div>
+
+</div>

@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-sm table-hover">
+            <tr>
+                <th>Gross Roof Area</th>
+                <th>Gross Skylight Area</th>
+                <th>Net Roof Area</th>
+                <th>Roof Construction R-Value</th>
+                <th>Roof Heat Loss</th>
+                <th>Skylight Heat Loss</th>
+              </tr>
+              <tr>
+                  <td>{{grossroofarea | number: '1.0-2'}}</td>
+                  <td>{{grossskylightarea | number: '1.0-2'}}</td>
+                  <td>{{netroofarea | number: '1.0-2'}}</td>
+                  <td>{{roofconstructionr | number: '1.0-2'}}</td>
+                  <td>{{roofheatloss | number: '1.0-2'}}</td>
+                  <td>{{skylightheatloss | number: '1.0-2'}}</td>
+              </tr>
+
+        </table>
+        <table class="table table-sm table-hover">
+            <tr>
+                <th>Skylight</th>
+                <th>Skylight R-Value</th>
+                <th>Skylight Heat Loss</th>
+            </tr>
+            <tr *ngFor="let iskylight of roofskylighti.skylight">
+                <td>{{iskylight.Area | number: '1.0-2'}}</td>
+                <td>{{iskylight.ConstructionRValue | number: '1.0-2'}}</td>
+                <td>{{iskylight.HeatLoss | number: '1.0-2'}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<form class="buildingform" #buildinginfoform="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <input class="form-control" type="text" name="id" #id="ngModel" placeholder="Project ID" [(ngModel)]="buildinginfoobject.ID">
+  </div>
+  <div class="form-group">
+    <label>Target Rating</label>
+    <select class="form-control" name="targetrating" #targetrating="ngModel" [(ngModel)]="buildinginfoobject.TargetRating" (change)="selected1(i)">
+      <option *ngFor="let i of climateservice.climatelist" [ngValue]="i">{{i.HomeStar}}</option>
+    </select>
+  </div>
+  <div class="form-group" *ngIf="buildinginfoobject.TargetRating != null">
+    <label>Location</label>
+    <select class="form-control" name="location" #location="ngModel" [(ngModel)]="buildinginfoobject.Location">
+      <option *ngFor="let x of locationselected.ClimateZoneList" [ngValue]="x">{{x.ClimateZone}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" name="completedby" #completedby="ngModel" placeholder="Completed By" [(ngModel)]="buildinginfoobject.CompletedBy">
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" name="drawingset" #drawingset="ngModel" placeholder="Drawing Set" [(ngModel)]="buildinginfoobject.DrawingSet">
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" name="typology" #typology="ngModel" placeholder="Typology/Dwelling" [(ngModel)]="buildinginfoobject.Typology">
+  </div>
+
+  <div class="form-group">
+    <input class="form-control" type="text" name="floorarea" #floorarea="ngModel" placeholder="Floor Area (ICA)" [(ngModel)]="buildinginfoobject.FloorArea">
+  </div>
+
+  <div class="form-group">
+    <input class="form-control" type="text" name="numofhabitationroom" #numofhabitationroom="ngModel" placeholder="# of Habitable Rooms" [(ngModel)]="buildinginfoobject.NumofHabitationroom">
+  </div>
+
+
+  <!-- <div class="form-group">
+    <span>{{locationselected.ConstructionRValue.Floor | number: '1.0-2'}}</span>
+    <br>
+    <span>{{locationselected.ConstructionRValue.Roof | number: '1.0-2'}}</span>
+    <br>
+    <span>{{locationselected.ConstructionRValue.Skylights | number: '1.0-2'}}</span>
+    <br>
+    <span>{{locationselected.ConstructionRValue.Wall | number: '1.0-2'}}</span>
+    <br>
+    <span>{{locationselected.ConstructionRValue.Window | number: '1.0-2'}}</span>
+    <br>
+  </div> -->
+  <div class="form-group">
+   <button type="submit" class="btn btn-primary">Next</button>
+  </div>
+</form>

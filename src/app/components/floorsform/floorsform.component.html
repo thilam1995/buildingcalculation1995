@@ -1,0 +1,35 @@
+<table class="table table-sm table-hover">
+    <tr>
+        <th>Susp. Floor Name</th>
+        <th>Construction R-Value</th>
+        <th>Description</th>
+    </tr>
+    <tr *ngFor="let field of fieldArrayfloor; let i = index">
+        <td *ngIf="!field.isEditable">{{field.FloorName}}</td>
+        <td *ngIf="field.isEditable"><input type="text" class="form-control" name="floorname" #floorname="ngModel"
+                [(ngModel)]="floorobject1.FloorName"></td>
+        <td *ngIf="!field.isEditable">{{field.ConstructionRValue | number: '1.0-2'}}</td>
+        <td *ngIf="field.isEditable"><input type="text" class="form-control" name="constructionrvalue"
+                #constructionrvalue="ngModel" [(ngModel)]="floorobject1.ConstructionRValue"></td>
+        <td *ngIf="!field.isEditable">{{field.Description}}</td>
+        <td *ngIf="field.isEditable"><input type="text" class="form-control" name="description" #description="ngModel"
+                [(ngModel)]="floorobject1.Description"></td>
+        <td> <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)"
+                *ngIf="!field.isEditable">Delete</button>
+            <button class="btn btn-default" type="button" (click)="saveFieldValue(i, field)"
+                *ngIf="field.isEditable">Save</button>
+            <button class="btn btn-default" type="button" (click)="editFieldValue(i, field)"
+                *ngIf="!field.isEditable">Edit</button>
+            <button class="btn btn-default" type="button" (click)="cancelFieldValue(field)"
+                *ngIf="field.isEditable">Cancel</button></td>
+    </tr>
+    <tr>
+        <td><input type="text" class="form-control" name="floorname" #floorname="ngModel"
+                [(ngModel)]="floorobject.FloorName" placeholder="Floor Name"></td>
+        <td><input type="text" class="form-control" name="constructionrvalue" #constructionrvalue="ngModel"
+                [(ngModel)]="floorobject.ConstructionRValue" placeholder="ConstructionRValue"></td>
+        <td><input type="text" class="form-control" name="description" #description="ngModel"
+                [(ngModel)]="floorobject.Description" placeholder="Description"></td>
+        <td><button class="btn btn-primary" (click)="addFieldValue()">Validate</button></td>
+    </tr>
+</table>

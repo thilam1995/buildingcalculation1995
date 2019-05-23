@@ -1,0 +1,82 @@
+<h1 style="text-align: center">Roof</h1>
+<table class="table table-sm table-hover">
+  <tr>
+    <th>Roof Name</th>
+    <th>Construction R-Value</th>
+    <th>Description</th>
+  </tr>
+  <tr *ngFor="let field of fieldArrayroof; let i = index">
+    <td *ngIf="!field.isEditable">{{field.RoofName}}</td>
+    <td *ngIf="field.isEditable"><input type="text" class="form-control" name="roofname" #roofname="ngModel"
+        [(ngModel)]="roofobject1.RoofName">
+    </td>
+    <td *ngIf="!field.isEditable">{{field.ConstructionRValue}}</td>
+    <td *ngIf="field.isEditable"><input type="text" class="form-control" name="constructionrvalue"
+        #constructionrvalue="ngModel" [(ngModel)]="roofobject1.ConstructionRValue"></td>
+    <td *ngIf="!field.isEditable">{{field.Description}}</td>
+    <td *ngIf="field.isEditable"><textarea type="text" class="form-control" name="description" #description="ngModel"
+        [(ngModel)]="roofobject1.Description"></textarea></td>
+    <td> <button class="btn btn-default" type="button" (click)="deleteFieldValueRoof(i)"
+        *ngIf="!field.isEditable">Delete</button>
+      <button class="btn btn-default" type="button" (click)="saveFieldValueRoof(i, field)"
+        *ngIf="field.isEditable">Save</button>
+      <button class="btn btn-default" type="button" (click)="editFieldValueRoof(i, field)"
+        *ngIf="!field.isEditable">Edit</button>
+      <button class="btn btn-default" type="button" (click)="cancelFieldValueRoof(field)"
+        *ngIf="field.isEditable">Cancel</button></td>
+  </tr>
+  <tr>
+    <td><input type="text" class="form-control" name="roofname" #roofname="ngModel" [(ngModel)]="roofobject.RoofName" placeholder="Roof Name">
+    </td>
+    <td><input type="text" class="form-control" name="constructionrvalue" #constructionrvalue="ngModel"
+        [(ngModel)]="roofobject.ConstructionRValue" placeholder="Construction R-Value"></td>
+    <td><textarea cols="30" rows="5" class="form-control" name="description" #description="ngModel"
+        [(ngModel)]="roofobject.Description" placeholder="Description"></textarea></td>
+    <td><button class="btn btn-primary" (click)="addFieldValueRoof()">Validate Roof</button></td>
+  </tr>
+</table>
+<h1 style="text-align: center">Skylight</h1>
+<table class="table table-sm table-hover">
+  <tr>
+    <th>Skylight Name (ID)</th>
+    <th>Construction R-Value</th>
+    <th>Length</th>
+    <th>Width</th>
+    <th>Area</th>
+  </tr>
+  <tr *ngFor="let field of fieldArrayskyline; let i = index">
+    <td *ngIf="!field.isEditable">{{field.SkylightsName}}</td>
+    <td *ngIf="field.isEditable"><input type="text" class="form-control" name="skylightname" #skylightname="ngModel" [(ngModel)]="skylightsobject1.SkylightsName">
+    </td>
+    <td *ngIf="!field.isEditable">{{field.ConstructionRValue}}</td>
+    <td *ngIf="field.isEditable"><input type="text" class="form-control" name="constructionrvalue" #constructionrvalue="ngModel"
+        [(ngModel)]="skylightsobject1.ConstructionRValue"></td>
+    <td *ngIf="!field.isEditable">{{field.Length | number: '1.0-2'}}</td>
+    <td *ngIf="field.isEditable"><input type="text" class="form-control" name="length" #length="ngModel" [(ngModel)]="skylightsobject1.Length" (keyup)="onKeyLengthSkylightedit($event)"></td>
+    <td *ngIf="!field.isEditable">{{field.Width | number: '1.0-2'}}</td>
+    <td *ngIf="field.isEditable"><input type="text" class="form-control" name="width" #width="ngModel" [(ngModel)]="skylightsobject1.Width" (keyup)="onKeyWidthSkylightedit($event)"></td>
+    <td *ngIf="!field.isEditable">{{field.Area | number: '1.0-2'}}</td>
+    <td *ngIf="field.isEditable">Area: <span>{{skylightsobject1.Area | number: '1.0-2'}}</span></td>
+    <td>
+      <button class="btn btn-default" type="button" (click)="deleteFieldValueSkylight(i)"
+        *ngIf="!field.isEditable">Delete</button>
+      <button class="btn btn-default" type="button" (click)="saveFieldValueSkylight(i, field)"
+        *ngIf="field.isEditable">Save</button>
+      <button class="btn btn-default" type="button" (click)="editFieldValueSkylight(i, field)"
+        *ngIf="!field.isEditable">Edit</button>
+      <button class="btn btn-default" type="button" (click)="cancelFieldValueSkylight(field)"
+        *ngIf="field.isEditable">Cancel</button></td>
+  </tr>
+  <tr>
+    <td><input type="text" name="skylightname" class="form-control" #skylightname="ngModel"
+        [(ngModel)]="skylightsobject.SkylightsName" placeholder="Skylight Name"></td>
+    <td><input type="text" name="constructionrvalue" class="form-control" #constructionrvalue="ngModel"
+        [(ngModel)]="skylightsobject.ConstructionRValue" placeholder="Construction R-Value"></td>
+    <td><input type="text" name="length" class="form-control" #length="ngModel" [(ngModel)]="skylightsobject.Length"
+        placeholder="Length" (keyup)="onKeyLengthSkylight($event)"></td>
+    <td><input type="text" name="width" class="form-control" #width="ngModel" [(ngModel)]="skylightsobject.Width"
+        placeholder="Width" (keyup)="onKeyWidthSkylight($event)"></td>
+    <td>Area: <span>{{skylightsobject.Area | number: '1.0-2'}}</span></td>
+    <td><button class="btn btn-primary" (click)="addFieldValueSkylight()">Validate Skylight</button></td>
+  </tr>
+</table>

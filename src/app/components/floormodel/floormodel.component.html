@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-md-12 card" *ngFor="let floori of fieldarrayfloor; let i = index">
+    <div class="col-md-12">
+      <table class="table table-sm bluetablehead">
+        <tr>
+          <th>Section: {{floori.floor.FloorSection}}</th>
+          <th>Floor Name: {{floori.floor.FloorName}}</th>
+          <th>Exposed Area: {{floori.floor.ExposedArea | number: '1.0-2'}}</th>
+          <th><button class="btn btn-primary" (click)="hideorshow(floori)">{{floori.buttonshowhide}}</button>
+          <th *ngIf="!floori.isEditable"><button class="btn btn-primary"
+              (click)="onEdit(floori, i)">Edit</button>
+          </th>
+          <th *ngIf="floori.isEditable">
+            <button class="btn btn-primary" (click)="onCancel(floori)">Cancel</button>
+            <button class="btn btn-primary" (click)="onSave(floori, i)">
+              Save
+            </button>
+            <button class="btn btn-primary" (click)="onDelete(i)">Delete</button>
+          </th>
+        </tr>
+      </table>
+      <div class="col-md-12">
+        <div *ngIf="floori.isDisplay">
+          <app-heatlossfloor [floori]="floori"></app-heatlossfloor>
+        </div>
+        <div class="col-md-12" *ngIf="floori.isEditable">
+          <table class="table table-sm table-hover">
+            <tr>
+              <td>
+                <input type="text" class="form-control" name="floorsection" #floorsection="ngModel"
+                  placeholder="Floor Section" [(ngModel)]="floor_section1">
+              </td>
+              <td>
+                <span>Construction
+                  <select class="form-control" [(ngModel)]="floorobject1">
+                    <option *ngFor="let i of floorobjectlist" [ngValue]="i">{{i.FloorName}}</option>
+                  </select>
+                </span>
+              </td>
+              <td>
+                <input type="text" class="form-control" name="exposedarea" #exposedarea="ngModel"
+                  placeholder="Exposed Area" [(ngModel)]="floorarea1">
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <br>
+    <br>
+    <button class="btn btn-primary" (click)="addfloortoggle()" *ngIf="!display">+ Add Floor</button>
+    <button class="btn btn-primary" (click)="addfloortoggle()" *ngIf="display">Cancel</button>
+    <div *ngIf="display">
+      <table class="table table-sm table-hover">
+        <tr>
+          <td>
+            <input type="text" class="form-control" name="floorsection" #floorsection="ngModel"
+              placeholder="Floor Section" [(ngModel)]="floor_section">
+          </td>
+          <td>
+            <span>Construction
+              <select class="form-control" [(ngModel)]="floorobject">
+                <option *ngFor="let i of floorobjectlist" [ngValue]="i">{{i.FloorName}}</option>
+              </select>
+            </span>
+          </td>
+          <td>
+            <input type="text" class="form-control" name="exposedarea" #exposedarea="ngModel" placeholder="Exposed Area"
+              [(ngModel)]="floorarea">
+          </td>
+        </tr>
+      </table>
+      <button class="btn btn-primary" (click)="addFieldValue()">Validate</button>
+    </div>
+  </div>
+</div>

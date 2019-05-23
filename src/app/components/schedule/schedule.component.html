@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-12">
+        <mat-tab-group animationDuration="0ms" mat-align-tabs="center">
+            <mat-tab label="Wall, Doors & Windows">
+                <app-wallform [wallobject]="wallobject" [wallobjectlist]="wallobjectlist"></app-wallform>
+                <app-windowform [windowobject]="windowobject" [windowobjectlist]="windowobjectlist"></app-windowform>
+                <app-doorform [doorobject]="doorobject" [doorobjectlist]="doorobjectlist"></app-doorform>
+            </mat-tab>
+            <mat-tab label="Roof & Skylight">
+                <app-roofskylineform [skylightsobject]="skylightsobject" [roofobject]="roofobject" [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist"></app-roofskylineform>
+            </mat-tab>
+            <mat-tab label="Floor">
+                <app-floorsform [floorobject]="floorobject" [floorobjectlist]="floorobjectlist"></app-floorsform>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

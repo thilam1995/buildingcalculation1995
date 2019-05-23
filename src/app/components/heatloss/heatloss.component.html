@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-sm table-hover">
+      <tr>
+        <th>Gross Wall Area (m2)</th>
+        <th>Gross Window Area (m2)</th>
+        <th>Gross O.W.A</th>
+        <th>Net Wall Area</th>
+        <th>Wall Construction R-Value</th>
+        <th>Wall Heat Loss</th>
+        <th>Window Heat Loss</th>
+      </tr>
+      <tr>
+        <td>{{grosswallarea | number: '1.0-2'}}</td>
+        <td>{{grosswindowarea | number: '1.0-2'}}</td>
+        <td>{{grossowa | number: '1.0-2'}}</td>
+        <td>{{netwallarea | number: '1.0-2'}}</td>
+        <td>{{wallconstructionrvalue | number: '1.0-2'}}</td>
+        <td>{{wallheatloss | number: '1.0-2'}}</td>
+        <td>{{windowheatloss | number: '1.0-2'}}</td>
+      </tr>
+    </table>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th>Window Area</th>
+        <th>Window Width</th>
+        <th>Window Height</th>
+        <th>O.W.A</th>
+        <th>Window R-Value</th>
+        <th>Window Heat Loss</th>
+      </tr>
+      <tr *ngFor="let iwindow of wallwindowdoori.window">
+        <td>{{iwindow.Area | number: '1.0-2'}}</td>
+        <td>{{iwindow.Width | number: '1.0-2'}}</td>
+        <td>{{iwindow.Height | number: '1.0-2'}}</td>
+        <td>{{iwindow.OWA | number: '1.0-2'}}</td>
+        <td>{{iwindow.ConstructionRValue | number: '1.0-2'}}</td>
+        <td>{{iwindow.WindowHeatLoss | number: '1.0-2'}}</td>
+      </tr>
+    </table>
+    <table class="table table-sm table-hover" *ngIf="wallwindowdoori.door != null">
+      <tr>
+        <th>Door Area</th>
+        <th>Door R-Value</th>
+        <th>Door Heat Loss</th>
+      </tr>
+      <tr>
+        <td *ngIf="wallwindowdoori.door.Area != null">{{wallwindowdoori.door.Area | number: '1.0-2'}}</td>
+        <td *ngIf="wallwindowdoori.door.ConstructionRValue != null">
+          {{wallwindowdoori.door.ConstructionRValue | number: '1.0-2'}}</td>
+        <td *ngIf="wallwindowdoori.door.Area != null && wallwindowdoori.door.ConstructionRValue != null">
+          {{wallwindowdoori.door.Area / wallwindowdoori.door.ConstructionRValue | number: '1.0-2'}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

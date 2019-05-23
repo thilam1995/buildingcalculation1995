@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body { 
+    margin-top: 100px;
+    height: 100%;
+}
+
+form.buildingform{
+    background-color: #dbdbdb;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+div.validation-error{
+    color: red;
+    text-align: center;
+}
+
+button:hover, a.btn:hover{
+    cursor: pointer;
+}
+
+div.buttonsection{
+    background-color: #dbdbdb;
+    float: right;
+    border-radius: 4px;
+}
+
+div.buildingmodel{
+    background-color: darkseagreen;
+    border-radius: 4px;
+}
+
+.card{
+    border-bottom: 8px solid gray;
+}
+
+.card .headercard{
+    background-color: aqua;
+}

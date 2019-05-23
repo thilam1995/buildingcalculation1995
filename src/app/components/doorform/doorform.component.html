@@ -1,0 +1,56 @@
+<table class="table table-sm table-hover">
+        <tr>
+                <th>Door Name</th>
+                <th>Construction R-Value</th>
+                <th>Width</th>
+                <th>Height</th>
+                <th>Area</th>
+        </tr>
+        <tr *ngFor="let field of fieldArray; let i = index">
+                <td *ngIf="!field.isEditable">{{field.DoorName}}</td>
+                <td *ngIf="field.isEditable"><input type="text" class="form-control" name="DoorName" #DoorName="ngModel"
+                                [(ngModel)]="doorobject1.DoorName"></td>
+                <td *ngIf="!field.isEditable">{{field.ConstructionRValue}}</td>
+                <td *ngIf="field.isEditable"><input type="text" class="form-control" pattern="[0-9]*"
+                                name="ConstructionRValue" #ConstructionRValue="ngModel"
+                                [(ngModel)]="doorobject1.ConstructionRValue" inputmode="numeric"></td>
+                <td *ngIf="!field.isEditable">{{field.Width | number: '1.0-2'}}</td>
+                <td *ngIf="field.isEditable"><input type="text" class="form-control" name="Width" pattern="[0-9]*"
+                                #Width="ngModel" [(ngModel)]="doorobject1.Width" (keyup)="onKeyWidthEdit($event)"
+                                inputmode="numeric"></td>
+                <td *ngIf="!field.isEditable">{{field.Height | number: '1.0-2'}}</td>
+                <td *ngIf="field.isEditable"><input type="text" class="form-control" name="Height" pattern="[0-9]*"
+                                #Height="ngModel" [(ngModel)]="doorobject1.Height" (keyup)="onKeyHeightEdit($event)"
+                                inputmode="numeric"></td>
+                <td *ngIf="!field.isEditable">{{field.Area | number: '1.0-2'}}</td>
+                <td *ngIf="field.isEditable"><label>Area: <span>{{doorobject1.Area | number: '1.0-2'}}</span></label>
+                </td>
+                <td>
+                        <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)"
+                                *ngIf="!field.isEditable">Delete</button>
+                        <button class="btn btn-default" type="button" (click)="saveFieldValue(i, field)"
+                                *ngIf="field.isEditable">Save</button>
+                        <button class="btn btn-default" type="button" (click)="editFieldValue(i, field)"
+                                *ngIf="!field.isEditable">Edit</button>
+                        <button class="btn btn-default" type="button" (click)="cancelFieldValue(field)"
+                                *ngIf="field.isEditable">Cancel</button>
+                </td>
+        </tr>
+</table>
+<table class="table table-sm table-hover">
+        <tr>
+                <td><input class="form-control" type="text" name="DoorName" #DoorName="ngModel" placeholder="Door Name"
+                                [(ngModel)]="doorobject.DoorName"></td>
+                <td><input class="form-control" type="text" name="ConstructionRValue" #ConstructionRValue="ngModel"
+                                placeholder="Construction R-Value" [(ngModel)]="doorobject.ConstructionRValue"
+                                inputmode="numeric"></td>
+                <td><input class="form-control" type="text" pattern="[0-9]*" name="Width" #Width="ngModel"
+                                placeholder="Width" [(ngModel)]="doorobject.Width" (keyup)="onKeyWidth($event)"
+                                inputmode="numeric"></td>
+                <td><input class="form-control" type="text" pattern="[0-9]*" name="Height" #Height="ngModel"
+                                placeholder="Height" [(ngModel)]="doorobject.Height" (keyup)="onKeyHeight($event)"
+                                inputmode="numeric"></td>
+                <td><label>Area: <span>{{doorobject.Area | number: '1.0-2'}}</span></label></td>
+                <td><button class="btn btn-primary" (click)="addFieldValue()">Validate Door</button></td>
+        </tr>
+</table>
