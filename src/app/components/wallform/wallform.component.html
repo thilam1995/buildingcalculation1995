@@ -5,23 +5,39 @@
         <th>Description</th>
     </tr>
     <tr *ngFor="let field of fieldArray; let i = index">
-        <td *ngIf="!field.isEditable">{{field.WallName}}</td><td *ngIf="field.isEditable"><input type="text" class="form-control" name="wallname" #wallname="ngModel" [(ngModel)]="wallobject1.WallName"></td>
-        <td *ngIf="!field.isEditable">{{field.ConstructionRValue | number: '1.0-2'}}</td><td *ngIf="field.isEditable" ><input type="number" class="form-control" name="constructionrvalue" #constructionrvalue="ngModel" [(ngModel)]="wallobject1.ConstructionRValue" digitOnly inputmode="numeric" pattern="[0-9]*"></td>
-        <td *ngIf="!field.isEditable">{{field.Description}}</td><td *ngIf="field.isEditable"><textarea type="text" class="form-control" cols="30" rows="5" name="description" #description="ngModel" [(ngModel)]="wallobject1.Description"></textarea></td>
+        <td *ngIf="!field.isEditable">{{field.WallName}}</td>
+        <td *ngIf="field.isEditable"><input type="text" class="form-control" name="wallname" #wallname="ngModel"
+                [(ngModel)]="wallobject1.WallName"></td>
+        <td *ngIf="!field.isEditable">{{field.ConstructionRValue | number: '1.0-2'}}</td>
+        <td *ngIf="field.isEditable"><input type="number" class="form-control" name="constructionrvalue"
+                #constructionrvalue="ngModel" [(ngModel)]="wallobject1.ConstructionRValue" digitOnly inputmode="numeric"
+                pattern="[0-9]*"></td>
+        <td *ngIf="!field.isEditable">{{field.Description}}</td>
+        <td *ngIf="field.isEditable"><textarea type="text" class="form-control" cols="30" rows="5" name="description"
+                #description="ngModel" [(ngModel)]="wallobject1.Description"></textarea></td>
         <td>
-            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)" *ngIf="!field.isEditable">Delete</button>
-            <button class="btn btn-default"  type="button" (click)="saveFieldValue(i, field)" *ngIf="field.isEditable">Save</button>
-            <button class="btn btn-default"  type="button" (click)="editFieldValue(i, field)" *ngIf="!field.isEditable">Edit</button>
-            <button class="btn btn-default"  type="button" (click)="cancelFieldValue(field)" *ngIf="field.isEditable">Cancel</button>
+            <button class="btn btn-default" type="button" (click)="editFieldValue(i, field)"
+                *ngIf="!field.isEditable">Edit</button>
+            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)"
+                *ngIf="!field.isEditable">Delete</button>
+            <button class="btn btn-default" type="button" (click)="saveFieldValue(i, field)"
+                *ngIf="field.isEditable">Save</button>
+            <button class="btn btn-default" type="button" (click)="cancelFieldValue(field)"
+                *ngIf="field.isEditable">Cancel</button>
         </td>
     </tr>
 
 </table>
 <table class="table table-sm table-hover">
     <tr>
-        <td><input class="form-control" type="text" name="WallName" #WallName="ngModel" placeholder="Wall Name" [(ngModel)]="wallobject.WallName"></td>
-        <td><input class="form-control" type="text" name="ConstructionRValue" #ConstructionRValue="ngModel" placeholder="Construction R-Value" [(ngModel)]="wallobject.ConstructionRValue" digitOnly inputmode="numeric" pattern="[0-9]*"></td>
-        <td><textarea cols="30" rows="5" class="form-control" name="Description" #Description="ngModel" placeholder="Description" [(ngModel)]="wallobject.Description"></textarea></td>
-        <td><button class="btn btn-primary" (click)="addFieldValue()">Validate Wall</button></td>
+        <td><input class="form-control" type="text" name="WallName" #WallName="ngModel" placeholder="Wall Name"
+                [(ngModel)]="wallobject.WallName"></td>
+        <td><input class="form-control" type="text" name="ConstructionRValue" #ConstructionRValue="ngModel"
+                placeholder="Construction R-Value" [(ngModel)]="wallobject.ConstructionRValue" digitOnly
+                inputmode="numeric" pattern="[0-9]*"></td>
+        <td><textarea cols="30" rows="5" class="form-control" name="Description" #Description="ngModel"
+                placeholder="Description" [(ngModel)]="wallobject.Description"></textarea></td>
+        <td><button [disabled]="wallobject.WallName == null || wallobject.ConstructionRValue == null"
+                class="btn btn-primary" (click)="addFieldValue()">Complete Wall</button></td>
     </tr>
 </table>

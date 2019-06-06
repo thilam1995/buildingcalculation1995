@@ -4,61 +4,260 @@
     <table class="table table-sm">
       <tr>
         <td>Project ID</td>
-        <td></td>
+        <td>{{statedata.project.ID}}</td>
       </tr>
       <tr>
         <td>Targeting</td>
-        <td></td>
+        <td>{{statedata.project.TargetRating.HomeStar}}</td>
       </tr>
       <tr>
         <td>Completed By (Name)</td>
-        <td></td>
+        <td>{{statedata.project.CompletedBy}}</td>
       </tr>
       <tr>
         <td>Drawing Set</td>
-        <td></td>
+        <td>{{statedata.project.DrawingSet}}</td>
       </tr>
     </table>
 
     <table class="table table-sm">
       <tr>
         <td>Typology / Dwelling</td>
-        <td></td>
+        <td>{{statedata.project.Typology}}</td>
       </tr>
       <tr>
         <td>Floor Area (ICA)</td>
-        <td></td>
+        <td>{{statedata.project.FloorArea}}</td>
       </tr>
       <tr>
         <td>Location</td>
-        <td></td>
+        <td>{{statedata.project.ClimateZone}}</td>
       </tr>
     </table>
 
     <table class="table table-sm">
       <tr>
         <td>Climate Zone</td>
-        <td></td>
+        <td>{{statedata.project.ClimateZone}}</td>
       </tr>
     </table>
 
-    <h1>Building Model</h1>
-    <table class="table table-sm">
-      <tr>
-        <th>Roof Name (ID)</th>
-        <th># of Inclusions</th>
-        <th>Roof Area</th>
-        <th>Roof R-Value</th>
-        <th>Roof Heatloss</th>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </table>
+    <h1 style="text-align: center">Building Model</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Roof Name (ID)</th>
+            <th># of Inclusions</th>
+            <th>Roof Area</th>
+            <th>Roof R-Value (Proposed)</th>
+            <th>Roof Heatloss</th>
+          </tr>
+          <tr *ngFor="let i of rooflist">
+            <td>{{i.roofname}}</td>
+            <td>{{i.numinclusion | number: '1.0-2'}}</td>
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{i.totalrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Roof Area</th>
+            <th>Roof R-Value (Schedule Method)</th>
+            <th>Roof Heatloss</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr *ngFor="let i of rooflist">
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{roofrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="(i.totalarea / roofrvalue) >= (i.totalarea / i.totalrvalue)">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="(i.totalarea / i.totalrvalue) > (i.totalarea / roofrvalue)">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Skylights Name (ID)</th>
+            <th># of Inclusions</th>
+            <th>Skylights Area</th>
+            <th>Skylights R-Value (Proposed)</th>
+            <th>Skylights Heatloss</th>
+          </tr>
+          <tr *ngFor="let i of skylightlist">
+            <td>{{i.skylightname}}</td>
+            <td>{{i.numinclusion | number: '1.0-2'}}</td>
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{i.totalrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Skylights Area</th>
+            <th>Skylights R-Value (Schedule Method)</th>
+            <th>Skylights Heatloss</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr *ngFor="let i of skylightlist">
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{skylightrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="(i.totalarea / skylightrvalue) >= (i.totalarea / i.totalrvalue)">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="(i.totalarea / i.totalrvalue) > (i.totalarea / skylightrvalue)">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Window Name (ID)</th>
+            <th># of Inclusions</th>
+            <th>Window Area</th>
+            <th>Window R-Value (Proposed)</th>
+            <th>Window Heatloss</th>
+          </tr>
+          <tr *ngFor="let i of windowlist">
+            <td>{{i.windowname}}</td>
+            <td>{{i.numinclusion | number: '1.0-2'}}</td>
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{i.totalrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Window Area</th>
+            <th>Window R-Value (Schedule Method)</th>
+            <th>Window Heatloss</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr *ngFor="let i of windowlist">
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{windowrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="(i.totalarea / windowrvalue) >= (i.totalarea / i.totalrvalue)">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="(i.totalarea / i.totalrvalue) > (i.totalarea / windowrvalue)">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Wall Name (ID)</th>
+            <th># of Inclusions</th>
+            <th>Wall Area</th>
+            <th>Wall R-Value (Proposed)</th>
+            <th>Wall Heatloss</th>
+          </tr>
+          <tr *ngFor="let i of walllist">
+            <td>{{i.wallname}}</td>
+            <td>{{i.numinclusion | number: '1.0-2'}}</td>
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{i.totalrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Wall Area</th>
+            <th>Wall R-Value (Schedule Method)</th>
+            <th>Wall Heatloss</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr *ngFor="let i of walllist">
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{wallrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="(i.totalarea / wallrvalue) >= (i.totalarea / i.totalrvalue)">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="(i.totalarea / i.totalrvalue) > (i.totalarea / wallrvalue)">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Floor Name (ID)</th>
+            <th># of Inclusions</th>
+            <th>Floor Area</th>
+            <th>Floor R-Value (Proposed)</th>
+            <th>Floor Heatloss</th>
+          </tr>
+          <tr *ngFor="let i of floorlist">
+            <td>{{i.floorname}}</td>
+            <td>{{i.numinclusion | number: '1.0-2'}}</td>
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{i.totalrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>Floor Area</th>
+            <th>Floor R-Value (Schedule Method)</th>
+            <th>Floor Heatloss</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr *ngFor="let i of walllist">
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{floorrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="(i.totalarea / floorrvalue) >= (i.totalarea / i.totalrvalue)">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="(i.totalarea / i.totalrvalue) > (i.totalarea / floorrvalue)">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-sm">
+          <tr>
+            <th>Door Name (ID)</th>
+            <th># of Inclusions</th>
+            <th>Door Area</th>
+            <th>Door R-Value</th>
+            <th>Door Heatloss</th>
+          </tr>
+          <tr *ngFor="let i of doorlist">
+            <td>{{i.doorname}}</td>
+            <td>{{i.numinclusion | number: '1.0-2'}}</td>
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{i.totalrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 
   <pre>{{ state$ | async | json }}</pre>

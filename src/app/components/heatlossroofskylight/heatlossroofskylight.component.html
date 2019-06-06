@@ -8,15 +8,15 @@
                 <th>Roof Construction R-Value</th>
                 <th>Roof Heat Loss</th>
                 <th>Skylight Heat Loss</th>
-              </tr>
-              <tr>
-                  <td>{{grossroofarea | number: '1.0-2'}}</td>
-                  <td>{{grossskylightarea | number: '1.0-2'}}</td>
-                  <td>{{netroofarea | number: '1.0-2'}}</td>
-                  <td>{{roofconstructionr | number: '1.0-2'}}</td>
-                  <td>{{roofheatloss | number: '1.0-2'}}</td>
-                  <td>{{skylightheatloss | number: '1.0-2'}}</td>
-              </tr>
+            </tr>
+            <tr>
+                <td>{{grossroofarea | number: '1.0-2'}}</td>
+                <td>{{grossskylightarea | number: '1.0-2'}}</td>
+                <td>{{netroofarea | number: '1.0-2'}}</td>
+                <td>{{roofconstructionr | number: '1.0-2'}}</td>
+                <td>{{roofheatloss | number: '1.0-2'}}</td>
+                <td>{{skylightheatloss | number: '1.0-2'}}</td>
+            </tr>
 
         </table>
         <table class="table table-sm table-hover">
@@ -26,8 +26,11 @@
                 <th>Skylight Heat Loss</th>
             </tr>
             <tr *ngFor="let iskylight of roofskylighti.skylight">
+                <td>#</td>
                 <td>{{iskylight.Area | number: '1.0-2'}}</td>
+                <td>#</td>
                 <td>{{iskylight.ConstructionRValue | number: '1.0-2'}}</td>
+                <td>#</td>
                 <td>{{iskylight.HeatLoss | number: '1.0-2'}}</td>
             </tr>
         </table>

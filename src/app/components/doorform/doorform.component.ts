@@ -18,10 +18,16 @@ export class DoorformComponent implements OnInit {
   }
 
   addFieldValue() {
+
+    let doorcontain = this.fieldArray.find(x => x.DoorName === this.doorobject.DoorName);
+    let doorcontain1 = this.doorobjectlist.find(x => x.DoorName === this.doorobject.DoorName);
     if (this.doorobject.DoorName === "" || this.doorobject.ConstructionRValue === null
       || this.doorobject.Height === null || this.doorobject.Width === null) {
       alert("Please add door by complete filling all details");
-    } else {
+    } else if(doorcontain || doorcontain1){
+      alert("The door name is existed. Please use another name.");
+    }
+    else {
       this.fieldArray.push(this.doorobject);
       this.doorobjectlist.push(this.doorobject);
       this.doorobject = {

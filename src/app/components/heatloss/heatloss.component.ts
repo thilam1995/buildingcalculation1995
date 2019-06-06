@@ -32,12 +32,6 @@ export class HeatlossComponent implements OnInit {
     for (let i of this.wallwindowdoori.window) {
       this.grossowa += Number.parseFloat(i.OWA);
     }
-    // this.wallwindowdoori.window.forEach(element => {
-    //   this.grosswindowarea += element.Area;
-    // });
-    // this.wallwindowdoori.window.forEach(element => {
-    //   this.grossowa += element.OWA;
-    // });
     this.netwallarea = this.grosswallarea - this.grosswindowarea;
     this.wallconstructionrvalue = Number.parseFloat(this.wallwindowdoori.wall.ConstructionRValue);
     this.wallheatloss = this.netwallarea / this.wallconstructionrvalue;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Skylights } from 'src/app/models/skylights';
 import { Roof } from 'src/app/models/roof';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-roofskylightmodel',
@@ -25,12 +26,15 @@ export class RoofskylightmodelComponent implements OnInit {
   skylightwidth1 = 0;
   skylightlength1 = 0;
   display: boolean = false;
+  display1: boolean = false;
+  roofname: string = "";
+  roofname1: string = "";
   roof_section: string = "";
   roof_section1: string = "";
   roofarea: number = null;
   roofarea1: number = null;
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   ngOnInit() {
     this.setDefault();
@@ -70,13 +74,35 @@ export class RoofskylightmodelComponent implements OnInit {
 
   addrooftoggle() {
     this.display = !this.display;
-    console.log(this.roofskylightobjectlist.length);
+    if(!this.display){
+      this.roofobject = {
+        RoofSection: null,
+        Description: null,
+        ConstructionRValue: null,
+        RoofName: null, ExposedArea: null
+      };
+    }
+  }
+
+  addskylighttoggle() {
+    this.display1 = !this.display1;
+    if(!this.display1){
+      this.skylightobject = {
+        Area: 0,
+        ConstructionRValue: null,
+        Length: null,
+        SkylightsName: null,
+        Width: null,
+        HeatLoss: 0
+      };
+      this.fieldarrayskylight = [];
+    }
   }
 
   addvalueskylight() {
     if (this.skylightobject.Area === null || this.skylightobject.Width === null ||
       this.skylightobject.Length === null) {
-      alert("Please add something!");
+      this.toastr.error("Please add something!", "Roof Skylight Model");
     } else {
       this.fieldarrayskylight.push(this.skylightobject);
       this.skylightobject = {
@@ -96,7 +122,7 @@ export class RoofskylightmodelComponent implements OnInit {
   addvalueskylight1() {
     if (this.skylightobject1.Area === null || this.skylightobject1.Width === null ||
       this.skylightobject1.Length === null) {
-      alert("Please add something!");
+      this.toastr.error("Please add something!", "Roof Skylight Model");
     } else {
       this.roofskylightobject1.skylight.push(this.skylightobject1);
       this.skylightobject1 = {
@@ -114,10 +140,9 @@ export class RoofskylightmodelComponent implements OnInit {
   }
 
   addFieldValue() {
-    if(this.roof_section === null || this.roofobject.ExposedArea === null ||
-      this.roofskylightobject.skylight === null){
-      alert("Please complete all detail.");
-    }else{
+    if (this.roof_section === null || this.roofobject.ExposedArea === null) {
+      this.toastr.error("Please complete all detail.", "Roof Skylight Model");
+    } else {
       this.roofobject.RoofSection = this.roof_section;
       this.roofobject.ExposedArea = this.roofarea;
       this.roofskylightobject.roof = this.roofobject;
@@ -130,6 +155,7 @@ export class RoofskylightmodelComponent implements OnInit {
       this.skylightwidth = 0;
       this.skylightlength = 0;
       this.display = !this.display;
+      this.display1 = !this.display1;
       this.roof_section = "";
       this.roofarea = null;
     }
@@ -141,10 +167,16 @@ export class RoofskylightmodelComponent implements OnInit {
     this.skylightlength = this.skylightobject.Length;
   }
 
-  optionchange2(roofobject) {
-    if (roofobject.ConstructionRValue !== null) {
-      this.roofobject.ConstructionRValue = Number.parseFloat(roofobject.ConstructionRValue);
-    }
+  optionchange2() {
+    this.roofobject1 = this.roofobjectlist.find(x =>
+        x.RoofName === this.roofname
+      );
+  }
+
+  optionchange3() {
+    this.roofobject = this.roofobjectlist.find(x =>
+        x.RoofName === this.roofname
+      );
   }
 
   deleteFieldValueSkylight(index: number) {

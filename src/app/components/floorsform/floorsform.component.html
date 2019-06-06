@@ -14,12 +14,13 @@
         <td *ngIf="!field.isEditable">{{field.Description}}</td>
         <td *ngIf="field.isEditable"><input type="text" class="form-control" name="description" #description="ngModel"
                 [(ngModel)]="floorobject1.Description"></td>
-        <td> <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)"
+        <td>
+            <button class="btn btn-default" type="button" (click)="editFieldValue(i, field)"
+                *ngIf="!field.isEditable">Edit</button>
+            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)"
                 *ngIf="!field.isEditable">Delete</button>
             <button class="btn btn-default" type="button" (click)="saveFieldValue(i, field)"
                 *ngIf="field.isEditable">Save</button>
-            <button class="btn btn-default" type="button" (click)="editFieldValue(i, field)"
-                *ngIf="!field.isEditable">Edit</button>
             <button class="btn btn-default" type="button" (click)="cancelFieldValue(field)"
                 *ngIf="field.isEditable">Cancel</button></td>
     </tr>
@@ -30,6 +31,6 @@
                 [(ngModel)]="floorobject.ConstructionRValue" placeholder="ConstructionRValue"></td>
         <td><input type="text" class="form-control" name="description" #description="ngModel"
                 [(ngModel)]="floorobject.Description" placeholder="Description"></td>
-        <td><button class="btn btn-primary" (click)="addFieldValue()">Validate</button></td>
+        <td><button class="btn btn-primary" (click)="addFieldValue()">Complete Floor</button></td>
     </tr>
 </table>

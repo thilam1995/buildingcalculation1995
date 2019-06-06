@@ -17,10 +17,7 @@ export class WallformComponent implements OnInit {
     this.wallobject1 = {
       WallName: null,
       ConstructionRValue: null,
-      Description: null,
-      Area: 0,
-      Height: null,
-      Width: null
+      Description: null
     };
   }
 
@@ -28,18 +25,23 @@ export class WallformComponent implements OnInit {
   }
 
   addFieldValue() {
+    let wallcontain = this.fieldArray.find(x => x.WallName === this.wallobject.WallName);
+    let wallcontain1 = this.wallobjectlist.find(x => x.WallName === this.wallobject.WallName);
     if (this.wallobject.ConstructionRValue === null || this.wallobject.WallName === "") {
       alert("Please complete the blank!");
-    } else {
+    } else if(wallcontain || wallcontain1){
+      alert("The Wall name is existed. Please use another name.");
+    }
+    else {
+      if(this.wallobject.Description === ""){
+        this.wallobject.Description = null;
+      }
       this.fieldArray.push(this.wallobject);
       this.wallobjectlist.push(this.wallobject);
       this.wallobject = {
         WallName: null,
         ConstructionRValue: null,
         Description: null,
-        Area: 0,
-        Height: null,
-        Width: null
       };
     }
 
@@ -57,10 +59,7 @@ export class WallformComponent implements OnInit {
     this.wallobject1 = {
       ConstructionRValue: null,
       Description: null,
-      WallName: null,
-      Area: 0,
-      Height: null,
-      Width: null
+      WallName: null
     }
   }
 
@@ -69,10 +68,7 @@ export class WallformComponent implements OnInit {
     this.wallobject1 = {
       ConstructionRValue: 0,
       Description: null,
-      WallName: null,
-      Area: 0,
-      Height: null,
-      Width: null
+      WallName: null
     }
   }
 

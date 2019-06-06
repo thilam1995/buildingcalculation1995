@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatTabsModule, MatStepperModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -72,6 +72,7 @@ import { Ehc1heatingenergyComponent } from './components/ehc1heatingenergy/ehc1h
     HttpClientModule,
     FormsModule,
     CommonModule,
+    MatStepperModule,
     ToastrModule.forRoot()
   ],
   providers: [LocationService, ClimateService, WalldoorwindowService],

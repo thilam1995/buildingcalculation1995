@@ -45,7 +45,6 @@ export class BuildingscheduleComponent implements OnInit {
   floorobject: Floors;
 
   buildingscheduleproposed = {};
-  wallwindowdoorobject = {};
   roofskylightobject = {};
   floorsobject = {};
 
@@ -58,6 +57,7 @@ export class BuildingscheduleComponent implements OnInit {
   wallwindowdoorobjectlist = [];
   fieldarrayfloor: Array<any> = [];
   roofskylightobjectlist = [];
+  
 
   constructor(private walldoorwindowserv: WalldoorwindowService,
     private locationservice: LocationService,
@@ -103,9 +103,6 @@ export class BuildingscheduleComponent implements OnInit {
       WallName: null,
       ConstructionRValue: null,
       Description: null,
-      Area: null,
-      Height: null,
-      Width: null
     };
 
     this.windowobject = {
@@ -158,11 +155,11 @@ export class BuildingscheduleComponent implements OnInit {
     this.dataobject = {
       project: this.stateobject,
       wallwindowdoormodel: this.wallwindowdoorobjectlist,
-      roofskylightmodel: this.roofobjectlist,
+      roofskylightmodel: this.roofskylightobjectlist,
       floormodel: this.fieldarrayfloor
     };
-    if (this.dataobject.wallwindowdoormodel.length === 0 && this.dataobject.roofskylightmodel.length === 0
-      && this.dataobject.floormodel.length === 0) {
+    if (this.dataobject.wallwindowdoormodel.length === 0 || this.dataobject.roofskylightmodel.length === 0
+      || this.dataobject.floormodel.length === 0) {
       this.toastr.warning("Please complete the building model before calculate!", "Building Schedule Message");
     } else {
       this.router.navigateByUrl('ehc1heatingenergy', { state: { data: this.dataobject } });

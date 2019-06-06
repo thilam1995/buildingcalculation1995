@@ -30,9 +30,8 @@
           <table class="table table-sm table-hover">
             <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel"
                 [(ngModel)]="roof_section1" placeholder="Roof Section"></td>
-            <td><span>Construction: <select class="form-control" [(ngModel)]="roofobject1"
-                  (change)="optionchange2(roofobject)">
-                  <option *ngFor="let roof of roofobjectlist" [ngValue]="roof">{{roof.RoofName}}</option>
+            <td><span>Construction: <select class="form-control" [(ngModel)]="roofname1" (change)="optionchange3()">
+                  <option *ngFor="let roof of roofobjectlist" [ngValue]="roof.RoofName">{{roof.RoofName}}</option>
                 </select></span></td>
             <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel"
                 [(ngModel)]="roofarea1" placeholder="Exposed Area"></td>
@@ -46,8 +45,8 @@
             </tr>
             <tr *ngFor="let iskylight of fieldarrayskylight1; let i = index">
               <td>{{iskylight.SkylightsName}}</td>
-              <td>{{iskylight.Width}}</td>
-              <td>{{iskylight.Length}}</td>
+              <td>{{iskylight.Width | number: '1.0-2'}}</td>
+              <td>{{iskylight.Length | number: '1.0-2'}}</td>
               <td><button class="btn btn-primary" (click)="deleteskylight(i)">Delete</button></td>
             </tr>
             <tr>
@@ -56,8 +55,8 @@
                     <option *ngFor="let i of skylightsobjectlist" [ngValue]="i">{{i.SkylightsName}}</option>
                   </select>
                 </span></td>
-              <td>{{skylightwidth}}</td>
-              <td>{{skylightlength}}</td>
+              <td>{{skylightwidth | number: '1.0-2'}}</td>
+              <td>{{skylightlength | number: '1.0-2'}}</td>
               <td><button class="btn btn-primary" (click)="addvalueskylight1()">Add Skylight</button></td>
             </tr>
           </table>
@@ -67,45 +66,53 @@
 
 
   </div>
-  <div class="col-md-12">
-    <button class="btn btn-primary" (click)="addrooftoggle()" *ngIf="!display">+ Add Roof</button>
-    <button class="btn btn-primary" (click)="addrooftoggle()" *ngIf="display">Cancel</button>
-    <div *ngIf="display">
-      <table class="table table-sm table-hover">
-        <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel" [(ngModel)]="roof_section"
-            placeholder="Roof Section"></td>
-        <td><span>Construction: <select class="form-control" [(ngModel)]="roofobject"
-              (change)="optionchange2(roofobject)">
-              <option *ngFor="let roof of roofobjectlist" [ngValue]="roof">{{roof.RoofName}}</option>
-            </select></span></td>
-        <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel"
-            [(ngModel)]="roofarea" placeholder="Exposed Area"></td>
-      </table>
-
-      <table class="table table-sm table-hover">
-        <tr>
-          <th>Skylight ID</th>
-          <th>Width</th>
-          <th>Length</th>
-        </tr>
-        <tr *ngFor="let iskylight of fieldarrayskylight; let i = index">
-          <td>{{iskylight.SkylightsName}}</td>
-          <td>{{iskylight.Width}}</td>
-          <td>{{iskylight.Length}}</td>
-          <td><button class="btn btn-primary" (click)="deleteFieldValueSkylight(i)">Delete</button></td>
-        </tr>
-        <tr>
-          <td><span>Skylight
-              <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()">
-                <option *ngFor="let i of skylightsobjectlist" [ngValue]="i">{{i.SkylightsName}}</option>
-              </select>
-            </span></td>
-          <td>{{skylightwidth}}</td>
-          <td>{{skylightlength}}</td>
-          <td><button class="btn btn-primary" (click)="addvalueskylight()">Add Skylight</button></td>
-        </tr>
-      </table>
-      <button class="btn btn-primary" (click)="addFieldValue()">Validate</button>
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="addrooftoggle()" *ngIf="!display">+ Add Roof</button>
+      <button class="btn btn-primary" (click)="addrooftoggle()" *ngIf="display">Cancel</button>
+      <div *ngIf="display">
+        <table class="table table-sm table-hover">
+          <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel"
+              [(ngModel)]="roof_section" placeholder="Roof Section"></td>
+          <td><span>Construction: <select class="form-control" [(ngModel)]="roofname" (change)="optionchange3()">
+                <option *ngFor="let roof of roofobjectlist" [ngValue]="roof.RoofName">{{roof.RoofName}}</option>
+              </select></span></td>
+          <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel" [(ngModel)]="roofarea"
+              placeholder="Exposed Area"></td>
+        </table>
+      </div>
     </div>
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="addskylighttoggle()" *ngIf="!display1">+ Add Skylight</button>
+      <button class="btn btn-primary" (click)="addskylighttoggle()" *ngIf="display1">Cancel</button>
+
+      <div *ngIf="display1">
+        <table class="table table-sm table-hover">
+          <tr>
+            <th>Skylight ID</th>
+            <th>Width</th>
+            <th>Length</th>
+          </tr>
+          <tr *ngFor="let iskylight of fieldarrayskylight; let i = index">
+            <td>{{iskylight.SkylightsName}}</td>
+            <td>{{iskylight.Width | number: '1.0-2'}}</td>
+            <td>{{iskylight.Length | number: '1.0-2'}}</td>
+            <td><button class="btn btn-primary" (click)="deleteFieldValueSkylight(i)">Delete</button></td>
+          </tr>
+          <tr>
+            <td><span>Skylight
+                <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()">
+                  <option *ngFor="let i of skylightsobjectlist" [ngValue]="i">{{i.SkylightsName}}</option>
+                </select>
+              </span></td>
+            <td>{{skylightwidth | number: '1.0-2'}}</td>
+            <td>{{skylightlength | number: '1.0-2'}}</td>
+            <td><button class="btn btn-primary" (click)="addvalueskylight()">Add Skylight</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="addFieldValue()">Validate</button>
   </div>
+
 </div>

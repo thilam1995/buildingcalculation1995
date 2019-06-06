@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Floors } from 'src/app/models/floors';
 import { BsDropdownToggleDirective } from 'angular-bootstrap-md';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-floormodel',
@@ -17,10 +18,12 @@ export class FloormodelComponent implements OnInit {
   display: boolean = false;
   floor_section: string = "";
   floor_section1: string = "";
+  floorname: string = "";
+  floorname1: string = ""
   floorarea: number = null;
   floorarea1: number = null;
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   ngOnInit() {
     this.setdefault();
@@ -46,13 +49,22 @@ export class FloormodelComponent implements OnInit {
 
   addfloortoggle() {
     this.display = !this.display;
-    console.log(this.fieldarrayfloor.length);
+    if(!this.display){
+      this.floorobject = {
+        FloorSection: null,
+        FloorName: null,
+        ConstructionRValue: null,
+        Description: null,
+        ExposedArea: null
+      };
+    }
   }
 
   addFieldValue() {
-    if(this.floor_section === null || this.floorobject.ExposedArea === null){
-      alert("Please fill section, construction and area.")
+    if(this.floor_section === null || this.floorarea === null){
+      this.toastr.error("Please fill section, construction and area.", "Floor Model")
     }else{
+      this.floorobject.FloorName = this.floorname;
       this.floorobject.FloorSection = this.floor_section;
       this.floorobject.ExposedArea = this.floorarea;
       this.floorsobject.floor = this.floorobject;
@@ -62,6 +74,7 @@ export class FloormodelComponent implements OnInit {
       this.floorsobject = { floor: null, isDisplay: false, buttonshowhide: "Hide" };
       this.display = !this.display;
       this.floor_section = null;
+      this.floorname = null;
     }
   }
 
@@ -78,11 +91,13 @@ export class FloormodelComponent implements OnInit {
     floori.isEditable = !floori.isEditable;
     this.floorobject1 = this.fieldarrayfloor[index].floor;
     this.floor_section1 = this.floorobject1.FloorSection;
+    this.floorname1 = this.floorobject1.FloorName;
     this.floorarea1 = this.floorobject1.ExposedArea;
   }
 
   onSave(floori, index: number){
     floori.isEditable = !floori.isEditable;
+    this.floorobject1.FloorName = this.floorname1;
     this.floorobject1.ExposedArea = this.floorarea1;
     this.floorobject1.FloorSection = this.floor_section1;
     this.fieldarrayfloor[index].floor = this.floorobject1;
@@ -112,5 +127,19 @@ export class FloormodelComponent implements OnInit {
       Description: null,
       ExposedArea: null
     };
+    this.floorname1 = "";
+    this.floorarea1 = null;
+  }
+
+  floorchange(){
+    this.floorobject = this.floorobjectlist.find(x =>
+      x.FloorName === this.floorname
+    );
+  }
+
+  optionchange1(){
+    this.floorobject1 = this.floorobjectlist.find(x =>
+      x.FloorName === this.floorname1
+    );
   }
 }

@@ -8,14 +8,14 @@
           <th>Width: {{wallwindowdoori.wall.Width | number: '1.0-2'}}m</th>
           <th>Height: {{wallwindowdoori.wall.Height | number: '1.0-2'}}m</th>
           <th>Area: {{wallwindowdoori.wall.Area | number: '1.0-2'}} m2</th>
+          <th>Orientation: {{wallwindowdoori.wall.Orientation}}</th>
           <th *ngIf="!wallwindowdoori.isEditable"><button class="btn btn-primary"
               (click)="hideorshow(wallwindowdoori)">{{wallwindowdoori.buttonshowhide}}</button></th>
-          <th *ngIf="!wallwindowdoori.isEditable"><button class="btn btn-primary"
-              (click)="onEdit(wallwindowdoori, i)">Edit</button>
+          <th *ngIf="!wallwindowdoori.isEditable"><button class="btn btn-primary" (click)="onEdit(i)">Edit</button>
           </th>
           <th *ngIf="wallwindowdoori.isEditable">
-            <button class="btn btn-primary" (click)="onCancel(wallwindowdoori)">Cancel</button>
-            <button class="btn btn-primary" (click)="onSave(wallwindowdoori, i)">
+            <button class="btn btn-primary" (click)="onCancel(i)">Cancel</button>
+            <button class="btn btn-primary" (click)="onSave(i)">
               Save
             </button>
             <button class="btn btn-primary" (click)="onDelete(i)">Delete</button>
@@ -39,22 +39,22 @@
               </td>
               <td>
                 <span>Construction
-                  <select class="form-control" [(ngModel)]="wallobject1" (change)="optionchange3(wallobject1)">
-                    <option *ngFor="let wall of wallobjectlist" [ngValue]="wall">{{wall.WallName}}</option>
+                  <select class="form-control" [(ngModel)]="wallname1" (change)="optionchange6()">
+                    <option *ngFor="let wall of wallobjectlist" [ngValue]="wall.WallName">{{wall.WallName}}</option>
                   </select></span>
               </td>
               <td>
                 <span>Orientation
-                  <select class="form-control" [(ngModel)]="wallobject1.Orientation">
+                  <select class="form-control" [(ngModel)]="orientationselect1">
                     <option *ngFor="let orient of orientation" [ngValue]="orient">{{orient}}</option>
                   </select>
                 </span>
               </td>
               <td><input type="text" class="form-control" placeholder="Width" name="width1" #width1="ngModel"
-                  [(ngModel)]="wallobject1.Width" (keyup)="onKeyWidthWall1($event)"></td>
+                  [(ngModel)]="wallwidth1" (keyup)="onKeyWidthWall1($event)"></td>
               <td><input type="text" class="form-control" placeholder="Height" name="height1" #height1="ngModel"
-                  [(ngModel)]="wallobject1.Height" (keyup)="onKeyHeightWall1($event)"></td>
-              <td>Area: {{wallobject1.Area | number: '1.0-2'}}</td>
+                  [(ngModel)]="wallheight1" (keyup)="onKeyHeightWall1($event)"></td>
+              <td>Area: {{wallarea1 | number: '1.0-2'}}</td>
             </tr>
           </table>
 
@@ -64,7 +64,7 @@
               <th>Width</th>
               <th>Height</th>
             </tr>
-            <tr *ngFor="let window of wallwindowdoorobject1.window; let i = index">
+            <tr *ngFor="let window of fieldArraywindow1; let i = index">
               <td>{{window.WindowName}}</td>
               <td>{{window.Width | number: '1.0-2'}}</td>
               <td>{{window.Height | number: '1.0-2'}}</td>
@@ -106,78 +106,98 @@
 
   </div>
 
-  <div class="col-md-12">
-    <button class="btn btn-primary" (click)="addwalltoggle()" *ngIf="!display">+ Add Wall</button>
-    <button class="btn btn-primary" (click)="addwalltoggle()" *ngIf="display">Cancel</button>
-    <div *ngIf="display">
-      <table class="table table-sm table-hover">
-        <tr>
-          <td>
-            <input type="text" class="form-control" placeholder="Wall Section" name="wallsection" #wallsection="ngModel"
-              [(ngModel)]="wall_section">
-          </td>
-          <td>
-            <span>Construction
-              <select class="form-control" [(ngModel)]="wallobject" (change)="optionchange3(wallobject)">
-                <option *ngFor="let wall of wallobjectlist" [ngValue]="wall">{{wall.WallName}}</option>
-              </select></span>
-          </td>
-          <td>
-            <span>Orientation
-              <select class="form-control" [(ngModel)]="wallobject.Orientation">
-                <option *ngFor="let orient of orientation" [ngValue]="orient">{{orient}}</option>
-              </select>
-            </span>
-          </td>
-          <td><input type="text" class="form-control" placeholder="Width" name="width" #width="ngModel"
-              [(ngModel)]="wallwidth" (keyup)="onKeyWidthWall($event)"></td>
-          <td><input type="text" class="form-control" placeholder="Height" name="height" #height="ngModel"
-              [(ngModel)]="wallheight" (keyup)="onKeyHeightWall($event)"></td>
-          <td>Area: {{wallarea | number: '1.0-2'}}</td>
-        </tr>
-      </table>
-
-      <table class="table table-sm table-hover">
-        <tr>
-          <th>Window ID</th>
-          <th>Width</th>
-          <th>Height</th>
-        </tr>
-        <tr *ngFor="let fieldwindow of fieldArraywindow; let i = index">
-          <td>{{fieldwindow.WindowName}}</td>
-          <td>{{fieldwindow.Width | number: '1.0-2'}}</td>
-          <td>{{fieldwindow.Height | number: '1.0-2'}}</td>
-          <td><button class="btn btn-primary" (click)="deleteFieldValuewindow(i)">Delete</button></td>
-        </tr>
-        <tr>
-          <td><label>Window</label>
-            <select class="form-control" [(ngModel)]="windowobject" (change)="optionchange1()">
-              <option *ngFor="let i of windowobjectlist" [ngValue]="i">{{i.WindowName}}</option>
-            </select></td>
-          <td>{{windowwidth | number: '1.0-2'}}</td>
-          <td>{{windowheight | number: '1.0-2'}}</td>
-          <td>
-            <button class="btn btn-primary" (click)="addvaluewindow()">Add Window</button>
-          </td>
-        </tr>
-      </table>
-      <table class="table table-sm table-hover">
-        <tr>
-          <th>Door ID</th>
-          <th>Width</th>
-          <th>Height</th>
-        </tr>
-        <tr>
-          <td><label>Door</label>
-            <select class="form-control" name="Doorobject" #Doorobject="ngModel" [(ngModel)]="doorobject"
-              (change)="optionchange2()">
-              <option *ngFor="let i of doorobjectlist" [ngValue]="i">{{i.DoorName}}</option>
-            </select></td>
-          <td>{{doorwidth | number: '1.0-2'}}</td>
-          <td>{{doorheight | number: '1.0-2'}}</td>
-        </tr>
-      </table>
-      <button class="btn btn-primary" (click)="addFieldValue()">Validate</button>
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="addwalltoggle()" *ngIf="!display">+ Add Wall</button>
+      <button class="btn btn-primary" (click)="addwalltoggle()" *ngIf="display">Cancel</button>
+      <div *ngIf="display">
+        <table class="table table-sm table-hover">
+          <tr>
+            <td>
+              <input type="text" class="form-control" placeholder="Wall Section" name="wallsection"
+                #wallsection="ngModel" [(ngModel)]="wall_section">
+            </td>
+            <td>
+              <span>Construction
+                <select class="form-control" [(ngModel)]="wallname" (change)="optionchange3()">
+                  <option *ngFor="let wall of wallobjectlist" [ngValue]="wall.WallName">{{wall.WallName}}</option>
+                </select></span>
+            </td>
+            <td>
+              <span>Orientation
+                <select class="form-control" [(ngModel)]="orientationselect">
+                  <option *ngFor="let orient of orientation" [ngValue]="orient">{{orient}}</option>
+                </select>
+              </span>
+            </td>
+            <td><input type="text" class="form-control" placeholder="Width" name="width" #width="ngModel"
+                [(ngModel)]="wallwidth" (keyup)="onKeyWidthWall($event)"></td>
+            <td><input type="text" class="form-control" placeholder="Height" name="height" #height="ngModel"
+                [(ngModel)]="wallheight" (keyup)="onKeyHeightWall($event)"></td>
+            <td>Area: {{wallarea | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
+
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="addwindowtoggle()" *ngIf="!display1">+ Add Windows</button>
+      <button class="btn btn-primary" (click)="addwindowtoggle()" *ngIf="display1">Cancel</button>
+      <div *ngIf="display1">
+        <table class="table table-sm table-hover">
+          <tr>
+            <th>Window ID</th>
+            <th>Width</th>
+            <th>Height</th>
+          </tr>
+          <tr *ngFor="let fieldwindow of fieldArraywindow; let i = index">
+            <td>{{fieldwindow.WindowName}}</td>
+            <td>{{fieldwindow.Width | number: '1.0-2'}}</td>
+            <td>{{fieldwindow.Height | number: '1.0-2'}}</td>
+            <td><button class="btn btn-primary" (click)="deleteFieldValuewindow(i)">Delete</button></td>
+          </tr>
+        </table>
+        <table class="table table-sm table-hover">
+            <tr>
+                <td><label>Window</label>
+                  <select class="form-control" [(ngModel)]="windowobject" (change)="optionchange1()">
+                    <option *ngFor="let i of windowobjectlist" [ngValue]="i">{{i.WindowName}}</option>
+                  </select></td>
+                <td>{{windowwidth | number: '1.0-2'}}</td>
+                <td>{{windowheight | number: '1.0-2'}}</td>
+                <td>
+                  <button class="btn btn-primary" (click)="addvaluewindow()">Add Window</button>
+                </td>
+              </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="adddoortoggle()" *ngIf="!display2">+ Add Door</button>
+      <button class="btn btn-primary" (click)="adddoortoggle()" *ngIf="display2">Cancel</button>
+      <div *ngIf="display2">
+        <table class="table table-sm table-hover">
+          <tr>
+            <th>Door ID</th>
+            <th>Width</th>
+            <th>Height</th>
+          </tr>
+          <tr>
+            <td><label>Door</label>
+              <select class="form-control" name="Doorobject" #Doorobject="ngModel" [(ngModel)]="doorobject"
+                (change)="optionchange2()">
+                <option *ngFor="let i of doorobjectlist" [ngValue]="i">{{i.DoorName}}</option>
+              </select></td>
+            <td>{{doorwidth | number: '1.0-2'}}</td>
+            <td>{{doorheight | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+
+    <button class="btn btn-primary" (click)="addFieldValue()">Validate</button>
+    <!-- <button class="btn btn-primary" (click)="loglist()">Check List</button> -->
   </div>
 </div>

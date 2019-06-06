@@ -30,11 +30,16 @@ export class WindowformComponent implements OnInit {
   }
 
   addFieldValue() {
+    let windowcontain = this.fieldArray.find(x => x.WindowName === this.windowobject.WindowName);
+    let windowcontain1 = this.windowobjectlist.find(x => x.WindowName === this.windowobject.WindowName);
     if (this.windowobject.WindowName === "" || this.windowobject.ConstructionRValue === null
       || this.windowobject.Height === null || this.windowobject.Width === null
       || this.windowobject.OWA === null) {
       alert("Please add window by complete filling all details");
-    } else {
+    } else if (windowcontain || windowcontain1){
+      alert("The Window name is existed. Please use another name.");
+    }
+    else {
       this.fieldArray.push(this.windowobject);
       this.windowobjectlist.push(this.windowobject);
       this.windowobject = {

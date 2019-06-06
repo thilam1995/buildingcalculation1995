@@ -19,9 +19,13 @@ export class FloorsformComponent implements OnInit {
   }
 
   addFieldValue() {
-    if(this.floorobject.FloorName === null || this.floorobject.ConstructionRValue === null){
+    let doorcontain = this.fieldArrayfloor.find(x => x.FloorName === this.floorobject.FloorName);
+    if (this.floorobject.FloorName === null || this.floorobject.ConstructionRValue === null) {
       alert("Please Enter Name and R Value of Wall!");
-    }else{
+    } else if(doorcontain){
+      alert("The floor name is existed. Please use another name.");
+    }
+    else {
       this.floorobjectlist.push(this.floorobject);
       this.fieldArrayfloor.push(this.floorobject);
       this.floorobject = {

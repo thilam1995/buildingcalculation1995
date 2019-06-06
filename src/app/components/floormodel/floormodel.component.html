@@ -32,8 +32,8 @@
               </td>
               <td>
                 <span>Construction
-                  <select class="form-control" [(ngModel)]="floorobject1">
-                    <option *ngFor="let i of floorobjectlist" [ngValue]="i">{{i.FloorName}}</option>
+                  <select class="form-control" [(ngModel)]="floorname1" (change)="optionchange1()">
+                    <option *ngFor="let i of floorobjectlist" [ngValue]="i.FloorName">{{i.FloorName}}</option>
                   </select>
                 </span>
               </td>
@@ -63,8 +63,8 @@
           </td>
           <td>
             <span>Construction
-              <select class="form-control" [(ngModel)]="floorobject">
-                <option *ngFor="let i of floorobjectlist" [ngValue]="i">{{i.FloorName}}</option>
+              <select class="form-control" [(ngModel)]="floorname" (change)="floorchange()">
+                <option *ngFor="let i of floorobjectlist" [ngValue]="i.FloorName">{{i.FloorName}}</option>
               </select>
             </span>
           </td>

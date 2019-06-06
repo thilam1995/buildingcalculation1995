@@ -51,6 +51,10 @@
                                 placeholder="Height" [(ngModel)]="doorobject.Height" (keyup)="onKeyHeight($event)"
                                 inputmode="numeric"></td>
                 <td><label>Area: <span>{{doorobject.Area | number: '1.0-2'}}</span></label></td>
-                <td><button class="btn btn-primary" (click)="addFieldValue()">Validate Door</button></td>
+                <td><button [disabled]="doorobject.DoorName == null ||
+                        doorobject.ConstructionRValue == null ||
+                        doorobject.Width == null ||
+                        doorobject.Height == null ||
+                        doorobject.Area == null" class="btn btn-primary" (click)="addFieldValue()">Validate Door</button></td>
         </tr>
 </table>

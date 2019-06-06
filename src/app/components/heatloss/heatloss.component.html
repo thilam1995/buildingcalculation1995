@@ -22,6 +22,7 @@
     </table>
     <table class="table table-sm table-hover">
       <tr>
+        <th>#</th>
         <th>Window Area</th>
         <th>Window Width</th>
         <th>Window Height</th>
@@ -30,24 +31,35 @@
         <th>Window Heat Loss</th>
       </tr>
       <tr *ngFor="let iwindow of wallwindowdoori.window">
+        <td>#</td>
         <td>{{iwindow.Area | number: '1.0-2'}}</td>
         <td>{{iwindow.Width | number: '1.0-2'}}</td>
         <td>{{iwindow.Height | number: '1.0-2'}}</td>
         <td>{{iwindow.OWA | number: '1.0-2'}}</td>
         <td>{{iwindow.ConstructionRValue | number: '1.0-2'}}</td>
+
         <td>{{iwindow.WindowHeatLoss | number: '1.0-2'}}</td>
       </tr>
     </table>
     <table class="table table-sm table-hover" *ngIf="wallwindowdoori.door != null">
       <tr>
+        <td>#</td>
         <th>Door Area</th>
+        <td>#</td>
+        <td>#</td>
         <th>Door R-Value</th>
+        <td>#</td>
         <th>Door Heat Loss</th>
       </tr>
       <tr>
+        <td>#</td>
         <td *ngIf="wallwindowdoori.door.Area != null">{{wallwindowdoori.door.Area | number: '1.0-2'}}</td>
+        <td>#</td>
+        <td>#</td>
         <td *ngIf="wallwindowdoori.door.ConstructionRValue != null">
           {{wallwindowdoori.door.ConstructionRValue | number: '1.0-2'}}</td>
+
+        <td>#</td>
         <td *ngIf="wallwindowdoori.door.Area != null && wallwindowdoori.door.ConstructionRValue != null">
           {{wallwindowdoori.door.Area / wallwindowdoori.door.ConstructionRValue | number: '1.0-2'}}</td>
       </tr>
