@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Buildinginfo } from 'src/app/models/buildinginfo';
 import { NgForm } from '@angular/forms';
 import { LocationService } from 'src/app/service/location.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClimateService } from 'src/app/service/climate.service';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-buildinginfo',
@@ -17,9 +18,9 @@ export class BuildinginfoComponent implements OnInit {
   locationselected: any;
 
   locations = [];
-  constructor(private locationService: LocationService, 
+  constructor(private locationService: LocationService,
     public router: Router, private climateservice: ClimateService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private localSt: LocalStorageService) {
 
   }
 
@@ -33,10 +34,10 @@ export class BuildinginfoComponent implements OnInit {
 
   selected1(index) {
     //console.log(this.buildinginfoobject.Location);
-    if(index !== null){
+    if (index !== null) {
       this.locationselected = this.buildinginfoobject.TargetRating;
     }
-    
+
   }
 
   setdefault() {
@@ -54,10 +55,12 @@ export class BuildinginfoComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.buildinginfoobject.ID === null){
+    if (this.buildinginfoobject.ID === null || this.buildinginfoobject.TargetRating === null ||
+      this.buildinginfoobject.Location === null) {
       alert("Please Enter Your Project!");
-    }else{
-      this.router.navigate(['buildingschedule'], { state: { data: this.buildinginfoobject }});
+    } else {
+      this.localSt.store('buildinginfo', this.buildinginfoobject);
+      this.router.navigate(['buildingschedule'], { state: { data: this.localSt.retrieve('buildinginfo') } });
     }
 
   }

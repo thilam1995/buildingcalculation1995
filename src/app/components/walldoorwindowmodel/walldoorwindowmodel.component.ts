@@ -21,7 +21,6 @@ export class WalldoorwindowmodelComponent implements OnInit {
   fieldArraywindow1: Array<WindowObject> = [];
   wallobject: Wall;
   wallextendobject: WallExtend;
-  wallobjectselect: WallExtend;
   doorobject: Door;
   windowobject: WindowObject;
   wallobject1: Wall;
@@ -70,17 +69,18 @@ export class WalldoorwindowmodelComponent implements OnInit {
       WallName: null,
       Height: null,
       Width: null,
-      Area: 0,
-      ConstructionRValue: 0,
+      Area: null,
+      ConstructionRValue: null,
       Orientation: null
     };
-    this.doorobject = {
-      DoorName: null,
-      Area: 0,
-      ConstructionRValue: 0,
-      Height: null,
-      Width: null
-    };
+    this.doorobject = null;
+    // this.doorobject = {
+    //   DoorName: null,
+    //   Area: null,
+    //   ConstructionRValue: null,
+    //   Height: null,
+    //   Width: null
+    // };
     this.windowobject = {
       WindowName: null,
       ConstructionRValue: 0,
@@ -123,7 +123,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
     };
     this.orientationselect = null;
     this.orientationselect1 = null;
-    this.wallobjectselect = null;
+    this.wallextendobject = null;
   }
 
   ngOnInit() {
@@ -174,11 +174,11 @@ export class WalldoorwindowmodelComponent implements OnInit {
   }
 
   addFieldValue() {
-    if (this.wallwindowdoorobject.wall === null ||
-      this.wallwindowdoorobject.door === null) {
+    if (this.wallarea === 0 || this.wallheight === null || this.wallwidth === null || this.wallobject.ConstructionRValue === null ||
+      this.orientationselect === null || this.wall_section === null || this.wallname === null) {
       this.toastr.error("Error! You need to add wall and door!", "Building Model Message");
     } else {
-      this.wallobjectselect = {
+      this.wallextendobject = {
         Area: this.wallarea,
         Height: this.wallheight,
         Width: this.wallwidth,
@@ -188,11 +188,11 @@ export class WalldoorwindowmodelComponent implements OnInit {
         WallName: this.wallobject.WallName,
         Description: this.wallobject.Description
       }
-      console.log(this.wallobjectselect);
-      this.wallwindowdoorobject.wall = this.wallobjectselect;
-      console.log(this.fieldArraywindow);
+      //console.log(this.wallextendobject);
+      this.wallwindowdoorobject.wall = this.wallextendobject;
+      //console.log(this.fieldArraywindow);
       this.wallwindowdoorobject.window = this.fieldArraywindow;
-      console.log(this.doorobject);
+      //console.log(this.doorobject);
       this.wallwindowdoorobject.door = this.doorobject;
       this.wallwindowdoorobject.buttonshowhide = this.wallwindowdoorobject.isDisplay ? "Hide" : "Show";
       this.wallwindowdoorobjectlist.push(this.wallwindowdoorobject);
@@ -209,8 +209,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
       this.wallwidth = null;
       this.wallheight = null;
       this.wallarea = 0;
-      this.wall_section = "";
-      this.wallname = "";
+      this.wall_section = null;
+      this.wallname = null;
     }
   }
 
@@ -220,13 +220,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
   }
 
   optionchange2() {
-    if (this.doorobject === null) {
-      this.doorwidth = 0;
-      this.doorheight = 0;
-    } else {
       this.doorwidth = this.doorobject.Width;
       this.doorheight = this.doorobject.Height;
-    }
   }
 
   optionchange3() {
@@ -242,13 +237,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
   }
 
   optionchange5() {
-    if (this.doorobject1 === null) {
-      this.doorwidth = 0;
-      this.doorheight = 0;
-    } else {
       this.doorwidth1 = this.doorobject1.Width;
       this.doorheight1 = this.doorobject1.Height;
-    }
   }
 
   optionchange6() {
@@ -400,7 +390,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
     this.wallwindowdoorobjectlist[index].door = this.doorobject1;
     this.fieldArraywindow1 = [];
     this.wallwindowdoorobjectlist[index].isEditable = !this.wallwindowdoorobjectlist[index].isEditable;
-    this.wall_section1 = "";
+    this.wall_section1 = null;
     this.wallobject1 = {
       WallName: null,
       ConstructionRValue: 0,
@@ -425,7 +415,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       ShadePercent: 0
     };
 
-    this.wallobjectselect = null;
+    this.wallextendobject1 = null;
   }
 
   onDelete(index: number) {//Delete model from list
@@ -469,7 +459,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       ShadePercent: 0
     };
 
-    this.wallobjectselect = null;
+    this.wallextendobject1 = null;
 
   }
 

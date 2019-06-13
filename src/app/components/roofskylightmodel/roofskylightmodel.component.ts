@@ -75,6 +75,8 @@ export class RoofskylightmodelComponent implements OnInit {
   addrooftoggle() {
     this.display = !this.display;
     if(!this.display){
+      this.roof_section = null;
+      this.roofname = null;
       this.roofobject = {
         RoofSection: null,
         Description: null,
@@ -140,7 +142,7 @@ export class RoofskylightmodelComponent implements OnInit {
   }
 
   addFieldValue() {
-    if (this.roof_section === null || this.roofobject.ExposedArea === null) {
+    if (this.roof_section === null || this.roofarea === null) {
       this.toastr.error("Please complete all detail.", "Roof Skylight Model");
     } else {
       this.roofobject.RoofSection = this.roof_section;
@@ -154,10 +156,11 @@ export class RoofskylightmodelComponent implements OnInit {
       this.roofskylightobject = { roof: null, skylight: null, isDisplay: false, buttonshowhide: "Hide" };
       this.skylightwidth = 0;
       this.skylightlength = 0;
-      this.display = !this.display;
-      this.display1 = !this.display1;
+      this.display = false;
+      this.display1 = false;
       this.roof_section = "";
       this.roofarea = null;
+      this.roofname = null;
     }
 
   }
@@ -169,7 +172,7 @@ export class RoofskylightmodelComponent implements OnInit {
 
   optionchange2() {
     this.roofobject1 = this.roofobjectlist.find(x =>
-        x.RoofName === this.roofname
+        x.RoofName === this.roofname1
       );
   }
 
@@ -195,7 +198,9 @@ export class RoofskylightmodelComponent implements OnInit {
   onEdit(roofskylighti, index: number) {
     roofskylighti.isEditable = !roofskylighti.isEditable;
     this.roofskylightobject1 = this.roofskylightobjectlist[index];
-    this.roofobject1 = this.roofskylightobject1.roof;
+    this.roofname1 = this.roofskylightobject1.roof.RoofName;
+    this.roofobject1 = this.roofobjectlist.find(x => x.RoofName === this.roofname1);
+    
     this.roofarea1 = this.roofobject1.ExposedArea;
     this.roof_section1 = this.roofobject1.RoofSection;
     this.fieldarrayskylight1 = this.roofskylightobject1.skylight;
@@ -204,6 +209,7 @@ export class RoofskylightmodelComponent implements OnInit {
   onSave(roofskylighti, index: number) {
     roofskylighti.isEditable = !roofskylighti.isEditable;
     this.roofobject1.ExposedArea = this.roofarea1;
+    this.roofobject1.RoofName = this.roofname1;
     this.roofobject1.RoofSection = this.roof_section1;
     this.roofskylightobjectlist[index].roof = this.roofobject1;
     this.roofskylightobjectlist[index].skylight = this.roofskylightobject1.skylight;
@@ -227,6 +233,7 @@ export class RoofskylightmodelComponent implements OnInit {
     };
     this.roof_section1 = "";
     this.roofarea1 = null;
+    this.roofname1 = null;
   }
 
   onDelete(index: number) {

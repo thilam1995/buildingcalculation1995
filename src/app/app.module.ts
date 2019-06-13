@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { LocationService } from './service/location.service';
 import { ClimateService } from './service/climate.service';
+import {NgxWebstorageModule} from 'ngx-webstorage';
 import { BuildinginfoComponent } from './components/buildinginfo/buildinginfo.component';
 import { BuildingproposedComponent } from './components/buildingproposed/buildingproposed.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -73,7 +74,8 @@ import { Ehc1heatingenergyComponent } from './components/ehc1heatingenergy/ehc1h
     FormsModule,
     CommonModule,
     MatStepperModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxWebstorageModule.forRoot()
   ],
   providers: [LocationService, ClimateService, WalldoorwindowService],
   bootstrap: [AppComponent]

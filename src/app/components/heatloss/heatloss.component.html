@@ -19,9 +19,7 @@
         <td>{{wallheatloss | number: '1.0-2'}}</td>
         <td>{{windowheatloss | number: '1.0-2'}}</td>
       </tr>
-    </table>
-    <table class="table table-sm table-hover">
-      <tr>
+      <tr *ngIf="wallwindowdoori.window.length != 0">
         <th>#</th>
         <th>Window Area</th>
         <th>Window Width</th>
@@ -40,18 +38,16 @@
 
         <td>{{iwindow.WindowHeatLoss | number: '1.0-2'}}</td>
       </tr>
-    </table>
-    <table class="table table-sm table-hover" *ngIf="wallwindowdoori.door != null">
-      <tr>
-        <td>#</td>
+      <tr *ngIf="wallwindowdoori.door != null">
+        <th>#</th>
         <th>Door Area</th>
-        <td>#</td>
-        <td>#</td>
+        <th>#</th>
+        <th>#</th>
         <th>Door R-Value</th>
-        <td>#</td>
+        <th>#</th>
         <th>Door Heat Loss</th>
       </tr>
-      <tr>
+      <tr *ngIf="wallwindowdoori.door != null">
         <td>#</td>
         <td *ngIf="wallwindowdoori.door.Area != null">{{wallwindowdoori.door.Area | number: '1.0-2'}}</td>
         <td>#</td>

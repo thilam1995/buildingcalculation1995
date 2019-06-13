@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Building Info</h1>
-    <table class="table table-sm">
+    <table class="table table-sm table-bordered">
       <tr>
         <td>Project ID</td>
         <td>{{statedata.project.ID}}</td>
@@ -20,7 +20,7 @@
       </tr>
     </table>
 
-    <table class="table table-sm">
+    <table class="table table-sm table-bordered">
       <tr>
         <td>Typology / Dwelling</td>
         <td>{{statedata.project.Typology}}</td>
@@ -35,17 +35,18 @@
       </tr>
     </table>
 
-    <table class="table table-sm">
+    <table class="table table-sm table-bordered">
       <tr>
         <td>Climate Zone</td>
         <td>{{statedata.project.ClimateZone}}</td>
       </tr>
     </table>
 
-    <h1 style="text-align: center">Building Model</h1>
+    <h1 style="text-align: center">Heat Loss Result</h1>
     <div class="row">
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-6 roof">
+        <h1 style="text-align: center">Roof (Proposed)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Roof Name (ID)</th>
             <th># of Inclusions</th>
@@ -62,8 +63,10 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-1"></div>
+      <div class="col-md-5 roofschedule">
+        <h1 style="text-align: center">Roof (Schedule)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Roof Area</th>
             <th>Roof R-Value (Schedule Method)</th>
@@ -73,7 +76,7 @@
           <tr *ngFor="let i of rooflist">
             <td>{{i.totalarea | number: '1.0-2'}}</td>
             <td>{{roofrvalue | number: '1.0-2'}}</td>
-            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>{{i.totalarea / roofrvalue | number: '1.0-2'}}</td>
             <td>
               <img src="../../../assets/pic/pass.png"
                 *ngIf="(i.totalarea / roofrvalue) >= (i.totalarea / i.totalrvalue)">
@@ -83,8 +86,9 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-6 skylight">
+        <h1 style="text-align: center">Skylights (Proposed)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Skylights Name (ID)</th>
             <th># of Inclusions</th>
@@ -101,8 +105,10 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-1"></div>
+      <div class="col-md-5 skylightschedule">
+        <h1 style="text-align: center">Skylight (Schedule)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Skylights Area</th>
             <th>Skylights R-Value (Schedule Method)</th>
@@ -112,7 +118,7 @@
           <tr *ngFor="let i of skylightlist">
             <td>{{i.totalarea | number: '1.0-2'}}</td>
             <td>{{skylightrvalue | number: '1.0-2'}}</td>
-            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>{{i.totalarea / skylightrvalue | number: '1.0-2'}}</td>
             <td>
               <img src="../../../assets/pic/pass.png"
                 *ngIf="(i.totalarea / skylightrvalue) >= (i.totalarea / i.totalrvalue)">
@@ -122,8 +128,9 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-6 window">
+        <h1 style="text-align: center">Window (Proposed)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Window Name (ID)</th>
             <th># of Inclusions</th>
@@ -140,8 +147,10 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-1"></div>
+      <div class="col-md-5 windowschedule">
+        <h1 style="text-align: center">Windows (Schedule)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Window Area</th>
             <th>Window R-Value (Schedule Method)</th>
@@ -151,7 +160,7 @@
           <tr *ngFor="let i of windowlist">
             <td>{{i.totalarea | number: '1.0-2'}}</td>
             <td>{{windowrvalue | number: '1.0-2'}}</td>
-            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>{{i.totalarea / windowrvalue | number: '1.0-2'}}</td>
             <td>
               <img src="../../../assets/pic/pass.png"
                 *ngIf="(i.totalarea / windowrvalue) >= (i.totalarea / i.totalrvalue)">
@@ -161,8 +170,9 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-6 wall">
+        <h1 style="text-align: center">Wall (Proposed)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Wall Name (ID)</th>
             <th># of Inclusions</th>
@@ -179,8 +189,10 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-1"></div>
+      <div class="col-md-5 wallschedule">
+        <h1 style="text-align: center">Wall (Schedule)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Wall Area</th>
             <th>Wall R-Value (Schedule Method)</th>
@@ -190,7 +202,7 @@
           <tr *ngFor="let i of walllist">
             <td>{{i.totalarea | number: '1.0-2'}}</td>
             <td>{{wallrvalue | number: '1.0-2'}}</td>
-            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>{{i.totalarea / wallrvalue | number: '1.0-2'}}</td>
             <td>
               <img src="../../../assets/pic/pass.png"
                 *ngIf="(i.totalarea / wallrvalue) >= (i.totalarea / i.totalrvalue)">
@@ -200,8 +212,9 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-6 floor">
+        <h1 style="text-align: center">Floor (Proposed)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Floor Name (ID)</th>
             <th># of Inclusions</th>
@@ -218,18 +231,20 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <table class="table table-sm">
+      <div class="col-md-1"></div>
+      <div class="col-md-5 floorschedule">
+        <h1 style="text-align: center">Floor (Schedule)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Floor Area</th>
             <th>Floor R-Value (Schedule Method)</th>
             <th>Floor Heatloss</th>
             <th>Homestar Compliance</th>
           </tr>
-          <tr *ngFor="let i of walllist">
+          <tr *ngFor="let i of floorlist">
             <td>{{i.totalarea | number: '1.0-2'}}</td>
             <td>{{floorrvalue | number: '1.0-2'}}</td>
-            <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+            <td>{{i.totalarea / floorrvalue | number: '1.0-2'}}</td>
             <td>
               <img src="../../../assets/pic/pass.png"
                 *ngIf="(i.totalarea / floorrvalue) >= (i.totalarea / i.totalrvalue)">
@@ -239,8 +254,9 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-12">
-        <table class="table table-sm">
+      <div class="col-md-6 door">
+        <h1 style="text-align: center">Door (Proposed)</h1>
+        <table class="table table-sm table-bordered">
           <tr>
             <th>Door Name (ID)</th>
             <th># of Inclusions</th>
@@ -254,6 +270,240 @@
             <td>{{i.totalarea | number: '1.0-2'}}</td>
             <td>{{i.totalrvalue | number: '1.0-2'}}</td>
             <td>{{i.totalheatloss | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-5">
+        <h1 style="text-align: center">Door (Schedule)</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Door Area</th>
+            <th>Door R-Value (Schedule Method)</th>
+            <th>Door Heatloss</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr *ngFor="let i of doorlist">
+            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{wallrvalue | number: '1.0-2'}}</td>
+            <td>{{i.totalarea / wallrvalue | number: '1.0-2'}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="(i.totalarea / wallrvalue) >= (i.totalarea / i.totalrvalue)">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="(i.totalarea / i.totalrvalue) > (i.totalarea / wallrvalue)">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12">
+
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Total Door Area</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Door Allowance (6%)</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Door Allowance (6m2)</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Max. Door Area Allowed</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Assign Doors to Walls?</th>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div class="col-md-12">
+        <h1 style="text-align: center">Building Reference</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <td>{{statedata.project.TargetRating.HomeStar}}</td>
+            <td>Schedule Method Minimum R-value Requirements (including thermal bridging)</td>
+          </tr>
+          <tr>
+            <th>Building Element</th>
+            <th>
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <th *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ClimateZone}}</th>
+                </tr>
+              </table>
+            </th>
+          </tr>
+          <tr>
+            <th>Roof</th>
+            <th>
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ConstructionRValue.Roof}}
+                  </td>
+                </tr>
+              </table>
+            </th>
+          </tr>
+          <tr>
+            <th>Wall</th>
+            <th>
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ConstructionRValue.Wall}}
+                  </td>
+                </tr>
+              </table>
+            </th>
+          </tr>
+          <tr>
+            <th>Glazing</th>
+            <th>
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ConstructionRValue.Window}}
+                  </td>
+                </tr>
+              </table>
+            </th>
+          </tr>
+          <tr>
+            <th>Floor</th>
+            <th>
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ConstructionRValue.Floor}}
+                  </td>
+                </tr>
+              </table>
+            </th>
+          </tr>
+          <tr>
+            <th>Skylights</th>
+            <th>
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">
+                    {{i.ConstructionRValue.Skylights}}</td>
+                  </td>
+                </tr>
+              </table>
+            </th>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Proposed</th>
+            <th>Schedule</th>
+          </tr>
+          <tr>
+            <th>Total Heat Loss (Proposed)</th>
+            <th>Total Heat Loss (Scheduled)</th>
+          </tr>
+          <tr>
+            <td>
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <td>#</td>
+                  <td>Area</td>
+                  <td>R-Value</td>
+                  <td>Heatloss</td>
+                </tr>
+                <tr>
+                  <td>Roof</td>
+                  <td>{{totalarearoof | number: '1.0-2'}}</td>
+                  <td>{{totalarearoof / totalheatlossroof | number: '1.0-2'}}</td>
+                  <td>{{totalheatlossroof | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Skylight</td>
+                  <td>{{totalareaskylight | number: '1.0-2'}}</td>
+                  <td>{{totalareaskylight / totalheatlossskylight | number: '1.0-2'}}</td>
+                  <td>{{totalheatlossskylight | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Wall</td>
+                  <td>{{totalareawall | number: '1.0-2'}}</td>
+                  <td>{{totalareawall / totalheatlosswall | number: '1.0-2'}}</td>
+                  <td>{{totalheatlosswall | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Windows</td>
+                  <td>{{totalareawindow | number: '1.0-2'}}</td>
+                  <td>{{totalareawindow / totalheatlosswindow | number: '1.0-2'}}</td>
+                  <td>{{totalheatlosswindow | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Floor</td>
+                  <td>{{totalareafloor | number: '1.0-2'}}</td>
+                  <td>{{totalareafloor / totalheatlossfloor | number: '1.0-2'}}</td>
+                  <td>{{totalheatlossfloor | number: '1.0-2'}}</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <td>#</td>
+                  <td>Area</td>
+                  <td>R-Value</td>
+                  <td>Heatloss</td>
+                </tr>
+                <tr>
+                  <td>Roof</td>
+                  <td>{{totalarearoof | number: '1.0-2'}}</td>
+                  <td>{{totalarearoof1 / totalheatlossroof1 | number: '1.0-2'}}</td>
+                  <td>{{totalheatlossroof1 | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Skylight</td>
+                  <td>{{totalareaskylight | number: '1.0-2'}}</td>
+                  <td>{{totalareaskylight / totalheatlossskylight1 | number: '1.0-2'}}</td>
+                  <td>{{totalheatlossskylight1 | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Wall</td>
+                  <td>{{totalareawall | number: '1.0-2'}}</td>
+                  <td>{{totalareawall / totalheatlosswall1 | number: '1.0-2'}}</td>
+                  <td>{{totalheatlosswall1 | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Windows</td>
+                  <td>{{totalareawindow | number: '1.0-2'}}</td>
+                  <td>{{totalareawindow / totalheatlosswindow1 | number: '1.0-2'}}</td>
+                  <td>{{totalheatlosswindow1 | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Floor</td>
+                  <td>{{totalareafloor | number: '1.0-2'}}</td>
+                  <td>{{totalareafloor / totalheatlossfloor1 | number: '1.0-2'}}</td>
+                  <td>{{totalheatlossfloor1 | number: '1.0-2'}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>Total Heat Loss in Proposed: {{totalproposed | number: '1.0-2'}}</td>
+            <td>Total Heat Loss in Schedule: {{totalschedule | number: '1.0-2'}}</td>
+          </tr>
+          <tr>
+            <td>Result: </td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="totalschedule >= totalproposed">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="totalproposed > totalschedule">
+            </td>
           </tr>
         </table>
       </div>
