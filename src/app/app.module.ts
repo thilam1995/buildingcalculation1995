@@ -36,6 +36,9 @@ import { HeatlossroofskylightComponent } from './components/heatlossroofskylight
 import { HeatlossfloorComponent } from './components/heatlossfloor/heatlossfloor.component';
 import { ProjectComponent } from './components/project/project.component';
 import { Ehc1heatingenergyComponent } from './components/ehc1heatingenergy/ehc1heatingenergy.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
+import { LoginserviceService } from './service/loginservice.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,7 @@ import { Ehc1heatingenergyComponent } from './components/ehc1heatingenergy/ehc1h
     HeatlossfloorComponent,
     ProjectComponent,
     Ehc1heatingenergyComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,9 +79,9 @@ import { Ehc1heatingenergyComponent } from './components/ehc1heatingenergy/ehc1h
     CommonModule,
     MatStepperModule,
     ToastrModule.forRoot(),
-    NgxWebstorageModule.forRoot()
+    NgxWebstorageModule.forRoot(),
   ],
-  providers: [LocationService, ClimateService, WalldoorwindowService],
+  providers: [LocationService, ClimateService, WalldoorwindowService, AuthGuard, LoginserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

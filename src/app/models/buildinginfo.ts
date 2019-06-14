@@ -1,5 +1,5 @@
 export class Buildinginfo {
-    ID?: string;
+    ProjectName: string;
     TargetRating: any;
     CompletedBy: string;
     DrawingSet: string;

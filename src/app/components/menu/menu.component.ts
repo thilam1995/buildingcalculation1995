@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  isLoggedIn$: Observable<boolean>; 
+  constructor(private loginservice: LoginserviceService) { }
 
   ngOnInit() {
+    this.isLoggedIn$ = this.loginservice.isLoggedIn; 
   }
 
+  onLogout(){
+    this.loginservice.logout();                      // {3}
+  }
 }

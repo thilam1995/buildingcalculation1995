@@ -4,6 +4,7 @@ import { Wall } from 'src/app/models/wall';
 import { WallExtend } from 'src/app/models/wallextend';
 import { Door } from 'src/app/models/door';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-walldoorwindowmodel',
@@ -16,7 +17,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
   @Input() wallobjectlist: Wall[];
   @Input() doorobjectlist: Door[];
   wallwindowdoorobject = { wall: null, window: null, door: null, isDisplay: false, buttonshowhide: "Hide" };
-  @Input() wallwindowdoorobjectlist = [];
+  @LocalStorage('wallwindowdoorobjectlist') @Input() wallwindowdoorobjectlist = [];
   fieldArraywindow: Array<any> = [];
   fieldArraywindow1: Array<WindowObject> = [];
   wallobject: Wall;
@@ -196,6 +197,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       this.wallwindowdoorobject.door = this.doorobject;
       this.wallwindowdoorobject.buttonshowhide = this.wallwindowdoorobject.isDisplay ? "Hide" : "Show";
       this.wallwindowdoorobjectlist.push(this.wallwindowdoorobject);
+      this.wallwindowdoorobjectlist = this.wallwindowdoorobjectlist;
       this.fieldArraywindow = [];
       this.wallwindowdoorobject = { wall: null, window: null, door: null, isDisplay: false, buttonshowhide: "Hide" };
       this.setdefault();
@@ -414,12 +416,15 @@ export class WalldoorwindowmodelComponent implements OnInit {
       WindowHeatLoss: 0,
       ShadePercent: 0
     };
-
+    this.wallwindowdoorobjectlist = this.wallwindowdoorobjectlist;
     this.wallextendobject1 = null;
   }
 
   onDelete(index: number) {//Delete model from list
-    this.wallwindowdoorobjectlist.splice(index, 1);
+    if(confirm("Do you want to delete this section") === true){
+      this.wallwindowdoorobjectlist.splice(index, 1);
+      this.wallwindowdoorobjectlist = this.wallwindowdoorobjectlist;
+    }
   }
 
   onCancel(index: number) { //Cancel if user don't want to edit

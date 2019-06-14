@@ -1,6 +1,7 @@
 <h1>Start Building Schedule</h1>
 <!-- <pre>{{ state$ | async | json }}</pre> -->
 <div class="row">
+  <button class="btn btn-primary" routerLink="/project">Back To Building Info</button>
   <div class="col-md-12 jumbotron">
     <table class="table table-sm">
       <tr>
@@ -14,7 +15,7 @@
         <th># of Habitation Room</th>
       </tr>
       <tr>
-        <td>{{stateobject.ID}}</td>
+        <td>{{stateobject.ProjectName}}</td>
         <td>{{stateobject.TargetRating.HomeStar}}</td>
         <td>{{stateobject.Location.ClimateZone}}</td>
         <td>{{stateobject.CompletedBy}}</td>

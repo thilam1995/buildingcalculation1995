@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Floors } from 'src/app/models/floors';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-floorsform',
@@ -11,7 +12,7 @@ export class FloorsformComponent implements OnInit {
   @Input() floorobject: Floors;
   floorobject1: Floors;
 
-  @Input() floorobjectlist: Floors[];
+  @LocalStorage('floorobjectlist') @Input() floorobjectlist: Floors[];
   fieldArrayfloor: Array<any> = [];
   constructor() { }
 
@@ -29,12 +30,11 @@ export class FloorsformComponent implements OnInit {
       this.floorobjectlist.push(this.floorobject);
       this.fieldArrayfloor.push(this.floorobject);
       this.floorobject = {
-        FloorSection: null,
         FloorName: null,
         ConstructionRValue: null,
         Description: null,
-        ExposedArea: null
-      }
+      };
+      this.floorobjectlist = this.floorobjectlist;
     }
 
   }
@@ -49,22 +49,21 @@ export class FloorsformComponent implements OnInit {
     this.fieldArrayfloor[index] = this.floorobject1;
     field.isEditable = !field.isEditable;
     this.floorobject1 = {
-      FloorSection: null,
       FloorName: null,
       ConstructionRValue: null,
       Description: null,
-      ExposedArea: null
-    }
+    };
+    this.floorobjectlist = this.floorobjectlist;
   }
 
   cancelFieldValue(field) {
     field.isEditable = !field.isEditable;
     this.floorobject1 = {
-      FloorSection: null,
+
       FloorName: null,
       ConstructionRValue: null,
       Description: null,
-      ExposedArea: null
+
     }
   }
 
@@ -72,6 +71,7 @@ export class FloorsformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.floorobjectlist.splice(index, 1);
       this.fieldArrayfloor.splice(index, 1);
+      this.floorobjectlist = this.floorobjectlist;
     }
   }
 

@@ -1,10 +1,11 @@
 <div class="row">
   <div class="col-md-12">
+    <button class="btn btn-primary" routerLink="/buildingschedule">Return to Schedule</button>
     <h1>Building Info</h1>
     <table class="table table-sm table-bordered">
       <tr>
         <td>Project ID</td>
-        <td>{{statedata.project.ID}}</td>
+        <td>{{statedata.project.ProjectName}}</td>
       </tr>
       <tr>
         <td>Targeting</td>
@@ -392,7 +393,7 @@
               <table class="table table-sm table-bordered">
                 <tr>
                   <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">
-                    {{i.ConstructionRValue.Skylights}}</td>
+                    {{i.ConstructionRValue.Skylights}}
                   </td>
                 </tr>
               </table>

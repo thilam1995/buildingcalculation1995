@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Wall } from 'src/app/models/wall';
 import { NgForm } from '@angular/forms';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-wallform',
@@ -10,7 +11,7 @@ import { NgForm } from '@angular/forms';
 export class WallformComponent implements OnInit {
 
   @Input() wallobject: Wall;
-  @Input() wallobjectlist: Wall[];
+  @LocalStorage('wallobjectlist') @Input() wallobjectlist: Wall[];
   wallobject1: Wall;
   fieldArray: Array<any> = [];
   constructor() {
@@ -43,6 +44,7 @@ export class WallformComponent implements OnInit {
         ConstructionRValue: null,
         Description: null,
       };
+      this.wallobjectlist = this.wallobjectlist;
     }
 
   }
@@ -61,6 +63,7 @@ export class WallformComponent implements OnInit {
       Description: null,
       WallName: null
     }
+    this.wallobjectlist = this.wallobjectlist;
   }
 
   cancelFieldValue(field) {
@@ -76,6 +79,7 @@ export class WallformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.fieldArray.splice(index, 1);
       this.wallobjectlist.splice(index, 1);
+      this.wallobjectlist = this.wallobjectlist;
     }
   }
 

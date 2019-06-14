@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Buildinginfo } from 'src/app/models/buildinginfo';
 
 @Component({
   selector: 'app-project',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectComponent implements OnInit {
 
+  
   constructor() { }
 
   ngOnInit() {
+
   }
+
 
 }

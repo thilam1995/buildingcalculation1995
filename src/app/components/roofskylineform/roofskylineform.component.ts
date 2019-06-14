@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Skylights } from 'src/app/models/skylights';
 import { Roof } from 'src/app/models/roof';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-roofskylineform',
@@ -14,8 +15,8 @@ export class RoofskylineformComponent implements OnInit {
   roofobject1: Roof;
   skylightsobject1: Skylights;
 
-  @Input() skylightsobjectlist: Skylights[];
-  @Input() roofobjectlist: Roof[];
+  @LocalStorage('skylightsobjectlist') @Input() skylightsobjectlist: Skylights[];
+  @LocalStorage('roofobjectlist') @Input() roofobjectlist: Roof[];
 
   fieldArrayroof: Array<any> = [];
   fieldArrayskylight: Array<any> = [];
@@ -35,17 +36,16 @@ export class RoofskylineformComponent implements OnInit {
     this.roofobjectlist[index] = this.roofobject1;
     field.isEditable = !field.isEditable;
     this.roofobject1 = {
-      RoofSection: null,
       Description: null,
       ConstructionRValue: null,
       RoofName: null
     };
+    this.roofobjectlist = this.roofobjectlist;
   }
 
   cancelFieldValueRoof(field) {
     field.isEditable = !field.isEditable;
     this.roofobject1 = {
-      RoofSection: null,
       Description: null,
       ConstructionRValue: null,
       RoofName: null
@@ -56,6 +56,7 @@ export class RoofskylineformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.roofobjectlist.splice(index, 1);
       this.fieldArrayroof.splice(index, 1);
+      this.roofobjectlist = this.roofobjectlist;
     }
   }
 
@@ -71,11 +72,11 @@ export class RoofskylineformComponent implements OnInit {
       this.roofobjectlist.push(this.roofobject);
       this.fieldArrayroof.push(this.roofobject);
       this.roofobject = {
-        RoofSection: null,
         Description: null,
         ConstructionRValue: null,
         RoofName: null
       };
+      this.roofobjectlist = this.roofobjectlist;
     }
 
   }
@@ -95,6 +96,7 @@ export class RoofskylineformComponent implements OnInit {
       Width: null,
       HeatLoss: 0
     };
+    this.skylightsobjectlist = this.skylightsobjectlist;
   }
 
   cancelFieldValueSkylight(field) {
@@ -113,6 +115,7 @@ export class RoofskylineformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.fieldArrayskylight.splice(index, 1);
       this.skylightsobjectlist.splice(index, 1);
+      this.skylightsobjectlist = this.skylightsobjectlist;
     }
   }
 
@@ -138,6 +141,7 @@ export class RoofskylineformComponent implements OnInit {
         Width: null,
         HeatLoss: 0
       };
+      this.skylightsobjectlist = this.skylightsobjectlist;
     }
 
   }

@@ -5,6 +5,7 @@ import { WindowObject } from 'src/app/models/windowobject';
 import { Skylights } from 'src/app/models/skylights';
 import { Roof } from 'src/app/models/roof';
 import { Floors } from 'src/app/models/floors';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-schedule',
@@ -19,12 +20,12 @@ export class ScheduleComponent implements OnInit {
   @Input() roofobject: Roof;
   @Input() floorobject: Floors;
 
-  @Input() windowobjectlist: WindowObject[];
-  @Input() wallobjectlist: Wall[];
-  @Input() doorobjectlist: Door[];
-  @Input() skylightsobjectlist: Skylights[];
-  @Input() roofobjectlist: Roof[];
-  @Input() floorobjectlist: Floors[];
+  @LocalStorage('windowobjectlist') @Input() windowobjectlist: WindowObject[];
+  @LocalStorage('wallobjectlist') @Input() wallobjectlist: Wall[];
+  @LocalStorage('doorobjectlist') @Input() doorobjectlist: Door[];
+  @LocalStorage('skylightsobjectlist') @Input() skylightsobjectlist: Skylights[];
+  @LocalStorage('roofobjectlist') @Input() roofobjectlist: Roof[];
+  @LocalStorage('floorobjectlist') @Input() floorobjectlist: Floors[];
 
   constructor() { }
 

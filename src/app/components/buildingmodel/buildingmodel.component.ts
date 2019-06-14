@@ -5,7 +5,7 @@ import { Door } from 'src/app/models/door';
 import { Skylights } from 'src/app/models/skylights';
 import { Roof } from 'src/app/models/roof';
 import { Floors } from 'src/app/models/floors';
-
+import { LocalStorage } from 'ngx-webstorage';
 @Component({
   selector: 'app-buildingmodel',
   templateUrl: './buildingmodel.component.html',
@@ -13,18 +13,18 @@ import { Floors } from 'src/app/models/floors';
 })
 export class BuildingmodelComponent implements OnInit {
 
-  @Input() windowobjectlist: WindowObject[];
-  @Input() wallobjectlist: Wall[];
-  @Input() doorobjectlist: Door[];
+  @LocalStorage('windowobjectlist') @Input() windowobjectlist: WindowObject[];
+  @LocalStorage('wallobjectlist')@Input() wallobjectlist: Wall[];
+  @LocalStorage('doorobjectlist') @Input() doorobjectlist: Door[];
   @Input() wallwindowdoorobject = {};
   @Input() roofskylightobject = {};
   @Input() floorsobject = {};
-  @Input() skylightsobjectlist: Skylights[];
-  @Input() roofobjectlist: Roof[];
-  @Input() floorobjectlist: Floors[];
-  @Input() wallwindowdoorobjectlist = [];
-  @Input() roofskylightobjectlist = [];
-  @Input() fieldarrayfloor: Array<any> = [];
+  @LocalStorage('skylightsobjectlist') @Input() skylightsobjectlist: Skylights[];
+  @LocalStorage('roofobjectlist') @Input() roofobjectlist: Roof[];
+  @LocalStorage('floorobjectlist') @Input() floorobjectlist: Floors[];
+  @LocalStorage('wallwindowdoorobjectlist') @Input() wallwindowdoorobjectlist = [];
+  @LocalStorage('roofskylightobjectlist') @Input() roofskylightobjectlist = [];
+  @LocalStorage('fieldarrayfloor') @Input() fieldarrayfloor: Array<any> = [];
   constructor() { }
 
   ngOnInit() {

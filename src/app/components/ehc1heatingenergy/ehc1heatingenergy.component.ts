@@ -211,6 +211,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.floorlist.push(object);
       object = { floorname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
     }
+    this.heatlossresult();
   }
 
   heatlossresult() {

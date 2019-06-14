@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { WindowObject } from 'src/app/models/windowobject';
 import { NgForm } from '@angular/forms';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-windowform',
@@ -10,7 +11,7 @@ import { NgForm } from '@angular/forms';
 export class WindowformComponent implements OnInit {
 
   @Input() windowobject: WindowObject;
-  @Input() windowobjectlist: WindowObject[];
+  @LocalStorage('windowobjectlist') @Input() windowobjectlist: WindowObject[];
   windowobject1: WindowObject;
   fieldArray: Array<any> = [];
   owaList = [0, 0.05, 0.1, 0.15, 0.2, 0.25,
@@ -53,6 +54,7 @@ export class WindowformComponent implements OnInit {
         WindowHeatLoss: 0,
         ShadePercent: 0
       };
+      this.windowobjectlist = this.windowobjectlist;
     }
   }
 
@@ -76,6 +78,7 @@ export class WindowformComponent implements OnInit {
       WindowHeatLoss: 0,
       ShadePercent: 0
     };
+    this.windowobjectlist = this.windowobjectlist;
   }
 
   cancelFieldValue(field) {
@@ -97,6 +100,7 @@ export class WindowformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.fieldArray.splice(index, 1);
       this.windowobjectlist.splice(index, 1);
+      this.windowobjectlist = this.windowobjectlist;
     }
   }
 

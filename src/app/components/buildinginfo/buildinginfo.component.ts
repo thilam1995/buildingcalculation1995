@@ -5,6 +5,7 @@ import { LocationService } from 'src/app/service/location.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClimateService } from 'src/app/service/climate.service';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
 
 @Component({
   selector: 'app-buildinginfo',
@@ -19,15 +20,16 @@ export class BuildinginfoComponent implements OnInit {
 
   locations = [];
   constructor(private locationService: LocationService,
-    public router: Router, private climateservice: ClimateService,
+    private router: Router, private climateservice: ClimateService,
     private route: ActivatedRoute, private localSt: LocalStorageService) {
-
   }
 
   ngOnInit() {
-    this.setdefault();
+    //this.setdefault();
     this.climateservice.getallclimate();
-
+    if(this.localSt.retrieve('buildinginfo') !== undefined || this.localSt.retrieve('buildinginfo') !== null){
+      this.buildinginfoobject = this.localSt.retrieve('buildinginfo');
+    }
   }
 
 
@@ -42,26 +44,35 @@ export class BuildinginfoComponent implements OnInit {
 
   setdefault() {
     this.buildinginfoobject = {
-      ID: null,
-      CompletedBy: null,
-      DrawingSet: null,
+      ProjectName: '',
+      CompletedBy: '',
+      DrawingSet: '',
       FloorArea: null,
       Location: null,
       NumofHabitationroom: null,
       TargetRating: null,
-      Typology: null,
+      Typology: '',
     };
     //this.buildinginfoobject.TargetRating.ClimateZoneList = [];
   }
 
   onSubmit() {
-    if (this.buildinginfoobject.ID === null || this.buildinginfoobject.TargetRating === null ||
+    if (this.buildinginfoobject.ProjectName === null || this.buildinginfoobject.TargetRating === null ||
       this.buildinginfoobject.Location === null) {
       alert("Please Enter Your Project!");
     } else {
       this.localSt.store('buildinginfo', this.buildinginfoobject);
       this.router.navigate(['buildingschedule'], { state: { data: this.localSt.retrieve('buildinginfo') } });
     }
+
+    // if (form.value.ID === null || form.value.TargetRating === null ||
+    //   form.value.Location === null) {
+    //   alert("Please Enter Your Project!");
+    // } else {
+    //   this.buildinginfoobject = form.value;
+    //   this.localSt.store('buildinginfo', this.buildinginfoobject);
+    //   this.router.navigate(['buildingschedule'], { state: { data: this.localSt.retrieve('buildinginfo') } });
+    // }
 
   }
 

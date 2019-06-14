@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Floors } from 'src/app/models/floors';
 import { BsDropdownToggleDirective } from 'angular-bootstrap-md';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorage } from 'ngx-webstorage';
+import { Floorextend } from 'src/app/models/floorextend';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-floormodel',
@@ -14,7 +17,9 @@ export class FloormodelComponent implements OnInit {
   @Input() floorsobject = { floor: null, isDisplay: false, buttonshowhide: "Hide" };
   floorobject: Floors;
   floorobject1: Floors;
-  @Input() fieldarrayfloor: Array<any> = [];
+  floorextendobject: Floorextend;
+  floorextendobject1: Floorextend;
+  @LocalStorage('fieldarrayfloor') @Input() fieldarrayfloor: Array<any> = [];
   display: boolean = false;
   floor_section: string = "";
   floor_section1: string = "";
@@ -31,30 +36,39 @@ export class FloormodelComponent implements OnInit {
 
   setdefault() {
     this.floorobject = {
-      FloorSection: null,
       FloorName: null,
       ConstructionRValue: null,
-      Description: null,
-      ExposedArea: null
+      Description: null
     };
     this.floorobject1 = {
+      FloorName: null,
+      ConstructionRValue: null,
+      Description: null
+    };
+    this.floorextendobject = {
       FloorSection: null,
       FloorName: null,
       ConstructionRValue: null,
-      Description: null,
       ExposedArea: null
     };
+
+    this.floorextendobject1 = {
+      FloorSection: null,
+      FloorName: null,
+      ConstructionRValue: null,
+      ExposedArea: null
+    };
+
     this.floorarea = null;
   }
 
   addfloortoggle() {
     this.display = !this.display;
     if(!this.display){
-      this.floorobject = {
+      this.floorextendobject = {
         FloorSection: null,
         FloorName: null,
         ConstructionRValue: null,
-        Description: null,
         ExposedArea: null
       };
     }
@@ -64,12 +78,13 @@ export class FloormodelComponent implements OnInit {
     if(this.floor_section === null || this.floorarea === null){
       this.toastr.error("Please fill section, construction and area.", "Floor Model")
     }else{
-      this.floorobject.FloorName = this.floorname;
-      this.floorobject.FloorSection = this.floor_section;
-      this.floorobject.ExposedArea = this.floorarea;
+      this.floorextendobject.FloorName = this.floorname;
+      this.floorextendobject.FloorSection = this.floor_section;
+      this.floorextendobject.ExposedArea = this.floorarea;
       this.floorsobject.floor = this.floorobject;
       this.floorsobject.buttonshowhide = this.floorsobject.isDisplay ? "Hide" : "Show";
       this.fieldarrayfloor.push(this.floorsobject);
+      this.fieldarrayfloor = this.fieldarrayfloor;
       this.setdefault();
       this.floorsobject = { floor: null, isDisplay: false, buttonshowhide: "Hide" };
       this.display = !this.display;
@@ -90,41 +105,46 @@ export class FloormodelComponent implements OnInit {
   onEdit(floori, index: number){
     floori.isEditable = !floori.isEditable;
     this.floorobject1 = this.fieldarrayfloor[index].floor;
-    this.floor_section1 = this.floorobject1.FloorSection;
-    this.floorname1 = this.floorobject1.FloorName;
-    this.floorarea1 = this.floorobject1.ExposedArea;
+    this.floor_section1 = this.floorextendobject1.FloorSection;
+    this.floorname1 = this.floorextendobject1.FloorName;
+    this.floorobject1 = this.floorobjectlist.find(x =>
+      x.FloorName === this.floorname1
+    );
+    this.floorarea1 = this.floorextendobject1.ExposedArea;
   }
 
   onSave(floori, index: number){
     floori.isEditable = !floori.isEditable;
     this.floorobject1.FloorName = this.floorname1;
-    this.floorobject1.ExposedArea = this.floorarea1;
-    this.floorobject1.FloorSection = this.floor_section1;
+    this.floorextendobject1.ExposedArea = this.floorarea1;
+    this.floorextendobject1.FloorSection = this.floor_section1;
     this.fieldarrayfloor[index].floor = this.floorobject1;
+    this.fieldarrayfloor = this.fieldarrayfloor;
     console.log(this.fieldarrayfloor[index]);
     this.floor_section1 = "";
     this.floorarea1 = null;
     this.floorobject1 = {
-      FloorSection: null,
       FloorName: null,
       ConstructionRValue: null,
-      Description: null,
-      ExposedArea: null
+      Description: null
     };
   }
 
   onDelete(index: number){
-    this.fieldarrayfloor.splice(index, 1);
+    if(confirm('Do you want to delete this?')=== true){
+      this.fieldarrayfloor.splice(index, 1);
+      this.fieldarrayfloor = this.fieldarrayfloor;
+    }
+    
   }
 
   onCancel(floori){
     floori.isEditable = !floori.isEditable;
     this.floor_section1 = "";
-    this.floorobject1 = {
+    this.floorextendobject1 = {
       FloorSection: null,
       FloorName: null,
       ConstructionRValue: null,
-      Description: null,
       ExposedArea: null
     };
     this.floorname1 = "";

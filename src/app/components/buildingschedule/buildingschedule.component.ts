@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService, SessionStorageService, LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-buildingschedule',
@@ -25,6 +25,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 export class BuildingscheduleComponent implements OnInit {
 
   state$: Observable<object>;
+  xstateobject: any;
   stateobject:any = {
     ID: null,
     CompletedBy: null,
@@ -36,7 +37,7 @@ export class BuildingscheduleComponent implements OnInit {
     Typology: null
   };
 
-  dataobject: any;
+  @LocalStorage() dataobject: any;
 
   doorobject: Door;
   windowobject: WindowObject;
@@ -45,19 +46,20 @@ export class BuildingscheduleComponent implements OnInit {
   roofobject: Roof;
   floorobject: Floors;
 
-  buildingscheduleproposed = {};
-  roofskylightobject = {};
-  floorsobject = {};
+  // buildingscheduleproposed = {};
+  // roofskylightobject = {};
+  // floorsobject = {};
 
-  doorobjectlist: Door[] = [];
-  windowobjectlist: WindowObject[] = [];
-  wallobjectlist: Wall[] = [];
-  skylightsobjectlist: Skylights[] = [];
-  roofobjectlist: Roof[] = [];
-  floorobjectlist: Floors[] = [];
-  wallwindowdoorobjectlist = [];
-  fieldarrayfloor: Array<any> = [];
-  roofskylightobjectlist = [];
+  @LocalStorage('doorobjectlist') doorobjectlist: Door[] = [];
+  @LocalStorage('windowobjectlist') windowobjectlist: WindowObject[] = [];
+  @LocalStorage('wallobjectlist') wallobjectlist: Wall[] = [];
+  @LocalStorage('skylightsobjectlist') skylightsobjectlist: Skylights[] = [];
+  @LocalStorage('roofobjectlist') roofobjectlist: Roof[] = [];
+  @LocalStorage('floorobjectlist') floorobjectlist: Floors[] = [];
+
+  @LocalStorage('wallwindowdoorobjectlist') wallwindowdoorobjectlist = [];
+  @LocalStorage('fieldarrayfloor') fieldarrayfloor: Array<any> = [];
+  @LocalStorage('roofskylightobjectlist') roofskylightobjectlist = [];
   
 
   constructor(private walldoorwindowserv: WalldoorwindowService,
@@ -65,7 +67,7 @@ export class BuildingscheduleComponent implements OnInit {
     private climateservice: ClimateService,
     private buildinginfoserviceService: BuildinginfoserviceService,
     public activatedRoute: ActivatedRoute,
-    private router: Router, private toastr: ToastrService) { }
+    private router: Router, private toastr: ToastrService, private localSt: LocalStorageService) { }
 
   ngOnInit() {
     this.setnulldefault();
@@ -73,12 +75,18 @@ export class BuildingscheduleComponent implements OnInit {
       .pipe(map(() => window.history.state.data
       ));
     this.state$.subscribe(x => {
-      this.stateobject = x;
+      if(x !== undefined){
+        this.localSt.store('buildinginfoobject', x);
+        //this.stateobject = this.localSt.retrieve('buildinginfoobject');
+      }
     });
+
+    this.stateobject = this.localSt.retrieve('buildinginfoobject');
     console.log(this.stateobject);
     if (this.stateobject === undefined || this.stateobject.ID === undefined) {
       this.router.navigateByUrl('project');
     }
+
   }
 
   setnulldefault() {
@@ -127,18 +135,15 @@ export class BuildingscheduleComponent implements OnInit {
     };
 
     this.roofobject = {
-      RoofSection: null,
       Description: null,
       ConstructionRValue: null,
       RoofName: null
     };
 
     this.floorobject = {
-      FloorSection: null,
       FloorName: null,
       ConstructionRValue: null,
-      Description: null,
-      ExposedArea: null
+      Description: null
     }
   }
 

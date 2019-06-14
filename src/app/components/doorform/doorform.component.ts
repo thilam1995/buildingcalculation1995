@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Door } from 'src/app/models/door';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-doorform',
@@ -10,7 +11,7 @@ export class DoorformComponent implements OnInit {
 
   @Input() doorobject: Door;
   doorobject1: Door;
-  @Input() doorobjectlist: Door[];
+  @LocalStorage('doorobjectlist') @Input() doorobjectlist: Door[];
   fieldArray: Array<any> = [];
   constructor() { }
 
@@ -37,6 +38,7 @@ export class DoorformComponent implements OnInit {
         Height: null,
         Width: null
       };
+      this.doorobjectlist = this.doorobjectlist;
     }
 
   }
@@ -57,6 +59,7 @@ export class DoorformComponent implements OnInit {
       Height: null,
       Width: null
     };
+    this.doorobjectlist = this.doorobjectlist;
   }
 
   cancelFieldValue(field) {
@@ -74,6 +77,7 @@ export class DoorformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.fieldArray.splice(index, 1);
       this.doorobjectlist.splice(index, 1);
+      this.doorobjectlist = this.doorobjectlist;
     }
   }
 
