@@ -94,7 +94,6 @@ export class RoofskylineformComponent implements OnInit {
       Length: null,
       SkylightsName: null,
       Width: null,
-      HeatLoss: 0
     };
     this.skylightsobjectlist = this.skylightsobjectlist;
   }
@@ -107,7 +106,6 @@ export class RoofskylineformComponent implements OnInit {
       Length: null,
       SkylightsName: null,
       Width: null,
-      HeatLoss: 0
     };
   }
 
@@ -139,7 +137,6 @@ export class RoofskylineformComponent implements OnInit {
         Length: null,
         SkylightsName: null,
         Width: null,
-        HeatLoss: 0
       };
       this.skylightsobjectlist = this.skylightsobjectlist;
     }

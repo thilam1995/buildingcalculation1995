@@ -78,11 +78,18 @@ export class FloormodelComponent implements OnInit {
     if(this.floor_section === null || this.floorarea === null){
       this.toastr.error("Please fill section, construction and area.", "Floor Model")
     }else{
-      this.floorextendobject.FloorName = this.floorname;
-      this.floorextendobject.FloorSection = this.floor_section;
-      this.floorextendobject.ExposedArea = this.floorarea;
-      this.floorsobject.floor = this.floorobject;
-      this.floorsobject.buttonshowhide = this.floorsobject.isDisplay ? "Hide" : "Show";
+
+      this.floorextendobject = {
+        FloorSection: this.floor_section,
+        FloorName: this.floorname,
+        ConstructionRValue: this.floorobject.ConstructionRValue,
+        ExposedArea: this.floorarea
+      }
+      this.floorsobject = {
+        floor: this.floorextendobject,
+        isDisplay: false,
+        buttonshowhide: "Hide"
+      }
       this.fieldarrayfloor.push(this.floorsobject);
       this.fieldarrayfloor = this.fieldarrayfloor;
       this.setdefault();
@@ -115,10 +122,16 @@ export class FloormodelComponent implements OnInit {
 
   onSave(floori, index: number){
     floori.isEditable = !floori.isEditable;
-    this.floorobject1.FloorName = this.floorname1;
-    this.floorextendobject1.ExposedArea = this.floorarea1;
-    this.floorextendobject1.FloorSection = this.floor_section1;
-    this.fieldarrayfloor[index].floor = this.floorobject1;
+    //this.floorobject1.FloorName = this.floorname1;
+    this.floorextendobject1 = {
+      FloorSection: this.floor_section1,
+      FloorName: this.floorname1,
+      ConstructionRValue: this.floorobject1.ConstructionRValue,
+      ExposedArea: this.floorarea1
+    }
+    // this.floorextendobject1.ExposedArea = this.floorarea1;
+    // this.floorextendobject1.FloorSection = this.floor_section1;
+    this.fieldarrayfloor[index].floor = this.floorextendobject1;
     this.fieldarrayfloor = this.fieldarrayfloor;
     console.log(this.fieldarrayfloor[index]);
     this.floor_section1 = "";
@@ -147,6 +160,11 @@ export class FloormodelComponent implements OnInit {
       ConstructionRValue: null,
       ExposedArea: null
     };
+    this.floorobject1 = {
+      FloorName: null,
+      ConstructionRValue: null,
+      Description: null
+    }
     this.floorname1 = "";
     this.floorarea1 = null;
   }

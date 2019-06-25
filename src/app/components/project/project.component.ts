@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Buildinginfo } from 'src/app/models/buildinginfo';
+import { Register } from 'src/app/models/register';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
 
 @Component({
   selector: 'app-project',
@@ -8,11 +10,11 @@ import { Buildinginfo } from 'src/app/models/buildinginfo';
 })
 export class ProjectComponent implements OnInit {
 
-  
-  constructor() { }
+  registeruser: Register;
+  constructor(private loginservice: LoginserviceService) { }
 
   ngOnInit() {
-
+    this.loginservice.currentUser.subscribe(x => this.registeruser = x);
   }
 
 

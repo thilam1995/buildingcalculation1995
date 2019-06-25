@@ -1,4 +1,4 @@
-<header *ngIf="isLoggedIn$ | async as isLoggedIn">
+<header>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark pink scrolling-navbar">
     <!-- <a class="navbar-brand" href="#"><strong>Navbar</strong></a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home">Home</a>
+          <a class="nav-link" routerLink="/{{registeruser.ID}}">Home</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" routerLink="#">About</a>
@@ -17,13 +17,13 @@
           <a class="nav-link" routerLink="#">Service</a>
         </li> -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="/project">Project</a>
+          <a class="nav-link" [routerLink]="['project']">Project</a>
         </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" [routerLink]="['buildingschedulelist']">Building Schedule List</a>
+        </li> -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="/buildingschedulelist">Building Schedule List</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)="onLogout()" *ngIf="isLoggedIn">Logout</a>
+            <a class="nav-link" (click)="logout()">Logout</a>
           </li>
       </ul>
     </div>

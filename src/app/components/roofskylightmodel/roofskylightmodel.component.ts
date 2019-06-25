@@ -55,8 +55,7 @@ export class RoofskylightmodelComponent implements OnInit {
       ConstructionRValue: null,
       Length: null,
       SkylightsName: null,
-      Width: null,
-      HeatLoss: 0
+      Width: null
     };
     this.roofobject1 = {
       ConstructionRValue: null,
@@ -69,7 +68,6 @@ export class RoofskylightmodelComponent implements OnInit {
       Length: null,
       SkylightsName: null,
       Width: null,
-      HeatLoss: 0
     };
     this.roofextendobject = {
       RoofSection: null,
@@ -107,7 +105,6 @@ export class RoofskylightmodelComponent implements OnInit {
         Length: null,
         SkylightsName: null,
         Width: null,
-        HeatLoss: 0
       };
       this.fieldarrayskylight = [];
     }
@@ -125,7 +122,6 @@ export class RoofskylightmodelComponent implements OnInit {
         Length: null,
         SkylightsName: null,
         Width: null,
-        HeatLoss: 0
       };
       this.skylightwidth = 0;
       this.skylightlength = 0;
@@ -145,7 +141,6 @@ export class RoofskylightmodelComponent implements OnInit {
         Length: null,
         SkylightsName: null,
         Width: null,
-        HeatLoss: 0
       };
       this.skylightwidth1 = 0;
       this.skylightlength1 = 0;
@@ -157,11 +152,20 @@ export class RoofskylightmodelComponent implements OnInit {
     if (this.roof_section === null || this.roofarea === null) {
       this.toastr.error("Please complete all detail.", "Roof Skylight Model");
     } else {
-      this.roofextendobject.RoofSection = this.roof_section;
-      this.roofextendobject.ExposedArea = this.roofarea;
-      this.roofskylightobject.roof = this.roofextendobject;
-      this.roofskylightobject.skylight = this.fieldarrayskylight;
-      this.roofskylightobject.buttonshowhide = this.roofskylightobject.isDisplay ? "Hide" : "Show";
+      this.roofextendobject = {
+        ConstructionRValue: this.roofobject.ConstructionRValue,
+        ExposedArea: this.roofarea,
+        RoofName: this.roofname,
+        RoofSection: this.roof_section
+      }
+
+      this.roofskylightobject = {
+        roof: this.roofextendobject,
+        skylight: this.fieldarrayskylight,
+        isDisplay: false,
+        buttonshowhide: "Hide"
+      }
+      console.log(this.roofskylightobject);
       this.roofskylightobjectlist.push(this.roofskylightobject);
       this.roofskylightobjectlist = this.roofskylightobjectlist;
       this.fieldarrayskylight = [];
@@ -223,8 +227,13 @@ export class RoofskylightmodelComponent implements OnInit {
     roofskylighti.isEditable = !roofskylighti.isEditable;
     this.roofextendobject1.ExposedArea = this.roofarea1;
     this.roofobject1.RoofName = this.roofname1;
-    this.roofextendobject1.RoofSection = this.roof_section1;
-    this.roofskylightobjectlist[index].roof = this.roofobject1;
+    this.roofextendobject = {
+      RoofSection: this.roof_section1,
+      ConstructionRValue: this.roofobject1.ConstructionRValue,
+      ExposedArea: this.roofarea1,
+      RoofName: this.roofobject1.RoofName,
+    }
+    this.roofskylightobjectlist[index].roof = this.roofextendobject1;
     this.roofskylightobjectlist[index].skylight = this.roofskylightobject1.skylight;
     this.roofskylightobjectlist = this.roofskylightobjectlist;
     this.roofskylightobject1 = {
@@ -237,7 +246,6 @@ export class RoofskylightmodelComponent implements OnInit {
       Length: null,
       SkylightsName: null,
       Width: null,
-      HeatLoss: 0
     };
     this.roofobject1 = {
       Description: null,
@@ -269,7 +277,6 @@ export class RoofskylightmodelComponent implements OnInit {
       Length: null,
       SkylightsName: null,
       Width: null,
-      HeatLoss: 0
     };
     this.roofobject1 = {
       Description: null,

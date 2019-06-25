@@ -1,0 +1,38 @@
+<h1 style="text-align: center">Register</h1>
+<form #registerform="ngForm" (ngSubmit)="onSubmit(registerform)" class="loginform">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input name="firstname" class="form-control" #firstname="ngModel" [(ngModel)]="registerobject.FirstName"
+        placeholder="First Name" required>
+      <div class="validation-error" *ngIf="firstname.invalid && firstname.touched">Please fill your first name.</div>
+    </div>
+    <div class="form-group col-md-6">
+      <input name="lastname" class="form-control" #lastname="ngModel" [(ngModel)]="registerobject.LastName"
+        placeholder="Last Name" required>
+      <div class="validation-error" *ngIf="lastname.invalid && lastname.touched">Please fill your last name.</div>
+    </div>
+    <div class="form-group col-md-12">
+      <input type="email" class="form-control" name="email" [email]="registerobject.Email !== ''" #email="ngModel"
+        [(ngModel)]="registerobject.Email" placeholder="Email" required>
+      <div class="validation-error" *ngIf="email.error?.required && email.touched">Please fill your Email.</div>
+      <div class="validation-error" *ngIf="email.error?.email && email.touched">Email is invalid</div>
+    </div>
+    <div class="form-group col-md-6">
+      <input type="password" class="form-control" name="password" #password="ngModel"
+        [(ngModel)]="registerobject.Password" placeholder="Password" required>
+      <div class="validation-error" *ngIf="password.invalid && password.touched">Please fill your password.</div>
+    </div>
+    <div class="form-group col-md-6">
+      <input type="password" class="form-control" name="repassword" #repassword="ngModel" [(ngModel)]="Repassword"
+        placeholder="Re-Enter Password" required>
+      <div class="validation-error" *ngIf="repassword.invalid && repassword.touched">Please fill your re-enter password.
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <button [disabled]="!registerform.valid" class="btn btn-lg btn-block btn-info">Register Now</button>
+    </div>
+    <div class="form-group col-md-6">
+      <button routerLink="/login" class="btn btn-lg btn-block btn-info">Back To Login</button>
+    </div>
+  </div>
+</form>

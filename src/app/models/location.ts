@@ -1,4 +1,4 @@
 export class Location {
-    Location_Name: string;
+    LocationName: string;
     Climatecategory: string;
 }

@@ -24,7 +24,10 @@ export class Ehc1heatingenergyComponent implements OnInit {
   totalareaskylight: number = 0;
   totalareawall: number = 0;
   totalareawindow: number = 0;
+  totalareawindowless30: number = 0;
+  totalareawindowmore30: number = 0;
   totalareafloor: number = 0;
+  totalareadoor: number = 0;
 
   totalheatlosswall: number = 0;
   totalheatlosswindow: number = 0;
@@ -35,7 +38,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
   totalproposed: number = 0;
 
   totalheatlosswall1: number = 0;
-  totalheatlosswindow1: number = 0;
+  totalheatlosswindow1less30: number = 0;
+  totalheatlosswindow1more30: number = 0;
   totalheatlossdoor1: number = 0;
   totalheatlossroof1: number = 0;
   totalheatlossskylight1: number = 0;
@@ -111,7 +115,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
 
     console.log(this.windowdistinct);
     for (let i of this.windowdistinct) {
-      let object = { windowname: i, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
+      let object = { windowname: i, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0, owa: 0 };
       for (let x of this.statedata.wallwindowdoormodel) {
         for (let e of x.window) {
           if (e.WindowName === i) {
@@ -119,11 +123,12 @@ export class Ehc1heatingenergyComponent implements OnInit {
             object.totalarea += Number(e.Area);
             object.totalrvalue = Number(e.ConstructionRValue);
             object.totalheatloss += Number(e.Area) / Number(e.ConstructionRValue);
+            object.owa = Number(e.OWA);
           }
         }
       }
       this.windowlist.push(object);
-      object = { windowname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
+      object = { windowname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0, owa: 0 };
     }
 
     for (let i of this.statedata.wallwindowdoormodel) {
@@ -243,12 +248,20 @@ export class Ehc1heatingenergyComponent implements OnInit {
       for (let i of this.windowlist) {
         this.totalareawindow += i.totalarea;
         this.totalheatlosswindow += i.totalheatloss;
-        this.totalheatlosswindow1 += i.totalarea/this.windowrvalue;
+        if(i.owa < 0.30){
+          this.totalareawindowless30 += i.totalarea;
+          this.totalheatlosswindow1less30 += i.totalarea/this.windowrvalue;
+        }else if(i.owa > 30){
+          this.totalareawindowless30 += i.totalarea;
+          this.totalheatlosswindow1more30 += i.totalarea/this.windowrvalue;
+        }
+
       }
     }
 
     if (this.doorlist.length > 0) {
       for (let i of this.doorlist) {
+        this.totalareadoor += i.totalarea;
         this.totalheatlossdoor += i.totalheatloss;
         this.totalheatlossdoor1 += i.totalarea / this.wallrvalue;
       }
@@ -262,11 +275,11 @@ export class Ehc1heatingenergyComponent implements OnInit {
       }
     }
 
-    this.totalproposed = this.totalheatlossroof + this.totalheatlossskylight + this.totalheatlosswall + this.totalheatlosswindow +
+    this.totalproposed = this.totalheatlossroof + this.totalheatlossskylight + this.totalheatlosswall + this.totalheatlosswindow + this.totalareadoor +
     this.totalheatlossfloor;
 
-    this.totalschedule = this.totalheatlossroof1 + this.totalheatlossskylight1 + this.totalheatlosswall1 + this.totalheatlosswindow1 +
-    this.totalheatlossfloor1;
+    this.totalschedule = this.totalheatlossroof1 + this.totalheatlossskylight1 + this.totalheatlosswall1 + this.totalheatlosswindow1less30 +
+    this.totalheatlosswindow1more30  + this.totalheatlossfloor1;
   }
 
 }

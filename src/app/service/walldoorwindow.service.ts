@@ -9,9 +9,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class WalldoorwindowService {
 
-  windowlist: WindowObject[];
-  walllist: Wall[];
-  doorlist: Door[];
+
+  windowlist = [];
+  walllist = [];
+  doorlist = [];
 
   windowobject: WindowObject;
   wallobject: Wall;
@@ -20,29 +21,51 @@ export class WalldoorwindowService {
   constructor() { }
 
   windowlistdata() {
-    return [{
 
-    },
-    {
-
-    }];
   }
 
   walllistdata() {
-    return [{
 
-    },
-    {
-
-    }];
   }
 
   doorlistdata() {
-    return [{
 
-    },
-    {
-
-    }];
   }
+
+  doorposting(){
+
+  }
+
+  wallposting(){
+
+  }
+
+  windowposting(){
+
+  }
+
+  doorput(){
+
+  }
+
+  wallput(){
+
+  }
+
+  windowput(){
+
+  }
+
+  doordelete(){
+
+  }
+
+  walldelete(){
+
+  }
+
+  windowdelete(){
+
+  }
+
 }

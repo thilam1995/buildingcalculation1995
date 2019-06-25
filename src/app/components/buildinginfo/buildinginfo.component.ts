@@ -14,35 +14,50 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 })
 export class BuildinginfoComponent implements OnInit {
 
-  buildinginfoobject: Buildinginfo;
+  buildinginfoobject: Buildinginfo = null;
+
+  Projectname: string = '';
+  TargetRating: any = null;
+  Location: any = null;
+  CompletedBy: string = '';
+  DrawingSet: string = '';
+  Typology: string = '';
+  FloorArea: number = null;
+  NumofHabitationroom: number = null;
 
   locationselected: any;
 
-  locations = [];
   constructor(private locationService: LocationService,
     private router: Router, private climateservice: ClimateService,
-    private route: ActivatedRoute, private localSt: LocalStorageService) {
+    private route: ActivatedRoute, private loginservice: LoginserviceService, private localSt: LocalStorageService ) {
   }
 
   ngOnInit() {
-    //this.setdefault();
+    this.setdefault();
     this.climateservice.getallclimate();
-    if(this.localSt.retrieve('buildinginfo') !== undefined || this.localSt.retrieve('buildinginfo') !== null){
-      this.buildinginfoobject = this.localSt.retrieve('buildinginfo');
-    }
+    this.locationService.getallLocation();
+    // if(this.localSt.retrieve('buildinginfo') !== undefined || this.localSt.retrieve('buildinginfo') !== null){
+    //   this.buildinginfoobject = this.localSt.retrieve('buildinginfo');
+    // }
   }
 
 
 
-  selected1(index) {
+  selected1() {
     //console.log(this.buildinginfoobject.Location);
-    if (index !== null) {
-      this.locationselected = this.buildinginfoobject.TargetRating;
-    }
-
+    this.localSt.store('targetrating', this.TargetRating);
+    console.log(this.localSt.retrieve('targetrating'));
   }
 
   setdefault() {
+    this.Projectname = '';
+    this.TargetRating = null;
+    this.Location = null;
+    this.CompletedBy = '';
+    this.DrawingSet = '';
+    this.Typology = '';
+    this.FloorArea = null;
+    this.NumofHabitationroom = null;
     this.buildinginfoobject = {
       ProjectName: '',
       CompletedBy: '',
@@ -53,26 +68,27 @@ export class BuildinginfoComponent implements OnInit {
       TargetRating: null,
       Typology: '',
     };
-    //this.buildinginfoobject.TargetRating.ClimateZoneList = [];
   }
 
   onSubmit() {
+    this.buildinginfoobject = {
+      ProjectName: this.Projectname,
+      CompletedBy: this.CompletedBy,
+      DrawingSet: this.DrawingSet,
+      FloorArea: this.FloorArea,
+      Location: this.Location,
+      NumofHabitationroom: this.NumofHabitationroom,
+      TargetRating: this.TargetRating,
+      Typology: this.Typology,
+    };
+
     if (this.buildinginfoobject.ProjectName === null || this.buildinginfoobject.TargetRating === null ||
       this.buildinginfoobject.Location === null) {
       alert("Please Enter Your Project!");
     } else {
-      this.localSt.store('buildinginfo', this.buildinginfoobject);
-      this.router.navigate(['buildingschedule'], { state: { data: this.localSt.retrieve('buildinginfo') } });
+      // this.localSt.store('buildinginfo', this.buildinginfoobject);
+      // this.router.navigate(['buildingschedule'] ,{ state: { data: this.localSt.retrieve('buildinginfo') }});
     }
-
-    // if (form.value.ID === null || form.value.TargetRating === null ||
-    //   form.value.Location === null) {
-    //   alert("Please Enter Your Project!");
-    // } else {
-    //   this.buildinginfoobject = form.value;
-    //   this.localSt.store('buildinginfo', this.buildinginfoobject);
-    //   this.router.navigate(['buildingschedule'], { state: { data: this.localSt.retrieve('buildinginfo') } });
-    // }
 
   }
 

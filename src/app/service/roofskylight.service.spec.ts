@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LoginserviceService } from './loginservice.service';
+import { RoofskylightService } from './roofskylight.service';
 
-describe('LoginserviceService', () => {
+describe('RoofskylightService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: LoginserviceService = TestBed.get(LoginserviceService);
+    const service: RoofskylightService = TestBed.get(RoofskylightService);
     expect(service).toBeTruthy();
   });
 });

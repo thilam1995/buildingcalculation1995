@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
 
-  constructor() { }
+  url: string = "http://localhost:8080/api/location";
+  location = [];
+  constructor(private http: HttpClient) { }
 
   getallLocation(){
-    return [
-      {location: "Cimate zone 1", climatezone: "Climate Zone 1"},
-      {location: "Climate Zone 2", climatezone: "Climate Zone 2"},
-      {location: "Climate Zone 3a", climatezone: "Climate Zone 3a"},
-      {location: "Climate Zone 3b", climatezone: "Climate Zone 3b"}
-    ];
+    this.http.get(this.url).pipe(map((data: Response)=>{
+      return data as any;
+    })).toPromise().then(
+      x =>{
+        this.location = x;
+      }
+    );
   }
 }

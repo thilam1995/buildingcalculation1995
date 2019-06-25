@@ -1,0 +1,12 @@
+<form #projectForm="ngForm" class="loginform" (ngSubmit)="onSubmit(projectForm)">
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <input type="text" placeholder="Project Name" class="form-control" name="projectname" #projectname="ngModel"
+        [(ngModel)]="project.ProjectName" required>
+        <div class="validation-error" *ngIf="projectname.invalid && projectname.touched">Please fill your project name.</div>
+    </div>
+    <div class="form-group col-md-6">
+      <button class="btn btn-primary" [disabled]="projectname.invalid">Create</button>
+    </div>
+  </div>
+</form>

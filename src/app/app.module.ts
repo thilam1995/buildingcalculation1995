@@ -1,7 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatTabsModule, MatStepperModule} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -39,6 +43,12 @@ import { Ehc1heatingenergyComponent } from './components/ehc1heatingenergy/ehc1h
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginserviceService } from './service/loginservice.service';
+import { ProjectformComponent } from './components/projectform/projectform.component';
+import { DesignformComponent } from './components/designform/designform.component';
+import { RegisterComponent } from './components/register/register.component';
+import { PasswordcryptService } from './service/passwordcrypt.service';
+import { HomelayoutComponent } from './components/homelayout/homelayout.component';
+import { ProjectService } from './service/project.service';
 
 @NgModule({
   declarations: [
@@ -66,12 +76,18 @@ import { LoginserviceService } from './service/loginservice.service';
     ProjectComponent,
     Ehc1heatingenergyComponent,
     LoginComponent,
+    ProjectformComponent,
+    DesignformComponent,
+    RegisterComponent,
+    HomelayoutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
+    MatButtonModule,
+    MatDialogModule,
     NgbModule,
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
@@ -81,7 +97,9 @@ import { LoginserviceService } from './service/loginservice.service';
     ToastrModule.forRoot(),
     NgxWebstorageModule.forRoot(),
   ],
-  providers: [LocationService, ClimateService, WalldoorwindowService, AuthGuard, LoginserviceService],
+  providers: [LocationService, ClimateService, 
+    WalldoorwindowService, AuthGuard, LoginserviceService,
+    PasswordcryptService, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

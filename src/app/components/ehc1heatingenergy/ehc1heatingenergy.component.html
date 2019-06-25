@@ -463,7 +463,7 @@
                 <tr>
                   <td>Roof</td>
                   <td>{{totalarearoof | number: '1.0-2'}}</td>
-                  <td>{{totalarearoof1 / totalheatlossroof1 | number: '1.0-2'}}</td>
+                  <td>{{totalarearoof / totalheatlossroof1 | number: '1.0-2'}}</td>
                   <td>{{totalheatlossroof1 | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
@@ -481,8 +481,10 @@
                 <tr>
                   <td>Windows</td>
                   <td>{{totalareawindow | number: '1.0-2'}}</td>
-                  <td>{{totalareawindow / totalheatlosswindow1 | number: '1.0-2'}}</td>
-                  <td>{{totalheatlosswindow1 | number: '1.0-2'}}</td>
+                  <td>{{totalareawindowless30 / totalheatlosswindow1less30 | number: '1.0-2'}}</td>
+                  <td>{{totalareawindowmore30 / totalheatlosswindow1more30 | number: '1.0-2'}}</td>
+                  <td>{{totalheatlosswindow1less30 | number: '1.0-2'}} (OWA < %30)</td>
+                  <td>{{totalheatlosswindow1more30 | number: '1.0-2'}} (OWA > %30)</td>
                 </tr>
                 <tr>
                   <td>Floor</td>
@@ -508,6 +510,14 @@
           </tr>
         </table>
       </div>
+      <table class="table table-sm table-bordered">
+        <tr>
+          <td>Wall Balance Check (Proposed):</td>
+          <td>{{totalareawall + totalareawindow + totalareadoor | number: '1.0-2'}}</td>
+          <td>Wall Balance Check (Schedule Method)</td>
+          <td>{{totalareawall + totalareawindowless30 + totalareawindowmore30 + totalareadoor | number: '1.0-2'}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 

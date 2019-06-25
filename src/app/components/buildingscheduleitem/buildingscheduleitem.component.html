@@ -1,8 +1,11 @@
 <div class="row board">
-    <div class="col-md-6">{{build.ID}}</div>
-    <div class="col-md-2">Rename</div>
+    <div class="col-md-6"><span *ngIf="!isedit">{{project.data.ProjectName}}</span>
+        <input type="text" class="form-control" *ngIf="isedit" name="projectname" #projectname="ngModel" [(ngModel)]="project.data.ProjectName">
+        <button mat-button *ngIf="isedit" (click)="renameedit(project)">Update</button>
+    </div>
+    <div class="col-md-2"><a (click)="isedit = !isedit">{{isedit ? "Cancel" : "Rename"}}</a></div>
     <div class="col-md-2">Send Copy</div>
-    <div class="col-md-2">Delete</div>
+    <div class="col-md-2"><a (click)="deleteproject(project.id)">Delete</a></div>
     <div class="col-md-12">
         <table class="table table-sm table-hover">
             <tr>
@@ -11,11 +14,12 @@
                 <th>Modified Date</th>
             </tr>
             <tr>
-                <td>{{build.CompletedBy}}</td>
-                <td>{{build.DateCreated}}</td>
-                <td>{{build.DateModified}}</td>
+                <td></td>
+                <td>{{project.data.DateCreated}}</td>
+                <td>{{project.data.DateModified}}</td>
             </tr>
         </table>
     </div>
+    <div class="col-md-12"><a mat-button routerLink="../createdesign/{{project.id}}">Create New Design</a></div>
 </div>
 <br>

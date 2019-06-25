@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 export class ClimateService {
 
   climateUrl = 'assets/jsondata/homestar.json';
-  climatelist = [];
+  url: string = "http://localhost:8080/api/targetrating";
+  targetratinglist = [];
   constructor(private http: HttpClient) { 
   }
 
@@ -25,13 +26,13 @@ export class ClimateService {
 
 
   getallclimate(){
-    this.http.get(this.climateUrl).pipe(map((data: Response) =>{
+    this.http.get(this.url).pipe(map((data: Response)=>{
       return data as any;
     })).toPromise().then(
-      x => {
-        this.climatelist = x.HomeStarRating;
-        console.log(this.climatelist);
+      x =>{
+        this.targetratinglist = x;
       }
     );
+
   }
 }

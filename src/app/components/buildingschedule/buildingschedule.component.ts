@@ -75,17 +75,22 @@ export class BuildingscheduleComponent implements OnInit {
       .pipe(map(() => window.history.state.data
       ));
     this.state$.subscribe(x => {
-      if(x !== undefined){
+      if(x !== undefined || x !== null){
         this.localSt.store('buildinginfoobject', x);
         //this.stateobject = this.localSt.retrieve('buildinginfoobject');
+      }else{
+        this.stateobject = this.localSt.retrieve('buildinginfo');
+        if(this.stateobject === null || this.stateobject === undefined){
+          this.router.navigateByUrl('project');
+        }
       }
     });
 
     this.stateobject = this.localSt.retrieve('buildinginfoobject');
     console.log(this.stateobject);
-    if (this.stateobject === undefined || this.stateobject.ID === undefined) {
-      this.router.navigateByUrl('project');
-    }
+    // if (this.stateobject === undefined || this.stateobject.ID === undefined ||this.stateobject === null ) {
+    //   this.router.navigateByUrl('project');
+    // }
 
   }
 
@@ -131,7 +136,7 @@ export class BuildingscheduleComponent implements OnInit {
       Length: null,
       SkylightsName: null,
       Width: null,
-      HeatLoss: null
+
     };
 
     this.roofobject = {
