@@ -5,56 +5,54 @@
                 <th>Width</th>
                 <th>Height</th>
                 <th>Area</th>
+                <th>Action</th>
         </tr>
-        <tr *ngFor="let field of fieldArray; let i = index">
-                <td *ngIf="!field.isEditable">{{field.DoorName}}</td>
-                <td *ngIf="field.isEditable"><input type="text" class="form-control" name="DoorName" #DoorName="ngModel"
-                                [(ngModel)]="doorobject1.DoorName"></td>
-                <td *ngIf="!field.isEditable">{{field.ConstructionRValue}}</td>
-                <td *ngIf="field.isEditable"><input type="text" class="form-control" pattern="[0-9]*"
-                                name="ConstructionRValue" #ConstructionRValue="ngModel"
-                                [(ngModel)]="doorobject1.ConstructionRValue" inputmode="numeric"></td>
-                <td *ngIf="!field.isEditable">{{field.Width | number: '1.0-2'}}</td>
-                <td *ngIf="field.isEditable"><input type="text" class="form-control" name="Width" pattern="[0-9]*"
-                                #Width="ngModel" [(ngModel)]="doorobject1.Width" (keyup)="onKeyWidthEdit($event)"
-                                inputmode="numeric"></td>
-                <td *ngIf="!field.isEditable">{{field.Height | number: '1.0-2'}}</td>
-                <td *ngIf="field.isEditable"><input type="text" class="form-control" name="Height" pattern="[0-9]*"
-                                #Height="ngModel" [(ngModel)]="doorobject1.Height" (keyup)="onKeyHeightEdit($event)"
-                                inputmode="numeric"></td>
-                <td *ngIf="!field.isEditable">{{field.Area | number: '1.0-2'}}</td>
-                <td *ngIf="field.isEditable"><label>Area: <span>{{doorobject1.Area | number: '1.0-2'}}</span></label>
-                </td>
+        <tr *ngFor="let i of doorobjectlist">
+                <td>{{i.data.DoorName}}</td>
+                <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
+                <td>{{i.data.Width | number: '1.0-2'}}</td>
+                <td>{{i.data.Height | number: '1.0-2'}}</td>
+                <td>{{i.data.Area | number: '1.0-2'}}</td>
                 <td>
-                        <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)"
-                                *ngIf="!field.isEditable">Delete</button>
-                        <button class="btn btn-default" type="button" (click)="saveFieldValue(i, field)"
-                                *ngIf="field.isEditable">Save</button>
-                        <button class="btn btn-default" type="button" (click)="editFieldValue(i, field)"
-                                *ngIf="!field.isEditable">Edit</button>
-                        <button class="btn btn-default" type="button" (click)="cancelFieldValue(field)"
-                                *ngIf="field.isEditable">Cancel</button>
+                        <button class="btn btn-default" type="button" (click)="editFieldValue(i)">Edit</button>
+                        <button class="btn btn-default" type="button" (click)="deleteFieldValue(i.id)">Delete</button>
                 </td>
         </tr>
+
 </table>
-<table class="table table-sm table-hover">
-        <tr>
-                <td><input class="form-control" type="text" name="DoorName" #DoorName="ngModel" placeholder="Door Name"
-                                [(ngModel)]="doorobject.DoorName"></td>
-                <td><input class="form-control" type="text" name="ConstructionRValue" #ConstructionRValue="ngModel"
+
+
+
+<form class="buildingform" #doorform="ngForm" (ngSubmit)="onSubmit(doorform)">
+        <input type="hidden" name="id" #id="ngModel" [(ngModel)]="doorobject.ID">
+        <div class="form-row">
+                <div class="form-group col-md-12">
+                        <input class="form-control" type="text" name="doorName" #doorName="ngModel"
+                                placeholder="Door Name" [(ngModel)]="doorobject.DoorName">
+                </div>
+                <div class="form-group col-md-12">
+                        <input class="form-control" type="text" name="constructionRValue" #constructionRValue="ngModel"
                                 placeholder="Construction R-Value" [(ngModel)]="doorobject.ConstructionRValue"
-                                inputmode="numeric"></td>
-                <td><input class="form-control" type="text" pattern="[0-9]*" name="Width" #Width="ngModel"
+                                inputmode="numeric">
+                </div>
+                <div class="form-group col-md-12">
+                        <input class="form-control" type="text" pattern="[0-9]*" name="width" #width="ngModel"
                                 placeholder="Width" [(ngModel)]="doorobject.Width" (keyup)="onKeyWidth($event)"
-                                inputmode="numeric"></td>
-                <td><input class="form-control" type="text" pattern="[0-9]*" name="Height" #Height="ngModel"
+                                inputmode="numeric">
+                </div>
+                <div class="form-group col-md-12">
+                        <input class="form-control" type="text" pattern="[0-9]*" name="height" #height="ngModel"
                                 placeholder="Height" [(ngModel)]="doorobject.Height" (keyup)="onKeyHeight($event)"
-                                inputmode="numeric"></td>
-                <td><label>Area: <span>{{doorobject.Area | number: '1.0-2'}}</span></label></td>
-                <td><button [disabled]="doorobject.DoorName == null ||
-                        doorobject.ConstructionRValue == null ||
-                        doorobject.Width == null ||
-                        doorobject.Height == null ||
-                        doorobject.Area == null" class="btn btn-primary" (click)="addFieldValue()">Validate Door</button></td>
-        </tr>
-</table>
+                                inputmode="numeric">
+                </div>
+                <div class="form-group col-md-12">
+                        <label>Area: <span>{{doorobject.Area | number: '1.0-2'}}</span></label>
+                </div>
+                <div class="form-group col-md-12">
+                        <button [disabled]="doorobject.DoorName == null || doorobject.ConstructionRValue == null 
+                        || doorobject.Width == null || doorobject.Height == null" class="btn btn-primary" type="submit">Complete
+                                Door</button>
+                        <button class="btn btn-primary" type="reset">Reset</button>
+                </div>
+        </div>
+</form>

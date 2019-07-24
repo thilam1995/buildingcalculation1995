@@ -2,6 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Wall } from 'src/app/models/wall';
 import { NgForm } from '@angular/forms';
 import { LocalStorage } from 'ngx-webstorage';
+import { WalldoorwindowService } from 'src/app/service/walldoorwindow.service';
+import { ActivatedRoute } from '@angular/router';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { Register } from 'src/app/models/register';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-wallform',
@@ -11,75 +16,137 @@ import { LocalStorage } from 'ngx-webstorage';
 export class WallformComponent implements OnInit {
 
   @Input() wallobject: Wall;
-  @LocalStorage('wallobjectlist') @Input() wallobjectlist: Wall[];
-  wallobject1: Wall;
-  fieldArray: Array<any> = [];
-  constructor() {
-    this.wallobject1 = {
-      WallName: null,
-      ConstructionRValue: null,
-      Description: null
-    };
+  @Input() wallobjectlist = [];
+
+
+  designid: string = "";
+  projectid: string = "";
+  registeruser: Register;
+  constructor(private wallservice: WalldoorwindowService,
+    public route: ActivatedRoute, private loginservice: LoginserviceService,
+    private toastr: ToastrService) {
+    this.route.queryParams.subscribe(params => {
+      this.projectid = params['projectid'];
+      this.designid = params['designid'];
+    });
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
+    this.setdefault();
+
+
   }
 
   ngOnInit() {
+    this.wallservice.walllistdata(this.designid).subscribe(res => {
+      this.wallobjectlist = res;
+    }, err => {
+      this.toastr.error("Something Wrong!", "Error Message")
+    });
   }
 
-  addFieldValue() {
-    let wallcontain = this.fieldArray.find(x => x.WallName === this.wallobject.WallName);
-    let wallcontain1 = this.wallobjectlist.find(x => x.WallName === this.wallobject.WallName);
-    if (this.wallobject.ConstructionRValue === null || this.wallobject.WallName === "") {
-      alert("Please complete the blank!");
-    } else if(wallcontain || wallcontain1){
-      alert("The Wall name is existed. Please use another name.");
-    }
-    else {
-      if(this.wallobject.Description === ""){
-        this.wallobject.Description = null;
-      }
-      this.fieldArray.push(this.wallobject);
-      this.wallobjectlist.push(this.wallobject);
-      this.wallobject = {
-        WallName: null,
-        ConstructionRValue: null,
-        Description: null,
-      };
-      this.wallobjectlist = this.wallobjectlist;
-    }
-
+  fetchingwalldata(){
+    this.wallservice.walllistdata(this.designid).subscribe(res => {
+      this.wallobjectlist = res;
+    }, err => {
+      this.toastr.error("Something Wrong!", "Error Message")
+    });
   }
 
-  editFieldValue(index: number, field) {
-    field.isEditable = !field.isEditable;
-    this.wallobject1 = this.wallobjectlist[index];
-  }
-
-  saveFieldValue(index: number, field) {
-    field.isEditable = !field.isEditable;
-    this.wallobjectlist[index] = this.wallobject1;
-    this.fieldArray[index] = this.wallobject1;
-    this.wallobject1 = {
+  setdefault() {
+    this.wallobject = {
+      ID: null,
+      WallName: null,
       ConstructionRValue: null,
       Description: null,
-      WallName: null
-    }
-    this.wallobjectlist = this.wallobjectlist;
+      DesignID: null,
+      ProjectID: null,
+      UserID: null
+    };
   }
 
-  cancelFieldValue(field) {
-    field.isEditable = !field.isEditable;
-    this.wallobject1 = {
-      ConstructionRValue: 0,
-      Description: null,
-      WallName: null
+
+  onSubmit(form: NgForm) {
+
+    console.log(form.value);
+    if (form.value.ID === null) {
+      this.wallobject = {
+        WallName: form.value.wallName,
+        ConstructionRValue: Number(form.value.constructionRValue),
+        Description: form.value.description,
+        DesignID: this.designid,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
+      };
+      this.wallservice.wallposting(this.wallobject, this.designid).subscribe(res => {
+        this.toastr.success("Complete Wall Success.", "Successful");
+        this.fetchingwalldata(); //Refresh Component
+        this.fetchingwalldata();
+        this.setdefault();
+      }, err => {
+        this.toastr.error("Complete Wall failed.", "Successful");
+      });
+
+    } else {
+      this.wallobject = {
+        ID: form.value.ID,
+        WallName: form.value.wallName,
+        ConstructionRValue: Number(form.value.constructionRValue),
+        Description: form.value.description,
+        DesignID: this.designid,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
+      };
+      console.log(this.wallobject);
+      this.wallservice.wallput(this.wallobject, this.designid).subscribe(res => {
+        this.toastr.success("Update Wall Successfully", "Info Message!");
+        this.fetchingwalldata(); //Refresh Component
+        this.fetchingwalldata();
+        this.setdefault();
+      }, err => {
+        this.toastr.error("Update Wall failed", "Info Message!");
+      });
     }
+    
+
   }
 
-  deleteFieldValue(index: number) {
-    if (confirm("Are you sure to delete this item?") === true) {
-      this.fieldArray.splice(index, 1);
-      this.wallobjectlist.splice(index, 1);
-      this.wallobjectlist = this.wallobjectlist;
+
+  editFieldValue(wall: any) {
+    console.log(wall);
+    let wall1: Wall = {
+      ID: wall.id,
+      WallName: wall.data.WallName,
+      ConstructionRValue: wall.data.ConstructionRValue,
+      Description: wall.data.Description,
+      DesignID: wall.data.DesignID,
+      ProjectID: wall.data.ProjectID,
+      UserID: wall.data.UserID
+    }
+    this.wallobject = Object.assign({}, wall1);
+  }
+
+
+
+
+  deleteFieldValue(id: string) {
+    if (confirm("Do you want to delete the selected wall?") === true) {
+      console.log(id);
+      this.wallservice.walldelete(id, this.designid).subscribe(
+        res => {
+          this.toastr.success("Delete successfully", "Info Message!");
+          this.fetchingwalldata();
+          this.fetchingwalldata();
+        }, err => {
+          this.toastr.error("Delete failed", "Info Message!");
+        }
+      );
     }
   }
 

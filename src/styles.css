@@ -39,3 +39,9 @@ div.buildingmodel{
 .card .headercard{
     background-color: aqua;
 }
+
+.loginform{
+    background-color: cadetblue;
+    border-radius: 4px;
+    padding: 10px;
+}

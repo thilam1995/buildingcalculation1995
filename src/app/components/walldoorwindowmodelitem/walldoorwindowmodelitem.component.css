@@ -1,0 +1,8 @@
+.bluetablehead{
+    background-color: darkcyan;
+    color: white;
+}
+
+table tr th{
+    text-align: center;
+}

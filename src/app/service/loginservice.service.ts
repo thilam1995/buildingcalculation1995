@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Register } from '../models/register';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from "@angular/common/http";
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 import { PasswordcryptService } from './passwordcrypt.service';
 import { LocalStorageService } from 'ngx-webstorage';
 
@@ -34,7 +34,35 @@ export class LoginserviceService {
 
   public get currentUserValue(): Register {
     return this.currentUserSubject.value;
-}
+  }
+
+  requestresetpassword(email: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify({
+      Email: email
+    });
+    return this.http.post(this.url + "/forgotpass", body, httpOptions).pipe(retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  updatepassword(password: string, id: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify({
+      Password: password
+    });
+    return this.http.put<Register>(this.url + "/" + `${id}`, body, httpOptions).pipe(retry(3),
+      catchError(this.handleError)
+    );
+  }
 
   register(register: Register) {
     const httpOptions = {
@@ -43,16 +71,13 @@ export class LoginserviceService {
       })
     };
     let body = JSON.stringify(register);
-    return this.http.post<Register>(this.url, body, httpOptions).pipe(
+    return this.http.post<Register>(this.url, body, httpOptions).pipe(retry(3),
       catchError(this.handleError)
     );
   }
 
   login(login: Login) {
-    // if (login.Email === "admin" && login.Password === "admin1234") {
-    //   this.loggedIn.next(true);
-    //   this.router.navigate(['/home']);
-    // }
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -61,39 +86,7 @@ export class LoginserviceService {
     let body = JSON.stringify({
       Email: login.Email
     });
-    // return this.http.post<any>(this.url1, body, httpOptions).pipe(
-    //   map((data: Response) => {
-    //     return data as any
-    //   })
-    // ).toPromise().then(
-    //   x => {
-    //     console.log(x);
-    //     if (x.length === 0) {
-    //       console.log("No account available");
-    //     } else if (x.length > 0) {
-    //       if (x[0].data.Password !== null) {
-    //         if (this.passworddecrypt.get('123456$#@$^@1ERF', x[0].data.Password) === login.Password) {
-    //           this.registermember = {
-    //             ID: x[0].id,
-    //             FirstName: x[0].data.FirstName,
-    //             LastName: x[0].data.LastName,
-    //             Email: x[0].data.Email,
-    //             Password: x[0].data.Password
-    //           }
-    //           this.incorrectpassword = false;
-    //           //this.loggedIn.next(true);
-    //           //this.localSt.store("loginstore", this.registermember);
-    //           localStorage.setItem('currentUser', JSON.stringify(this.registermember));
-    //           this.router.navigate(['/home', this.registermember.ID]);
 
-    //         } else {
-    //           this.incorrectpassword = true;
-    //           console.log('Incorrect Password!')
-    //         }
-    //       }
-    //     }
-    //   }
-    // );
     return this.http.post<any>(this.url1, body, httpOptions);
 
   }
@@ -102,6 +95,7 @@ export class LoginserviceService {
     //this.loggedIn.next(false);
     localStorage.removeItem('currentUser');
     localStorage.removeItem('login');
+    this.registermember = null;
     this.router.navigate(['/login']);
   }
 

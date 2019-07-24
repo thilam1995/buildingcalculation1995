@@ -1,45 +1,45 @@
 <div class="row">
   <div class="col-md-12">
-    <button class="btn btn-primary" routerLink="/buildingschedule">Return to Schedule</button>
+    <button class="btn btn-primary" (click)="returntoSchedule()">Return to Schedule</button>
     <h1>Building Info</h1>
     <table class="table table-sm table-bordered">
       <tr>
         <td>Project ID</td>
-        <td>{{statedata.project.ProjectName}}</td>
+        <td *ngIf="designobject">{{designobject.ProjectID}}</td>
       </tr>
       <tr>
         <td>Targeting</td>
-        <td>{{statedata.project.TargetRating.HomeStar}}</td>
+        <td *ngIf="designobject">{{targeting}}</td>
       </tr>
       <tr>
         <td>Completed By (Name)</td>
-        <td>{{statedata.project.CompletedBy}}</td>
+        <td *ngIf="designobject">{{designobject.CompletedBy}}</td>
       </tr>
       <tr>
         <td>Drawing Set</td>
-        <td>{{statedata.project.DrawingSet}}</td>
+        <td *ngIf="designobject">{{designobject.DrawingSet}}</td>
       </tr>
     </table>
 
     <table class="table table-sm table-bordered">
       <tr>
         <td>Typology / Dwelling</td>
-        <td>{{statedata.project.Typology}}</td>
+        <td *ngIf="designobject">{{designobject.Typology}}</td>
       </tr>
       <tr>
         <td>Floor Area (ICA)</td>
-        <td>{{statedata.project.FloorArea}}</td>
+        <td *ngIf="designobject">{{designobject.FloorArea}}</td>
       </tr>
       <tr>
         <td>Location</td>
-        <td>{{statedata.project.ClimateZone}}</td>
+        <td *ngIf="designobject">{{location}}</td>
       </tr>
     </table>
 
     <table class="table table-sm table-bordered">
       <tr>
         <td>Climate Zone</td>
-        <td>{{statedata.project.ClimateZone}}</td>
+        <td>{{climatezone}}</td>
       </tr>
     </table>
 
@@ -255,7 +255,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6 door">
+      <!-- <div class="col-md-6 door">
         <h1 style="text-align: center">Door (Proposed)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -297,7 +297,7 @@
             </td>
           </tr>
         </table>
-      </div>
+      </div> -->
 
       <div class="col-md-12">
 
@@ -330,7 +330,7 @@
         <h1 style="text-align: center">Building Reference</h1>
         <table class="table table-sm table-bordered">
           <tr>
-            <td>{{statedata.project.TargetRating.HomeStar}}</td>
+            <td>{{targeting}}</td>
             <td>Schedule Method Minimum R-value Requirements (including thermal bridging)</td>
           </tr>
           <tr>
@@ -338,7 +338,7 @@
             <th>
               <table class="table table-sm table-bordered">
                 <tr>
-                  <th *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ClimateZone}}</th>
+                  <th *ngFor="let i of schedulemethod">{{i.climatezone}}</th>
                 </tr>
               </table>
             </th>
@@ -348,7 +348,7 @@
             <th>
               <table class="table table-sm table-bordered">
                 <tr>
-                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ConstructionRValue.Roof}}
+                  <td *ngFor="let i of schedulemethod">{{i.constructionrvalue.Roof}}
                   </td>
                 </tr>
               </table>
@@ -359,7 +359,7 @@
             <th>
               <table class="table table-sm table-bordered">
                 <tr>
-                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ConstructionRValue.Wall}}
+                  <td *ngFor="let i of schedulemethod">{{i.constructionrvalue.Wall}}
                   </td>
                 </tr>
               </table>
@@ -370,7 +370,7 @@
             <th>
               <table class="table table-sm table-bordered">
                 <tr>
-                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ConstructionRValue.Window}}
+                  <td *ngFor="let i of schedulemethod">{{i.constructionrvalue.Window}}
                   </td>
                 </tr>
               </table>
@@ -381,7 +381,7 @@
             <th>
               <table class="table table-sm table-bordered">
                 <tr>
-                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">{{i.ConstructionRValue.Floor}}
+                  <td *ngFor="let i of schedulemethod">{{i.constructionrvalue.Floor}}
                   </td>
                 </tr>
               </table>
@@ -392,8 +392,8 @@
             <th>
               <table class="table table-sm table-bordered">
                 <tr>
-                  <td *ngFor="let i of statedata.project.TargetRating.ClimateZoneList">
-                    {{i.ConstructionRValue.Skylights}}
+                  <td *ngFor="let i of schedulemethod">
+                    {{i.constructionrvalue.Skylight}}
                   </td>
                 </tr>
               </table>
@@ -521,5 +521,4 @@
     </div>
   </div>
 
-  <pre>{{ state$ | async | json }}</pre>
 </div>

@@ -6,6 +6,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClimateService } from 'src/app/service/climate.service';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { Register } from 'src/app/models/register';
+import { Design } from 'src/app/models/design';
+import { DesignService } from 'src/app/service/design.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-buildinginfo',
@@ -14,82 +18,92 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 })
 export class BuildinginfoComponent implements OnInit {
 
-  buildinginfoobject: Buildinginfo = null;
-
-  Projectname: string = '';
-  TargetRating: any = null;
-  Location: any = null;
-  CompletedBy: string = '';
-  DrawingSet: string = '';
-  Typology: string = '';
-  FloorArea: number = null;
-  NumofHabitationroom: number = null;
-
-  locationselected: any;
+  //buildinginfoobject: Buildinginfo = null;
+  design: Design;
+  designid: string = "";
+  registeruser: Register;
+  projectid: string = "";
 
   constructor(private locationService: LocationService,
     private router: Router, private climateservice: ClimateService,
-    private route: ActivatedRoute, private loginservice: LoginserviceService, private localSt: LocalStorageService ) {
+    private route: ActivatedRoute, private loginservice: LoginserviceService, private localSt: LocalStorageService,
+    private designservice: DesignService, private toastr: ToastrService) {
+    this.setDefault();
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
   }
 
   ngOnInit() {
     this.setdefault();
     this.climateservice.getallclimate();
     this.locationService.getallLocation();
-    // if(this.localSt.retrieve('buildinginfo') !== undefined || this.localSt.retrieve('buildinginfo') !== null){
-    //   this.buildinginfoobject = this.localSt.retrieve('buildinginfo');
-    // }
+    this.projectid = this.route.snapshot.paramMap.get("projectid");
   }
 
 
 
   selected1() {
     //console.log(this.buildinginfoobject.Location);
-    this.localSt.store('targetrating', this.TargetRating);
+    this.localSt.store('targetrating', this.design.TargetRating);
     console.log(this.localSt.retrieve('targetrating'));
   }
 
   setdefault() {
-    this.Projectname = '';
-    this.TargetRating = null;
-    this.Location = null;
-    this.CompletedBy = '';
-    this.DrawingSet = '';
-    this.Typology = '';
-    this.FloorArea = null;
-    this.NumofHabitationroom = null;
-    this.buildinginfoobject = {
-      ProjectName: '',
-      CompletedBy: '',
-      DrawingSet: '',
-      FloorArea: null,
-      Location: null,
-      NumofHabitationroom: null,
+    this.design = {
+      DesignName: "",
       TargetRating: null,
-      Typology: '',
+      Location: null,
+      CompletedBy: "",
+      DrawingSet: "",
+      FloorArea: null,
+      NumofHabitationroom: null,
+      Typology: "",
     };
   }
 
-  onSubmit() {
-    this.buildinginfoobject = {
-      ProjectName: this.Projectname,
-      CompletedBy: this.CompletedBy,
-      DrawingSet: this.DrawingSet,
-      FloorArea: this.FloorArea,
-      Location: this.Location,
-      NumofHabitationroom: this.NumofHabitationroom,
-      TargetRating: this.TargetRating,
-      Typology: this.Typology,
-    };
+  onSubmit(form: NgForm) {
 
-    if (this.buildinginfoobject.ProjectName === null || this.buildinginfoobject.TargetRating === null ||
-      this.buildinginfoobject.Location === null) {
-      alert("Please Enter Your Project!");
-    } else {
-      // this.localSt.store('buildinginfo', this.buildinginfoobject);
-      // this.router.navigate(['buildingschedule'] ,{ state: { data: this.localSt.retrieve('buildinginfo') }});
+    this.design = {
+      DesignName: form.value.designname,
+      TargetRating: form.value.targetrating,
+      Location: form.value.location,
+      CompletedBy: form.value.completedby,
+      DrawingSet: form.value.drawingset,
+      FloorArea: Number(form.value.floorarea),
+      NumofHabitationroom: Number(form.value.numofHabitationroom),
+      Typology: form.value.typology,
+      ProjectID: this.projectid,
+      UserID: this.registeruser.ID
     }
-
+    console.log(this.design);
+    this.designservice.designPosting(this.design).subscribe(x => {
+      this.toastr.success("New Design Added!", "Design Message");
+      // this.designservice.getlastdesignid(this.projectid, this.registeruser.ID).subscribe(res => {
+      //   console.log(res);
+      //   this.designid = res[res.length - 1].id;
+      //   this.router.navigateByUrl("/main/" + `${this.registeruser.ID}` + "/buildingschedule", { queryParams: { projectid: this.projectid, designid: this.designid } });
+      // });
+      this.router.navigateByUrl("/main/" + `${this.registeruser.ID}` + "/project");
+    }, err => {
+      this.toastr.error("Something wrong!", "Design Message");
+    });
   }
 
+
+  setDefault(){
+    this.loginservice.registermember = {
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: ""
+    };
+  }
 }

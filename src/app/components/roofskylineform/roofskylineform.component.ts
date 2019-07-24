@@ -2,6 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Skylights } from 'src/app/models/skylights';
 import { Roof } from 'src/app/models/roof';
 import { LocalStorage } from 'ngx-webstorage';
+import { Register } from 'src/app/models/register';
+import { ActivatedRoute } from '@angular/router';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
+import { RoofskylightService } from 'src/app/service/roofskylight.service';
 
 @Component({
   selector: 'app-roofskylineform',
@@ -12,136 +18,221 @@ export class RoofskylineformComponent implements OnInit {
 
   @Input() skylightsobject: Skylights;
   @Input() roofobject: Roof;
-  roofobject1: Roof;
-  skylightsobject1: Skylights;
 
-  @LocalStorage('skylightsobjectlist') @Input() skylightsobjectlist: Skylights[];
-  @LocalStorage('roofobjectlist') @Input() roofobjectlist: Roof[];
+  @Input() skylightsobjectlist = [];
+  @Input() roofobjectlist = [];
+  designid: string = "";
+  projectid: string = "";
+  registeruser: Register;
 
-  fieldArrayroof: Array<any> = [];
-  fieldArrayskylight: Array<any> = [];
-
-  constructor() { }
+  constructor(private roofskylightservice: RoofskylightService, public route: ActivatedRoute, private loginservice: LoginserviceService,
+    private toastr: ToastrService) {
+    this.route.queryParams.subscribe(params => {
+      this.projectid = params['projectid'];
+      this.designid = params['designid'];
+    });
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
+    this.setDefaultRoof();
+    this.setDefaultSkylight();
+  }
 
   ngOnInit() {
+    this.fetchingroof();
+    this.fetchingskylight();
   }
 
-  editFieldValueRoof(index: number, field) {
-    field.isEditable = !field.isEditable;
-    this.roofobject1 = this.roofobjectlist[index];
+  fetchingroof(){
+    this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
+      this.roofobjectlist = res;
+    }, err => {
+      this.toastr.error("Something Wrong", "Error Message!");
+    });
   }
 
-  saveFieldValueRoof(index: number, field) {
-    this.fieldArrayroof[index] = this.roofobject1;
-    this.roofobjectlist[index] = this.roofobject1;
-    field.isEditable = !field.isEditable;
-    this.roofobject1 = {
+  fetchingskylight(){
+    this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
+      this.skylightsobjectlist = res;
+    }, err => {
+      this.toastr.error("Something Wrong", "Error Message!");
+    });
+  }
+
+  setDefaultRoof() {
+    this.roofobject = {
       Description: null,
       ConstructionRValue: null,
-      RoofName: null
+      RoofName: null,
+      DesignID: null,
+      ID: null,
+      ProjectID: null,
+      UserID: null
     };
-    this.roofobjectlist = this.roofobjectlist;
   }
 
-  cancelFieldValueRoof(field) {
-    field.isEditable = !field.isEditable;
-    this.roofobject1 = {
-      Description: null,
+  setDefaultSkylight() {
+    this.skylightsobject = {
+      Area: null,
       ConstructionRValue: null,
-      RoofName: null
+      Length: null,
+      SkylightsName: null,
+      Width: null,
+      DesignID: null,
+      ID: null,
+      ProjectID: null,
+      UserID: null
     };
   }
 
-  deleteFieldValueRoof(index: number) {
-    if (confirm("Are you sure to delete this item?") === true) {
-      this.roofobjectlist.splice(index, 1);
-      this.fieldArrayroof.splice(index, 1);
-      this.roofobjectlist = this.roofobjectlist;
-    }
-  }
-
-  addFieldValueRoof() {
-    let roofcontain = this.fieldArrayroof.find(x => x.RoofName === this.roofobject.RoofName);
-    let roofcontain1 = this.roofobjectlist.find(x => x.RoofName === this.roofobject.RoofName);
-    if (this.roofobject.RoofName === null || this.roofobject.ConstructionRValue === null) {
-      alert("Please add roof by complete filling all details");
-    } else if(roofcontain || roofcontain1){
-      alert("The roof name is existed. Please use another name.");
-    }
-    else {
-      this.roofobjectlist.push(this.roofobject);
-      this.fieldArrayroof.push(this.roofobject);
+  onSubmitRoof(form: NgForm) {
+    if (form.value.id === null) {
       this.roofobject = {
-        Description: null,
-        ConstructionRValue: null,
-        RoofName: null
+        Description: form.value.description,
+        ConstructionRValue: form.value.constructionrvalue,
+        RoofName: form.value.roofname,
+        DesignID: this.designid,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
       };
-      this.roofobjectlist = this.roofobjectlist;
-    }
-
-  }
-
-  editFieldValueSkylight(index: number, field) {
-    field.isEditable = !field.isEditable;
-  }
-
-  saveFieldValueSkylight(index: number, field) {
-    this.fieldArrayskylight[index] = this.skylightsobject1;
-    this.skylightsobjectlist[index] = this.skylightsobject1;
-    this.skylightsobject1 = {
-      Area: 0,
-      ConstructionRValue: null,
-      Length: null,
-      SkylightsName: null,
-      Width: null,
-    };
-    this.skylightsobjectlist = this.skylightsobjectlist;
-  }
-
-  cancelFieldValueSkylight(field) {
-    field.isEditable = !field.isEditable;
-    this.skylightsobject1 = {
-      Area: 0,
-      ConstructionRValue: null,
-      Length: null,
-      SkylightsName: null,
-      Width: null,
-    };
-  }
-
-  deleteFieldValueSkylight(index: number) {
-    if (confirm("Are you sure to delete this item?") === true) {
-      this.fieldArrayskylight.splice(index, 1);
-      this.skylightsobjectlist.splice(index, 1);
-      this.skylightsobjectlist = this.skylightsobjectlist;
+      this.roofskylightservice.addroof(this.roofobject).subscribe(res => {
+        this.toastr.success("Added roof!", "Error Message!");
+        this.fetchingroof();
+        this.fetchingroof();
+        this.setDefaultRoof();
+      }, err => {
+        this.toastr.error("Something wrong!", "Error Message!");
+      });
+    } else {
+      this.roofobject = {
+        ID: form.value.id,
+        Description: form.value.description,
+        ConstructionRValue: form.value.constructionrvalue,
+        RoofName: form.value.roofname,
+        DesignID: this.designid,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
+      };
+      this.roofskylightservice.updateroof(this.roofobject).subscribe(res => {
+        this.toastr.success("Updated skylight!", "Error Message!");
+        this.fetchingroof();
+        this.fetchingroof();
+        this.setDefaultRoof();
+      }, err => {
+        this.toastr.error("Something wrong!", "Error Message!");
+      });
     }
   }
 
-  addFieldValueSkylight() {
-    let skylightcontain = this.fieldArrayskylight.find(x => x.SkylightsName === this.skylightsobject.SkylightsName);
-    let skylightcontain1 = this.skylightsobjectlist.find(x => x.SkylightsName === this.skylightsobject.SkylightsName);
-    if (this.skylightsobject.SkylightsName === "" || this.skylightsobject.ConstructionRValue === null
-      || this.skylightsobject.Length === null || this.skylightsobject.Width === null) {
-      alert("Please complete detail of Skylight!")
-    } else if (this.skylightsobject.Length < 0 || this.skylightsobject.Width < 0 || this.skylightsobject.Area < 0) {
-      alert("The Width, Height and Area should not be negative.")
-    } else if(skylightcontain || skylightcontain1){
-      alert("The floor name is existed. Please use another name.");
-    }
-    else {
-      this.fieldArrayskylight.push(this.skylightsobject);
-      this.skylightsobjectlist.push(this.skylightsobject);
+  onSubmitSkylight(form: NgForm) {
+    if (form.value.id === null) {
       this.skylightsobject = {
-        Area: 0,
-        ConstructionRValue: null,
-        Length: null,
-        SkylightsName: null,
-        Width: null,
+        Area: this.skylightsobject.Area,
+        ConstructionRValue: form.value.constructionrvalue,
+        Length: form.value.length,
+        SkylightsName: form.value.skylightname,
+        Width: form.value.width,
+        DesignID: this.designid,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
       };
-      this.skylightsobjectlist = this.skylightsobjectlist;
+      this.roofskylightservice.addskylight(this.skylightsobject).subscribe(res => {
+        this.toastr.success("Add skylight!", "Error Message!");
+        this.fetchingskylight();
+        this.fetchingskylight();
+        this.setDefaultSkylight();
+      }, err => {
+        this.toastr.error("Something wrong!", "Error Message!");
+      });
+    } else {
+      this.skylightsobject = {
+        Area: this.skylightsobject.Area,
+        ConstructionRValue: form.value.constructionrvalue,
+        Length: form.value.length,
+        SkylightsName: form.value.skylightname,
+        Width: form.value.width,
+        DesignID: this.designid,
+        ID: form.value.id,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
+      };
+      this.roofskylightservice.updateskylight(this.skylightsobject, this.designid).subscribe(res => {
+        this.toastr.success("Add skylight!", "Error Message!");
+        this.fetchingskylight();
+        this.fetchingskylight();
+        this.setDefaultSkylight();
+      }, err => {
+        this.toastr.error("Something wrong!", "Error Message!");
+      })
     }
-
   }
+
+  editFieldValueRoof(roof: any) {
+    let roof1: Roof = {
+      ID: roof.id,
+      RoofName: roof.data.RoofName,
+      ConstructionRValue: roof.data.ConstructionRValue,
+      Description: roof.data.Description,
+      DesignID: roof.data.DesignID,
+      ProjectID: roof.data.ProjectID,
+      UserID: roof.data.UserID
+    };
+    this.roofobject = Object.assign({}, roof1);
+  }
+
+  deleteFieldValueRoof(id: string) {
+    if (confirm("Are you sure to delete this item?") === true) {
+      this.roofskylightservice.deleteroof(id).subscribe(
+        res => {
+          this.toastr.success("Deleted roof!", "Info Message!");
+          this.fetchingroof();
+          this.fetchingroof();
+        }, err => {
+          this.toastr.error("Something wrong!", "Error Message!");
+        }
+      );
+    }
+  }
+
+
+
+  editFieldValueSkylight(skylight: any) {
+    let skylight1: Skylights = {
+      ID: skylight.id,
+      SkylightsName: skylight.data.SkylightsName,
+      ConstructionRValue: skylight.data.ConstructionRValue,
+      Length: skylight.data.Length,
+      Width: skylight.data.Width,
+      Area: skylight.data.Area,
+      DesignID: skylight.data.DesignID,
+      ProjectID: skylight.data.ProjectID,
+      UserID: skylight.data.UserID
+    };
+    this.skylightsobject = Object.assign({}, skylight1);
+  }
+
+
+
+  deleteFieldValueSkylight(id: string) {
+    if (confirm("Are you sure to delete this item?") === true) {
+      this.roofskylightservice.deleteskylight(id).subscribe(
+        res => {
+          this.toastr.success("Deleted skylight!", "Error Message!");
+          this.fetchingskylight();
+          this.fetchingskylight();
+        }, err => {
+          this.toastr.error("Something wrong!", "Error Message!");
+        }
+      );
+    }
+  }
+
 
   onKeyLengthSkylight(event) {
     if (event.target.value === "") {
@@ -161,21 +252,5 @@ export class RoofskylineformComponent implements OnInit {
     }
   }
 
-  onKeyLengthSkylightedit(event) {
-    if (event.target.value === "") {
-      this.skylightsobject1.Area = 0;
-    } else {
-      this.skylightsobject1.Length = event.target.value;
-      this.skylightsobject1.Area = this.skylightsobject1.Length * this.skylightsobject1.Width;
-    }
-  }
 
-  onKeyWidthSkylightedit(event) {
-    if (event.target.value === "") {
-      this.skylightsobject1.Area = 0;
-    } else {
-      this.skylightsobject1.Length = event.target.value;
-      this.skylightsobject1.Area = this.skylightsobject1.Length * this.skylightsobject1.Width;
-    }
-  }
 }

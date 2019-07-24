@@ -1,0 +1,45 @@
+<div class="col-md-12 card">
+  <div class="col-md-12">
+    <table class="table table-sm bluetablehead">
+      <tr>
+        <th>Section: {{i.data.Floor.FloorSection}}</th>
+        <th>Floor Name: {{i.data.Floor.FloorName}}</th>
+        <th>Exposed Area: {{i.data.Floor.ExposedArea | number: '1.0-2'}}</th>
+        <th *ngIf="!isedit"><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></th>
+        <th *ngIf="!isedit"><button class="btn btn-primary" (click)="selecttoEdit(i)">Edit</button>
+        <th *ngIf="isedit">
+          <button class="btn btn-primary" (click)="onCancel()">Cancel</button>
+          <button class="btn btn-primary" (click)="onSave(i)">Save</button>
+          <button class="btn btn-primary" (click)="onDelete(i.id)">Delete</button>
+        </th>
+      </tr>
+    </table>
+    <div class="col-md-12">
+      <div *ngIf="isdisplay">
+        <app-heatlossfloor [i]="i"></app-heatlossfloor>
+      </div>
+      <div class="col-md-12" *ngIf="isedit">
+        <table class="table table-sm table-hover">
+          <tr>
+            <td>
+              <input type="text" class="form-control" name="floorsection" #floorsection="ngModel"
+                placeholder="Floor Section" [(ngModel)]="floorextendobject.FloorSection">
+            </td>
+            <td>
+              <span>Construction
+                <select class="form-control" [(ngModel)]="floorobject">
+                  <option *ngFor="let i of floorobjectlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
+                </select>
+              </span>
+            </td>
+            <td>
+              <input type="text" class="form-control" name="exposedarea" #exposedarea="ngModel"
+                placeholder="Exposed Area" [(ngModel)]="floorextendobject.ExposedArea">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { Roof } from 'src/app/models/roof';
 })
 export class HeatlossroofskylightComponent implements OnInit {
 
-  @Input() roofskylighti:any;
+  @Input() i:any;
   grossroofarea = 0;
   grossskylightarea = 0;
   netroofarea = 0;
@@ -19,23 +19,20 @@ export class HeatlossroofskylightComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.roofskylighti);
+    console.log(this.i);
     this.calculate();
   }
 
   calculate(){
-    this.grossroofarea = Number.parseFloat(this.roofskylighti.roof.ExposedArea);
-    for(let i of this.roofskylighti.skylight){
+    this.grossroofarea = Number.parseFloat(this.i.data.Roof.ExposedArea);
+    for(let i of this.i.data.Skylight){
       this.grossskylightarea += Number.parseFloat(i.Area);
     }
     this.netroofarea = this.grossroofarea - this.grossskylightarea;
-    this.roofconstructionr = Number.parseFloat(this.roofskylighti.roof.ConstructionRValue);
+    this.roofconstructionr = Number.parseFloat(this.i.data.Roof.ConstructionRValue);
     this.roofheatloss = this.netroofarea / this.roofconstructionr;
-    for(let i of this.roofskylighti.skylight){
-      i.HeatLoss = Number.parseFloat(i.Area) / Number.parseFloat(i.ConstructionRValue);
-    }
-    for(let i of this.roofskylighti.skylight){
-      this.skylightheatloss += i.HeatLoss;
+    for(let i of this.i.data.Skylight){
+      this.skylightheatloss += Number.parseFloat(i.Area) / Number.parseFloat(i.ConstructionRValue);
     }
   }
 

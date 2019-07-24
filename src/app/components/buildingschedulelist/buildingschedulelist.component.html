@@ -1,1 +1,4 @@
+<div class="col-md-12" style="text-align: center" *ngIf="projectservice.projectList.length == 0">
+    No Project Created!
+</div>
 <app-buildingscheduleitem *ngFor="let project of projectservice.projectList" [project]="project"></app-buildingscheduleitem>

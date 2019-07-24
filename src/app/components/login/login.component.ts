@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { PasswordcryptService } from 'src/app/service/passwordcrypt.service';
 import { ToastrService } from 'ngx-toastr';
+import { retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
         this.return = this.route.snapshot.queryParams['returnUrl'] || '/';
       }
     });
+    this.setdefault();
   }
 
   onSubmit(form: NgForm){
@@ -34,17 +36,22 @@ export class LoginComponent implements OnInit {
       this.loginservice.login(form.value).subscribe(res =>{
         //console.log(res);
         if(form.value.Password === this.passworddecrypt.get('123456$#@$^@1ERF', res.data.Password)){
-          this.loginservice.registermember = {
-            ID: res.id,
-            FirstName: res.data.FirstName,
-            LastName: res.data.LastName,
-            Email: res.data.Email,
-            Password: res.data.Password
-          }
-          console.log(this.loginservice.registermember);
-          localStorage.setItem('currentUser', JSON.stringify(this.loginservice.registermember));
-          localStorage.setItem('login', JSON.stringify(true));
-          this.router.navigate([`${this.loginservice.registermember.ID}`]);
+          setTimeout(() => {
+            if (this.loginservice.registermember.ID === null || this.loginservice.registermember.ID === undefined ||
+              this.loginservice.registermember.ID === ""){
+              this.loginservice.registermember = {
+                ID: res.id,
+                FirstName: res.data.FirstName,
+                LastName: res.data.LastName,
+                Email: res.data.Email,
+                Password: res.data.Password
+              };  
+            }
+            //console.log(this.loginservice.registermember);
+            localStorage.setItem('currentUser', JSON.stringify(this.loginservice.registermember));
+            localStorage.setItem('login', JSON.stringify(true));
+            this.router.navigateByUrl("/main/"+`${this.loginservice.registermember.ID}`);
+          }, 4000);
         }else{
           this.toastr.error("Incorrect Password", "Login Message");
         }
@@ -60,4 +67,15 @@ export class LoginComponent implements OnInit {
       Password: ""
     }
   }
+
+  setdefault(){
+    this.loginservice.registermember = {
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: ""
+    };
+  }
+
 }

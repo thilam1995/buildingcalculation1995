@@ -58,13 +58,16 @@ export class ProjectService {
   }
 
   projectfetching(id?: string){
+    
     this.http.get(this.url+"/"+`${id}`).pipe(map((data: Response)=>{
       return data as any;
     })).toPromise().then(
       x =>{
         this.projectList = x;
       }
-    );
+    ).catch(e =>{
+      catchError(this.handleError);
+    });
   }
 
   private handleError(error: HttpErrorResponse) {

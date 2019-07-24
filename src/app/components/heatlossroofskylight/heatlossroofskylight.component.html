@@ -25,13 +25,13 @@
                 <th>#</th>
                 <th>Skylight Heat Loss</th>
             </tr>
-            <tr *ngFor="let iskylight of roofskylighti.skylight">
+            <tr *ngFor="let iskylight of i.data.Skylight">
                 <td>#</td>
                 <td>{{iskylight.Area | number: '1.0-2'}}</td>
                 <td>#</td>
                 <td>{{iskylight.ConstructionRValue | number: '1.0-2'}}</td>
                 <td>#</td>
-                <td>{{iskylight.HeatLoss | number: '1.0-2'}}</td>
+                <td>{{iskylight.Area / iskylight.ConstructionRValue | number: '1.0-2'}}</td>
             </tr>
         </table>
     </div>

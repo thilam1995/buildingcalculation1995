@@ -44,11 +44,18 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginserviceService } from './service/loginservice.service';
 import { ProjectformComponent } from './components/projectform/projectform.component';
-import { DesignformComponent } from './components/designform/designform.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PasswordcryptService } from './service/passwordcrypt.service';
 import { HomelayoutComponent } from './components/homelayout/homelayout.component';
 import { ProjectService } from './service/project.service';
+import { DesignService } from './service/design.service';
+import { FloorService } from './service/floor.service';
+import { RoofskylightService } from './service/roofskylight.service';
+import { BuildingmodelService } from './service/buildingmodel.service';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { WalldoorwindowmodelitemComponent } from './components/walldoorwindowmodelitem/walldoorwindowmodelitem.component';
+import { RoofskylightmodelitemComponent } from './components/roofskylightmodelitem/roofskylightmodelitem.component';
+import { FloormodelitemComponent } from './components/floormodelitem/floormodelitem.component';
 
 @NgModule({
   declarations: [
@@ -77,9 +84,12 @@ import { ProjectService } from './service/project.service';
     Ehc1heatingenergyComponent,
     LoginComponent,
     ProjectformComponent,
-    DesignformComponent,
     RegisterComponent,
     HomelayoutComponent,
+    ForgotpasswordComponent,
+    WalldoorwindowmodelitemComponent,
+    RoofskylightmodelitemComponent,
+    FloormodelitemComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +109,8 @@ import { ProjectService } from './service/project.service';
   ],
   providers: [LocationService, ClimateService, 
     WalldoorwindowService, AuthGuard, LoginserviceService,
-    PasswordcryptService, ProjectService],
+    PasswordcryptService, ProjectService, DesignService, FloorService
+    , WalldoorwindowService, RoofskylightService, BuildingmodelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

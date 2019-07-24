@@ -1,6 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Floors } from 'src/app/models/floors';
 import { LocalStorage } from 'ngx-webstorage';
+import { Register } from 'src/app/models/register';
+import { ActivatedRoute } from '@angular/router';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { FloorService } from 'src/app/service/floor.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-floorsform',
@@ -10,69 +16,130 @@ import { LocalStorage } from 'ngx-webstorage';
 export class FloorsformComponent implements OnInit {
 
   @Input() floorobject: Floors;
-  floorobject1: Floors;
 
-  @LocalStorage('floorobjectlist') @Input() floorobjectlist: Floors[];
-  fieldArrayfloor: Array<any> = [];
-  constructor() { }
+  @Input() floorobjectlist = [];
+
+  designid: string = "";
+  projectid: string = "";
+  registeruser: Register;
+
+  constructor(public route: ActivatedRoute, private loginservice: LoginserviceService,
+    private toastr: ToastrService, private floorservice: FloorService) {
+      this.route.queryParams.subscribe(params => {
+        this.projectid = params['projectid'];
+        this.designid = params['designid'];
+      });
+      this.setdefault();
+      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
+      this.setDefault();
+  }
+
+  setDefault(){
+    this.floorobject = {
+      ID: null,
+      ConstructionRValue: null,
+      Description: null,
+      DesignID: null,
+      FloorName: null,
+      ProjectID: null,
+      UserID: null
+    };
+  }
 
   ngOnInit() {
+    this.fetchingfloordata();
   }
 
-  addFieldValue() {
-    let doorcontain = this.fieldArrayfloor.find(x => x.FloorName === this.floorobject.FloorName);
-    if (this.floorobject.FloorName === null || this.floorobject.ConstructionRValue === null) {
-      alert("Please Enter Name and R Value of Wall!");
-    } else if(doorcontain){
-      alert("The floor name is existed. Please use another name.");
-    }
-    else {
-      this.floorobjectlist.push(this.floorobject);
-      this.fieldArrayfloor.push(this.floorobject);
+  fetchingfloordata(){
+    this.floorservice.floorlistdata(this.designid).subscribe(res => {
+      this.floorobjectlist = res;
+    }, err => {
+      this.toastr.error("Error! Something Wrong.", "Error Message")
+    });
+  }
+
+  onSubmit(form: NgForm) {
+    if(form.value.id === null){
       this.floorobject = {
-        FloorName: null,
-        ConstructionRValue: null,
-        Description: null,
+        FloorName: form.value.floorname,
+        ConstructionRValue: Number(form.value.constructionrvalue),
+        Description: form.value.description,
+        DesignID: this.designid,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
       };
-      this.floorobjectlist = this.floorobjectlist;
+      this.floorservice.addfloor(this.floorobject).subscribe(res => {
+        this.toastr.success("Completed Floor Success!", "Info Message");
+        this.fetchingfloordata();
+        this.fetchingfloordata();
+        this.setDefault();
+      }, err => {
+        this.toastr.error("Completed Floor failed!", "Info Message");
+      });
+    }else{
+      this.floorobject = {
+        ID: form.value.id,
+        FloorName: form.value.floorname,
+        ConstructionRValue: Number(form.value.constructionrvalue),
+        Description: form.value.description,
+        DesignID: this.designid,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
+      };
+      this.floorservice.updatefloor(this.floorobject).subscribe(res => {
+        this.toastr.success("Updated Floor Success!", "Info Message");
+        this.fetchingfloordata();
+        this.fetchingfloordata();
+        this.setDefault();
+      }, err => {
+        this.toastr.error("Updated Floor failed!", "Info Message");
+      });;
     }
-
   }
 
-  editFieldValue(index: number, field) {
-    field.isEditable = !field.isEditable;
-    this.floorobject1 = this.floorobjectlist[index];
-  }
-
-  saveFieldValue(index: number, field) {
-    this.floorobjectlist[index] = this.floorobject1;
-    this.fieldArrayfloor[index] = this.floorobject1;
-    field.isEditable = !field.isEditable;
-    this.floorobject1 = {
-      FloorName: null,
-      ConstructionRValue: null,
-      Description: null,
+  editFieldValue(floor: any) {
+    let floor1: Floors = {
+      ID: floor.id,
+      FloorName: floor.data.floorname,
+      ConstructionRValue: floor.data.constructionrvalue,
+      Description: floor.data.description,
+      DesignID: floor.data.DesignID,
+      ProjectID: floor.data.ProjectID,
+      UserID: floor.data.UserID
     };
-    this.floorobjectlist = this.floorobjectlist;
+    this.floorobject = Object.assign({}, floor1);
   }
 
-  cancelFieldValue(field) {
-    field.isEditable = !field.isEditable;
-    this.floorobject1 = {
 
-      FloorName: null,
-      ConstructionRValue: null,
-      Description: null,
 
-    }
-  }
-
-  deleteFieldValue(index: number) {
+  deleteFieldValue(id: string) {
     if (confirm("Are you sure to delete this item?") === true) {
-      this.floorobjectlist.splice(index, 1);
-      this.fieldArrayfloor.splice(index, 1);
-      this.floorobjectlist = this.floorobjectlist;
+      this.floorservice.deletefloor(id).subscribe(res => {
+        this.toastr.success("Deleted floor!", "Info Message!");
+        this.fetchingfloordata();
+        this.fetchingfloordata();
+      }, err =>{
+        this.toastr.error("Something wrong!", "Error Message!");
+      });
     }
+  }
+
+  setdefault(){
+    this.loginservice.registermember = {
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: ""
+    };
   }
 
 }

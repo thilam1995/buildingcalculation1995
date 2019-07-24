@@ -3,6 +3,8 @@ import { WindowObject } from '../models/windowobject';
 import { Wall } from '../models/wall';
 import { Door } from '../models/door';
 import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,62 +12,161 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class WalldoorwindowService {
 
 
-  windowlist = [];
-  walllist = [];
-  doorlist = [];
+  url1: string = "http://localhost:8080/api/wall";
+  url2: string = "http://localhost:8080/api/window";
+  url3: string = "http://localhost:8080/api/door";
+  // windowlist = [];
+  // walllist = [];
+  // doorlist = [];
 
-  windowobject: WindowObject;
-  wallobject: Wall;
-  doorobject: Door;
+  // windowobject: WindowObject;
+  // wallobject: Wall;
+  // doorobject: Door;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  windowlistdata() {
-
+  windowlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
+    return this.http.get(this.url2 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+      return data as any;
+    }));
   }
 
-  walllistdata() {
-
+  walllistdata(DesignID: string, UserID?: string, ProjectID?: string) {
+    return this.http.get(this.url1 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+      return data as any;
+    }));
   }
 
-  doorlistdata() {
-
+  doorlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
+    return this.http.get(this.url3 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+      return data as any;
+    }));
   }
 
-  doorposting(){
-
+  doorposting(Door: Door, DesignID?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify(Door);
+    return this.http.post<Door>(this.url3, body, httpOptions).pipe(map(res => {
+      this.doorlistdata(DesignID);
+    }), catchError(this.handleError));
   }
 
-  wallposting(){
-
+  wallposting(Wall: Wall, DesignID?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify(Wall);
+    return this.http.post<Wall>(this.url1, body, httpOptions).pipe(map(res => {
+      this.walllistdata(DesignID);
+    }), catchError(this.handleError));
   }
 
-  windowposting(){
-
+  windowposting(WindowObject: WindowObject, designID?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify(WindowObject);
+    return this.http.post<WindowObject>(this.url2, body, httpOptions).pipe(map(res => {
+      this.windowlistdata(designID);
+    }), catchError(this.handleError));
   }
 
-  doorput(){
-
+  doorput(Door: Door, designid?: string, userid?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify(Door);
+    return this.http.put<Door>(this.url3 + "/" + `${Door.ID}`, body, httpOptions).pipe(map(res => {
+      this.doorlistdata(designid);
+    }), catchError(this.handleError));;
   }
 
-  wallput(){
-
+  wallput(Wall: Wall, DesignID?: string, userid?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify(Wall);
+    return this.http.put<Wall>(this.url1 + "/" + `${Wall.ID}`, body, httpOptions).pipe(map(res => {
+      this.walllistdata(DesignID);
+    }), catchError(this.handleError));
   }
 
-  windowput(){
-
+  windowput(Window: WindowObject, DesignID?: string, userid?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify(Window);
+    return this.http.put<WindowObject>(this.url2 + "/" + `${Window.ID}`, body, httpOptions).pipe(map(res => {
+      this.windowlistdata(DesignID);
+    }), catchError(this.handleError));
   }
 
-  doordelete(){
-
+  doordelete(doorid: string, designID?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.delete(this.url3 + "/" + `${doorid}`, httpOptions).pipe(map(res =>{
+      console.log("Deleted");
+      this.doorlistdata(designID);
+    },
+      catchError(this.handleError)));
   }
 
-  walldelete(){
-
+  walldelete(wallid: string, designID?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.delete(this.url1 + "/" + `${wallid}`, httpOptions).pipe(map(res =>{
+      console.log("Deleted");
+      this.walllistdata(designID);
+    },
+      catchError(this.handleError)));
   }
 
-  windowdelete(){
-
+  windowdelete(windowid: string, designID?: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.delete(this.url2 + "/" + `${windowid}`, httpOptions).pipe(map(res => {
+      console.log("Deleted");
+      this.windowlistdata(designID);
+    },
+      catchError(this.handleError)));
   }
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
+  };
 }

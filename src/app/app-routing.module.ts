@@ -11,22 +11,24 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomelayoutComponent } from './components/homelayout/homelayout.component';
 import { Buildinginfo } from './models/buildinginfo';
 import { BuildinginfoComponent } from './components/buildinginfo/buildinginfo.component';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, data: { title: "Login" } },
   {
-    path: ':id', component: HomelayoutComponent, data: { title: "Welcome to Building Scheduler" }, canActivate: [AuthGuard], children: [
+    path: 'main/:id', component: HomelayoutComponent, data: { title: "Welcome to Building Scheduler" }, canActivate: [AuthGuard], children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, data: { title: "Home" } },
       { path: 'project', component: ProjectComponent, data: { title: "Project" } },
       // { path: 'buildingschedulelist', component: BuildingschedulelistComponent, data: { title: "Building Schedule List" } },
-      { path: 'buildingschedule', component: BuildingscheduleComponent, data: { title: 'Building Schedule' } },
       { path: 'ehc1heatingenergy', component: Ehc1heatingenergyComponent, data: { title: "Heating Energy Result" } },
-      { path: 'createdesign/:projectid', component: BuildinginfoComponent, data: {title: "Create a design"}}
+      { path: 'createdesign/:projectid', component: BuildinginfoComponent, data: { title: "Create a design" } },
+      { path: 'buildingschedule', component: BuildingscheduleComponent, data: { title: 'Building Schedule' } }
     ]
   },
   { path: 'register', component: RegisterComponent, data: { title: "Register" } },
+  { path: 'passwordreset', component: ForgotpasswordComponent, data: { title: "Reset Password" } },
   { path: '**', redirectTo: '' }
 ];
 

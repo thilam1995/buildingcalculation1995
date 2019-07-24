@@ -1,11 +1,11 @@
 <h1>Start Building Schedule</h1>
 <!-- <pre>{{ state$ | async | json }}</pre> -->
 <div class="row">
-  <button class="btn btn-primary" routerLink="/project">Back To Building Info</button>
+  <button class="btn btn-primary" routerLink="/main/{{registeruser.ID}}/project">Back To Building Info</button>
   <div class="col-md-12 jumbotron">
     <table class="table table-sm">
       <tr>
-        <th>Project</th>
+        <th>Design</th>
         <th>Target Rating</th>
         <th>Climate Category</th>
         <th>Completed By</th>
@@ -14,15 +14,44 @@
         <th>Floor Area</th>
         <th># of Habitation Room</th>
       </tr>
+      <tr *ngIf="!isedit">
+        <td *ngIf="designobject.DesignName != null">{{designobject.DesignName}}</td>
+
+        <td *ngIf="designobject.TargetRating != null">{{designobject.TargetRating.data.Type}}</td>
+
+        <td *ngIf="designobject.Location != null">{{designobject.Location.data.place}} - {{designobject.Location.data.climatezone}}</td>
+
+        <td *ngIf="designobject.CompletedBy != null">{{designobject.CompletedBy}}</td>
+
+        <td *ngIf="designobject.DrawingSet != null">{{designobject.DrawingSet}}</td>
+
+        <td *ngIf="designobject.Typology != null">{{designobject.Typology}}</td>
+
+        <td *ngIf="designobject.FloorArea != null">{{designobject.FloorArea}}</td>
+
+        <td *ngIf="designobject.NumofHabitationroom != null">{{designobject.NumofHabitationroom}}</td>
+        
+      </tr>
+      <tr *ngIf="isedit">
+        <td><input type="text" class="form-control" name="designname" #designname="ngModel" [(ngModel)]="designobject1.DesignName" placeholder="Design Name" required></td>
+        <td><select class="form-control" name="targetRating" #targetRating="ngModel" [(ngModel)]="designobject1.TargetRating" [compareWith]="compareFn" (change)="changeoption1()">
+          <option></option>
+          <option *ngFor="let i of climateservice.targetratinglist" [ngValue]="i">{{i.data.Type}}</option>
+        </select></td>
+        <td><select class="form-control" name="location" #location="ngModel" [(ngModel)]="designobject1.Location" [compareWith]="compareFn" (change)="changeoption2()">
+          <option></option>
+          <option *ngFor="let x of locationService.location" [ngValue]="x">{{x.data.place}}</option>
+        </select></td>
+        <td><input type="text" class="form-control" name="completedBy" #completedBy="ngModel" [(ngModel)]="designobject1.CompletedBy" placeholder="Completed By" required></td>
+        <td><input type="text" class="form-control" name="drawingSet" #drawingSet="ngModel" [(ngModel)]="designobject1.DrawingSet" placeholder="Drawing Set" required></td>
+        <td><input type="text" class="form-control" name="typology" #typology="ngModel" [(ngModel)]="designobject1.Typology" placeholder="Typology" required></td>
+        <td><input type="text" class="form-control" name="floorArea" #floorArea="ngModel" [(ngModel)]="designobject1.FloorArea" placeholder="FloorArea" required></td>
+        <td><input type="text" class="form-control" name="numofHabitationroom" #numofHabitationroom="ngModel" [(ngModel)]="designobject1.NumofHabitationroom" placeholder="# of Habitation room" required></td>
+      </tr>
       <tr>
-        <td>{{stateobject.ProjectName}}</td>
-        <td>{{stateobject.TargetRating.HomeStar}}</td>
-        <td>{{stateobject.Location.ClimateZone}}</td>
-        <td>{{stateobject.CompletedBy}}</td>
-        <td>{{stateobject.DrawingSet}}</td>
-        <td>{{stateobject.Typology}}</td>
-        <td>{{stateobject.FloorArea}}</td>
-        <td>{{stateobject.NumofHabitationroom}}</td>
+        <button class="btn btn-primary" *ngIf="!isedit" (click)="toggleedit(designobject)">Edit</button>
+        <button class="btn btn-primary" *ngIf="isedit" (click)="updatedesign()">Update</button>
+        <button class="btn btn-primary" *ngIf="isedit" (click)="toggleedit()">Cancel</button>
       </tr>
     </table>
   </div>
@@ -48,7 +77,7 @@
           [roofobjectlist]="roofobjectlist" [floorobjectlist]="floorobjectlist"
           [roofskylightobject]="roofskylightobject" [floorsobject]="floorsobject"
           [wallwindowdoorobjectlist]="wallwindowdoorobjectlist" [roofskylightobjectlist]="roofskylightobjectlist"
-          [fieldarrayfloor]="fieldarrayfloor"></app-buildingmodel>
+          [floormodelobjectlist]="floormodelobjectlist"></app-buildingmodel>
         <div>
           <button mdbBtn type="button" color="default" mdbWavesEffect mat-button matStepperPrevious>Back</button>
           <button mdbBtn type="button" color="default" mdbWavesEffect mat-button matStepperNext>Next</button>

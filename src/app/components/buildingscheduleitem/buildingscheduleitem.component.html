@@ -1,24 +1,29 @@
 <div class="row board">
-    <div class="col-md-6"><span *ngIf="!isedit">{{project.data.ProjectName}}</span>
-        <input type="text" class="form-control" *ngIf="isedit" name="projectname" #projectname="ngModel" [(ngModel)]="project.data.ProjectName">
+    <div class="col-md-7"><span *ngIf="!isedit">{{project.data.ProjectName}}</span>
+        <input type="text" class="form-control" *ngIf="isedit" name="projectname" #projectname="ngModel"
+            [(ngModel)]="projecttitle">
         <button mat-button *ngIf="isedit" (click)="renameedit(project)">Update</button>
     </div>
-    <div class="col-md-2"><a (click)="isedit = !isedit">{{isedit ? "Cancel" : "Rename"}}</a></div>
-    <div class="col-md-2">Send Copy</div>
-    <div class="col-md-2"><a (click)="deleteproject(project.id)">Delete</a></div>
+    <div class="col-md-4"><a (click)="edittoggle()" mat-button>{{isedit ? "Cancel" : "Rename"}}</a></div>
+    
+    <div class="col-md-3"><a (click)="deleteproject(project.id)" mat-button>Delete</a></div>
     <div class="col-md-12">
         <table class="table table-sm table-hover">
             <tr>
                 <th>Decisions Project</th>
-                <th>Created Date</th>
-                <th>Modified Date</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td>{{project.data.DateCreated}}</td>
-                <td>{{project.data.DateModified}}</td>
+                <th>Created Date: {{project.data.DateCreated}}</th>
+                <th>Modified Date: {{project.data.DateModified}}</th>
             </tr>
         </table>
+    </div>
+    <div class="col-md-12">
+
+        <ul>
+            <li *ngFor="let i of designsetlist">
+                <a (click)="redirecttoSchedule(i, project.id)">{{i.data.DesignName}}</a><a mat-button>Send Copy</a>
+            </li>
+        </ul>
+
     </div>
     <div class="col-md-12"><a mat-button routerLink="../createdesign/{{project.id}}">Create New Design</a></div>
 </div>

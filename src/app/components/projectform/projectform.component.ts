@@ -18,7 +18,16 @@ export class ProjectformComponent implements OnInit {
 
   constructor(private projectservice: ProjectService, private toastr: ToastrService,
     private loginservice: LoginserviceService) {
-      this.loginservice.currentUser.subscribe(x => this.registeruser = x);
+      this.setDefault();
+      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
   }
 
   ngOnInit() {
@@ -57,5 +66,14 @@ export class ProjectformComponent implements OnInit {
     };
   }
 
+  setDefault(){
+    this.registeruser = {
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: ""
+    };
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,  } from '@angular/core';
+import { Component, OnInit, OnDestroy, } from '@angular/core';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { Observable, Subscription } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -14,15 +14,27 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   registeruser: Register;
   //isexisted: boolean = false;
+  
   currentUserSubscription: Subscription;
   constructor(private loginservice: LoginserviceService, private router: Router) {
-    this.currentUserSubscription = this.loginservice.currentUser.subscribe(x => this.registeruser = x);
+    this.setdefault();
+    //console.log(this.loginapp);
 
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+    setTimeout(() => {
+      this.currentUserSubscription = this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+      });
+    },3000);
   }
 
   ngOnInit() {
-    //this.loginservice.currentUser.subscribe(x => this.registeruser = x);
-
+    
+    
   }
 
 
@@ -34,5 +46,15 @@ export class MenuComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.currentUserSubscription.unsubscribe();
-}
+  }
+
+  setdefault(){
+    this.registeruser = {
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: ""
+    };
+  }
 }

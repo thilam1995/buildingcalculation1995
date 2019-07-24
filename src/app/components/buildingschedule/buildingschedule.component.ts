@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { WalldoorwindowService } from 'src/app/service/walldoorwindow.service';
 import { LocationService } from 'src/app/service/location.service';
 import { ClimateService } from 'src/app/service/climate.service';
@@ -13,9 +14,15 @@ import { Floors } from 'src/app/models/floors';
 import { NullAstVisitor } from '@angular/compiler';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService, SessionStorageService, LocalStorage } from 'ngx-webstorage';
+import { Register } from 'src/app/models/register';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { DesignService } from 'src/app/service/design.service';
+import { Design } from 'src/app/models/design';
+import { RoofskylightService } from 'src/app/service/roofskylight.service';
+import { FloorService } from 'src/app/service/floor.service';
 
 @Component({
   selector: 'app-buildingschedule',
@@ -24,21 +31,17 @@ import { LocalStorageService, SessionStorageService, LocalStorage } from 'ngx-we
 })
 export class BuildingscheduleComponent implements OnInit {
 
-  state$: Observable<object>;
-  xstateobject: any;
-  stateobject:any = {
-    ID: null,
-    CompletedBy: null,
-    DrawingSet: null,
-    FloorArea: null,
-    Location: null,
-    NumofHabitationroom: null,
-    TargetRating: null,
-    Typology: null
-  };
+  projectid: string = "";
+  designid: string = "";
+  //state$: Observable<object>;
+  //xstateobject: any;
+  designobject: Design;
+  designobject1: Design;
+  isedit: boolean = false;
 
-  @LocalStorage() dataobject: any;
 
+
+  registeruser: Register;
   doorobject: Door;
   windowobject: WindowObject;
   wallobject: Wall;
@@ -50,62 +53,137 @@ export class BuildingscheduleComponent implements OnInit {
   // roofskylightobject = {};
   // floorsobject = {};
 
-  @LocalStorage('doorobjectlist') doorobjectlist: Door[] = [];
-  @LocalStorage('windowobjectlist') windowobjectlist: WindowObject[] = [];
-  @LocalStorage('wallobjectlist') wallobjectlist: Wall[] = [];
-  @LocalStorage('skylightsobjectlist') skylightsobjectlist: Skylights[] = [];
-  @LocalStorage('roofobjectlist') roofobjectlist: Roof[] = [];
-  @LocalStorage('floorobjectlist') floorobjectlist: Floors[] = [];
+  doorobjectlist = [];
+  windowobjectlist = [];
+  wallobjectlist = [];
+  skylightsobjectlist = [];
+  roofobjectlist = [];
+  floorobjectlist = [];
 
-  @LocalStorage('wallwindowdoorobjectlist') wallwindowdoorobjectlist = [];
-  @LocalStorage('fieldarrayfloor') fieldarrayfloor: Array<any> = [];
-  @LocalStorage('roofskylightobjectlist') roofskylightobjectlist = [];
-  
+  wallwindowdoorobjectlist = [];
+  floormodelobjectlist = [];
+  roofskylightobjectlist = [];
 
-  constructor(private walldoorwindowserv: WalldoorwindowService,
-    private locationservice: LocationService,
+
+  constructor(private locationService: LocationService,
     private climateservice: ClimateService,
-    private buildinginfoserviceService: BuildinginfoserviceService,
-    public activatedRoute: ActivatedRoute,
-    private router: Router, private toastr: ToastrService, private localSt: LocalStorageService) { }
+    public route: ActivatedRoute,
+    private router: Router, private toastr: ToastrService, private localSt: LocalStorageService,
+    private loginservice: LoginserviceService, private designservice: DesignService,
+    private wallservice: WalldoorwindowService, private roofskylightservice: RoofskylightService,
+    private floorservice: FloorService) {
+    this.setdefault();
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
+  }
 
   ngOnInit() {
     this.setnulldefault();
-    this.state$ = this.activatedRoute.paramMap
-      .pipe(map(() => window.history.state.data
-      ));
-    this.state$.subscribe(x => {
-      if(x !== undefined || x !== null){
-        this.localSt.store('buildinginfoobject', x);
-        //this.stateobject = this.localSt.retrieve('buildinginfoobject');
-      }else{
-        this.stateobject = this.localSt.retrieve('buildinginfo');
-        if(this.stateobject === null || this.stateobject === undefined){
-          this.router.navigateByUrl('project');
-        }
-      }
+    this.route.queryParams.subscribe(params => {
+      this.projectid = params['projectid'];
+      this.designid = params['designid'];
     });
+    this.climateservice.getallclimate();
+    this.locationService.getallLocation();
 
-    this.stateobject = this.localSt.retrieve('buildinginfoobject');
-    console.log(this.stateobject);
-    // if (this.stateobject === undefined || this.stateobject.ID === undefined ||this.stateobject === null ) {
-    //   this.router.navigateByUrl('project');
-    // }
+    this.designservice.getdesignbyID(this.designid).subscribe(res => {
+      //console.log(res);
+      this.designobject = {
+        DesignID: res.id,
+        DesignName: res.data.DesignName,
+        TargetRating: res.data.TargetRating,
+        CompletedBy: res.data.CompletedBy,
+        DrawingSet: res.data.DrawingSet,
+        Typology: res.data.Typology,
+        NumofHabitationroom: res.data.NumofHabitationroom,
+        FloorArea: res.data.FloorArea,
+        Location: res.data.Location,
+        ProjectID: res.data.ProjectID,
+        UserID: res.data.UserID
+        
+      };
+      console.log(this.designobject);
+    }, err => {
+      this.toastr.error("Something wrong!", "Error Message");
+    });
+    
+    //this.fetchingdata(this.designid);
+  }
 
+  fetchingdata(designid: string){
+    this.wallservice.walllistdata(designid).subscribe(res => {
+      this.wallobjectlist = res;
+    }, err => {
+      this.toastr.error("Something Wrong!", "Error Message");
+    });
+    this.wallservice.windowlistdata(this.designid).subscribe(res => {
+      this.windowobjectlist = res;
+    }, err => {
+      this.toastr.error("Something wrong", "Error Message!");
+    });
+    this.wallservice.doorlistdata(this.designid).subscribe(res => {
+      this.doorobjectlist = res;
+    }, err => {
+      this.toastr.error("Something wrong", "Error Message!");
+    });
+    this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
+      this.roofobjectlist = res;
+    }, err => {
+      this.toastr.error("Something Wrong", "Error Message!");
+    });
+    this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
+      this.skylightsobjectlist = res;
+    }, err => {
+      this.toastr.error("Something Wrong", "Error Message!");
+    });
+    this.floorservice.floorlistdata(this.designid).subscribe(res => {
+      this.floorobjectlist = res;
+    }, err => {
+      this.toastr.error("Error! Something Wrong.", "Error Message")
+    });
   }
 
   setnulldefault() {
-    this.stateobject = {
-      ID: null,
-      CompletedBy: null,
-      DrawingSet: null,
+    this.designobject = {
+      DesignID: "",
+      DesignName: "",
+      TargetRating: null,
+      CompletedBy: "",
+      DrawingSet: "",
+      Typology: "",
+      NumofHabitationroom: null,
       FloorArea: null,
       Location: null,
-      NumofHabitationroom: null,
-      TargetRating: null,
-      Typology: null
+      ProjectID: "",
+      UserID: ""
     };
+
+    this.designobject1 = {
+      DesignID: "",
+      DesignName: "",
+      TargetRating: null,
+      CompletedBy: "",
+      DrawingSet: "",
+      Typology: "",
+      NumofHabitationroom: null,
+      FloorArea: null,
+      Location: null,
+      ProjectID: "",
+      UserID: ""
+    };
+    
     this.doorobject = {
+      DesignID: null,
+      ID: null,
+      ProjectID: null,
+      UserID: null, 
       DoorName: null,
       Area: null,
       ConstructionRValue: null,
@@ -117,6 +195,10 @@ export class BuildingscheduleComponent implements OnInit {
       WallName: null,
       ConstructionRValue: null,
       Description: null,
+      DesignID: null,
+      ID: null,
+      ProjectID: null,
+      UserID: null
     };
 
     this.windowobject = {
@@ -126,8 +208,11 @@ export class BuildingscheduleComponent implements OnInit {
       Height: null,
       Area: null,
       ID: null,
-      OWA: null, WindowHeatLoss: null,
-      ShadePercent: 0
+      OWA: null,
+      ShadePercent: 0,
+      DesignID: null,
+      ProjectID: null,
+      UserID: null
     };
 
     this.skylightsobject = {
@@ -136,45 +221,99 @@ export class BuildingscheduleComponent implements OnInit {
       Length: null,
       SkylightsName: null,
       Width: null,
-
+      DesignID: null,
+      ID: null,
+      ProjectID: null,
+      UserID: null
     };
 
     this.roofobject = {
       Description: null,
       ConstructionRValue: null,
-      RoofName: null
+      RoofName: null,
+      DesignID: null,
+      ID: null,
+      ProjectID: null,
+      UserID: null
     };
 
     this.floorobject = {
       FloorName: null,
       ConstructionRValue: null,
-      Description: null
+      Description: null,
+      DesignID: null,
+      ID: null,
+      ProjectID: null,
+      UserID: null
     }
   }
 
-  submiteproject() {
-    console.log(this.doorobject);
-    console.log(this.wallobject);
-    console.log(this.windowobject);
-    console.log(this.doorobjectlist);
-    console.log(this.windowobjectlist);
-    console.log(this.wallobjectlist);
-
+  changeoption1(){
+    console.log(this.designobject1.TargetRating);
   }
+
+  changeoption2(){
+    console.log(this.designobject1.Location);
+  }
+
 
   getcalculate() {
-    this.dataobject = {
-      project: this.stateobject,
-      wallwindowdoormodel: this.wallwindowdoorobjectlist,
-      roofskylightmodel: this.roofskylightobjectlist,
-      floormodel: this.fieldarrayfloor
-    };
-    if (this.dataobject.wallwindowdoormodel.length === 0 || this.dataobject.roofskylightmodel.length === 0
-      || this.dataobject.floormodel.length === 0) {
-      this.toastr.warning("Please complete the building model before calculate!", "Building Schedule Message");
-    } else {
-      this.router.navigateByUrl('ehc1heatingenergy', { state: { data: this.dataobject } });
-    }
+    this.router.navigate(["/main/"+`${this.registeruser.ID}`+"/ehc1heatingenergy"],{ queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
 
+  toggleedit(designobject?: Design){
+    this.isedit = !this.isedit;
+    if(this.isedit){
+      this.designobject1 = Object.assign({}, designobject);
+    }else{
+      this.designobject1 = {
+        DesignID: "",
+        DesignName: "",
+        TargetRating: null,
+        CompletedBy: "",
+        DrawingSet: "",
+        Typology: "",
+        NumofHabitationroom: null,
+        FloorArea: null,
+        Location: null,
+        ProjectID: "",
+        UserID: ""
+      };
+    }
+  }
+
+  updatedesign(){
+    if(this.designobject1.DesignID === null){
+      this.toastr.error("No Design ID Available", "Error Message")
+    }else{
+      this.designservice.designUpdating(this.designobject1, this.designobject1.DesignID).subscribe(res =>{
+        this.toastr.success("Update Design Successfully", "Success Message");
+        this.isedit = false;
+        this.designservice.getdesignbyID(this.designid).subscribe(res => {
+          
+          this.ngOnInit();
+        }, err => {
+          this.toastr.error("Something wrong!", "Error Message");
+        });
+      }, err => {
+        this.toastr.error("Something Wrong!", "Error Message")
+      });
+    }
+    
+  }
+
+  compareFn(a, b) {
+    //console.log(a, b, a && b && a.id == b.id);
+    return a && b && a.id == b.id;
+  }
+
+  setdefault(){
+    this.loginservice.registermember = {
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: ""
+    };
   }
 }

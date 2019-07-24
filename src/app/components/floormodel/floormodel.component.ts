@@ -5,6 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { LocalStorage } from 'ngx-webstorage';
 import { Floorextend } from 'src/app/models/floorextend';
 import { throwError } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { Register } from 'src/app/models/register';
+import { FloorService } from 'src/app/service/floor.service';
+import { Floormodel } from 'src/app/models/floormodel';
+import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 
 @Component({
   selector: 'app-floormodel',
@@ -14,24 +20,59 @@ import { throwError } from 'rxjs';
 export class FloormodelComponent implements OnInit {
 
   @Input() floorobjectlist: Floors[];
-  @Input() floorsobject = { floor: null, isDisplay: false, buttonshowhide: "Hide" };
+  @Input() floorsobject = { floor: null };
   floorobject: Floors;
-  floorobject1: Floors;
-  floorextendobject: Floorextend;
-  floorextendobject1: Floorextend;
-  @LocalStorage('fieldarrayfloor') @Input() fieldarrayfloor: Array<any> = [];
-  display: boolean = false;
-  floor_section: string = "";
-  floor_section1: string = "";
-  floorname: string = "";
-  floorname1: string = ""
-  floorarea: number = null;
-  floorarea1: number = null;
+  floormodel: Floormodel;
 
-  constructor(private toastr: ToastrService) { }
+  floorextendobject: Floorextend;
+
+  @Input() floormodelobjectlist = [];
+  display: boolean = false;
+
+
+  projectid: string = "";
+  designid: string = "";
+  registeruser: Register;
+
+  constructor(private toastr: ToastrService, public route: ActivatedRoute,
+    private loginservice: LoginserviceService, private floorservice: FloorService,
+    private buildingmodelservice: BuildingmodelService) {
+    this.setDefault();
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
+    this.route.queryParams.subscribe(params => {
+      this.projectid = params['projectid'];
+      this.designid = params['designid'];
+    });
+  }
 
   ngOnInit() {
     this.setdefault();
+    this.fetchingfloordata();
+    this.fetchingfloormodel();
+  }
+
+  refreshingalldata(){
+    this.fetchingfloordata();
+  }
+
+  fetchingfloordata() {
+    this.floorservice.floorlistdata(this.designid).subscribe(res => {
+      this.floorobjectlist = res;
+    }, err => {
+      this.toastr.error("Error! Something Wrong.", "Error Message")
+    });
+  }
+
+  fetchingfloormodel(){
+    this.buildingmodelservice.floormodelGet(this.designid);
   }
 
   setdefault() {
@@ -40,11 +81,7 @@ export class FloormodelComponent implements OnInit {
       ConstructionRValue: null,
       Description: null
     };
-    this.floorobject1 = {
-      FloorName: null,
-      ConstructionRValue: null,
-      Description: null
-    };
+
     this.floorextendobject = {
       FloorSection: null,
       FloorName: null,
@@ -52,19 +89,18 @@ export class FloormodelComponent implements OnInit {
       ExposedArea: null
     };
 
-    this.floorextendobject1 = {
-      FloorSection: null,
-      FloorName: null,
-      ConstructionRValue: null,
-      ExposedArea: null
+    this.floormodel = {
+      Floor: null,
+      DesignID: null,
+      ProjectID: null,
+      UserID: null
     };
 
-    this.floorarea = null;
   }
 
   addfloortoggle() {
     this.display = !this.display;
-    if(!this.display){
+    if (!this.display) {
       this.floorextendobject = {
         FloorSection: null,
         FloorName: null,
@@ -75,109 +111,42 @@ export class FloormodelComponent implements OnInit {
   }
 
   addFieldValue() {
-    if(this.floor_section === null || this.floorarea === null){
-      this.toastr.error("Please fill section, construction and area.", "Floor Model")
-    }else{
+    this.floorextendobject.FloorName = this.floorobject.FloorName;
+    this.floorextendobject.ConstructionRValue = Number(this.floorobject.ConstructionRValue);
+    this.floorextendobject.ExposedArea = Number(this.floorextendobject.ExposedArea);
+    if (this.floorextendobject.FloorName === null || this.floorextendobject.ExposedArea === null ||
+      this.floorextendobject.FloorSection === null) {
+        this.toastr.error("Please Complete Floor Info", "Error");
+    } else {
+      this.floormodel = {
+        Floor: this.floorextendobject,
+        DesignID: this.designid,
+        ProjectID: this.projectid,
+        UserID: this.registeruser.ID
+      };
 
-      this.floorextendobject = {
-        FloorSection: this.floor_section,
-        FloorName: this.floorname,
-        ConstructionRValue: this.floorobject.ConstructionRValue,
-        ExposedArea: this.floorarea
-      }
-      this.floorsobject = {
-        floor: this.floorextendobject,
-        isDisplay: false,
-        buttonshowhide: "Hide"
-      }
-      this.fieldarrayfloor.push(this.floorsobject);
-      this.fieldarrayfloor = this.fieldarrayfloor;
-      this.setdefault();
-      this.floorsobject = { floor: null, isDisplay: false, buttonshowhide: "Hide" };
-      this.display = !this.display;
-      this.floor_section = null;
-      this.floorname = null;
+      console.log(this.floormodel)
+      this.buildingmodelservice.floormodelPost(this.floormodel, this.designid).subscribe(res => {
+        this.toastr.success("Insert Floor Successfully!", "Info");
+        this.setdefault();
+        this.display = false;
+        this.fetchingfloormodel();
+      }, err => {
+        this.toastr.error("Insert Floor failed!", "Info");
+      });
     }
+
   }
 
-  hideorshow(floori){
-    floori.isDisplay = !floori.isDisplay;
-    floori.buttonshowhide = floori.isDisplay ? "Hide" : "Show";
-  }
-
-  toggle(floori) {
-    floori.isDisplay = !floori.isDisplay;
-  }
-
-  onEdit(floori, index: number){
-    floori.isEditable = !floori.isEditable;
-    this.floorobject1 = this.fieldarrayfloor[index].floor;
-    this.floor_section1 = this.floorextendobject1.FloorSection;
-    this.floorname1 = this.floorextendobject1.FloorName;
-    this.floorobject1 = this.floorobjectlist.find(x =>
-      x.FloorName === this.floorname1
-    );
-    this.floorarea1 = this.floorextendobject1.ExposedArea;
-  }
-
-  onSave(floori, index: number){
-    floori.isEditable = !floori.isEditable;
-    //this.floorobject1.FloorName = this.floorname1;
-    this.floorextendobject1 = {
-      FloorSection: this.floor_section1,
-      FloorName: this.floorname1,
-      ConstructionRValue: this.floorobject1.ConstructionRValue,
-      ExposedArea: this.floorarea1
-    }
-    // this.floorextendobject1.ExposedArea = this.floorarea1;
-    // this.floorextendobject1.FloorSection = this.floor_section1;
-    this.fieldarrayfloor[index].floor = this.floorextendobject1;
-    this.fieldarrayfloor = this.fieldarrayfloor;
-    console.log(this.fieldarrayfloor[index]);
-    this.floor_section1 = "";
-    this.floorarea1 = null;
-    this.floorobject1 = {
-      FloorName: null,
-      ConstructionRValue: null,
-      Description: null
+  setDefault(){
+    this.registeruser = {
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: ""
     };
   }
 
-  onDelete(index: number){
-    if(confirm('Do you want to delete this?')=== true){
-      this.fieldarrayfloor.splice(index, 1);
-      this.fieldarrayfloor = this.fieldarrayfloor;
-    }
-    
-  }
 
-  onCancel(floori){
-    floori.isEditable = !floori.isEditable;
-    this.floor_section1 = "";
-    this.floorextendobject1 = {
-      FloorSection: null,
-      FloorName: null,
-      ConstructionRValue: null,
-      ExposedArea: null
-    };
-    this.floorobject1 = {
-      FloorName: null,
-      ConstructionRValue: null,
-      Description: null
-    }
-    this.floorname1 = "";
-    this.floorarea1 = null;
-  }
-
-  floorchange(){
-    this.floorobject = this.floorobjectlist.find(x =>
-      x.FloorName === this.floorname
-    );
-  }
-
-  optionchange1(){
-    this.floorobject1 = this.floorobjectlist.find(x =>
-      x.FloorName === this.floorname1
-    );
-  }
 }

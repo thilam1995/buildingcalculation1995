@@ -7,76 +7,68 @@
         <th>Area</th>
         <th>Shade (%)</th>
         <th>O.W.A (%)</th>
+        <th>Action</th>
     </tr>
-    <tr *ngFor="let field of fieldArray; let i = index">
-        <td *ngIf="!field.isEditable">{{field.WindowName}}</td>
-        <td *ngIf="field.isEditable"><input type="text" class="form-control" name="windowname" #windowname="ngModel"
-                [(ngModel)]="windowobject1.WindowName"></td>
-        <td *ngIf="!field.isEditable">{{field.ConstructionRValue | number: '1.0-2'}}</td>
-        <td *ngIf="field.isEditable"><input type="text" class="form-control" pattern="[0-9]*" name="constructionrvalue"
-                #constructionrvalue="ngModel" inputmode="numeric" [(ngModel)]="windowobject1.ConstructionRValue"
-                digitOnly></td>
-        <td *ngIf="!field.isEditable">{{field.Width | number: '1.0-2'}}</td>
-        <td *ngIf="field.isEditable"><input type="text" class="form-control" name="width" pattern="[0-9]*"
-                #width="ngModel" [(ngModel)]="windowobject1.Width" inputmode="numeric" (keyup)="onKeyWidthEdit($event)"
-                digitOnly></td>
-        <td *ngIf="!field.isEditable">{{field.Height | number: '1.0-2'}}</td>
-        <td *ngIf="field.isEditable"><input type="text" class="form-control" name="height" pattern="[0-9]*"
-                #height="ngModel" [(ngModel)]="windowobject1.Height" inputmode="numeric"
-                (keyup)="onKeyHeightEdit($event)" digitOnly></td>
-        <td *ngIf="!field.isEditable">{{field.Area | number: '1.0-2'}}</td>
-        <td *ngIf="field.isEditable"><label>Area: <span>{{windowobject1.Area}}</span></label></td>
-        <td *ngIf="!field.isEditable">{{field.ShadePercent * 100 | number: '1.0-2'}}%</td>
-        <td *ngIf="field.isEditable"><select class="form-control" [(ngModel)]="windowobject1.ShadePercent">
-                <option *ngFor="let x of shadeList" [ngValue]="x.percentage">
-                    {{x.percentage * 100 | number: '1.0-0'}}% {{x.shade}}
-                </option>
-            </select></td>
-        <td *ngIf="!field.isEditable">{{field.OWA * 100 | number: '1.0-0'}}%</td>
-        <td *ngIf="field.isEditable"><select class="form-control" [(ngModel)]="windowobject1.OWA">
-                <option *ngFor="let i of owaList" [ngValue]="i">{{i * 100 | number: '1.0-0'}}%</option>
-            </select></td>
+    <tr *ngFor="let i of windowobjectlist">
+        <td>{{i.data.WindowName}}</td>
+        <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
+        <td>{{i.data.Width | number: '1.0-2'}}</td>
+        <td>{{i.data.Height | number: '1.0-2'}}</td>
+        <td>{{i.data.Area | number: '1.0-2'}}</td>
+        <td>{{i.data.ShadePercent | number: '1.0-2'}}</td>
+        <td>{{i.data.OWA | number: '1.0-2'}}</td>
         <td>
-            <button class="btn btn-default" type="button" (click)="editFieldValue(i, field)"
-                *ngIf="!field.isEditable">Edit</button>
-            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)"
-                *ngIf="!field.isEditable">Delete</button>
-            <button class="btn btn-default" type="button" (click)="saveFieldValue(i, field)"
-                *ngIf="field.isEditable">Save</button>
-            <button class="btn btn-default" type="button" (click)="cancelFieldValue(field)"
-                *ngIf="field.isEditable">Cancel</button>
+            <button class="btn btn-default" type="button" (click)="editFieldValue(i)">Edit</button>
+            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i.id)">Delete</button>
         </td>
     </tr>
 
 </table>
-
-<table class="table table-sm table-hover">
-    <tr>
-        <td><input class="form-control" type="text" name="WindowName" #WindowName="ngModel" placeholder="Window Name"
-                [(ngModel)]="windowobject.WindowName"></td>
-        <td><input class="form-control" type="text" pattern="[0-9]*" name="ConstructionRValue"
-                #ConstructionRValue="ngModel" placeholder="Construction R-Value"
-                [(ngModel)]="windowobject.ConstructionRValue" inputmode="numeric" digitOnly></td>
-        <td><input class="form-control" type="text" pattern="[0-9]*" name="WindowWidth" #WindowWidth="ngModel"
+<form class="buildingform" #windowform="ngForm" (ngSubmit)="onSubmit(windowform)">
+    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="windowobject.ID">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <input class="form-control" type="text" name="windowName" #windowName="ngModel" placeholder="Window Name"
+                [(ngModel)]="windowobject.WindowName">
+        </div>
+        <div class="form-group col-md-12">
+            <input class="form-control" type="text" pattern="[0-9]*" name="constructionRValue"
+                #constructionRValue="ngModel" placeholder="Construction R-Value"
+                [(ngModel)]="windowobject.ConstructionRValue" inputmode="numeric" digitOnly>
+        </div>
+        <div class="form-group col-md-12">
+            <input class="form-control" type="text" pattern="[0-9]*" name="windowWidth" #windowWidth="ngModel"
                 placeholder="Width" [(ngModel)]="windowobject.Width" (keyup)="onKeyWidth($event)" inputmode="numeric"
-                digitOnly></td>
-        <td><input class="form-control" type="text" pattern="[0-9]*" name="WindowsHeight" #WindowHeight="ngModel"
+                digitOnly>
+        </div>
+        <div class="form-group col-md-12">
+            <input class="form-control" type="text" pattern="[0-9]*" name="windowsHeight" #windowHeight="ngModel"
                 placeholder="Height" [(ngModel)]="windowobject.Height" (keyup)="onKeyHeight($event)" inputmode="numeric"
-                digitOnly></td>
-        <td><label>Area: <span>{{windowobject.Area | number: '1.0-2'}}</span></label></td>
-        <td><label>O.W.A (%)</label><select class="form-control" [(ngModel)]="windowobject.OWA">
-                <option *ngFor="let i of owaList" [ngValue]="i">{{i * 100 | number: '1.0-0'}}%</option>
-            </select></td>
-        <td><label>Shade</label>
-            <select class="form-control" [(ngModel)]="windowobject.ShadePercent">
+                digitOnly>
+        </div>
+        <div class="form-group col-md-12">
+            <label>Area: <span>{{windowobject.Area | number: '1.0-2'}}</span></label>
+        </div>
+        <div class="form-group col-md-12">
+            <label>Shade</label>
+            <select class="form-control" [(ngModel)]="windowobject.ShadePercent" name="shadepercent" #shadepercent="ngModel">
                 <option *ngFor="let x of shadeList" [ngValue]="x.percentage">
                     {{x.percentage * 100 | number: '1.0-0'}}% {{x.shade}}
                 </option>
             </select>
-        </td>
-        <td><button [disabled]="windowobject.WindowName == null || windowobject.ConstructionRValue == null || 
-            windowobject.Width == null || windowobject.Height == null || windowobject.Area == null || 
-            windowobject.OWA == null || windowobject.ShadePercent == null" class="btn btn-primary" 
-            (click)="addFieldValue()">Complete Window</button></td>
-    </tr>
-</table>
+        </div>
+        <div class="form-group col-md-12">
+            <label>O.W.A (%)</label><select class="form-control" name="owa" #owa="ngModel" [(ngModel)]="windowobject.OWA">
+                <option *ngFor="let i of owaList" [ngValue]="i">{{i * 100 | number: '1.0-0'}}%</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-12">
+            <button [disabled]="windowobject.WindowName == null || windowobject.ConstructionRValue == null ||
+            windowobject.Width == null || windowobject.Height == null || windowobject.OWA == null ||
+            windowobject.ShadePercent == null"
+                class="btn btn-primary" type="submit">Complete Window</button>
+            <button class="btn btn-primary" type="reset">Reset</button>
+        </div>
+    </div>
+</form>

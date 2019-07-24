@@ -13,18 +13,18 @@ import { LocalStorage } from 'ngx-webstorage';
 })
 export class BuildingmodelComponent implements OnInit {
 
-  @LocalStorage('windowobjectlist') @Input() windowobjectlist: WindowObject[];
-  @LocalStorage('wallobjectlist')@Input() wallobjectlist: Wall[];
-  @LocalStorage('doorobjectlist') @Input() doorobjectlist: Door[];
+  @Input() windowobjectlist: WindowObject[];
+  @Input() wallobjectlist: Wall[];
+  @Input() doorobjectlist: Door[];
   @Input() wallwindowdoorobject = {};
   @Input() roofskylightobject = {};
   @Input() floorsobject = {};
-  @LocalStorage('skylightsobjectlist') @Input() skylightsobjectlist: Skylights[];
-  @LocalStorage('roofobjectlist') @Input() roofobjectlist: Roof[];
-  @LocalStorage('floorobjectlist') @Input() floorobjectlist: Floors[];
-  @LocalStorage('wallwindowdoorobjectlist') @Input() wallwindowdoorobjectlist = [];
-  @LocalStorage('roofskylightobjectlist') @Input() roofskylightobjectlist = [];
-  @LocalStorage('fieldarrayfloor') @Input() fieldarrayfloor: Array<any> = [];
+  @Input() skylightsobjectlist: Skylights[];
+  @Input() roofobjectlist: Roof[];
+  @Input() floorobjectlist: Floors[];
+  @Input() wallwindowdoorobjectlist = [];
+  @Input() roofskylightobjectlist = [];
+  @Input() floormodelobjectlist = [];
   constructor() { }
 
   ngOnInit() {

@@ -20,12 +20,12 @@ export class ScheduleComponent implements OnInit {
   @Input() roofobject: Roof;
   @Input() floorobject: Floors;
 
-  @LocalStorage('windowobjectlist') @Input() windowobjectlist: WindowObject[];
-  @LocalStorage('wallobjectlist') @Input() wallobjectlist: Wall[];
-  @LocalStorage('doorobjectlist') @Input() doorobjectlist: Door[];
-  @LocalStorage('skylightsobjectlist') @Input() skylightsobjectlist: Skylights[];
-  @LocalStorage('roofobjectlist') @Input() roofobjectlist: Roof[];
-  @LocalStorage('floorobjectlist') @Input() floorobjectlist: Floors[];
+  @Input() windowobjectlist: WindowObject[];
+  @Input() wallobjectlist: Wall[];
+  @Input() doorobjectlist: Door[];
+  @Input() skylightsobjectlist: Skylights[];
+  @Input() roofobjectlist: Roof[];
+  @Input() floorobjectlist: Floors[];
 
   constructor() { }
 

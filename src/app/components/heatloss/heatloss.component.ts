@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HeatlossComponent implements OnInit {
 
-  @Input() wallwindowdoori;
+  @Input() i;
   grosswallarea = 0;
   grosswindowarea = 0;
   grossowa = 0;
@@ -20,29 +20,27 @@ export class HeatlossComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.wallwindowdoori);
+    console.log(this.i);
     this.calculate();
   }
 
   calculate() {
-    this.grosswallarea = this.wallwindowdoori.wall.Area;
-    for (let i of this.wallwindowdoori.window) {
-      this.grosswindowarea += Number.parseFloat(i.Area);
+    this.grosswallarea = this.i.data.Wall.Area;
+    for (let i of this.i.data.Window) {
+      this.grosswindowarea += Number(i.Area);
     }
-    for (let i of this.wallwindowdoori.window) {
-      this.grossowa += Number.parseFloat(i.OWA);
+    for (let i of this.i.data.Window) {
+      this.grossowa += Number(i.OWA);
     }
     this.netwallarea = this.grosswallarea - this.grosswindowarea;
-    this.wallconstructionrvalue = Number.parseFloat(this.wallwindowdoori.wall.ConstructionRValue);
+    this.wallconstructionrvalue = Number(this.i.data.Wall.ConstructionRValue);
     this.wallheatloss = this.netwallarea / this.wallconstructionrvalue;
     // this.wallwindowdoori.window.array.forEach(element => {
     //   element.WindowHeatLoss = element.Area/element.ConstructionRValue;
     // });
-    for (let i of this.wallwindowdoori.window) {
-      i.WindowHeatLoss += Number.parseFloat(i.Area)/Number.parseFloat(i.ConstructionRValue);
-    }
-    for (let i of this.wallwindowdoori.window) {
-      this.windowheatloss += Number.parseFloat(i.WindowHeatLoss);
+
+    for (let i of this.i.data.Window) {
+      this.windowheatloss += Number(i.Area / i.ConstructionRValue);
     }
   }
 

@@ -11,11 +11,32 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 export class ProjectComponent implements OnInit {
 
   registeruser: Register;
-  constructor(private loginservice: LoginserviceService) { }
-
-  ngOnInit() {
-    this.loginservice.currentUser.subscribe(x => this.registeruser = x);
+  constructor(private loginservice: LoginserviceService) { 
+    this.setdefault();
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
   }
 
+  ngOnInit() {
+
+    
+  }
+
+  setdefault(){
+    this.registeruser = {
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: ""
+    };
+  }
 
 }

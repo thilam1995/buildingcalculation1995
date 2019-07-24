@@ -1,112 +1,13 @@
 <div class="row">
-  <div class="col-md-12 card" *ngFor="let wallwindowdoori of wallwindowdoorobjectlist; let i = index">
-    <div class="col-md-12">
-      <table class="table table-sm bluetablehead">
-        <tr>
-          <th>Wall Section: {{wallwindowdoori.wall.WallSection}}</th>
-          <th>Wall Name: {{wallwindowdoori.wall.WallName}}</th>
-          <th>Width: {{wallwindowdoori.wall.Width | number: '1.0-2'}}m</th>
-          <th>Height: {{wallwindowdoori.wall.Height | number: '1.0-2'}}m</th>
-          <th>Area: {{wallwindowdoori.wall.Area | number: '1.0-2'}} m2</th>
-          <th>Orientation: {{wallwindowdoori.wall.Orientation}}</th>
-          <th *ngIf="!wallwindowdoori.isEditable"><button class="btn btn-primary"
-              (click)="hideorshow(wallwindowdoori)">{{wallwindowdoori.buttonshowhide}}</button></th>
-          <th *ngIf="!wallwindowdoori.isEditable"><button class="btn btn-primary" (click)="onEdit(i)">Edit</button>
-          </th>
-          <th *ngIf="wallwindowdoori.isEditable">
-            <button class="btn btn-primary" (click)="onCancel(i)">Cancel</button>
-            <button class="btn btn-primary" (click)="onSave(i)">
-              Save
-            </button>
-            <button class="btn btn-primary" (click)="onDelete(i)">Delete</button>
-          </th>
-        </tr>
-      </table>
 
-      <div class="col-md-12" *ngIf="wallwindowdoori.isDisplay">
-        <div>
-          <app-heatloss [wallwindowdoori]="wallwindowdoori">
-          </app-heatloss>
-        </div>
-      </div>
-      <div class="col-md-12" *ngIf="wallwindowdoori.isEditable">
-        <div>
-          <table class="table table-sm table-hover">
-            <tr>
-              <td>
-                <input type="text" class="form-control" placeholder="Wall Section" name="wallsection1"
-                  #wallsection1="ngModel" [(ngModel)]="wall_section1">
-              </td>
-              <td>
-                <span>Construction
-                  <select class="form-control" [(ngModel)]="wallname1" (change)="optionchange6()">
-                    <option *ngFor="let wall of wallobjectlist" [ngValue]="wall.WallName">{{wall.WallName}}</option>
-                  </select></span>
-              </td>
-              <td>
-                <span>Orientation
-                  <select class="form-control" [(ngModel)]="orientationselect1">
-                    <option *ngFor="let orient of orientation" [ngValue]="orient">{{orient}}</option>
-                  </select>
-                </span>
-              </td>
-              <td><input type="text" class="form-control" placeholder="Width" name="width1" #width1="ngModel"
-                  [(ngModel)]="wallwidth1" (keyup)="onKeyWidthWall1($event)"></td>
-              <td><input type="text" class="form-control" placeholder="Height" name="height1" #height1="ngModel"
-                  [(ngModel)]="wallheight1" (keyup)="onKeyHeightWall1($event)"></td>
-              <td>Area: {{wallarea1 | number: '1.0-2'}}</td>
-            </tr>
-          </table>
-
-          <table class="table table-sm table-hover">
-            <tr>
-              <th>Window ID</th>
-              <th>Width</th>
-              <th>Height</th>
-            </tr>
-            <tr *ngFor="let window of fieldArraywindow1; let i = index">
-              <td>{{window.WindowName}}</td>
-              <td>{{window.Width | number: '1.0-2'}}</td>
-              <td>{{window.Height | number: '1.0-2'}}</td>
-              <td><button class="btn btn-primary" (click)="deletewindow(i)">Delete</button></td>
-            </tr>
-            <tr>
-              <td><label>Window</label>
-                <select class="form-control" [(ngModel)]="windowobject1" (change)="optionchange4()">
-                  <option *ngFor="let i of windowobjectlist" [ngValue]="i">{{i.WindowName}}</option>
-                </select></td>
-              <td>{{windowwidth1 | number: '1.0-2'}}</td>
-              <td>{{windowheight1 | number: '1.0-2'}}</td>
-              <td>
-                <button class="btn btn-primary" (click)="addvaluewindow1()">Add Window</button>
-              </td>
-            </tr>
-          </table>
-          <table class="table table-sm table-hover">
-            <tr>
-              <th>Door ID</th>
-              <th>Width</th>
-              <th>Height</th>
-            </tr>
-            <tr>
-              <td><label>Door</label>
-                <select class="form-control" name="Doorobject1" #Doorobject1="ngModel" [(ngModel)]="doorobject1"
-                  (change)="optionchange5()">
-                  <option *ngFor="let i of doorobjectlist" [ngValue]="i">{{i.DoorName}}</option>
-                </select></td>
-              <td>{{doorwidth1 | number: '1.0-2'}}</td>
-              <td>{{doorheight1 | number: '1.0-2'}}</td>
-            </tr>
-          </table>
-        </div>
-
-      </div>
-    </div>
-
-
+  <div class="col-md-12">
+    <app-walldoorwindowmodelitem *ngFor="let i of buildingmodelservice.wallwindowdoormodellist" [i]="i">
+    </app-walldoorwindowmodelitem>
   </div>
-
   <div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" (click)="refreshingalldata()">Refresh</button>
+    </div>
     <div class="col-md-12">
       <button class="btn btn-primary" (click)="addwalltoggle()" *ngIf="!display">+ Add Wall</button>
       <button class="btn btn-primary" (click)="addwalltoggle()" *ngIf="display">Cancel</button>
@@ -115,26 +16,26 @@
           <tr>
             <td>
               <input type="text" class="form-control" placeholder="Wall Section" name="wallsection"
-                #wallsection="ngModel" [(ngModel)]="wall_section">
+                #wallsection="ngModel" [(ngModel)]="wallextendobject.WallSection">
             </td>
             <td>
               <span>Construction
-                <select class="form-control" [(ngModel)]="wallname" (change)="optionchange3()">
-                  <option *ngFor="let wall of wallobjectlist" [ngValue]="wall.WallName">{{wall.WallName}}</option>
+                <select class="form-control" [(ngModel)]="wallobject" (change)="optionchange()">
+                  <option *ngFor="let wall of wallobjectlist" [ngValue]="wall.data">{{wall.data.WallName}}</option>
                 </select></span>
             </td>
             <td>
               <span>Orientation
-                <select class="form-control" [(ngModel)]="orientationselect">
+                <select class="form-control" [(ngModel)]="wallextendobject.Orientation">
                   <option *ngFor="let orient of orientation" [ngValue]="orient">{{orient}}</option>
                 </select>
               </span>
             </td>
             <td><input type="text" class="form-control" placeholder="Width" name="width" #width="ngModel"
-                [(ngModel)]="wallwidth" (keyup)="onKeyWidthWall($event)"></td>
+                [(ngModel)]="wallextendobject.Width" (keyup)="onKeyWidthWall($event)"></td>
             <td><input type="text" class="form-control" placeholder="Height" name="height" #height="ngModel"
-                [(ngModel)]="wallheight" (keyup)="onKeyHeightWall($event)"></td>
-            <td>Area: {{wallarea | number: '1.0-2'}}</td>
+                [(ngModel)]="wallextendobject.Height" (keyup)="onKeyHeightWall($event)"></td>
+            <td>Area: {{wallextendobject.Area | number: '1.0-2'}}</td>
           </tr>
         </table>
       </div>
@@ -146,22 +47,22 @@
       <div *ngIf="display1">
         <table class="table table-sm table-hover">
           <tr>
-            <th>Window ID</th>
+            <th>Window Name</th>
             <th>Width</th>
             <th>Height</th>
           </tr>
-          <tr *ngFor="let fieldwindow of fieldArraywindow; let i = index">
-            <td>{{fieldwindow.WindowName}}</td>
-            <td>{{fieldwindow.Width | number: '1.0-2'}}</td>
-            <td>{{fieldwindow.Height | number: '1.0-2'}}</td>
-            <td><button class="btn btn-primary" (click)="deleteFieldValuewindow(i)">Delete</button></td>
+          <tr *ngFor="let window of windowobjectmodellist; let i = index">
+            <td>{{window.WindowName}}</td>
+            <td>{{window.Width | number: '1.0-2'}}</td>
+            <td>{{window.Height | number: '1.0-2'}}</td>
+            <td><button class="btn btn-primary" (click)="deletewindow(i)">Delete</button></td>
           </tr>
         </table>
         <table class="table table-sm table-hover">
             <tr>
                 <td><label>Window</label>
                   <select class="form-control" [(ngModel)]="windowobject" (change)="optionchange1()">
-                    <option *ngFor="let i of windowobjectlist" [ngValue]="i">{{i.WindowName}}</option>
+                    <option *ngFor="let i of windowobjectlist" [ngValue]="i.data">{{i.data.WindowName}}</option>
                   </select></td>
                 <td>{{windowwidth | number: '1.0-2'}}</td>
                 <td>{{windowheight | number: '1.0-2'}}</td>
@@ -187,17 +88,18 @@
             <td><label>Door</label>
               <select class="form-control" name="Doorobject" #Doorobject="ngModel" [(ngModel)]="doorobject"
                 (change)="optionchange2()">
-                <option *ngFor="let i of doorobjectlist" [ngValue]="i">{{i.DoorName}}</option>
+                <option *ngFor="let i of doorobjectlist" [ngValue]="i.data">{{i.data.DoorName}}</option>
               </select></td>
             <td>{{doorwidth | number: '1.0-2'}}</td>
             <td>{{doorheight | number: '1.0-2'}}</td>
+            <td><button class="btn btn-primary" (click)="cleardoor()">Cancel</button></td>
           </tr>
         </table>
 
       </div>
     </div>
 
-    <button class="btn btn-primary" (click)="addFieldValue()">Validate</button>
+    <button class="btn btn-primary" (click)="onSubmitModel()">Validate</button>
     <!-- <button class="btn btn-primary" (click)="loglist()">Check List</button> -->
   </div>
 </div>

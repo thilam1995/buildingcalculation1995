@@ -1,0 +1,66 @@
+<div class="col-md-12 card">
+  <div class="col-md-12">
+    <table class="table table-sm bluetablehead">
+      <tr>
+        <th>Roof Section: {{i.data.Roof.RoofSection}}</th>
+        <th>Roof Name: {{i.data.Roof.RoofName}}</th>
+        <th>Exposed Area: {{i.data.Roof.ExposedArea | number: '1.0-2'}}</th>
+        <th><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide": "Show"}}</button></th>
+        <th *ngIf="!isedit"><button class="btn btn-primary"
+            (click)="onEdit(i)">Edit</button>
+        </th>
+        <th *ngIf="isedit">
+          <button class="btn btn-primary" (click)="onCancel()">Cancel</button>
+          <button class="btn btn-primary" (click)="onUpdate(i.id)">
+            Save
+          </button>
+          <button class="btn btn-primary" (click)="onDelete(i.id)">Delete</button>
+        </th>
+      </tr>
+    </table>
+    <div class="col-md-12">
+      <div *ngIf="isdisplay">
+        <app-heatlossroofskylight [i]="i">
+        </app-heatlossroofskylight>
+      </div>
+
+      <div class="col-md-12" *ngIf="isedit">
+        <table class="table table-sm table-hover">
+          <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel"
+              [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></td>
+          <td><span>Construction: <select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()">
+                <option *ngFor="let roof of roofobjectlist" [ngValue]="roof.data">{{roof.data.RoofName}}</option>
+              </select></span></td>
+          <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel"
+              [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></td>
+        </table>
+
+        <table class="table table-sm table-hover">
+          <tr>
+            <th>Skylight ID</th>
+            <th>Width</th>
+            <th>Length</th>
+          </tr>
+          <tr *ngFor="let iskylight of skylightmodellist; let i = index">
+            <td>{{iskylight.SkylightsName}}</td>
+            <td>{{iskylight.Width | number: '1.0-2'}}</td>
+            <td>{{iskylight.Length | number: '1.0-2'}}</td>
+            <td><button class="btn btn-primary" (click)="deleteskylight(i)">Delete</button></td>
+          </tr>
+          <tr>
+            <td><span>Skylight
+                <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()" [compareWith]="compareFn">
+                  <option *ngFor="let i of skylightsobjectlist" [ngValue]="i.data">{{i.data.SkylightsName}}</option>
+                </select>
+              </span></td>
+            <td>{{skylightwidth | number: '1.0-2'}}</td>
+            <td>{{skylightlength | number: '1.0-2'}}</td>
+            <td><button class="btn btn-primary" (click)="addvalueskylight()">Add Skylight</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</div>

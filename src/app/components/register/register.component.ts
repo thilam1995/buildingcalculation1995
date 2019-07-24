@@ -6,6 +6,7 @@ import { from } from 'rxjs';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { PasswordcryptService } from 'src/app/service/passwordcrypt.service';
 import { stringify } from '@angular/compiler/src/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ export class RegisterComponent implements OnInit {
   registerobject: Register;
   Repassword: string = "";
   constructor(private toastr: ToastrService, private loginservice: LoginserviceService,
-    private passwordencrypt: PasswordcryptService) { }
+    private passwordencrypt: PasswordcryptService, private router: Router) { }
 
   ngOnInit() {
     this.setdefault();
@@ -28,7 +29,7 @@ export class RegisterComponent implements OnInit {
       FirstName: "",
       LastName: "",
       Email: "",
-      Password: ""
+      Password: "",
     };
     this.Repassword = "";
   }
@@ -48,6 +49,7 @@ export class RegisterComponent implements OnInit {
         this.loginservice.register(registermember).subscribe(x=>{
           this.toastr.success("Register Sucessfully!", "Register Info");
           this.setdefault();
+          this.router.navigateByUrl('/login');
         }, error=>{
           this.toastr.error("Something wrong with register function!", "Register Info");
         });
