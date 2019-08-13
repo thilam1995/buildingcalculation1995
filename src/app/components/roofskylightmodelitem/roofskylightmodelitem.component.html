@@ -5,9 +5,9 @@
         <th>Roof Section: {{i.data.Roof.RoofSection}}</th>
         <th>Roof Name: {{i.data.Roof.RoofName}}</th>
         <th>Exposed Area: {{i.data.Roof.ExposedArea | number: '1.0-2'}}</th>
-        <th><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide": "Show"}}</button></th>
-        <th *ngIf="!isedit"><button class="btn btn-primary"
-            (click)="onEdit(i)">Edit</button>
+        <th><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide": "Show"}}</button>
+        </th>
+        <th *ngIf="!isedit"><button class="btn btn-primary" (click)="onEdit(i)">Edit</button>
         </th>
         <th *ngIf="isedit">
           <button class="btn btn-primary" (click)="onCancel()">Cancel</button>
@@ -28,7 +28,8 @@
         <table class="table table-sm table-hover">
           <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel"
               [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></td>
-          <td><span>Construction: <select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()">
+          <td><span>Construction: <select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()"
+                [compareWith]="compareFn">
                 <option *ngFor="let roof of roofobjectlist" [ngValue]="roof.data">{{roof.data.RoofName}}</option>
               </select></span></td>
           <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel"
@@ -40,16 +41,22 @@
             <th>Skylight ID</th>
             <th>Width</th>
             <th>Length</th>
+            <th>R-Value</th>
           </tr>
           <tr *ngFor="let iskylight of skylightmodellist; let i = index">
             <td>{{iskylight.SkylightsName}}</td>
             <td>{{iskylight.Width | number: '1.0-2'}}</td>
             <td>{{iskylight.Length | number: '1.0-2'}}</td>
-            <td><button class="btn btn-primary" (click)="deleteskylight(i)">Delete</button></td>
+            <td>{{iskylight.ConstructionRValue | number: '1.0-2'}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="updateskylight(iskylight)">Update Skylight</button>
+              <button class="btn btn-primary" (click)="deleteskylight(i)">Delete</button>
+            </td>
           </tr>
           <tr>
             <td><span>Skylight
-                <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()" [compareWith]="compareFn">
+                <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()"
+                  [compareWith]="compareFn">
                   <option *ngFor="let i of skylightsobjectlist" [ngValue]="i.data">{{i.data.SkylightsName}}</option>
                 </select>
               </span></td>

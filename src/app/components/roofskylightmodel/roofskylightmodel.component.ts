@@ -35,6 +35,7 @@ export class RoofskylightmodelComponent implements OnInit {
 
   skylightwidth = 0;
   skylightlength = 0;
+  rvalueskylight = 0;
 
   display: boolean = false;
   display1: boolean = false;
@@ -118,7 +119,7 @@ export class RoofskylightmodelComponent implements OnInit {
       Skylight: null,
       DesignID: null,
       ProjectID: null,
-      UserID: null
+      UserID: null,
     };
 
   }
@@ -160,6 +161,7 @@ export class RoofskylightmodelComponent implements OnInit {
         SkylightsName: null,
         Width: null
       };
+      this.rvalueskylight = 0;
       this.skylightwidth = 0;
       this.skylightlength = 0;
     }
@@ -170,6 +172,7 @@ export class RoofskylightmodelComponent implements OnInit {
   optionchange() {
     this.skylightwidth = this.skylightobject.Width;
     this.skylightlength = this.skylightobject.Length;
+    this.rvalueskylight = this.skylightobject.ConstructionRValue;
   }
 
   optionchange3(){

@@ -30,7 +30,7 @@ export class HeatlossComponent implements OnInit {
       this.grosswindowarea += Number(i.Area);
     }
     for (let i of this.i.data.Window) {
-      this.grossowa += Number(i.OWA);
+      this.grossowa += Number(i.OWA) * Number(i.Area);
     }
     this.netwallarea = this.grosswallarea - this.grosswindowarea;
     this.wallconstructionrvalue = Number(this.i.data.Wall.ConstructionRValue);
@@ -43,5 +43,6 @@ export class HeatlossComponent implements OnInit {
       this.windowheatloss += Number(i.Area / i.ConstructionRValue);
     }
   }
+
 
 }

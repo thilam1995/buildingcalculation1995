@@ -5,7 +5,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-primary" (click)="refreshingalldata()">Refresh</button>
+      <button class="btn btn-primary" (click)="refreshingalldata()">Refresh</button>
     </div>
     <div class="col-md-12">
       <button class="btn btn-primary" (click)="addrooftoggle()" *ngIf="!display">+ Add Roof</button>
@@ -32,12 +32,16 @@
             <th>Skylight ID</th>
             <th>Width</th>
             <th>Length</th>
+            <th>R-Value</th>
           </tr>
           <tr *ngFor="let iskylight of skylightmodellist; let i = index">
             <td>{{iskylight.SkylightsName}}</td>
             <td>{{iskylight.Width | number: '1.0-2'}}</td>
             <td>{{iskylight.Length | number: '1.0-2'}}</td>
-            <td><button class="btn btn-primary" (click)="deleteFieldValueSkylight(i)">Delete</button></td>
+            <td>{{iskylight.ConstructionRValue | number: '1.0-2'}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="deleteFieldValueSkylight(i)">Delete</button>
+            </td>
           </tr>
           <tr>
             <td><span>Skylight

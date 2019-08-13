@@ -18,7 +18,7 @@ export class FloormodelitemComponent implements OnInit {
 
   isedit: boolean = false;
   isdisplay: boolean = false;
-  @Input() i: any;
+  @Input() flooritem: any;
   floorobject: Floors;
   floormodel: Floormodel;
   floorextendobject: Floorextend;
@@ -29,19 +29,18 @@ export class FloormodelitemComponent implements OnInit {
   designid: string = "";
   registeruser: Register;
 
-
   constructor(private toastr: ToastrService, public route: ActivatedRoute,
     private loginservice: LoginserviceService, private floorservice: FloorService,
     private buildingmodelservice: BuildingmodelService) {
-      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
@@ -51,7 +50,11 @@ export class FloormodelitemComponent implements OnInit {
   ngOnInit() {
     this.setdefault();
     this.fetchingfloordata();
-    this.fetchingfloormodel();
+    //this.fetchingfloormodel();
+  }
+
+  fetchingfloormodel(){
+    this.buildingmodelservice.floormodelGet(this.designid);
   }
 
   fetchingfloordata() {
@@ -60,10 +63,6 @@ export class FloormodelitemComponent implements OnInit {
     }, err => {
       this.toastr.error("Error! Something Wrong.", "Error Message")
     });
-  }
-
-  fetchingfloormodel(){
-    this.buildingmodelservice.floormodelGet(this.designid);
   }
 
   setdefault() {
@@ -96,7 +95,16 @@ export class FloormodelitemComponent implements OnInit {
   selecttoEdit(i: any){
     this.isedit = true;
 
-    this.floorextendobject = Object.assign({}, );
+    this.floorextendobject = Object.assign({}, i.data.Floor);
+    this.floorobject = {
+      FloorName: this.floorextendobject.FloorName,
+      ConstructionRValue: this.floorextendobject.ConstructionRValue
+    };
+  }
+
+  compareFn(a, b) {
+    //console.log(JSON.stringify(a) + " " + JSON.stringify(b));
+    return a && b && a.FloorName === b.FloorName && a.ConstructionRValue === b.ConstructionRValue;
   }
 
   onSave(id: string){
@@ -135,4 +143,5 @@ export class FloormodelitemComponent implements OnInit {
       });
     }
   }
+
 }

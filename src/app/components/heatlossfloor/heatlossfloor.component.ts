@@ -9,7 +9,7 @@ import { NgFormSelectorWarning } from '@angular/forms';
 })
 export class HeatlossfloorComponent implements OnInit {
 
-  @Input() i: any;
+  @Input() flooritem: any;
   floorarea: number = 0;
   floorconstructionrvalue: number = 0;
   floorheatloss: number = 0;
@@ -21,8 +21,8 @@ export class HeatlossfloorComponent implements OnInit {
   }
 
   calculate(){
-    this.floorarea = Number.parseFloat(this.i.data.Floor.ExposedArea);
-    this.floorconstructionrvalue = Number.parseFloat(this.i.data.Floor.ConstructionRValue);
+    this.floorarea = Number.parseFloat(this.flooritem.data.Floor.ExposedArea);
+    this.floorconstructionrvalue = Number.parseFloat(this.flooritem.data.Floor.ConstructionRValue);
     this.floorheatloss = this.floorarea / this.floorconstructionrvalue;
   }
 

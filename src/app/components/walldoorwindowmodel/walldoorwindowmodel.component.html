@@ -50,11 +50,16 @@
             <th>Window Name</th>
             <th>Width</th>
             <th>Height</th>
+            <th>R-Value</th>
           </tr>
           <tr *ngFor="let window of windowobjectmodellist; let i = index">
             <td>{{window.WindowName}}</td>
             <td>{{window.Width | number: '1.0-2'}}</td>
             <td>{{window.Height | number: '1.0-2'}}</td>
+            <td>{{window.ConstructionRValue | number: '1.0-2'}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="updatewindowvalue(window)">Add Window</button>
+            </td>
             <td><button class="btn btn-primary" (click)="deletewindow(i)">Delete</button></td>
           </tr>
         </table>
@@ -66,9 +71,11 @@
                   </select></td>
                 <td>{{windowwidth | number: '1.0-2'}}</td>
                 <td>{{windowheight | number: '1.0-2'}}</td>
+                <td>{{rvavluewindow | number: '1.0-2'}}</td>
                 <td>
                   <button class="btn btn-primary" (click)="addvaluewindow()">Add Window</button>
                 </td>
+
               </tr>
         </table>
       </div>
@@ -92,6 +99,7 @@
               </select></td>
             <td>{{doorwidth | number: '1.0-2'}}</td>
             <td>{{doorheight | number: '1.0-2'}}</td>
+            <td>{{rvaluedoor | number: '1.0-2'}}</td>
             <td><button class="btn btn-primary" (click)="cleardoor()">Cancel</button></td>
           </tr>
         </table>

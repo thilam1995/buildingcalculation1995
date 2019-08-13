@@ -172,4 +172,8 @@ export class RoofskylightmodelitemComponent implements OnInit {
       });
     }
   }
+
+  updateskylight(iskylight): void{
+    
+  }
 }

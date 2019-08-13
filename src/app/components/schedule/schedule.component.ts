@@ -32,4 +32,7 @@ export class ScheduleComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngDoCheck(){
+    
+  }
 }

@@ -8,7 +8,8 @@
         <th>Height: {{i.data.Wall.Height | number: '1.0-2'}}m</th>
         <th>Area: {{i.data.Wall.Area | number: '1.0-2'}} m2</th>
         <th>Orientation: {{i.data.Wall.Orientation}}</th>
-        <th *ngIf="!isedit"><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></th>
+        <th *ngIf="!isedit"><button class="btn btn-primary"
+            (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></th>
         <th *ngIf="!isedit"><button class="btn btn-primary" (click)="selecttoEdit(i)">Edit</button>
         </th>
         <th *ngIf="isedit">
@@ -32,7 +33,8 @@
         <table class="table table-sm table-hover">
           <tr>
             <td>
-              <input type="text" class="form-control" placeholder="Wall Section" name="wallsection" [(ngModel)]="wallextendobject.WallSection">
+              <input type="text" class="form-control" placeholder="Wall Section" name="wallsection"
+                [(ngModel)]="wallextendobject.WallSection">
             </td>
             <td>
               <span>Construction
@@ -60,12 +62,17 @@
             <th>Window ID</th>
             <th>Width</th>
             <th>Height</th>
+            <th>R-Value</th>
+            <th>Action</th>
           </tr>
           <tr *ngFor="let window of windowobjectmodellist; let i = index">
             <td>{{window.WindowName}}</td>
             <td>{{window.Width | number: '1.0-2'}}</td>
             <td>{{window.Height | number: '1.0-2'}}</td>
-            <td><button class="btn btn-primary" (click)="deletewindow(i)">Delete</button></td>
+            <td>{{window.ConstructionRValue | number: '1.0-2'}}</td>
+            <td>
+                <button class="btn btn-primary" (click)="updatewindowvalue(window)">Update Window</button>
+                <button class="btn btn-primary" (click)="deletewindow(i)">Delete</button></td>
           </tr>
           <tr>
             <td><label>Window</label>
@@ -74,6 +81,7 @@
               </select></td>
             <td>{{windowwidth | number: '1.0-2'}}</td>
             <td>{{windowheight | number: '1.0-2'}}</td>
+            <td>{{rvavluewindow | number: '1.0-2'}}</td>
             <td>
               <button class="btn btn-primary" (click)="addvaluewindow()">Add Window</button>
             </td>
@@ -87,12 +95,13 @@
           </tr>
           <tr>
             <td><label>Door</label>
-              <select class="form-control" name="Doorobject1" #Doorobject1="ngModel" [(ngModel)]="doorobject"
+              <select class="form-control" name="Doorobject" #Doorobject="ngModel" [(ngModel)]="doorobject"
                 (change)="optionchange2()" [compareWith]="compareFnDoor">
                 <option *ngFor="let i of doorobjectlist" [ngValue]="i.data">{{i.data.DoorName}}</option>
               </select></td>
             <td>{{doorwidth | number: '1.0-2'}}</td>
             <td>{{doorheight | number: '1.0-2'}}</td>
+            <td>{{rvaluedoor | number: '1.0-2'}}</td>
           </tr>
         </table>
       </div>

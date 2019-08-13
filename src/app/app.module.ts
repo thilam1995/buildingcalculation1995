@@ -89,7 +89,7 @@ import { FloormodelitemComponent } from './components/floormodelitem/floormodeli
     ForgotpasswordComponent,
     WalldoorwindowmodelitemComponent,
     RoofskylightmodelitemComponent,
-    FloormodelitemComponent,
+    FloormodelitemComponent
   ],
   imports: [
     BrowserModule,

@@ -31,10 +31,12 @@ export class ForgotpasswordComponent implements OnInit {
     };
   }
 
-  onSubmitEmail(form: NgForm){
-    if(form.value.email){
+  onSubmitEmail(form: NgForm) {
+    if (form.value.email) {
       this.loginservice.requestresetpassword(form.value.email).subscribe(res => {
-        if(res){
+        if (Object.keys(res).length === 0) {
+          this.toastr.error("The Account is not available!", "Error Message");
+        } else {
           this.registerobject = res;
           this.register = {
             ID: this.registerobject.id,
@@ -44,21 +46,30 @@ export class ForgotpasswordComponent implements OnInit {
             Password: this.registerobject.Password
           };
           this.isaccountfound = true;
+          
         }
       }, err => {
         this.toastr.error("Something wrong", "Error Message");
       });
-    }else{
+    } else {
       this.toastr.error("Please enter your password", "Error Message");
     }
   }
 
-  onSubmitPassword(form: NgForm){
-    if(form.value.newpass !== form.value.renewpass){
+  isEmpty(obj: Object): boolean {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
+
+  onSubmitPassword(form: NgForm) {
+    if (form.value.newpass !== form.value.renewpass) {
       this.toastr.error("The password is not the same as the retyped", "Error Message");
-    }else{
-      
-      this.loginservice.updatepassword(this.passwordencrypt.set('123456$#@$^@1ERF',form.value.newpass), this.register.ID).subscribe(res => {
+    } else {
+
+      this.loginservice.updatepassword(this.passwordencrypt.set('123456$#@$^@1ERF', form.value.newpass), this.register.ID).subscribe(res => {
         this.toastr.success("Password updated", "Update Message");
         this.Newpass = "";
         this.Renewpass = "";

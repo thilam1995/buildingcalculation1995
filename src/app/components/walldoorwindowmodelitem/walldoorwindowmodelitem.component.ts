@@ -27,8 +27,10 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
   wallarea = 0;
   doorwidth = 0;
   doorheight = 0;
+  rvaluedoor = 0;
   windowwidth = 0;
   windowheight = 0;
+  rvavluewindow = 0;
 
   wallobject: Wall;
   wallextendobject: WallExtend;
@@ -48,28 +50,28 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
   isedit: boolean = false;
   isdisplay: boolean = false;
   @Input() i: any;
-  
+
 
   projectid: string = "";
   designid: string = "";
-  
+
   constructor(private toastr: ToastrService, public route: ActivatedRoute,
     private loginservice: LoginserviceService, private wallservice: WalldoorwindowService,
-    private buildingmodelservice: BuildingmodelService) { 
-      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
-      this.route.queryParams.subscribe(params => {
-        this.projectid = params['projectid'];
-        this.designid = params['designid'];
-      });
-    }
+    private buildingmodelservice: BuildingmodelService) {
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
+    this.route.queryParams.subscribe(params => {
+      this.projectid = params['projectid'];
+      this.designid = params['designid'];
+    });
+  }
 
   ngOnInit() {
     this.setdefault();
@@ -78,7 +80,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     this.fetchingdoordata();
   }
 
-  toggle(){
+  toggle() {
     this.isdisplay = !this.isdisplay
   }
 
@@ -119,26 +121,27 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     this.wallextendobject = null;
   }
 
-  selecttoEdit(i: any){
+  selecttoEdit(i: any) {
     this.isedit = true;
-    
+
     this.wallextendobject = Object.assign({}, i.data.Wall);
     console.log(this.wallextendobject);
     this.windowobjectmodellist = i.data.Window;
     this.doorobject = Object.assign({}, i.data.Door);
     this.doorheight = this.doorobject.Height;
     this.doorwidth = this.doorobject.Width;
+    this.rvaluedoor = this.doorobject.ConstructionRValue;
     this.wallobject = {
       WallName: this.wallextendobject.WallName,
       ConstructionRValue: this.wallextendobject.ConstructionRValue
     };
   }
 
-  onCancel(){
+  onCancel() {
     this.isedit = false;
   }
 
-  updateselectedmodel(id: string){
+  updateselectedmodel(id: string) {
     this.wallextendobject.WallName = this.wallobject.WallName;
     this.wallextendobject.ConstructionRValue = this.wallobject.ConstructionRValue;
     if (this.wallextendobject.WallSection === null || this.wallextendobject.Orientation === null ||
@@ -156,10 +159,10 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       };
 
       console.log(this.wallwindowdoormodel);
-      this.buildingmodelservice.wallwindowdoormodelUpdate(id ,this.wallwindowdoormodel, this.designid).subscribe(res =>{
+      this.buildingmodelservice.wallwindowdoormodelUpdate(id, this.wallwindowdoormodel, this.designid).subscribe(res => {
         this.toastr.success("Update model successfully", "Info Message");
         this.setdefault();
-        
+
         this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
       }, err => {
         this.toastr.error("Update model failed", "Info Message");
@@ -167,12 +170,12 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     }
   }
 
-  deleleselectmodel(id: string){
-    if(confirm("Do you want to delete this section") === true){
+  deleleselectmodel(id: string) {
+    if (confirm("Do you want to delete this section") === true) {
       this.buildingmodelservice.wallwindowdoormodelDelete(id, this.designid).subscribe(res => {
         this.toastr.success("Delete Successfully", "Info");
         this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
-      }, err =>{
+      }, err => {
         this.toastr.error("Delete Failed", "Error");
       });
     }
@@ -181,6 +184,21 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
   compareFn(a, b) {
     //console.log(JSON.stringify(a) + " " + JSON.stringify(b));
     return a && b && a.WallName === b.WallName && a.ConstructionRValue === b.ConstructionRValue;
+  }
+  compareFnDoor(a, b) {
+    return a && b && a.DoorName === b.DoorName && a.ConstructionRValue === b.ConstructionRValue;
+  }
+
+  updatewindowvalue(window: any) {
+
+    let result = this.windowobjectlist.find(x =>
+      x.data.WindowName === window.WindowName
+    );
+
+
+    window = result.data;
+
+    console.log(window);
   }
 
 
@@ -211,11 +229,13 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
   optionchange1() {
     this.windowwidth = this.windowobject.Width;
     this.windowheight = this.windowobject.Height;
+    this.rvavluewindow = this.windowobject.ConstructionRValue;
   }
 
   optionchange2() {
     this.doorwidth = this.doorobject.Width;
     this.doorheight = this.doorobject.Height;
+    this.rvaluedoor = this.doorobject.ConstructionRValue;
   }
 
   addvaluewindow() {
@@ -225,11 +245,12 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       this.windowobject = null;
       this.windowheight = 0;
       this.windowwidth = 0;
+      this.rvavluewindow = 0;
     }
   }
 
 
-  fetchingwalldata(){
+  fetchingwalldata() {
     this.wallservice.walllistdata(this.designid).subscribe(res => {
       this.wallobjectlist = res;
     }, err => {
@@ -237,7 +258,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     });
   }
 
-  fetchingwindowdata(){
+  fetchingwindowdata() {
     this.wallservice.windowlistdata(this.designid).subscribe(res => {
       this.windowobjectlist = res;
     }, err => {
@@ -245,10 +266,10 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     });
   }
 
-  fetchingdoordata(){
+  fetchingdoordata() {
     this.wallservice.doorlistdata(this.designid).subscribe(res => {
       this.doorobjectlist = res;
-      
+
     }, err => {
       this.toastr.error("Something wrong", "Error Message!");
     });

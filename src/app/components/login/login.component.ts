@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   login: Login;
   return: string = '';
+  isclicked: boolean = false;
 
   constructor(private router: Router,
     private route: ActivatedRoute, private loginservice: LoginserviceService,
@@ -33,30 +34,38 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form: NgForm){
     if(form.value.Email && form.value.Password){
+      this.isclicked = true;
       this.loginservice.login(form.value).subscribe(res =>{
         //console.log(res);
-        if(form.value.Password === this.passworddecrypt.get('123456$#@$^@1ERF', res.data.Password)){
-          setTimeout(() => {
-            if (this.loginservice.registermember.ID === null || this.loginservice.registermember.ID === undefined ||
-              this.loginservice.registermember.ID === ""){
-              this.loginservice.registermember = {
-                ID: res.id,
-                FirstName: res.data.FirstName,
-                LastName: res.data.LastName,
-                Email: res.data.Email,
-                Password: res.data.Password
-              };  
-            }
-            //console.log(this.loginservice.registermember);
-            localStorage.setItem('currentUser', JSON.stringify(this.loginservice.registermember));
-            localStorage.setItem('login', JSON.stringify(true));
-            this.router.navigateByUrl("/main/"+`${this.loginservice.registermember.ID}`);
-          }, 4000);
+        if(Object.keys(res).length === 0) {
+          this.toastr.error("The Account is not available!", "Error Message");
+          this.isclicked = false;
         }else{
-          this.toastr.error("Incorrect Password", "Login Message");
+          if(form.value.Password === this.passworddecrypt.get('123456$#@$^@1ERF', res.data.Password)){
+            setTimeout(() => {
+              if (this.loginservice.registermember.ID === null || this.loginservice.registermember.ID === undefined ||
+                this.loginservice.registermember.ID === ""){
+                this.loginservice.registermember = {
+                  ID: res.id,
+                  FirstName: res.data.FirstName,
+                  LastName: res.data.LastName,
+                  Email: res.data.Email,
+                  Password: res.data.Password
+                };  
+              }
+              //console.log(this.loginservice.registermember);
+              localStorage.setItem('currentUser', JSON.stringify(this.loginservice.registermember));
+              localStorage.setItem('login', JSON.stringify(true));
+              this.router.navigateByUrl("/main/"+`${this.loginservice.registermember.ID}`);
+            }, 2000);
+          }else{
+            this.toastr.error("Incorrect Password", "Login Message");
+            this.isclicked = false;
+          }
         }
       }, err =>{
         console.log(err);
+        this.isclicked = false;
       });
     }
   }

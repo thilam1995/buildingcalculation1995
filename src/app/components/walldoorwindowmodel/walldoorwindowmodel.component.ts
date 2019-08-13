@@ -22,7 +22,6 @@ export class WalldoorwindowmodelComponent implements OnInit {
   @Input() windowobjectlist = [];
   @Input() wallobjectlist = [];
   @Input() doorobjectlist = [];
-  //wallwindowdoorobject = { wall: null, window: null, door: null, isDisplay: false, buttonshowhide: "Hide" };
   @Input() wallwindowdoorobjectlist = [];
 
   projectid: string = "";
@@ -41,8 +40,10 @@ export class WalldoorwindowmodelComponent implements OnInit {
   wallarea = 0;
   doorwidth = 0;
   doorheight = 0;
+  rvaluedoor = 0;
   windowwidth = 0;
-  windowheight = 0;
+  windowheight = 0; 
+  rvavluewindow = 0;
   display: boolean = false;
   display1: boolean = false;
   display2: boolean = false;
@@ -110,10 +111,12 @@ export class WalldoorwindowmodelComponent implements OnInit {
 
   ngOnInit() {
     this.setdefault();
-    this.fetchingwalldata();
-    this.fetchingwindowdata();
-    this.fetchingdoordata();
-    this.fetchingwallwindowdoormodel();
+    setTimeout(() => {
+      this.fetchingwalldata();
+      this.fetchingwindowdata();
+      this.fetchingdoordata();
+      this.fetchingwallwindowdoormodel();
+    }, 1000);
   }
 
   setdefault() {
@@ -168,6 +171,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       this.windowobject = null;
       this.windowheight = 0;
       this.windowwidth = 0;
+      this.rvavluewindow = 0;
     }
   }
 
@@ -186,11 +190,13 @@ export class WalldoorwindowmodelComponent implements OnInit {
   optionchange1() {
     this.windowwidth = this.windowobject.Width;
     this.windowheight = this.windowobject.Height;
+    this.rvavluewindow = this.windowobject.ConstructionRValue;
   }
 
   optionchange2() {
     this.doorwidth = this.doorobject.Width;
     this.doorheight = this.doorobject.Height;
+    this.rvaluedoor = this.doorobject.ConstructionRValue;
   }
 
 
@@ -213,7 +219,9 @@ export class WalldoorwindowmodelComponent implements OnInit {
     }
   }
 
-
+  updatewindowvalue(){
+    
+  }
 
   addwalltoggle() { //
     this.display = !this.display;

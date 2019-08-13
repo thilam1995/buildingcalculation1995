@@ -57,21 +57,19 @@ export class Ehc1heatingenergyComponent implements OnInit {
   totalheatlossfloor: number = 0;
   totalproposed: number = 0;
 
-  totalheatlosswall1: number = 0;
-  totalheatlosswindow1less30: number = 0;
-  totalheatlosswindow1more30: number = 0;
-  totalheatlossdoor1: number = 0;
-  totalheatlossroof1: number = 0;
-  totalheatlossskylight1: number = 0;
-  totalheatlossfloor1: number = 0;
+
+  totalheatlosswindowless30: number = 0;
+  totalheatlosswindowmore30: number = 0;
+
   totalschedule: number = 0;
 
-  rooflist = [];
-  skylightlist = [];
-  walllist = [];
-  floorlist = [];
-  windowlist = [];
-  doorlist = [];
+  rooflist: Array<any> = [];
+  skylightlist: Array<any> = [];
+  walllist: Array<any> = [];
+  floorlist: Array<any> = [];
+  windowlist: Array<any> = [];
+  doorlist: Array<any> = [];
+
 
   walldistinct = [];
   roofdistinct = [];
@@ -88,15 +86,15 @@ export class Ehc1heatingenergyComponent implements OnInit {
     private router: Router, private loginservice: LoginserviceService,
     private buildingmodelservice: BuildingmodelService, private designservice: DesignService,
     private toastr: ToastrService) {
-      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
@@ -106,7 +104,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   ngOnInit() {
     this.setdefault();
     this.featchingmodel();
-
+    
   }
 
   setdefault() {
@@ -143,7 +141,6 @@ export class Ehc1heatingenergyComponent implements OnInit {
         ProjectID: res.data.ProjectID,
         UserID: res.data.UserID
       };
-      console.log(this.designobject);
       this.location = this.designobject.Location.data.place;
       this.targeting = this.designobject.TargetRating.data.Type;
       this.climatezone = this.designobject.Location.data.climatezone;
@@ -153,20 +150,20 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.roofrvalue = this.targetingschedule.constructionrvalue.Roof;
       this.wallrvalue = this.targetingschedule.constructionrvalue.Wall;
       this.floorrvalue = this.targetingschedule.constructionrvalue.Floor;
-      this.windowrvalue = this.targetingschedule.constructionrvalue.Skylight;
-      console.log(this.targetingschedule);
+      this.windowrvalue = this.targetingschedule.constructionrvalue.Window;
+      //console.log(this.targetingschedule);
     }, err => {
       this.toastr.error("Something wrong!", "Error Message");
     });
+    
     this.startcalculate();
   }
 
   startcalculate() {
     this.buildingmodelservice.fetchwallwindowdoormodel(this.designid).subscribe(res => {
       this.wallwindowdoormodellist = res;
-      console.log(this.wallwindowdoormodellist);
       this.walldistinct = Array.from(new Set(this.wallwindowdoormodellist.map((x: any) => x.data.Wall.WallName)));
-      console.log(this.walldistinct);
+
       for (let i of this.wallwindowdoormodellist) {
         if (i.data.Window.length !== 0) {
           this.windowdistinct = Array.from(new Set(i.data.Window.map((x: any) =>
@@ -174,7 +171,6 @@ export class Ehc1heatingenergyComponent implements OnInit {
           )));
         }
       }
-      console.log(this.windowdistinct);
       for (let i of this.wallwindowdoormodellist) {
         if (i.data.Door !== null) {
           this.doornamelist.push(i.data.Door.DoorName);
@@ -183,7 +179,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.doordistinct = Array.from(new Set(this.doornamelist.map((x: any) =>
         x
       )));
-      console.log(this.doordistinct);
+
+
 
       for (let x of this.walldistinct) {
         let object = { wallname: x, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
@@ -198,7 +195,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
         this.walllist.push(object);
         object = { wallname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
       }
-  
+
+
       for (let i of this.windowdistinct) {
         let object = { windowname: i, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0, owa: 0 };
         for (let x of this.wallwindowdoormodellist) {
@@ -216,9 +214,10 @@ export class Ehc1heatingenergyComponent implements OnInit {
         object = { windowname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0, owa: 0 };
       }
     });
+
+
     this.buildingmodelservice.fetchroofskylightmodelGet(this.designid).subscribe(res => {
       this.roofskylightmodellist = res;
-      console.log(this.roofskylightmodellist);
       this.roofdistinct = Array.from(new Set(this.roofskylightmodellist.map((x: any) => x.data.Roof.RoofName)));
       for (let i of this.roofskylightmodellist) {
         if (i.data.Skylight.length !== 0) {
@@ -240,7 +239,9 @@ export class Ehc1heatingenergyComponent implements OnInit {
         this.rooflist.push(object);
         object = { roofname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
       }
-  
+
+
+
       for (let i of this.skylightdistinct) {
         let object = { skylightname: i, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
         for (let x of this.roofskylightmodellist) {
@@ -256,11 +257,11 @@ export class Ehc1heatingenergyComponent implements OnInit {
         this.skylightlist.push(object);
         object = { skylightname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
       }
-      
+
     });
+
     this.buildingmodelservice.fetchfloormodel(this.designid).subscribe(res => {
       this.floormodellist = res;
-      console.log(this.floormodellist);
       this.floordistinct = Array.from(new Set(this.floormodellist.map((x: any) => x.data.Floor.FloorName)));
       for (let x of this.floordistinct) {
         let object = { floorname: x, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
@@ -275,15 +276,57 @@ export class Ehc1heatingenergyComponent implements OnInit {
         this.floorlist.push(object);
         object = { floorname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
       }
+
     });
+
+    setTimeout(() => {
+      this.doublecheck();
+    }, 1000);
+
+    
   }
 
-  calculatefinal(...housecomponentlist: Array<any>){
-
-  }
-
+  
 
   returntoSchedule() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/buildingschedule"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  doublecheck(){
+    for (var x of this.walllist) {
+      this.totalareawall += x.totalarea;
+      this.totalheatlosswall += x.totalheatloss;
+    }
+
+    for (var x of this.windowlist) {
+      this.totalareawindow += x.totalarea;
+      this.totalheatlosswindow += x.totalheatloss;
+      if (x.owa < 0.30) {
+        this.totalareawindowless30 += x.totalarea;
+        this.totalheatlosswindowless30 += x.totalheatloss;
+      } else {
+        this.totalareawindowmore30 += x.totalarea;
+        this.totalheatlosswindowmore30 += x.totalheatloss;
+      }
+    }
+
+    for (var x of this.rooflist) {
+      this.totalarearoof += x.totalarea;
+      this.totalheatlossroof += x.totalheatloss;
+    }
+
+    for (var x of this.skylightlist) {
+      this.totalareaskylight += x.totalarea;
+      this.totalheatlossskylight += x.totalheatloss;
+    }
+
+    for (var x of this.floorlist) {
+      this.totalareafloor += x.totalarea;
+      this.totalheatlossfloor += x.totalheatloss;
+    }
+
+
+    this.totalproposed = this.totalheatlossroof + this.totalheatlossskylight + this.totalheatlosswindow + this.totalheatlosswall + this.totalheatlossfloor;
+    this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareawindowmore30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
   }
 }
