@@ -30,7 +30,7 @@
               [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></td>
           <td><span>Construction: <select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()"
                 [compareWith]="compareFn">
-                <option *ngFor="let roof of roofobjectlist" [ngValue]="roof.data">{{roof.data.RoofName}}</option>
+                <option *ngFor="let roof of roofskylightservice.rooflist" [ngValue]="roof.data">{{roof.data.RoofName}}</option>
               </select></span></td>
           <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel"
               [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></td>
@@ -57,11 +57,12 @@
             <td><span>Skylight
                 <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()"
                   [compareWith]="compareFn">
-                  <option *ngFor="let i of skylightsobjectlist" [ngValue]="i.data">{{i.data.SkylightsName}}</option>
+                  <option *ngFor="let i of roofskylightservice.skylightlist" [ngValue]="i.data">{{i.data.SkylightsName}}</option>
                 </select>
               </span></td>
             <td>{{skylightwidth | number: '1.0-2'}}</td>
             <td>{{skylightlength | number: '1.0-2'}}</td>
+            <td>{{rvalueskylight | number: '1.0-2'}}</td>
             <td><button class="btn btn-primary" (click)="addvalueskylight()">Add Skylight</button></td>
           </tr>
         </table>

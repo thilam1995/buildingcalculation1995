@@ -13,19 +13,37 @@ export class RoofskylightService {
   url1: string = "http://localhost:8080/api/roof";
   url2: string = "http://localhost:8080/api/skylight";
 
+  rooflist = [];
+  skylightlist = [];
 
   constructor(private http: HttpClient) { }
 
+  // rooflistdata(designID: string){
+  //   return this.http.get(this.url1 + "/" + `${designID}`).pipe(map((data: Response) =>{
+  //     return data as any;
+  //   }));
+  // }
+
+  // skylightlistdata(designID: string){
+  //   return this.http.get(this.url2 + "/" + `${designID}`).pipe(map((data: Response) =>{
+  //     return data as any;
+  //   }));
+  // }
+
   rooflistdata(designID: string){
-    return this.http.get(this.url1 + "/" + `${designID}`).pipe(map((data: Response) =>{
+    this.http.get(this.url1 + "/" + `${designID}`).pipe(map((data: Response) =>{
       return data as any;
-    }));
+    })).toPromise().then(res =>{
+      this.rooflist = res;
+    });
   }
 
   skylightlistdata(designID: string){
-    return this.http.get(this.url2 + "/" + `${designID}`).pipe(map((data: Response) =>{
+    this.http.get(this.url2 + "/" + `${designID}`).pipe(map((data: Response) =>{
       return data as any;
-    }));
+    })).toPromise().then(res =>{
+      this.skylightlist = res;
+    });
   }
 
   addroof(Roof: Roof, ProjectID?: string){

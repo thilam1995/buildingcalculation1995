@@ -8,6 +8,7 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Register } from 'src/app/models/register';
 
+
 @Component({
   selector: 'app-windowform',
   templateUrl: './windowform.component.html',
@@ -67,21 +68,17 @@ export class WindowformComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wallservice.windowlistdata(this.designid).subscribe(res => {
-      this.windowobjectlist = res;
-      
-    }, err => {
-      this.toastr.error("Something wrong", "Error Message!");
-    });
+    this.fetchingwindowdata();
   }
 
   fetchingwindowdata(){
-    this.wallservice.windowlistdata(this.designid).subscribe(res => {
-      this.windowobjectlist = res;
+    // this.wallservice.windowlistdata(this.designid).subscribe(res => {
+    //   this.windowobjectlist = res;
       
-    }, err => {
-      this.toastr.error("Something wrong", "Error Message!");
-    });
+    // }, err => {
+    //   this.toastr.error("Something wrong", "Error Message!");
+    // });
+    this.wallservice.windowlistdata(this.designid);
   }
 
   onSubmit(form: NgForm) {

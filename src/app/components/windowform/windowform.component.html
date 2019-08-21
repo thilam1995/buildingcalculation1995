@@ -9,7 +9,7 @@
         <th>O.W.A (%)</th>
         <th>Action</th>
     </tr>
-    <tr *ngFor="let i of windowobjectlist">
+    <tr *ngFor="let i of wallservice.windowlist">
         <td>{{i.data.WindowName}}</td>
         <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
         <td>{{i.data.Width | number: '1.0-2'}}</td>

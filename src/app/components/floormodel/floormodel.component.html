@@ -20,7 +20,7 @@
             <td>
               <span>Construction
                 <select class="form-control" [(ngModel)]="floorobject">
-                  <option *ngFor="let i of floorobjectlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
+                  <option *ngFor="let i of floorservice.floorlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
                 </select>
               </span>
             </td>

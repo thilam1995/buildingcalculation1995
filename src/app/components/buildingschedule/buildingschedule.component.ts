@@ -53,12 +53,12 @@ export class BuildingscheduleComponent implements OnInit {
   // roofskylightobject = {};
   // floorsobject = {};
 
-  doorobjectlist = [];
-  windowobjectlist = [];
-  wallobjectlist = [];
-  skylightsobjectlist = [];
-  roofobjectlist = [];
-  floorobjectlist = [];
+  // doorobjectlist = [];
+  // windowobjectlist = [];
+  // wallobjectlist = [];
+  // skylightsobjectlist = [];
+  // roofobjectlist = [];
+  // floorobjectlist = [];
 
   wallwindowdoorobjectlist = [];
   floormodelobjectlist = [];
@@ -117,38 +117,38 @@ export class BuildingscheduleComponent implements OnInit {
     //this.fetchingdata(this.designid);
   }
 
-  fetchingdata(designid: string){
-    this.wallservice.walllistdata(designid).subscribe(res => {
-      this.wallobjectlist = res;
-    }, err => {
-      this.toastr.error("Something Wrong!", "Error Message");
-    });
-    this.wallservice.windowlistdata(this.designid).subscribe(res => {
-      this.windowobjectlist = res;
-    }, err => {
-      this.toastr.error("Something wrong", "Error Message!");
-    });
-    this.wallservice.doorlistdata(this.designid).subscribe(res => {
-      this.doorobjectlist = res;
-    }, err => {
-      this.toastr.error("Something wrong", "Error Message!");
-    });
-    this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
-      this.roofobjectlist = res;
-    }, err => {
-      this.toastr.error("Something Wrong", "Error Message!");
-    });
-    this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
-      this.skylightsobjectlist = res;
-    }, err => {
-      this.toastr.error("Something Wrong", "Error Message!");
-    });
-    this.floorservice.floorlistdata(this.designid).subscribe(res => {
-      this.floorobjectlist = res;
-    }, err => {
-      this.toastr.error("Error! Something Wrong.", "Error Message")
-    });
-  }
+  // fetchingdata(designid: string){
+  //   this.wallservice.walllistdata(designid).subscribe(res => {
+  //     this.wallobjectlist = res;
+  //   }, err => {
+  //     this.toastr.error("Something Wrong!", "Error Message");
+  //   });
+  //   this.wallservice.windowlistdata(this.designid).subscribe(res => {
+  //     this.windowobjectlist = res;
+  //   }, err => {
+  //     this.toastr.error("Something wrong", "Error Message!");
+  //   });
+  //   this.wallservice.doorlistdata(this.designid).subscribe(res => {
+  //     this.doorobjectlist = res;
+  //   }, err => {
+  //     this.toastr.error("Something wrong", "Error Message!");
+  //   });
+  //   this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
+  //     this.roofobjectlist = res;
+  //   }, err => {
+  //     this.toastr.error("Something Wrong", "Error Message!");
+  //   });
+  //   this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
+  //     this.skylightsobjectlist = res;
+  //   }, err => {
+  //     this.toastr.error("Something Wrong", "Error Message!");
+  //   });
+  //   this.floorservice.floorlistdata(this.designid).subscribe(res => {
+  //     this.floorobjectlist = res;
+  //   }, err => {
+  //     this.toastr.error("Error! Something Wrong.", "Error Message")
+  //   });
+  // }
 
   setnulldefault() {
     this.designobject = {

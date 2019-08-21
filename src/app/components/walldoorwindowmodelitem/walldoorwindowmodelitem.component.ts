@@ -251,28 +251,31 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
 
 
   fetchingwalldata() {
-    this.wallservice.walllistdata(this.designid).subscribe(res => {
-      this.wallobjectlist = res;
-    }, err => {
-      this.toastr.error("Something Wrong!", "Error Message")
-    });
+    // this.wallservice.walllistdata(this.designid).subscribe(res => {
+    //   this.wallobjectlist = res;
+    // }, err => {
+    //   this.toastr.error("Something Wrong!", "Error Message")
+    // });
+    this.wallservice.walllistdata(this.designid);
   }
 
   fetchingwindowdata() {
-    this.wallservice.windowlistdata(this.designid).subscribe(res => {
-      this.windowobjectlist = res;
-    }, err => {
-      this.toastr.error("Something wrong", "Error Message!");
-    });
+    // this.wallservice.windowlistdata(this.designid).subscribe(res => {
+    //   this.windowobjectlist = res;
+    // }, err => {
+    //   this.toastr.error("Something wrong", "Error Message!");
+    // });
+    this.wallservice.windowlistdata(this.designid);
   }
 
   fetchingdoordata() {
-    this.wallservice.doorlistdata(this.designid).subscribe(res => {
-      this.doorobjectlist = res;
+    // this.wallservice.doorlistdata(this.designid).subscribe(res => {
+    //   this.doorobjectlist = res;
 
-    }, err => {
-      this.toastr.error("Something wrong", "Error Message!");
-    });
+    // }, err => {
+    //   this.toastr.error("Something wrong", "Error Message!");
+    // });
+    this.wallservice.doorlistdata(this.designid);
   }
 
 }

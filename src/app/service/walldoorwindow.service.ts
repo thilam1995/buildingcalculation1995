@@ -15,9 +15,10 @@ export class WalldoorwindowService {
   url1: string = "http://localhost:8080/api/wall";
   url2: string = "http://localhost:8080/api/window";
   url3: string = "http://localhost:8080/api/door";
-  // windowlist = [];
-  // walllist = [];
-  // doorlist = [];
+  
+  windowlist = [];
+  walllist = [];
+  doorlist = [];
 
   // windowobject: WindowObject;
   // wallobject: Wall;
@@ -25,22 +26,46 @@ export class WalldoorwindowService {
 
   constructor(private http: HttpClient) { }
 
+  // windowlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
+  //   return this.http.get(this.url2 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+  //     return data as any;
+  //   }));
+  // }
+
+  // walllistdata(DesignID: string, UserID?: string, ProjectID?: string) {
+  //   return this.http.get(this.url1 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+  //     return data as any;
+  //   }));
+  // }
+
+  // doorlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
+  //   return this.http.get(this.url3 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+  //     return data as any;
+  //   }));
+  // }
+
   windowlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-    return this.http.get(this.url2 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+    this.http.get(this.url2 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
       return data as any;
-    }));
+    })).toPromise().then(res =>{
+      this.windowlist = res;
+    }).catch(err => this.handleError);
   }
 
   walllistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-    return this.http.get(this.url1 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+    this.http.get(this.url1 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
       return data as any;
-    }));
+    })).toPromise().then(res =>{
+      this.walllist = res;
+    }).catch(err => this.handleError);
   }
 
   doorlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-    return this.http.get(this.url3 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+    this.http.get(this.url3 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
       return data as any;
-    }));
+    })).toPromise().then(res =>{
+      this.doorlist = res;
+    }).catch(err => this.handleError);
   }
 
   doorposting(Door: Door, DesignID?: string){

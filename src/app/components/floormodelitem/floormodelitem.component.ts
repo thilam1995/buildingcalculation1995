@@ -58,11 +58,12 @@ export class FloormodelitemComponent implements OnInit {
   }
 
   fetchingfloordata() {
-    this.floorservice.floorlistdata(this.designid).subscribe(res => {
-      this.floorobjectlist = res;
-    }, err => {
-      this.toastr.error("Error! Something Wrong.", "Error Message")
-    });
+    // this.floorservice.floorlistdata(this.designid).subscribe(res => {
+    //   this.floorobjectlist = res;
+    // }, err => {
+    //   this.toastr.error("Error! Something Wrong.", "Error Message")
+    // });
+    this.floorservice.floorlistdata(this.designid);
   }
 
   setdefault() {

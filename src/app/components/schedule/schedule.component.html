@@ -3,42 +3,47 @@
         <mat-horizontal-stepper labelPosition="bottom" #stepper>
             <mat-step>
                 <ng-template matStepLabel>Wall</ng-template>
-                <app-wallform [wallobject]="wallobject" [wallobjectlist]="wallobjectlist"></app-wallform>
+                <!-- <app-wallform [wallobject]="wallobject" [wallobjectlist]="wallobjectlist"></app-wallform> -->
+                <app-wallform></app-wallform>
                 <div>
-                    <button  type="button" color="default" mat-button matStepperNext>Go to Windows</button>
+                    <button type="button" color="default" mat-button matStepperNext>Go to Windows</button>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Windows</ng-template>
-                <app-windowform [windowobject]="windowobject" [windowobjectlist]="windowobjectlist"></app-windowform>
+                <!-- <app-windowform [windowobject]="windowobject" [windowobjectlist]="windowobjectlist"></app-windowform> -->
+                <app-windowform></app-windowform>
                 <div>
-                    <button  type="button" color="default" mat-button matStepperPrevious>Back to Wall</button>
-                    <button  type="button" color="default" mat-button matStepperNext>Go to Door</button>
+                    <button type="button" color="default" mat-button matStepperPrevious>Back to Wall</button>
+                    <button type="button" color="default" mat-button matStepperNext>Go to Door</button>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Door</ng-template>
-                <app-doorform [doorobject]="doorobject" [doorobjectlist]="doorobjectlist"></app-doorform>
+                <!-- <app-doorform [doorobject]="doorobject" [doorobjectlist]="doorobjectlist"></app-doorform> -->
+                <app-doorform></app-doorform>
                 <div>
-                    <button  type="button" color="default" mat-button matStepperPrevious>Back to Windows</button>
-                    <button  type="button" color="default" mat-button matStepperNext>Go to Roof & Skylight</button>
+                    <button type="button" color="default" mat-button matStepperPrevious>Back to Windows</button>
+                    <button type="button" color="default" mat-button matStepperNext>Go to Roof & Skylight</button>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Roof & Skylight</ng-template>
-                <app-roofskylineform [skylightsobject]="skylightsobject" [roofobject]="roofobject"
-                    [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist"></app-roofskylineform>
+                <!-- <app-roofskylineform [skylightsobject]="skylightsobject" [roofobject]="roofobject"
+                    [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist"></app-roofskylineform> -->
+                <app-roofskylineform></app-roofskylineform>
                 <div>
-                    <button  type="button" color="default" mat-button matStepperPrevious>Back to Door</button>
-                    <button  type="button" color="default" mat-button matStepperNext>Go to Floor</button>
+                    <button type="button" color="default" mat-button matStepperPrevious>Back to Door</button>
+                    <button type="button" color="default" mat-button matStepperNext>Go to Floor</button>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Floor</ng-template>
-                <app-floorsform [floorobject]="floorobject" [floorobjectlist]="floorobjectlist"></app-floorsform>
+                <!-- <app-floorsform [floorobject]="floorobject" [floorobjectlist]="floorobjectlist"></app-floorsform> -->
+                <app-floorsform></app-floorsform>
                 <div>
-                    <button  type="button" color="default" mat-button matStepperPrevious>Back to Roof & Skylight</button>
-                    <button  type="button" color="default" mat-button matStepperNext>Next</button>
+                    <button type="button" color="default" mat-button matStepperPrevious>Back to Roof & Skylight</button>
+                    <button type="button" color="default" mat-button matStepperNext>Next</button>
                 </div>
             </mat-step>
             <mat-step>

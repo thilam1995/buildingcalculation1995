@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -9,6 +9,9 @@ import { DesignService } from 'src/app/service/design.service';
 import { Design } from 'src/app/models/design';
 import { ToastrService } from 'ngx-toastr';
 import { Register } from 'src/app/models/register';
+import * as jsPDF from 'jspdf';
+import { ɵDomEventsPlugin } from '@angular/platform-browser';
+declare var xepOnline: any;
 
 @Component({
   selector: 'app-ehc1heatingenergy',
@@ -17,7 +20,7 @@ import { Register } from 'src/app/models/register';
 })
 export class Ehc1heatingenergyComponent implements OnInit {
 
-
+  @ViewChild('content', {static: true}) content: ElementRef;
   projectid: string = "";
   designid: string = "";
 
@@ -62,6 +65,16 @@ export class Ehc1heatingenergyComponent implements OnInit {
   totalheatlosswindowmore30: number = 0;
 
   totalschedule: number = 0;
+
+  totalwallnorth: number = 0;
+  totalwallsouth: number = 0;
+  totalwalleast: number = 0;
+  totalwallwest: number = 0;
+
+  totalwindownorth: number = 0;
+  totalwindowsouth: number = 0;
+  totalwindoweast: number = 0;
+  totalwindowwest: number = 0;
 
   rooflist: Array<any> = [];
   skylightlist: Array<any> = [];
@@ -180,20 +193,51 @@ export class Ehc1heatingenergyComponent implements OnInit {
         x
       )));
 
+      for (let i of this.wallwindowdoormodellist){
+        if(i.data.Wall.Orientation === "North"){
+          this.totalwallnorth = i.data.Wall.Area;
+          if(i.data.Window.length > 0){
+            for(let y of i.data.Window){
+              this.totalwindownorth += y.Area
+            }
+          }
 
-
+        }else if(i.data.Wall.Orientation === "South"){
+          this.totalwallsouth = i.data.Wall.Area;
+          if(i.data.Window.length > 0){
+            for(let y of i.data.Window){
+              this.totalwindowsouth += y.Area
+            }
+          }
+        }else if(i.data.Wall.Orientation === "East"){
+          this.totalwalleast = i.data.Wall.Area;
+          if(i.data.Window.length > 0){
+            for(let y of i.data.Window){
+              this.totalwindoweast += y.Area
+            }
+          }
+        }else if(i.data.Wall.Orientation === "West"){
+          this.totalwallwest = i.data.Wall.Area;
+          if(i.data.Window.length > 0){
+            for(let y of i.data.Window){
+              this.totalwindowwest += y.Area
+            }
+          }
+        }
+      }
       for (let x of this.walldistinct) {
-        let object = { wallname: x, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
+        let object = { wallname: x, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0, orientation: "" };
         for (let i of this.wallwindowdoormodellist) {
           if (i.data.Wall.WallName === x) {
             object.numinclusion++;
             object.totalarea += Number(i.data.Wall.Area);
             object.totalrvalue = Number(i.data.Wall.ConstructionRValue);
             object.totalheatloss += Number(i.data.Wall.Area) / Number(i.data.Wall.ConstructionRValue);
+            object.orientation = i.data.Wall.Orientation;
           }
         }
         this.walllist.push(object);
-        object = { wallname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
+        object = { wallname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0, orientation: "" };
       }
 
 
@@ -280,7 +324,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
     });
 
     setTimeout(() => {
-      this.doublecheck();
+      this.finalcalculation();
     }, 1000);
 
     
@@ -292,7 +336,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/buildingschedule"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 
-  doublecheck(){
+  finalcalculation(){
     for (var x of this.walllist) {
       this.totalareawall += x.totalarea;
       this.totalheatlosswall += x.totalheatloss;
@@ -328,5 +372,25 @@ export class Ehc1heatingenergyComponent implements OnInit {
 
     this.totalproposed = this.totalheatlossroof + this.totalheatlossskylight + this.totalheatlosswindow + this.totalheatlosswall + this.totalheatlossfloor;
     this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareawindowmore30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
+  }
+
+  downloadresult(){
+    // let doc = new jsPDF();
+    // let specialElementHandler  = {
+    //   "#result": function(element, renderer){
+    //     return true;
+    //   }
+    // };
+
+    //let content = this.content.nativeElement;
+    // console.log(content);
+
+    // doc.fromHTML(content.innerHTML, 10, 10, {
+    //   'width': 200,
+    //   'elementHandlers': specialElementHandler
+    // }, (e) =>{
+    //   doc.save("test.pdf")
+    // });
+    return xepOnline.Formatter.Format('content', {render: 'download'});
   }
 }

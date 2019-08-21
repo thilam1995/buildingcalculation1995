@@ -13,19 +13,19 @@ import { LocalStorage } from 'ngx-webstorage';
   styleUrls: ['./schedule.component.css']
 })
 export class ScheduleComponent implements OnInit {
-  @Input() doorobject: Door;
-  @Input() wallobject: Wall;
-  @Input() windowobject: WindowObject;
-  @Input() skylightsobject: Skylights;
-  @Input() roofobject: Roof;
-  @Input() floorobject: Floors;
+  // @Input() doorobject: Door;
+  // @Input() wallobject: Wall;
+  // @Input() windowobject: WindowObject;
+  // @Input() skylightsobject: Skylights;
+  // @Input() roofobject: Roof;
+  // @Input() floorobject: Floors;
 
-  @Input() windowobjectlist: WindowObject[];
-  @Input() wallobjectlist: Wall[];
-  @Input() doorobjectlist: Door[];
-  @Input() skylightsobjectlist: Skylights[];
-  @Input() roofobjectlist: Roof[];
-  @Input() floorobjectlist: Floors[];
+  // @Input() windowobjectlist: WindowObject[];
+  // @Input() wallobjectlist: Wall[];
+  // @Input() doorobjectlist: Door[];
+  // @Input() skylightsobjectlist: Skylights[];
+  // @Input() roofobjectlist: Roof[];
+  // @Input() floorobjectlist: Floors[];
 
   constructor() { }
 

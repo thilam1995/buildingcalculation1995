@@ -35,6 +35,8 @@ export class RoofskylightmodelitemComponent implements OnInit {
 
   skylightwidth = 0;
   skylightlength = 0;
+  rvalueskylight = 0;
+
   constructor(private toastr: ToastrService, public route: ActivatedRoute,
     private loginservice: LoginserviceService, private roofskylightservice: RoofskylightService,
     private buildingmodelservice: BuildingmodelService) { 
@@ -60,19 +62,21 @@ export class RoofskylightmodelitemComponent implements OnInit {
   }
 
   fetchingroof(){
-    this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
-      this.roofobjectlist = res;
-    }, err => {
-      this.toastr.error("Something Wrong", "Error Message!");
-    });
+    // this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
+    //   this.roofobjectlist = res;
+    // }, err => {
+    //   this.toastr.error("Something Wrong", "Error Message!");
+    // });
+    this.roofskylightservice.rooflistdata(this.designid);
   }
 
   fetchingskylight(){
-    this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
-      this.skylightsobjectlist = res;
-    }, err => {
-      this.toastr.error("Something Wrong", "Error Message!");
-    });
+    // this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
+    //   this.skylightsobjectlist = res;
+    // }, err => {
+    //   this.toastr.error("Something Wrong", "Error Message!");
+    // });
+    this.roofskylightservice.skylightlistdata(this.designid);
   }
   
 
@@ -130,6 +134,7 @@ export class RoofskylightmodelitemComponent implements OnInit {
   optionchange() {
     this.skylightwidth = this.skylightobject.Width;
     this.skylightlength = this.skylightobject.Length;
+    this.rvalueskylight = this.skylightobject.ConstructionRValue;
   }
 
   onCancel(){
@@ -171,6 +176,26 @@ export class RoofskylightmodelitemComponent implements OnInit {
         this.toastr.error("Insert Roof and Skylight failed", "Error");
       });
     }
+  }
+
+  addvalueskylight() {
+    if(this.skylightobject){
+      this.skylightobject.Length = Number(this.skylightobject.Length);
+      this.skylightobject.Width = Number(this.skylightobject.Width);
+      this.skylightobject.ConstructionRValue = Number(this.skylightobject.ConstructionRValue);
+      this.skylightmodellist.push(this.skylightobject);
+      this.skylightobject = {
+        Area: 0,
+        ConstructionRValue: null,
+        Length: null,
+        SkylightsName: null,
+        Width: null
+      };
+      this.rvalueskylight = 0;
+      this.skylightwidth = 0;
+      this.skylightlength = 0;
+    }
+
   }
 
   updateskylight(iskylight): void{

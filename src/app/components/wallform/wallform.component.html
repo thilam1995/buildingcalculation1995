@@ -5,7 +5,7 @@
         <th>Description</th>
         <th>Action</th>
     </tr>
-    <tr *ngFor="let i of wallobjectlist">
+    <tr *ngFor="let i of wallservice.walllist">
         <td>{{i.data.WallName}}</td>
         <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
         <td>{{i.data.Description}}</td>

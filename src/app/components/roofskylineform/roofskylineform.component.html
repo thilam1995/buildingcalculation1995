@@ -6,7 +6,7 @@
     <th>Description</th>
     <th>Action</th>
   </tr>
-  <tr *ngFor="let i of roofobjectlist">
+  <tr *ngFor="let i of roofskylightservice.rooflist">
     <td>{{i.data.RoofName}}</td>
     <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
     <td>{{i.data.Description}}</td>
@@ -50,7 +50,7 @@
     <th>Area</th>
     <td>Action</td>
   </tr>
-  <tr *ngFor="let i of skylightsobjectlist">
+  <tr *ngFor="let i of roofskylightservice.skylightlist">
     <td>{{i.data.SkylightsName}}</td>
     <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
     <td>{{i.data.Width | number: '1.0-2'}}</td>

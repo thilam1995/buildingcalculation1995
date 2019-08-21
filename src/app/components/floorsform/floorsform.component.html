@@ -5,7 +5,7 @@
         <th>Description</th>
         <th>Action</th>
     </tr>
-    <tr *ngFor="let i of floorobjectlist;">
+    <tr *ngFor="let i of floorservice.floorlist">
         <td>{{i.data.FloorName}}</td>
         <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
         <td>{{i.data.Description}}</td>

@@ -39,7 +39,7 @@
             <td>
               <span>Construction
                 <select class="form-control" [(ngModel)]="wallobject" [compareWith]="compareFn">
-                  <option *ngFor="let wall of wallobjectlist" [ngValue]="wall.data">{{wall.data.WallName}}</option>
+                  <option *ngFor="let wall of wallservice.walllist" [ngValue]="wall.data">{{wall.data.WallName}}</option>
                 </select></span>
             </td>
             <td>
@@ -77,7 +77,7 @@
           <tr>
             <td><label>Window</label>
               <select class="form-control" [(ngModel)]="windowobject" (change)="optionchange1()">
-                <option *ngFor="let i of windowobjectlist" [ngValue]="i.data">{{i.data.WindowName}}</option>
+                <option *ngFor="let i of wallservice.windowlist" [ngValue]="i.data">{{i.data.WindowName}}</option>
               </select></td>
             <td>{{windowwidth | number: '1.0-2'}}</td>
             <td>{{windowheight | number: '1.0-2'}}</td>
@@ -97,7 +97,7 @@
             <td><label>Door</label>
               <select class="form-control" name="Doorobject" #Doorobject="ngModel" [(ngModel)]="doorobject"
                 (change)="optionchange2()" [compareWith]="compareFnDoor">
-                <option *ngFor="let i of doorobjectlist" [ngValue]="i.data">{{i.data.DoorName}}</option>
+                <option *ngFor="let i of wallservice.doorlist" [ngValue]="i.data">{{i.data.DoorName}}</option>
               </select></td>
             <td>{{doorwidth | number: '1.0-2'}}</td>
             <td>{{doorheight | number: '1.0-2'}}</td>

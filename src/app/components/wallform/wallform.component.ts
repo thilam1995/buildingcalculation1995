@@ -39,24 +39,20 @@ export class WallformComponent implements OnInit {
         
       });
     this.setdefault();
-
-
   }
 
   ngOnInit() {
-    this.wallservice.walllistdata(this.designid).subscribe(res => {
-      this.wallobjectlist = res;
-    }, err => {
-      this.toastr.error("Something Wrong!", "Error Message")
-    });
+    this.fetchingwalldata();
   }
 
   fetchingwalldata(){
-    this.wallservice.walllistdata(this.designid).subscribe(res => {
-      this.wallobjectlist = res;
-    }, err => {
-      this.toastr.error("Something Wrong!", "Error Message")
-    });
+    // this.wallservice.walllistdata(this.designid).subscribe(res => {
+    //   this.wallobjectlist = res;
+    // }, err => {
+    //   this.toastr.error("Something Wrong!", "Error Message")
+    // });
+
+    this.wallservice.walllistdata(this.designid);
   }
 
   setdefault() {

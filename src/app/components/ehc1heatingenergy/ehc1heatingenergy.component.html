@@ -1,6 +1,8 @@
 <div class="row">
-  <div class="col-md-12">
-    <button class="btn btn-primary" (click)="returntoSchedule()">Return to Schedule</button>
+  <button class="btn btn-primary" (click)="returntoSchedule()">Return to Schedule</button>
+  <button class="btn btn-primary" (click)="downloadresult()">Download Result</button>
+  <div class="col-md-12" id="content">
+
     <!-- <button class="btn btn-primary" (click)="doublecheck()">Return to Schedule</button> -->
     <h1>Building Info</h1>
     <table class="table table-sm table-bordered">
@@ -403,6 +405,53 @@
         </table>
       </div>
       <div class="col-md-12">
+        <h1 style="text-align: center">Window to Wall Ratios</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Elevation</th>
+            <th>Gross Wall Area</th>
+            <th>Window Area</th>
+            <th>Window to Wall Ratio</th>
+          </tr>
+          <tr>
+            <td>North</td>
+            <td>{{totalwallnorth | number: '1.0-2'}}</td>
+            <td>{{totalwindownorth | number: '1.0-2'}}</td>
+            <td>%{{(totalwindownorth/totalwallnorth) * 100 | number: '1.0-2'}}</td>
+          </tr>
+          <tr>
+            <td>South</td>
+            <td>{{totalwallsouth | number: '1.0-2'}}</td>
+            <td>{{totalwindowsouth | number: '1.0-2'}}</td>
+            <td>%{{(totalwindowsouth/totalwallsouth) * 100 | number: '1.0-2'}}</td>
+          </tr>
+          <tr>
+            <td>East</td>
+            <td>{{totalwalleast | number: '1.0-2'}}</td>
+            <td>{{totalwindoweast | number: '1.0-2'}}</td>
+            <td>%{{(totalwindoweast/totalwalleast) * 100 | number: '1.0-2'}}</td>
+          </tr>
+          <tr>
+            <td>West</td>
+            <td>{{totalwallwest | number: '1.0-2'}}</td>
+            <td>{{totalwindowwest | number: '1.0-2'}}</td>
+            <td>%{{(totalwindowwest/totalwallwest) * 100 | number: '1.0-2'}}</td>
+          </tr>
+          <tr>
+            <td>E/W/S Only</td>
+            <td>{{(totalwallsouth + totalwalleast + totalwallwest) | number: '1.0-2'}}</td>
+            <td>{{(totalwindowsouth + totalwindoweast + totalwindowwest) | number: '1.0-2'}}</td>
+            <td>%{{(totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest) * 100 | number: '1.0-2'}}</td>
+          </tr>
+          <tr>
+            <td>All</td>
+            <td>{{(totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) | number: '1.0-2'}}</td>
+            <td>{{(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) | number: '1.0-2'}}</td>
+            <td>%{{(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) * 100 | number: '1.0-2'}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-12">
         <table class="table table-sm table-bordered">
           <tr>
             <th>Proposed</th>
@@ -475,14 +524,19 @@
                 </tr>
                 <tr>
                   <td>Wall</td>
-                  <td>{{totalareawall | number: '1.0-2'}}</td>
+                  <td>
+                    <span *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">
+                        {{totalareawall * 0.7 | number: '1.0-2'}}
+                    </span>
+                    <span *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">
+                      {{totalareawall | number: '1.0-2'}}</span>
+                  </td>
                   <td>{{wallrvalue | number: '1.0-2'}}</td>
                   <td>{{totalareawall/wallrvalue | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
-                  <td>Windows (OWA < %30)</td>
-                  <td>{{totalareawindowless30 | number: '1.0-2'}}</td>
-                  <td>{{windowrvalue | number: '1.0-2'}}</td>
+                  <td>Windows (OWA < %30)</td> <td>{{totalareawindowless30 | number: '1.0-2'}}</td>
+                  <td>{{windowrvalue * 0.30 | number: '1.0-2'}}</td>
                   <td>{{totalareawindowless30/windowrvalue | number: '1.0-2'}} </td>
                 </tr>
                 <tr>
@@ -507,10 +561,8 @@
           <tr>
             <td>Result: </td>
             <td>
-              <img src="../../../assets/pic/pass.png"
-                *ngIf="totalschedule >= totalproposed">
-              <img src="../../../assets/pic/fail.png"
-                *ngIf="totalproposed > totalschedule">
+              <img src="../../../assets/pic/pass.png" *ngIf="totalschedule >= totalproposed">
+              <img src="../../../assets/pic/fail.png" *ngIf="totalproposed > totalschedule">
             </td>
           </tr>
         </table>

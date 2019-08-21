@@ -37,24 +37,29 @@ export class DoorformComponent implements OnInit {
         
       });
       this.setDefault();
+      
   }
 
   ngOnInit() {
-    this.wallservice.doorlistdata(this.designid).subscribe(res => {
-      this.doorobjectlist = res;
+    // this.wallservice.doorlistdata(this.designid).subscribe(res => {
+    //   this.doorobjectlist = res;
       
-    }, err => {
-      this.toastr.error("Something wrong", "Error Message!");
-    });
+    // }, err => {
+    //   this.toastr.error("Something wrong", "Error Message!");
+    // });
+    this.wallservice.doorlistdata(this.designid);
   }
 
+  
+
   fetchingdoordata(){
-    this.wallservice.doorlistdata(this.designid).subscribe(res => {
-      this.doorobjectlist = res;
+    // this.wallservice.doorlistdata(this.designid).subscribe(res => {
+    //   this.doorobjectlist = res;
       
-    }, err => {
-      this.toastr.error("Something wrong", "Error Message!");
-    });
+    // }, err => {
+    //   this.toastr.error("Something wrong", "Error Message!");
+    // });
+    this.wallservice.doorlistdata(this.designid);
   }
 
   setDefault() {

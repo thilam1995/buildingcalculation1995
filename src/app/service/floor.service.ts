@@ -11,14 +11,22 @@ import { Roof } from '../models/roof';
 export class FloorService {
   //Floor: Floors;
   url: string = "http://localhost:8080/api/floor";
-  //Floorlist = [];
+  floorlist = [];
 
   constructor(private http: HttpClient) { }
+
+  // floorlistdata(designID: string){
+  //   return this.http.get(this.url + "/" + `${designID}`).pipe(map((data: Response) =>{
+  //     return data as any;
+  //   }));
+  // }
 
   floorlistdata(designID: string){
     return this.http.get(this.url + "/" + `${designID}`).pipe(map((data: Response) =>{
       return data as any;
-    }));
+    })).toPromise().then(res => {
+      this.floorlist = res;
+    });
   }
 
   addfloor(Floor: Floors, designID?: string){

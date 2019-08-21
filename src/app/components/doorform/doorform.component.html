@@ -7,7 +7,7 @@
                 <th>Area</th>
                 <th>Action</th>
         </tr>
-        <tr *ngFor="let i of doorobjectlist">
+        <tr *ngFor="let i of wallservice.doorlist">
                 <td>{{i.data.DoorName}}</td>
                 <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
                 <td>{{i.data.Width | number: '1.0-2'}}</td>
