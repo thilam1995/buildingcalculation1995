@@ -6,9 +6,6 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-primary" (click)="refreshingalldata()">Refresh</button>
-    </div>
-    <div class="col-md-12">
       <button class="btn btn-primary" (click)="addwalltoggle()" *ngIf="!display">+ Add Wall</button>
       <button class="btn btn-primary" (click)="addwalltoggle()" *ngIf="display">Cancel</button>
       <div *ngIf="display">

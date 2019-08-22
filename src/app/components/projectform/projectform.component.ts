@@ -39,8 +39,8 @@ export class ProjectformComponent implements OnInit {
     if (form.value.projectname) {
       this.project = {
         ProjectName: form.value.projectname,
-        DateCreated: date.getDate().toString() + "/" + date.getMonth().toString() + "/" + date.getFullYear().toString(),
-        DateModified: date.getDate().toString() + "/" + date.getMonth().toString() + "/" + date.getFullYear().toString(),
+        DateCreated: date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString(),
+        DateModified: date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString(),
         DesignList: null,
         UserID: this.registeruser.ID
       }

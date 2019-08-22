@@ -20,7 +20,7 @@ declare var xepOnline: any;
 })
 export class Ehc1heatingenergyComponent implements OnInit {
 
-  @ViewChild('content', {static: true}) content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
   projectid: string = "";
   designid: string = "";
 
@@ -42,6 +42,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   windowrvalue: number = 0;
   floorrvalue: number = 0;
   skylightrvalue: number = 0;
+  windowrvaluemore30: number = 0;
 
   totalarearoof: number = 0;
   totalareaskylight: number = 0;
@@ -51,6 +52,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   totalareawindowmore30: number = 0;
   totalareafloor: number = 0;
   totalareadoor: number = 0;
+  totalareaafterwindow: number = 0;
 
   totalheatlosswall: number = 0;
   totalheatlosswindow: number = 0;
@@ -117,7 +119,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   ngOnInit() {
     this.setdefault();
     this.featchingmodel();
-    
+
   }
 
   setdefault() {
@@ -168,7 +170,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
     }, err => {
       this.toastr.error("Something wrong!", "Error Message");
     });
-    
+
     this.startcalculate();
   }
 
@@ -176,14 +178,23 @@ export class Ehc1heatingenergyComponent implements OnInit {
     this.buildingmodelservice.fetchwallwindowdoormodel(this.designid).subscribe(res => {
       this.wallwindowdoormodellist = res;
       this.walldistinct = Array.from(new Set(this.wallwindowdoormodellist.map((x: any) => x.data.Wall.WallName)));
-
+      this.walldistinct.sort();
+      let allwindowlist = [];
       for (let i of this.wallwindowdoormodellist) {
-        if (i.data.Window.length !== 0) {
-          this.windowdistinct = Array.from(new Set(i.data.Window.map((x: any) =>
-            x.WindowName
-          )));
+        
+        //console.log(i.data.Window);
+        if (i.data.Window.length > 0) {
+          for(let a of i.data.Window){
+            allwindowlist.push(a);
+          }
         }
+
       }
+      this.windowdistinct = Array.from(new Set(allwindowlist.map(x => 
+        x.WindowName
+      )));
+      this.windowdistinct.sort();
+
       for (let i of this.wallwindowdoormodellist) {
         if (i.data.Door !== null) {
           this.doornamelist.push(i.data.Door.DoorName);
@@ -193,33 +204,33 @@ export class Ehc1heatingenergyComponent implements OnInit {
         x
       )));
 
-      for (let i of this.wallwindowdoormodellist){
-        if(i.data.Wall.Orientation === "North"){
+      for (let i of this.wallwindowdoormodellist) {
+        if (i.data.Wall.Orientation === "North") {
           this.totalwallnorth = i.data.Wall.Area;
-          if(i.data.Window.length > 0){
-            for(let y of i.data.Window){
+          if (i.data.Window.length > 0) {
+            for (let y of i.data.Window) {
               this.totalwindownorth += y.Area
             }
           }
 
-        }else if(i.data.Wall.Orientation === "South"){
+        } else if (i.data.Wall.Orientation === "South") {
           this.totalwallsouth = i.data.Wall.Area;
-          if(i.data.Window.length > 0){
-            for(let y of i.data.Window){
+          if (i.data.Window.length > 0) {
+            for (let y of i.data.Window) {
               this.totalwindowsouth += y.Area
             }
           }
-        }else if(i.data.Wall.Orientation === "East"){
+        } else if (i.data.Wall.Orientation === "East") {
           this.totalwalleast = i.data.Wall.Area;
-          if(i.data.Window.length > 0){
-            for(let y of i.data.Window){
+          if (i.data.Window.length > 0) {
+            for (let y of i.data.Window) {
               this.totalwindoweast += y.Area
             }
           }
-        }else if(i.data.Wall.Orientation === "West"){
+        } else if (i.data.Wall.Orientation === "West") {
           this.totalwallwest = i.data.Wall.Area;
-          if(i.data.Window.length > 0){
-            for(let y of i.data.Window){
+          if (i.data.Window.length > 0) {
+            for (let y of i.data.Window) {
               this.totalwindowwest += y.Area
             }
           }
@@ -263,13 +274,19 @@ export class Ehc1heatingenergyComponent implements OnInit {
     this.buildingmodelservice.fetchroofskylightmodelGet(this.designid).subscribe(res => {
       this.roofskylightmodellist = res;
       this.roofdistinct = Array.from(new Set(this.roofskylightmodellist.map((x: any) => x.data.Roof.RoofName)));
+
+      let allskylightlist = [];
       for (let i of this.roofskylightmodellist) {
         if (i.data.Skylight.length !== 0) {
-          this.skylightdistinct = Array.from(new Set(i.data.Skylight.map((x: any) =>
-            x.SkylightsName
-          )));
+          for(let a of i.data.Skylight){
+            allskylightlist.push(a);
+          }
         }
       }
+
+      this.skylightdistinct = Array.from(new Set(allskylightlist.map((x: any) =>
+      x.SkylightsName
+    )));
       for (let i of this.roofdistinct) {
         let object = { roofname: i, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
         for (let x of this.roofskylightmodellist) {
@@ -327,16 +344,16 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.finalcalculation();
     }, 1000);
 
-    
+
   }
 
-  
+
 
   returntoSchedule() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/buildingschedule"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 
-  finalcalculation(){
+  finalcalculation() {
     for (var x of this.walllist) {
       this.totalareawall += x.totalarea;
       this.totalheatlosswall += x.totalheatloss;
@@ -345,13 +362,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
     for (var x of this.windowlist) {
       this.totalareawindow += x.totalarea;
       this.totalheatlosswindow += x.totalheatloss;
-      if (x.owa < 0.30) {
-        this.totalareawindowless30 += x.totalarea;
-        this.totalheatlosswindowless30 += x.totalheatloss;
-      } else {
-        this.totalareawindowmore30 += x.totalarea;
-        this.totalheatlosswindowmore30 += x.totalheatloss;
-      }
+
     }
 
     for (var x of this.rooflist) {
@@ -369,28 +380,34 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.totalheatlossfloor += x.totalheatloss;
     }
 
-
     this.totalproposed = this.totalheatlossroof + this.totalheatlossskylight + this.totalheatlosswindow + this.totalheatlosswall + this.totalheatlossfloor;
-    this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareawindowmore30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
+    this.totalareawindowless30 = this.totalareawall * 0.30;
+
+    if((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) < 0.30){
+      this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
+    }else{
+      this.totalareawindowmore30 = this.totalareawindow - this.totalareawindowless30;
+      this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareawindowmore30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
+    }
   }
 
-  downloadresult(){
-    // let doc = new jsPDF();
-    // let specialElementHandler  = {
-    //   "#result": function(element, renderer){
-    //     return true;
-    //   }
-    // };
+  downloadresult() {
+    let doc = new jsPDF();
+    let specialElementHandler  = {
+      "#result": function(element, renderer){
+        return true;
+      }
+    };
 
-    //let content = this.content.nativeElement;
-    // console.log(content);
+    let content = this.content.nativeElement;
+    console.log(content);
 
-    // doc.fromHTML(content.innerHTML, 10, 10, {
-    //   'width': 200,
-    //   'elementHandlers': specialElementHandler
-    // }, (e) =>{
-    //   doc.save("test.pdf")
-    // });
-    return xepOnline.Formatter.Format('content', {render: 'download'});
+    doc.fromHTML(content.innerHTML, 10, 10, {
+      'width': 200,
+      'elementHandlers': specialElementHandler
+    }, (e) =>{
+      doc.save("test.pdf")
+    });
+    // return xepOnline.Formatter.Format('content', { render: 'download' });
   }
 }

@@ -57,7 +57,7 @@ export class BuildingscheduleitemComponent implements OnInit {
       const projectmodel:Project = {
         ProjectName: this.projecttitle,
         DateCreated: this.project.data.DateCreated,
-        DateModified: date.getDate().toString() + "/" + date.getMonth().toString() + "/" + date.getFullYear().toString()
+        DateModified: date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString()
       }
       this.projectservice.projectupdate(projectmodel, project.id, this.registeruser.ID).subscribe(x=>{
         this.toastr.info("Update project name success!", "Project Message");

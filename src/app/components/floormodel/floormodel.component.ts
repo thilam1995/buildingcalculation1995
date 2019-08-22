@@ -59,9 +59,6 @@ export class FloormodelComponent implements OnInit {
     this.fetchingfloormodel();
   }
 
-  refreshingalldata(){
-    this.fetchingfloordata();
-  }
 
   fetchingfloordata() {
     // this.floorservice.floorlistdata(this.designid).subscribe(res => {

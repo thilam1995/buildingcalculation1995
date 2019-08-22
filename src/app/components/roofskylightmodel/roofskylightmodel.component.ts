@@ -67,27 +67,13 @@ export class RoofskylightmodelComponent implements OnInit {
     this.fetchingroofskylightmodel();
   }
 
-  refreshingalldata(){
-    this.fetchingroof();
-    this.fetchingskylight();
-  }
+
 
   fetchingroof(){
-    // this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
-    //   this.roofobjectlist = res;
-    // }, err => {
-    //   this.toastr.error("Something Wrong", "Error Message!");
-    // });
-
     this.roofskylightservice.rooflistdata(this.designid);
   }
 
   fetchingskylight(){
-    // this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
-    //   this.skylightsobjectlist = res;
-    // }, err => {
-    //   this.toastr.error("Something Wrong", "Error Message!");
-    // });
     this.roofskylightservice.skylightlistdata(this.designid)
   }
 

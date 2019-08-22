@@ -40,7 +40,7 @@ export class BuildingschedulelistComponent implements OnInit {
       this.registerID = this.registeruser.ID;
 
       this.projectservice.projectfetching(this.registerID);
-    },3000);
+    },2000);
   }
 
   setdefault() {

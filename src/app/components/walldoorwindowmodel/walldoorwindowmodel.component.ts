@@ -74,11 +74,6 @@ export class WalldoorwindowmodelComponent implements OnInit {
     });
   }
 
-  refreshingalldata(){
-    this.fetchingwalldata();
-    this.fetchingwindowdata();
-    this.fetchingdoordata();
-  }
 
   fetchingwalldata() {
     // this.wallservice.walllistdata(this.designid).subscribe(res => {

@@ -22,9 +22,6 @@
         <td>Drawing Set</td>
         <td *ngIf="designobject">{{designobject.DrawingSet}}</td>
       </tr>
-    </table>
-
-    <table class="table table-sm table-bordered">
       <tr>
         <td>Typology / Dwelling</td>
         <td *ngIf="designobject">{{designobject.Typology}}</td>
@@ -37,18 +34,16 @@
         <td>Location</td>
         <td *ngIf="designobject">{{location}}</td>
       </tr>
-    </table>
-
-    <table class="table table-sm table-bordered">
       <tr>
         <td>Climate Zone</td>
         <td>{{climatezone}}</td>
       </tr>
     </table>
 
+
     <h1 style="text-align: center">Heat Loss Result</h1>
     <div class="row">
-      <div class="col-md-6 roof">
+      <div class="col-md-6 roof" *ngIf="rooflist.length !== 0">
         <h1 style="text-align: center">Roof (Proposed Dwelling)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -67,8 +62,8 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-5 roofschedule">
+      <div class="col-md-1" *ngIf="rooflist.length !== 0"></div>
+      <div class="col-md-5 roofschedule" *ngIf="rooflist.length !== 0">
         <h1 style="text-align: center">Roof (Reference Dwelling)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -90,7 +85,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6 skylight">
+      <div class="col-md-6 skylight" *ngIf="skylightlist.length !== 0">
         <h1 style="text-align: center">Skylights (Proposed Dwelling)</h1>
         <table class="table table-sm table-bordered" *ngIf="skylightlist.length > 0">
           <tr>
@@ -109,8 +104,8 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-5 skylightschedule">
+      <div class="col-md-1" *ngIf="skylightlist.length !== 0"></div>
+      <div class="col-md-5 skylightschedule" *ngIf="skylightlist.length !== 0">
         <h1 style="text-align: center">Skylight (Reference Dwelling)</h1>
         <table class="table table-sm table-bordered" *ngIf="skylightlist.length > 0">
           <tr>
@@ -132,7 +127,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6 window">
+      <div class="col-md-6 window" *ngIf="windowlist.length !== 0">
         <h1 style="text-align: center">Window (Proposed Dwelling)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -151,8 +146,8 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-5 windowschedule">
+      <div class="col-md-1" *ngIf="windowlist.length !== 0"></div>
+      <div class="col-md-5 windowschedule" *ngIf="windowlist.length !== 0">
         <h1 style="text-align: center">Windows (Reference Dwelling)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -174,7 +169,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6 wall">
+      <div class="col-md-6 wall" *ngIf="walllist.length !== 0">
         <h1 style="text-align: center">Wall (Proposed Dwelling)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -193,8 +188,8 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-5 wallschedule">
+      <div class="col-md-1" *ngIf="walllist.length !== 0"></div>
+      <div class="col-md-5 wallschedule" *ngIf="walllist.length !== 0">
         <h1 style="text-align: center">Wall (Reference Dwelling)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -216,7 +211,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6 floor">
+      <div class="col-md-6 floor" *ngIf="floorlist.length !== 0">
         <h1 style="text-align: center">Floor (Proposed Dwelling)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -235,8 +230,8 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-5 floorschedule">
+      <div class="col-md-1" *ngIf="floorlist.length !== 0"></div>
+      <div class="col-md-5 floorschedule" *ngIf="floorlist.length !== 0">
         <h1 style="text-align: center">Floor (Reference Dwelling)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -441,13 +436,17 @@
             <td>E/W/S Only</td>
             <td>{{(totalwallsouth + totalwalleast + totalwallwest) | number: '1.0-2'}}</td>
             <td>{{(totalwindowsouth + totalwindoweast + totalwindowwest) | number: '1.0-2'}}</td>
-            <td>%{{(totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest) * 100 | number: '1.0-2'}}</td>
+            <td>
+              %{{(totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest) * 100 | number: '1.0-2'}}
+            </td>
           </tr>
           <tr>
             <td>All</td>
             <td>{{(totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) | number: '1.0-2'}}</td>
             <td>{{(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) | number: '1.0-2'}}</td>
-            <td>%{{(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) * 100 | number: '1.0-2'}}</td>
+            <td>
+              %{{(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) * 100 | number: '1.0-2'}}
+            </td>
           </tr>
         </table>
       </div>
@@ -525,25 +524,40 @@
                 <tr>
                   <td>Wall</td>
                   <td>
-                    <span *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">
-                        {{totalareawall * 0.7 | number: '1.0-2'}}
+                    <span
+                      *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">
+                      {{totalareawall * 0.7 | number: '1.0-2'}}
                     </span>
-                    <span *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">
+                    <span
+                      *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">
                       {{totalareawall | number: '1.0-2'}}</span>
                   </td>
                   <td>{{wallrvalue | number: '1.0-2'}}</td>
                   <td>{{totalareawall/wallrvalue | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
-                  <td>Windows (OWA < %30)</td> <td>{{totalareawindowless30 | number: '1.0-2'}}</td>
-                  <td>{{windowrvalue * 0.30 | number: '1.0-2'}}</td>
+                  <td>Windows (< %30)</td>
+                  <td>{{totalareawindowless30 | number: '1.0-2'}}</td>
+                  <td>{{windowrvalue | number: '1.0-2'}}</td>
                   <td>{{totalareawindowless30/windowrvalue | number: '1.0-2'}} </td>
                 </tr>
                 <tr>
-                  <td>Windows (OWA > %30)</td>
+                  <td>Windows (> %30)</td>
                   <td>{{totalareawindowmore30 | number: '1.0-2'}}</td>
-                  <td>{{windowrvalue | number: '1.0-2'}}</td>
-                  <td>{{totalareawindowmore30/windowrvalue | number: '1.0-2'}} </td>
+                  <td>
+                    <span
+                      *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">
+                      {{wallrvalue | number: '1.0-2'}}</span>
+                    <span
+                      *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">-</span>
+                  </td>
+                  <td>
+                    <span
+                      *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">{{totalareawindowmore30/wallrvalue | number: '1.0-2'}}</span>
+                    <span
+                      *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">
+                      - </span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Floor</td>
