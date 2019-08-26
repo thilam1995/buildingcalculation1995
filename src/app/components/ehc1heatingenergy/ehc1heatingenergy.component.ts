@@ -53,6 +53,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   totalareafloor: number = 0;
   totalareadoor: number = 0;
   totalareaafterwindow: number = 0;
+  totalwallarealeft: number = 0;
 
   totalheatlosswall: number = 0;
   totalheatlosswindow: number = 0;
@@ -362,8 +363,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
     for (var x of this.windowlist) {
       this.totalareawindow += x.totalarea;
       this.totalheatlosswindow += x.totalheatloss;
-
     }
+    
 
     for (var x of this.rooflist) {
       this.totalarearoof += x.totalarea;
@@ -380,6 +381,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.totalheatlossfloor += x.totalheatloss;
     }
 
+    this.totalwallarealeft = this.totalareawall - this.totalareawindow;
     this.totalproposed = this.totalheatlossroof + this.totalheatlossskylight + this.totalheatlosswindow + this.totalheatlosswall + this.totalheatlossfloor;
     this.totalareawindowless30 = this.totalareawall * 0.30;
 
@@ -387,7 +389,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
     }else{
       this.totalareawindowmore30 = this.totalareawindow - this.totalareawindowless30;
-      this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareawindowmore30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
+      this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalwallarealeft / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareawindowmore30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
     }
   }
 

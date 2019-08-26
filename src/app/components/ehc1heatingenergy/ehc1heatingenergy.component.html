@@ -478,13 +478,13 @@
                 <tr>
                   <td>Skylight</td>
                   <td>{{totalareaskylight | number: '1.0-2'}}</td>
-                  <td>{{totalareaskylight / totalheatlossskylight | number: '1.0-2'}}</td>
+                  <td>{{totalareaskylight / totalheatlossskylight ? (totalareaskylight / totalheatlossskylight) : 0 | number: '1.0-2'}}</td>
                   <td>{{totalheatlossskylight | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
                   <td>Wall</td>
-                  <td>{{totalareawall | number: '1.0-2'}}</td>
-                  <td>{{totalareawall / totalheatlosswall | number: '1.0-2'}}</td>
+                  <td>{{totalwallarealeft | number: '1.0-2'}}</td>
+                  <td>{{totalwallarealeft / totalheatlosswall | number: '1.0-2'}}</td>
                   <td>{{totalheatlosswall | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
@@ -524,16 +524,10 @@
                 <tr>
                   <td>Wall</td>
                   <td>
-                    <span
-                      *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">
-                      {{totalareawall * 0.7 | number: '1.0-2'}}
-                    </span>
-                    <span
-                      *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">
-                      {{totalareawall | number: '1.0-2'}}</span>
+                      {{0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) ? (totalareawall * 0.7) : totalwallarealeft | number: '1.0-2'}}
                   </td>
                   <td>{{wallrvalue | number: '1.0-2'}}</td>
-                  <td>{{totalareawall/wallrvalue | number: '1.0-2'}}</td>
+                  <td>{{0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) ? ((totalareawall * 0.7) / wallrvalue) : (totalwallarealeft / wallrvalue) | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
                   <td>Windows (< %30)</td>

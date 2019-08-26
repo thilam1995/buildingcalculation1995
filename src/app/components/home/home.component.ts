@@ -22,14 +22,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+    });
   }
 
   setdefault() {

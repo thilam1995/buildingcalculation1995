@@ -56,6 +56,9 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
 import { WalldoorwindowmodelitemComponent } from './components/walldoorwindowmodelitem/walldoorwindowmodelitem.component';
 import { RoofskylightmodelitemComponent } from './components/roofskylightmodelitem/roofskylightmodelitem.component';
 import { FloormodelitemComponent } from './components/floormodelitem/floormodelitem.component';
+import { SettingComponent } from './components/setting/setting.component';
+import { ProfilesettingComponent } from './components/profilesetting/profilesetting.component';
+import { PasswordchangeComponent } from './components/passwordchange/passwordchange.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +92,10 @@ import { FloormodelitemComponent } from './components/floormodelitem/floormodeli
     ForgotpasswordComponent,
     WalldoorwindowmodelitemComponent,
     RoofskylightmodelitemComponent,
-    FloormodelitemComponent
+    FloormodelitemComponent,
+    SettingComponent,
+    ProfilesettingComponent,
+    PasswordchangeComponent
   ],
   imports: [
     BrowserModule,

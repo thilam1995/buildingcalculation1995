@@ -12,6 +12,7 @@ import { HomelayoutComponent } from './components/homelayout/homelayout.componen
 import { Buildinginfo } from './models/buildinginfo';
 import { BuildinginfoComponent } from './components/buildinginfo/buildinginfo.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { SettingComponent } from './components/setting/setting.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,7 +25,8 @@ const routes: Routes = [
       // { path: 'buildingschedulelist', component: BuildingschedulelistComponent, data: { title: "Building Schedule List" } },
       { path: 'ehc1heatingenergy', component: Ehc1heatingenergyComponent, data: { title: "Heating Energy Result" } },
       { path: 'createdesign/:projectid', component: BuildinginfoComponent, data: { title: "Create a design" } },
-      { path: 'buildingschedule', component: BuildingscheduleComponent, data: { title: 'Building Schedule' } }
+      { path: 'buildingschedule', component: BuildingscheduleComponent, data: { title: 'Building Schedule' } },
+      { path: 'setting', data: {title: 'Setting'}, component: SettingComponent}
     ]
   },
   { path: 'register', component: RegisterComponent, data: { title: "Register" } },
