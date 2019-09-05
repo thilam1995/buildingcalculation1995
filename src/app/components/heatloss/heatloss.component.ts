@@ -8,13 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class HeatlossComponent implements OnInit {
 
   @Input() i;
-  grosswallarea = 0;
-  grosswindowarea = 0;
-  grossowa = 0;
-  netwallarea = 0;
-  wallconstructionrvalue = 0;
-  wallheatloss = 0;
-  windowheatloss = 0;
+  grosswallarea: number = 0;
+  grosswindowarea: number = 0;
+  grossdoorarea: number = 0;
+  grosswindowdoorarea: number = 0;
+  grossowa: number = 0;
+  netwallarea: number = 0;
+  wallconstructionrvalue: number = 0;
+  wallheatloss: number = 0;
+  windowheatloss: number = 0;
   windowheatlosslist = [];
 
   constructor() { }
@@ -29,10 +31,24 @@ export class HeatlossComponent implements OnInit {
     for (let i of this.i.data.Window) {
       this.grosswindowarea += Number(i.Area);
     }
+
+
+    if(this.i.data.hasOwnProperty("Door")){
+      if(this.i.data.Door){
+        if(this.i.data.Door.Area){
+          this.grossdoorarea += Number(this.i.data.Door.Area);
+        }
+      }else{
+        this.grossdoorarea = 0;
+      }
+    }
+
+    this.grosswindowdoorarea = this.grosswindowarea + this.grossdoorarea;
+
     for (let i of this.i.data.Window) {
       this.grossowa += Number(i.OWA) * Number(i.Area);
     }
-    this.netwallarea = this.grosswallarea - this.grosswindowarea;
+    this.netwallarea = this.grosswallarea - this.grosswindowdoorarea;
     this.wallconstructionrvalue = Number(this.i.data.Wall.ConstructionRValue);
     this.wallheatloss = this.netwallarea / this.wallconstructionrvalue;
     // this.wallwindowdoori.window.array.forEach(element => {

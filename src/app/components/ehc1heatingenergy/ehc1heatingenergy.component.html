@@ -253,7 +253,7 @@
           </tr>
         </table>
       </div>
-      <!-- <div class="col-md-6 door">
+      <div class="col-md-6 door" *ngIf="doordistinct.length !== 0">
         <h1 style="text-align: center">Door (Proposed)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -272,9 +272,9 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-1" *ngIf="doordistinct.length !== 0">
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5 door" *ngIf="doordistinct.length !== 0">
         <h1 style="text-align: center">Door (Schedule)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -295,30 +295,30 @@
             </td>
           </tr>
         </table>
-      </div> -->
+      </div>
 
       <div class="col-md-12">
 
         <table class="table table-sm table-bordered">
           <tr>
             <th>Total Door Area</th>
-            <td></td>
+            <td>{{totalareadoor | number: '1.0-2'}}</td>
           </tr>
           <tr>
             <th>Door Allowance (6%)</th>
-            <td></td>
+            <td>{{0.06 * (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) | number: '1.0-2'}}</td>
           </tr>
           <tr>
             <th>Door Allowance (6m2)</th>
-            <td></td>
+            <td>6</td>
           </tr>
           <tr>
             <th>Max. Door Area Allowed</th>
-            <td></td>
+            <td>{{maxdoorareaallow | number: '1.0-2'}}</td>
           </tr>
           <tr>
             <th>Assign Doors to Walls?</th>
-            <td></td>
+            <td>{{maxdoorareaallow >= totalareadoor ? "Yes": "No"}}</td>
           </tr>
         </table>
       </div>
@@ -399,6 +399,8 @@
           </tr>
         </table>
       </div>
+
+
       <div class="col-md-12">
         <h1 style="text-align: center">Window to Wall Ratios</h1>
         <table class="table table-sm table-bordered">
@@ -437,7 +439,7 @@
             <td>{{(totalwallsouth + totalwalleast + totalwallwest) | number: '1.0-2'}}</td>
             <td>{{(totalwindowsouth + totalwindoweast + totalwindowwest) | number: '1.0-2'}}</td>
             <td>
-              %{{(totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest) * 100 | number: '1.0-2'}}
+              %{{((totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest)) * 100 | number: '1.0-2'}}
             </td>
           </tr>
           <tr>
@@ -445,16 +447,189 @@
             <td>{{(totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) | number: '1.0-2'}}</td>
             <td>{{(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) | number: '1.0-2'}}</td>
             <td>
-              %{{(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) * 100 | number: '1.0-2'}}
+              %{{((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)) * 100 | number: '1.0-2'}}
             </td>
           </tr>
         </table>
       </div>
+
+      <div class="col-md-12">
+        <h1 style="text-align: center">Skylight Ratios</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Gross Roof Area</th>
+            <th>Skylight Area</th>
+            <th>Skylight Ratio</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr>
+            <th>{{totalarearoof | number: '1.0-2'}}</th>
+            <th>{{totalareaskylight | number: '1.0-2'}}</th>
+            <th>%{{totalareaskylight / totalarearoof | number: '1.0-2'}}</th>
+            <th>
+              <img src="../../../assets/pic/pass.png" *ngIf="0.015 > (totalareaskylight / totalarearoof)">
+              <img src="../../../assets/pic/fail.png" *ngIf="totalareaskylight / totalarearoof > 0.015">
+            </th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12">
+        <h1 style="text-align: center">Door Area Allowance</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Gross Wall Area</th>
+            <th>Door Area</th>
+            <th>Max. Door Area Allowed</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr>
+            <th>{{totalareawall | number: '1.0-2'}}</th>
+            <th>{{totalareadoor | number: '1.0-2'}}</th>
+            <th>{{maxdoorareaallow | number: '1.0-2'}}</th>
+            <th>
+              <img src="../../../assets/pic/pass.png" *ngIf="maxdoorareaallow > totalareadoor">
+              <img src="../../../assets/pic/fail.png" *ngIf="totalareadoor > maxdoorareaallow">
+            </th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12">
+        <h1 style="text-align: center">Proposed Construction R-values</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Construction Element</th>
+            <th>Proposed R-value</th>
+            <th>Required R-value</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr>
+            <td>Roof</td>
+            <td>{{minrvalueroof}}</td>
+            <td>{{roofrvalue}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png" *ngIf="isroofpass">
+              <img src="../../../assets/pic/fail.png" *ngIf="!isroofpass">
+            </td>
+          </tr>
+          <tr>
+            <td>Wall</td>
+            <td>{{minrvaluewall}}</td>
+            <td>{{wallrvalue}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png" *ngIf="iswallpass">
+              <img src="../../../assets/pic/fail.png" *ngIf="!iswallpass">
+            </td>
+          </tr>
+          <tr>
+            <td>Glazing</td>
+            <td>{{minrvaluewindow}}</td>
+            <td>{{windowrvalue}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png" *ngIf="iswindowpass">
+              <img src="../../../assets/pic/fail.png" *ngIf="!iswindowpass">
+            </td>
+          </tr>
+          <tr>
+            <td>Floor</td>
+            <td>{{minrvaluefloor}}</td>
+            <td>{{floorrvalue}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png" *ngIf="isfloorpass">
+              <img src="../../../assets/pic/fail.png" *ngIf="!isfloorpass">
+            </td>
+          </tr>
+          <tr>
+            <td>Skylight</td>
+            <td>{{minrvalueskylight}}</td>
+            <td>{{skylightrvalue}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png" *ngIf="isskylightpass">
+              <img src="../../../assets/pic/fail.png" *ngIf="!isskylightpass">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12">
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Homestar Compliance Requirements</th>
+            <th>Result</th>
+            <th>Homestar Compliance</th>
+          </tr>
+          <tr>
+            <td>The glazing area is 30% or less of the total wall area</td>
+            <td>
+              %{{((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)) * 100 | number: '1.0-2'}}
+            </td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="0.30 >= ((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth))">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)) > 0.30">
+            </td>
+          </tr>
+          <tr>
+            <td>The glazing area on the E, S and W facing walls is 30% or less of the wall area of these walls</td>
+            <td>
+              %{{((totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest)) * 100 | number: '1.0-2'}}
+            </td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="0.30 >= ((totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest))">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="((totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest)) > 0.30">
+            </td>
+          </tr>
+          <tr>
+            <td>The area of all skylights is less than 1.5% of the exposed roof area</td>
+            <td>%{{totalareaskylight / totalarearoof | number: '1.0-2'}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png" *ngIf="0.015 > (totalareaskylight / totalarearoof)">
+              <img src="../../../assets/pic/fail.png" *ngIf="(totalareaskylight / totalarearoof) > 0.015">
+            </td>
+          </tr>
+          <tr>
+            <td>All of the building construction elements achieve the required final R-values</td>
+            <td>{{isroofpass && iswallpass && isskylightpass && isfloorpass && iswindowpass ? "Yes" : "No"}}</td>
+            <td>
+              <img src="../../../assets/pic/pass.png"
+                *ngIf="isroofpass && iswallpass && isskylightpass && isfloorpass && iswindowpass">
+              <img src="../../../assets/pic/fail.png"
+                *ngIf="!(isroofpass && iswallpass && isskylightpass && isfloorpass && iswindowpass)">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12">
+        <h1 style="text-align: center">EHC-1 Schedule Method by Calculation (using NZS 4218:2009)</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <td>Result</td>
+            <td>
+              <span *ngIf="totalschedule >= totalproposed">
+                The Building Complies with the Homestar Schedule Method by Calculation when using NZS 4218:2009
+              </span>
+              <span *ngIf="totalproposed > totalschedule">
+                The Building Does Not Comply with the Homestar Schedule Method by Calculation when using NZS 4218:2009
+              </span>
+            </td>
+            <td>
+              <img src="../../../assets/pic/pass.png" *ngIf="totalschedule >= totalproposed">
+              <img src="../../../assets/pic/fail.png" *ngIf="totalproposed > totalschedule">
+            </td>
+          </tr>
+        </table>
+      </div>
+
       <div class="col-md-12">
         <table class="table table-sm table-bordered">
           <tr>
             <th>Proposed</th>
-            <th>Schedule</th>
+            <th>Reference</th>
           </tr>
           <tr>
             <th>Total Heat Loss (Proposed Dwelling)</th>
@@ -478,14 +653,32 @@
                 <tr>
                   <td>Skylight</td>
                   <td>{{totalareaskylight | number: '1.0-2'}}</td>
-                  <td>{{totalareaskylight / totalheatlossskylight ? (totalareaskylight / totalheatlossskylight) : 0 | number: '1.0-2'}}</td>
+                  <td>
+                    {{totalareaskylight / totalheatlossskylight ? (totalareaskylight / totalheatlossskylight) : 0 | number: '1.0-2'}}
+                  </td>
                   <td>{{totalheatlossskylight | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
                   <td>Wall</td>
-                  <td>{{totalwallarealeft | number: '1.0-2'}}</td>
-                  <td>{{totalwallarealeft / totalheatlosswall | number: '1.0-2'}}</td>
+                  <td>{{totalareawall | number: '1.0-2'}}</td>
+                  <td>{{totalareawall / totalheatlosswall | number: '1.0-2'}}</td>
                   <td>{{totalheatlosswall | number: '1.0-2'}}</td>
+                </tr>
+                <tr>
+                  <td>Door</td>
+                  <td>{{totalareadoor | number: '1.0-2'}}</td>
+                  <td>
+                    <span
+                      *ngIf="maxdoorareaallow > totalareadoor">{{totalareawall / totalheatlosswall | number: '1.0-2'}}</span>
+                    <span
+                      *ngIf="totalareadoor > maxdoorareaallow">{{totalareadoor / totalheatlossdoor | number: '1.0-2'}}</span>
+                  </td>
+                  <td>
+                    <span
+                      *ngIf="maxdoorareaallow > totalareadoor">{{(totalareadoor/(totalareawall / totalheatlosswall)) | number: '1.0-2'}}</span>
+                    <span
+                      *ngIf="totalareadoor > maxdoorareaallow">{{totalareadoor / totalheatlossdoor | number: '1.0-2'}}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Windows</td>
@@ -518,25 +711,43 @@
                 <tr>
                   <td>Skylight</td>
                   <td>{{totalareaskylight | number: '1.0-2'}}</td>
-                  <td>{{skylightrvalue | number: '1.0-2'}}</td>
-                  <td>{{totalareaskylight/skylightrvalue | number: '1.0-2'}}</td>
+                  <td>
+                    <span
+                      *ngIf="0.015 > (totalareaskylight / totalarearoof)">{{skylightrvalue | number: '1.0-2'}}</span>
+                    <span *ngIf="(totalareaskylight / totalarearoof) > 0.015">{{roofrvalue | number: '1.0-2'}}</span>
+                    <span *ngIf="skylightlist.length == 0">-</span>
+                  </td>
+                  <td>
+                    <span
+                      *ngIf="0.015 > (totalareaskylight / totalarearoof)">{{totalareaskylight/skylightrvalue | number: '1.0-2'}}</span>
+                    <span
+                      *ngIf="(totalareaskylight / totalarearoof) > 0.015">{{totalareaskylight/roofrvalue | number: '1.0-2'}}</span>
+                    <span *ngIf="skylightlist.length == 0">-</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Wall</td>
                   <td>
-                      {{0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) ? (totalareawall * 0.7) : totalwallarealeft | number: '1.0-2'}}
+                    <span
+                      *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">{{((totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) * 0.7) |  number: '1.0-2'}}</span>
+                    <span
+                      *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">{{totalareawall | number: '1.0-2'}}</span>
                   </td>
                   <td>{{wallrvalue | number: '1.0-2'}}</td>
-                  <td>{{0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) ? ((totalareawall * 0.7) / wallrvalue) : (totalwallarealeft / wallrvalue) | number: '1.0-2'}}</td>
+                  <td>
+                    <span
+                      *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">{{(((totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) * 0.7) / wallrvalue) | number: '1.0-2'}}</span>
+                    <span
+                      *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">{{(totalareawall / wallrvalue) | number: '1.0-2'}}</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td>Windows (< %30)</td>
-                  <td>{{totalareawindowless30 | number: '1.0-2'}}</td>
+                  <td>Windows & Door (< %30)</td> <td>{{totalareawindowless30 | number: '1.0-2'}}</td>
                   <td>{{windowrvalue | number: '1.0-2'}}</td>
                   <td>{{totalareawindowless30/windowrvalue | number: '1.0-2'}} </td>
                 </tr>
                 <tr>
-                  <td>Windows (> %30)</td>
+                  <td>Windows & Door (> %30)</td>
                   <td>{{totalareawindowmore30 | number: '1.0-2'}}</td>
                   <td>
                     <span
@@ -579,8 +790,17 @@
         <tr>
           <td>Wall Balance Check (Proposed):</td>
           <td>{{totalareawall + totalareawindow + totalareadoor | number: '1.0-2'}}</td>
-          <td>Wall Balance Check (Schedule Method)</td>
-          <td>{{totalareawall + totalareawindowless30 + totalareawindowmore30 + totalareadoor | number: '1.0-2'}}</td>
+          <td>Wall Balance Check (Reference)</td>
+          <td>
+            <span
+              *ngIf="0.30 > ((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth))">
+              {{(((totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) * 0.7) + totalareawindowless30 + totalareawindowmore30) | number: '1.0-2'}}
+            </span>
+            <span
+              *ngIf="((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)) > 0.30">
+              {{(totalareawall + totalareawindowless30 + totalareawindowmore30) | number: '1.0-2'}}
+            </span>
+          </td>
         </tr>
       </table>
     </div>

@@ -5,8 +5,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <button class="btn btn-primary" (click)="addfloortoggle()" *ngIf="!display">+ Add Floor</button>
-      <button class="btn btn-primary" (click)="addfloortoggle()" *ngIf="display">Cancel</button>
+      <button class="btn btn-primary" (click)="addfloortoggle()">{{display ? "Cancel" : "+ Add Floor"}}</button>
       <div *ngIf="display">
         <table class="table table-sm table-hover">
           <tr>

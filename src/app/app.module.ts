@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {SuiModule} from 'ng2-semantic-ui';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -112,6 +113,7 @@ import { PasswordchangeComponent } from './components/passwordchange/passwordcha
     MatStepperModule,
     ToastrModule.forRoot(),
     NgxWebstorageModule.forRoot(),
+    SuiModule
   ],
   providers: [LocationService, ClimateService, 
     WalldoorwindowService, AuthGuard, LoginserviceService,

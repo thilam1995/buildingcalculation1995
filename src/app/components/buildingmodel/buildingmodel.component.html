@@ -1,8 +1,7 @@
 <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step>
         <ng-template matStepLabel>Wall, Windows & Door Model</ng-template>
-        <app-walldoorwindowmodel [windowobjectlist]="windowobjectlist" [wallobjectlist]="wallobjectlist"
-            [doorobjectlist]="doorobjectlist" [wallwindowdoorobjectlist]="wallwindowdoorobjectlist">
+        <app-walldoorwindowmodel>
         </app-walldoorwindowmodel>
         <div>
             <button type="button" color="default" mat-button matStepperNext>Next</button>
@@ -10,8 +9,7 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Roof & Skylights Model</ng-template>
-        <app-roofskylightmodel [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist"
-            [roofskylightobject]="roofskylightobject" [roofskylightobjectlist]="roofskylightobjectlist">
+        <app-roofskylightmodel>
         </app-roofskylightmodel>
         <div>
             <button  type="button" color="default"  mat-button matStepperPrevious>Back</button>
@@ -20,8 +18,7 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Floor Model</ng-template>
-        <app-floormodel [floorobjectlist]="floorobjectlist" [floorsobject]="floorsobject"
-            [floormodelobjectlist]="floormodelobjectlist"></app-floormodel>
+        <app-floormodel></app-floormodel>
         <div>
             <button  type="button" color="default"  mat-button matStepperPrevious>Back</button>
             <button  type="button" color="default"  mat-button matStepperNext>Next</button>

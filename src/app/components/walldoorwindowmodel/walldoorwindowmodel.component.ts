@@ -19,10 +19,6 @@ import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 })
 export class WalldoorwindowmodelComponent implements OnInit {
 
-  @Input() windowobjectlist = [];
-  @Input() wallobjectlist = [];
-  @Input() doorobjectlist = [];
-  @Input() wallwindowdoorobjectlist = [];
 
   projectid: string = "";
   designid: string = "";

@@ -20,7 +20,7 @@
 
         <ul>
             <li *ngFor="let i of designsetlist">
-                <a (click)="redirecttoSchedule(i, project.id)">{{i.data.DesignName}}</a><a mat-button>Send Copy</a>
+                <a (click)="redirecttoSchedule(i, project.id)">{{i.data.DesignName}}</a><a mat-button (click)="seeResult(i, project.id)">See Result</a>
             </li>
         </ul>
 

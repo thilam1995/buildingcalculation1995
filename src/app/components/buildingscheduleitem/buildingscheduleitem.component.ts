@@ -86,6 +86,10 @@ export class BuildingscheduleitemComponent implements OnInit {
     this.router.navigate(["/main/"+`${this.registeruser.ID}`+"/buildingschedule"],{ queryParams: { projectid: projectid, designid: i.id } });
   }
 
+  seeResult(i: any, projectid: string){
+    this.router.navigate(["/main/"+`${this.registeruser.ID}`+"/ehc1heatingenergy"],{ queryParams: { projectid: projectid, designid: i.id } });
+  }
+
   edittoggle(){
     this.isedit = !this.isedit;
     if(this.isedit){
