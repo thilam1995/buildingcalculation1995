@@ -40,18 +40,18 @@ export class WindowformComponent implements OnInit {
       this.designid = params['designid'];
     });
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
     this.setDefault();
   }
 
-  setDefault(){
+  setDefault() {
     this.windowobject = {
       WindowName: null,
       ConstructionRValue: null,
@@ -71,10 +71,10 @@ export class WindowformComponent implements OnInit {
     this.fetchingwindowdata();
   }
 
-  fetchingwindowdata(){
+  fetchingwindowdata() {
     // this.wallservice.windowlistdata(this.designid).subscribe(res => {
     //   this.windowobjectlist = res;
-      
+
     // }, err => {
     //   this.toastr.error("Something wrong", "Error Message!");
     // });
@@ -82,7 +82,7 @@ export class WindowformComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if(form.value.id === null){
+    if (form.value.id === null) {
       this.windowobject = {
         WindowName: form.value.windowName,
         ConstructionRValue: Number(form.value.constructionRValue),
@@ -95,17 +95,25 @@ export class WindowformComponent implements OnInit {
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
       };
-      console.log(this.windowobject);
-      this.wallservice.windowposting(this.windowobject, this.designid).subscribe(res => {
-        this.toastr.success("Complete Wall Success.", "Successful");
-        this.fetchingwindowdata(); //Refresh Component
-        this.fetchingwindowdata();
-        this.setDefault();
-      }, err => {
-        this.toastr.error("Complete Wall failed.", "Successful");
-      });
 
-    }else{
+      const found = this.wallservice.windowlist.some(x => {
+        x.data.WindowName === this.windowobject.WindowName
+      }); //This boolean will detect if the window name is existed to prevent duplicate with different value
+      if (!found) {
+        this.wallservice.windowposting(this.windowobject, this.designid).subscribe(res => {
+          this.toastr.success("Complete Wall Success.", "Successful");
+          this.fetchingwindowdata(); //Refresh Component
+          this.fetchingwindowdata();
+          this.setDefault();
+        }, err => {
+          this.toastr.error("Complete window failed.", "Successful");
+        });
+      } else {
+        this.toastr.warning("The window name is existed.", "No Duplicate Name");
+      }
+
+
+    } else {
       this.windowobject = {
         ID: form.value.id,
         WindowName: form.value.windowName,
@@ -153,7 +161,7 @@ export class WindowformComponent implements OnInit {
 
   deleteFieldValue(id: string) {
     if (confirm("Are you sure to delete this item?") === true) {
-      this.wallservice.windowdelete(id, this.designid).subscribe(res =>{
+      this.wallservice.windowdelete(id, this.designid).subscribe(res => {
         this.toastr.success("Delete successfully", "Info Message!");
         this.fetchingwindowdata();
         this.fetchingwindowdata();

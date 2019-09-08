@@ -50,21 +50,13 @@ export class RoofskylineformComponent implements OnInit {
   }
 
   fetchingroof(){
-    // this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
-    //   this.roofobjectlist = res;
-    // }, err => {
-    //   this.toastr.error("Something Wrong", "Error Message!");
-    // });
+
     this.roofskylightservice.rooflistdata(this.designid);
     
   }
 
   fetchingskylight(){
-    // this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
-    //   this.skylightsobjectlist = res;
-    // }, err => {
-    //   this.toastr.error("Something Wrong", "Error Message!");
-    // });
+
     this.roofskylightservice.skylightlistdata(this.designid);
   }
 
@@ -104,14 +96,24 @@ export class RoofskylineformComponent implements OnInit {
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
       };
-      this.roofskylightservice.addroof(this.roofobject).subscribe(res => {
-        this.toastr.success("Added roof!", "Error Message!");
-        this.fetchingroof();
-        this.fetchingroof();
-        this.setDefaultRoof();
-      }, err => {
-        this.toastr.error("Something wrong!", "Error Message!");
-      });
+
+      const found = this.roofskylightservice.rooflist.some(x => {
+        x.data.RoofName === this.roofobject.RoofName
+      }); //This boolean will detect if the wall name is existed to prevent duplicate with different value
+
+      if(!found){
+        this.roofskylightservice.addroof(this.roofobject).subscribe(res => {
+          this.toastr.success("Added roof!", "Error Message!");
+          this.fetchingroof();
+          this.setDefaultRoof();
+        }, err => {
+          this.toastr.error("Something wrong!", "Error Message!");
+        });
+      }else{
+        this.toastr.warning("The roof name is existed.", "No Duplicate Name");
+      }
+
+
     } else {
       this.roofobject = {
         ID: form.value.id,
@@ -124,7 +126,6 @@ export class RoofskylineformComponent implements OnInit {
       };
       this.roofskylightservice.updateroof(this.roofobject).subscribe(res => {
         this.toastr.success("Updated skylight!", "Error Message!");
-        this.fetchingroof();
         this.fetchingroof();
         this.setDefaultRoof();
       }, err => {
@@ -145,14 +146,23 @@ export class RoofskylineformComponent implements OnInit {
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
       };
-      this.roofskylightservice.addskylight(this.skylightsobject).subscribe(res => {
-        this.toastr.success("Add skylight!", "Error Message!");
-        this.fetchingskylight();
-        this.fetchingskylight();
-        this.setDefaultSkylight();
-      }, err => {
-        this.toastr.error("Something wrong!", "Error Message!");
-      });
+
+      const found = this.roofskylightservice.skylightlist.some(x => {
+        x.data.SkylightsName === this.skylightsobject.SkylightsName
+      }); //This boolean will detect if the name is existed to prevent duplicate with different value
+
+      if(!found){
+        this.roofskylightservice.addskylight(this.skylightsobject).subscribe(res => {
+          this.toastr.success("Add skylight!", "Error Message!");
+          this.fetchingskylight();
+          this.setDefaultSkylight();
+        }, err => {
+          this.toastr.error("Something wrong!", "Error Message!");
+        });
+      }else{
+        this.toastr.warning("The skylight name is existed.", "No Duplicate Name");
+      }
+
     } else {
       this.skylightsobject = {
         Area: this.skylightsobject.Area,
@@ -167,7 +177,6 @@ export class RoofskylineformComponent implements OnInit {
       };
       this.roofskylightservice.updateskylight(this.skylightsobject, this.designid).subscribe(res => {
         this.toastr.success("Add skylight!", "Error Message!");
-        this.fetchingskylight();
         this.fetchingskylight();
         this.setDefaultSkylight();
       }, err => {
@@ -194,7 +203,6 @@ export class RoofskylineformComponent implements OnInit {
       this.roofskylightservice.deleteroof(id).subscribe(
         res => {
           this.toastr.success("Deleted roof!", "Info Message!");
-          this.fetchingroof();
           this.fetchingroof();
         }, err => {
           this.toastr.error("Something wrong!", "Error Message!");

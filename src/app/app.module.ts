@@ -60,6 +60,7 @@ import { FloormodelitemComponent } from './components/floormodelitem/floormodeli
 import { SettingComponent } from './components/setting/setting.component';
 import { ProfilesettingComponent } from './components/profilesetting/profilesetting.component';
 import { PasswordchangeComponent } from './components/passwordchange/passwordchange.component';
+import { ProjectfilterpipePipe } from './pipe/projectfilterpipe.pipe';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { PasswordchangeComponent } from './components/passwordchange/passwordcha
     FloormodelitemComponent,
     SettingComponent,
     ProfilesettingComponent,
-    PasswordchangeComponent
+    PasswordchangeComponent,
+    ProjectfilterpipePipe
   ],
   imports: [
     BrowserModule,

@@ -88,15 +88,24 @@ export class DoorformComponent implements OnInit {
         Height: Number(form.value.height),
         Width: Number(form.value.width)
       };
-      console.log(this.doorobject);
-      this.wallservice.doorposting(this.doorobject, this.designid).subscribe(res => {
-        this.toastr.success("Complete door Success.", "Successful");
-        this.fetchingdoordata(); //Refresh Component
-        this.setDefault();
-        this.fetchingdoordata();
-      }, err => {
-        this.toastr.error("Complete door failed.", "Successful");
-      });
+      
+      const found = this.wallservice.windowlist.some(x => {
+        x.data.DoorName === this.doorobject.DoorName
+      }); //This boolean will detect if the wall name is existed to prevent duplicate with different value
+
+      if(!found){
+        this.wallservice.doorposting(this.doorobject, this.designid).subscribe(res => {
+          this.toastr.success("Complete door Success.", "Successful");
+          this.fetchingdoordata(); //Refresh Component
+          this.setDefault();
+          this.fetchingdoordata();
+        }, err => {
+          this.toastr.error("Complete door failed.", "Successful");
+        });
+      }else{
+        this.toastr.warning("The door name is existed.", "No Duplicate Name");
+      }
+
     }else{
       this.doorobject = {
         ID: form.value.id,
@@ -110,7 +119,6 @@ export class DoorformComponent implements OnInit {
         Width: Number(form.value.width)
       };
 
-      console.log(this.doorobject);
       this.wallservice.doorput(this.doorobject, this.designid).subscribe(res => {
         this.toastr.success("Update Door Successfully", "Info Message!");
         this.fetchingdoordata();

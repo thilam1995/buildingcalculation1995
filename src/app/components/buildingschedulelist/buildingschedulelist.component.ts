@@ -15,6 +15,7 @@ import { switchMap } from 'rxjs/operators';
 export class BuildingschedulelistComponent implements OnInit {
 
   buildingschedulelistfilter = [];
+  searchproject: string = "";
   registeruser: Register;
   registerID: string = "";
   constructor(private projectservice: ProjectService, private loginservice: LoginserviceService,
@@ -43,6 +44,7 @@ export class BuildingschedulelistComponent implements OnInit {
       this.projectservice.projectfetching(this.registerID);
     },1000);
   }
+
 
   setdefault() {
     this.projectservice.projectList = [];

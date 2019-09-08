@@ -59,14 +59,7 @@ export class FloorsformComponent implements OnInit {
   }
 
   fetchingfloordata(){
-    // this.floorservice.floorlistdata(this.designid).subscribe(res => {
-    //   this.floorobjectlist = res;
-    // }, err => {
-    //   this.toastr.error("Error! Something Wrong.", "Error Message")
-    // });
-
     this.floorservice.floorlistdata(this.designid);
-    this.floorservice.floorlist;
   }
 
   onSubmit(form: NgForm) {
@@ -79,14 +72,23 @@ export class FloorsformComponent implements OnInit {
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
       };
-      this.floorservice.addfloor(this.floorobject).subscribe(res => {
-        this.toastr.success("Completed Floor Success!", "Info Message");
-        this.fetchingfloordata();
-        this.fetchingfloordata();
-        this.setDefault();
-      }, err => {
-        this.toastr.error("Completed Floor failed!", "Info Message");
-      });
+      const found = this.floorservice.floorlist.some(x => {
+        x.data.SkylightsName === this.floorobject.FloorName
+      }); //This boolean will detect if the name is existed to prevent duplicate with different value
+
+      if(!found){
+        this.floorservice.addfloor(this.floorobject).subscribe(res => {
+          this.toastr.success("Completed Floor Success!", "Info Message");
+          this.fetchingfloordata();
+          this.setDefault();
+        }, err => {
+          this.toastr.error("Completed Floor failed!", "Info Message");
+        });
+      }else{
+        this.toastr.warning("The floor name is existed.", "No Duplicate Name");
+      }
+
+
     }else{
       this.floorobject = {
         ID: form.value.id,
@@ -99,7 +101,6 @@ export class FloorsformComponent implements OnInit {
       };
       this.floorservice.updatefloor(this.floorobject).subscribe(res => {
         this.toastr.success("Updated Floor Success!", "Info Message");
-        this.fetchingfloordata();
         this.fetchingfloordata();
         this.setDefault();
       }, err => {
@@ -127,7 +128,6 @@ export class FloorsformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.floorservice.deletefloor(id).subscribe(res => {
         this.toastr.success("Deleted floor!", "Info Message!");
-        this.fetchingfloordata();
         this.fetchingfloordata();
       }, err =>{
         this.toastr.error("Something wrong!", "Error Message!");
