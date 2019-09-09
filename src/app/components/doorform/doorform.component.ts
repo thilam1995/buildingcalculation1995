@@ -89,8 +89,8 @@ export class DoorformComponent implements OnInit {
         Width: Number(form.value.width)
       };
       
-      const found = this.wallservice.windowlist.some(x => {
-        x.data.DoorName === this.doorobject.DoorName
+      const found = this.wallservice.doorlist.some(x => {
+        return x.data.DoorName === this.doorobject.DoorName
       }); //This boolean will detect if the wall name is existed to prevent duplicate with different value
 
       if(!found){
@@ -98,12 +98,12 @@ export class DoorformComponent implements OnInit {
           this.toastr.success("Complete door Success.", "Successful");
           this.fetchingdoordata(); //Refresh Component
           this.setDefault();
-          this.fetchingdoordata();
         }, err => {
           this.toastr.error("Complete door failed.", "Successful");
         });
       }else{
         this.toastr.warning("The door name is existed.", "No Duplicate Name");
+        form.reset();
       }
 
     }else{

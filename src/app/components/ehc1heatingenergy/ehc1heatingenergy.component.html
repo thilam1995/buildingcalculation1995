@@ -56,7 +56,7 @@
           <tr *ngFor="let i of rooflist">
             <td>{{i.roofname}}</td>
             <td>{{i.numinclusion | number: '1.0-2'}}</td>
-            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{i.totalnetarea | number: '1.0-2'}}</td>
             <td>{{i.totalrvalue | number: '1.0-2'}}</td>
             <td>{{i.totalheatloss | number: '1.0-2'}}</td>
           </tr>
@@ -73,7 +73,7 @@
             <th>Homestar Compliance</th>
           </tr>
           <tr *ngFor="let i of rooflist">
-            <td>{{i.totalarea | number: '1.0-2'}}</td>
+            <td>{{i.totalnetarea | number: '1.0-2'}}</td>
             <td>{{roofrvalue | number: '1.0-2'}}</td>
             <td>{{i.totalarea / roofrvalue | number: '1.0-2'}}</td>
             <td>
@@ -253,7 +253,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6 door" *ngIf="doordistinct.length !== 0">
+      <div class="col-md-12 door" *ngIf="doordistinct.length !== 0">
         <h1 style="text-align: center">Door (Proposed)</h1>
         <table class="table table-sm table-bordered">
           <tr>
@@ -271,34 +271,6 @@
             <td>{{i.totalheatloss | number: '1.0-2'}}</td>
           </tr>
         </table>
-      </div>
-      <div class="col-md-1" *ngIf="doordistinct.length !== 0">
-      </div>
-      <div class="col-md-5 door" *ngIf="doordistinct.length !== 0">
-        <h1 style="text-align: center">Door (Schedule)</h1>
-        <table class="table table-sm table-bordered">
-          <tr>
-            <th>Door Area</th>
-            <th>Door R-Value (Schedule Method)</th>
-            <th>Door Heatloss</th>
-            <th>Homestar Compliance</th>
-          </tr>
-          <tr *ngFor="let i of doorlist">
-            <td>{{i.totalarea | number: '1.0-2'}}</td>
-            <td>{{wallrvalue | number: '1.0-2'}}</td>
-            <td>{{i.totalarea / wallrvalue | number: '1.0-2'}}</td>
-            <td>
-              <img src="../../../assets/pic/pass.png"
-                *ngIf="(i.totalarea / wallrvalue) >= (i.totalarea / i.totalrvalue)">
-              <img src="../../../assets/pic/fail.png"
-                *ngIf="(i.totalarea / i.totalrvalue) > (i.totalarea / wallrvalue)">
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="col-md-12">
-
         <table class="table table-sm table-bordered">
           <tr>
             <th>Total Door Area</th>
@@ -646,8 +618,8 @@
                 </tr>
                 <tr>
                   <td>Roof</td>
-                  <td>{{totalarearoof | number: '1.0-2'}}</td>
-                  <td>{{totalarearoof / totalheatlossroof | number: '1.0-2'}}</td>
+                  <td>{{totalnetarearoof | number: '1.0-2'}}</td>
+                  <td>{{totalnetarearoof / totalheatlossroof | number: '1.0-2'}}</td>
                   <td>{{totalheatlossroof | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
@@ -704,9 +676,9 @@
                 </tr>
                 <tr>
                   <td>Roof</td>
-                  <td>{{totalarearoof | number: '1.0-2'}}</td>
+                  <td>{{totalnetarearoof | number: '1.0-2'}}</td>
                   <td>{{roofrvalue | number: '1.0-2'}}</td>
-                  <td>{{totalarearoof / roofrvalue | number: '1.0-2'}}</td>
+                  <td>{{totalnetarearoof / roofrvalue | number: '1.0-2'}}</td>
                 </tr>
                 <tr>
                   <td>Skylight</td>

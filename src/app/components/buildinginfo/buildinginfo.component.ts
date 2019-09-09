@@ -23,7 +23,7 @@ export class BuildinginfoComponent implements OnInit {
   designid: string = "";
   registeruser: Register;
   projectid: string = "";
-
+  projectname: string = "";
   constructor(private locationService: LocationService,
     private router: Router, private climateservice: ClimateService,
     private route: ActivatedRoute, private loginservice: LoginserviceService, private localSt: LocalStorageService,
@@ -41,10 +41,14 @@ export class BuildinginfoComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.setdefault();
     this.climateservice.getallclimate();
     this.locationService.getallLocation();
     this.projectid = this.route.snapshot.paramMap.get("projectid");
+    this.route.queryParams.subscribe(params => {
+      this.projectname = decodeURIComponent(params['projectname']);
+    });
   }
 
 

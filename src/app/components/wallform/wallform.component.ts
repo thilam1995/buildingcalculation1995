@@ -81,21 +81,23 @@ export class WallformComponent implements OnInit {
         UserID: this.registeruser.ID
       };
 
-      const found = this.wallservice.windowlist.some(x => {
-        x.data.WallName === this.wallobject.WallName
+      const found = this.wallservice.walllist.some(x => {
+        return x.data.WallName === this.wallobject.WallName
       }); //This boolean will detect if the wall name is existed to prevent duplicate with different value
-
+      console.log(found);
       if(!found){
         this.wallservice.wallposting(this.wallobject, this.designid).subscribe(res => {
           this.toastr.success("Complete Wall Success.", "Successful");
           this.fetchingwalldata(); //Refresh Component
           this.fetchingwalldata();
           this.setdefault();
+          
         }, err => {
           this.toastr.error("Complete Wall failed.", "Successful");
         });
       }else{
         this.toastr.warning("The wall name is existed.", "No Duplicate Name");
+        form.reset();
       }
 
     } else {

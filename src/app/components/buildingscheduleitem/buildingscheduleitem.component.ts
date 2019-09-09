@@ -18,6 +18,7 @@ export class BuildingscheduleitemComponent implements OnInit {
   @Input() project: any;
   registeruser: Register;
   projecttitle: string = "";
+  encodeparam: string = "";
 
   designsetlist = [];
   isedit: boolean = false;
@@ -43,6 +44,7 @@ export class BuildingscheduleitemComponent implements OnInit {
     }, err=>{
       this.toastr.error("Error at fetching", "Error Message");
     });
+    this.encodeparam = encodeURIComponent(this.project.data.ProjectName);
   }
 
 

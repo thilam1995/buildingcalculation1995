@@ -73,7 +73,7 @@ export class FloorsformComponent implements OnInit {
         UserID: this.registeruser.ID
       };
       const found = this.floorservice.floorlist.some(x => {
-        x.data.SkylightsName === this.floorobject.FloorName
+        return x.data.SkylightsName === this.floorobject.FloorName
       }); //This boolean will detect if the name is existed to prevent duplicate with different value
 
       if(!found){
@@ -86,6 +86,7 @@ export class FloorsformComponent implements OnInit {
         });
       }else{
         this.toastr.warning("The floor name is existed.", "No Duplicate Name");
+        form.reset();
       }
 
 

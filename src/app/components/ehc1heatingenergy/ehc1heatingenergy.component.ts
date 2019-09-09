@@ -45,6 +45,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   windowrvaluemore30: number = 0;
 
   totalarearoof: number = 0;
+  totalnetarearoof: number = 0;
   totalareaskylight: number = 0;
   totalareawall: number = 0;
   totalareawindow: number = 0;
@@ -346,17 +347,26 @@ export class Ehc1heatingenergyComponent implements OnInit {
         x.SkylightsName
       )));
       for (let i of this.roofdistinct) {
-        let object = { roofname: i, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
+        let object = { roofname: i, numinclusion: 0, totalarea: 0, totalnetarea: 0, totalrvalue: 0, totalheatloss: 0 };
+        let totalskylightarea = 0, netroofarea = 0;
         for (let x of this.roofskylightmodellist) {
           if (x.data.Roof.RoofName === i) {
             object.numinclusion++;
+            if(x.data.Skylight.length !== 0){
+              for(let a of x.data.Skylight){
+                totalskylightarea += a.Area;
+              }
+            }
+            netroofarea = Number(x.data.Roof.ExposedArea) - totalskylightarea;
+            object.totalnetarea = netroofarea;
             object.totalarea += Number(x.data.Roof.ExposedArea);
             object.totalrvalue = Number(x.data.Roof.ConstructionRValue);
             object.totalheatloss += Number(x.data.Roof.ExposedArea) / Number(x.data.Roof.ConstructionRValue);
           }
+          totalskylightarea = 0, netroofarea = 0;
         }
         this.rooflist.push(object);
-        object = { roofname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
+        object = { roofname: "", numinclusion: 0, totalarea: 0, totalnetarea: 0, totalrvalue: 0, totalheatloss: 0 };
       }
 
 
@@ -433,6 +443,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
 
     for (var x of this.rooflist) {
       this.totalarearoof += x.totalarea;
+      this.totalnetarearoof += x.totalnetarea;
       this.totalheatlossroof += x.totalheatloss;
       this.isroofpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.roofrvalue));
     }

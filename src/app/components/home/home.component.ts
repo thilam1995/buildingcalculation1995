@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
 
   //isopen: boolean = false;
   registeruser: Register;
-  id$: Observable<string>;
 
   constructor(private loginservice: LoginserviceService, public route: ActivatedRoute,
     private router: Router) { }

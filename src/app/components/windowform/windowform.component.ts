@@ -97,7 +97,7 @@ export class WindowformComponent implements OnInit {
       };
 
       const found = this.wallservice.windowlist.some(x => {
-        x.data.WindowName === this.windowobject.WindowName
+        return x.data.WindowName === this.windowobject.WindowName
       }); //This boolean will detect if the window name is existed to prevent duplicate with different value
       if (!found) {
         this.wallservice.windowposting(this.windowobject, this.designid).subscribe(res => {
@@ -110,6 +110,7 @@ export class WindowformComponent implements OnInit {
         });
       } else {
         this.toastr.warning("The window name is existed.", "No Duplicate Name");
+        form.reset();
       }
 
 

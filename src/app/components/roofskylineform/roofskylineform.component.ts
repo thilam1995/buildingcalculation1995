@@ -98,7 +98,7 @@ export class RoofskylineformComponent implements OnInit {
       };
 
       const found = this.roofskylightservice.rooflist.some(x => {
-        x.data.RoofName === this.roofobject.RoofName
+        return x.data.RoofName === this.roofobject.RoofName
       }); //This boolean will detect if the wall name is existed to prevent duplicate with different value
 
       if(!found){
@@ -111,6 +111,7 @@ export class RoofskylineformComponent implements OnInit {
         });
       }else{
         this.toastr.warning("The roof name is existed.", "No Duplicate Name");
+        form.reset();
       }
 
 
@@ -148,7 +149,7 @@ export class RoofskylineformComponent implements OnInit {
       };
 
       const found = this.roofskylightservice.skylightlist.some(x => {
-        x.data.SkylightsName === this.skylightsobject.SkylightsName
+        return x.data.SkylightsName === this.skylightsobject.SkylightsName
       }); //This boolean will detect if the name is existed to prevent duplicate with different value
 
       if(!found){
@@ -161,6 +162,7 @@ export class RoofskylineformComponent implements OnInit {
         });
       }else{
         this.toastr.warning("The skylight name is existed.", "No Duplicate Name");
+        form.reset();
       }
 
     } else {

@@ -25,6 +25,6 @@
         </ul>
 
     </div>
-    <div class="col-md-12"><a mat-button routerLink="../createdesign/{{project.id}}">Create New Design</a></div>
+    <div class="col-md-12"><a mat-button [routerLink]="['../createdesign', project.id]" [queryParams]="{ projectname: encodeparam }">Create New Design</a></div>
 </div>
 <br>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { Register } from 'src/app/models/register';
 
 @Component({
   selector: 'app-profilesetting',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilesettingComponent implements OnInit {
 
-  constructor() { }
+  registeruser: Register;
+  constructor(private loginservice: LoginserviceService) { }
 
   ngOnInit() {
   }
