@@ -72,30 +72,14 @@ export class WalldoorwindowmodelComponent implements OnInit {
 
 
   fetchingwalldata() {
-    // this.wallservice.walllistdata(this.designid).subscribe(res => {
-    //   this.wallobjectlist = res;
-    // }, err => {
-    //   this.toastr.error("Something Wrong!", "Error Message")
-    // });
     this.wallservice.walllistdata(this.designid);
   }
 
   fetchingwindowdata() {
-    // this.wallservice.windowlistdata(this.designid).subscribe(res => {
-    //   this.windowobjectlist = res;
-    // }, err => {
-    //   this.toastr.error("Something wrong", "Error Message!");
-    // });
     this.wallservice.windowlistdata(this.designid)
   }
 
   fetchingdoordata() {
-    // this.wallservice.doorlistdata(this.designid).subscribe(res => {
-    //   this.doorobjectlist = res;
-
-    // }, err => {
-    //   this.toastr.error("Something wrong", "Error Message!");
-    // });
     this.wallservice.doorlistdata(this.designid);
   }
 
@@ -178,7 +162,6 @@ export class WalldoorwindowmodelComponent implements OnInit {
 
   optionchange() {
     console.log(this.wallobject);
-
   }
 
   optionchange1() {
@@ -213,9 +196,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
     }
   }
 
-  updatewindowvalue(){
-    
-  }
+
 
   addwalltoggle() { //
     this.display = !this.display;

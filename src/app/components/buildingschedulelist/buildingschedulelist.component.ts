@@ -27,6 +27,7 @@ export class BuildingschedulelistComponent implements OnInit {
   ngOnInit() {
     //this.buildingschedulelist = this.buildingservice.buildinginfolistdata();
     this.setdefault();
+
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     setTimeout(() => {
       this.loginservice.currentUser.subscribe(x => {
@@ -37,12 +38,12 @@ export class BuildingschedulelistComponent implements OnInit {
         }
         
       });
-
-      this.registerID = this.registeruser.ID;
+      this.registerID = this.route.snapshot.paramMap.get('id');
+      //this.registerID = this.registeruser.ID;
 
       
       this.projectservice.projectfetching(this.registerID);
-    },1000);
+    },1900);
   }
 
 
@@ -55,5 +56,6 @@ export class BuildingschedulelistComponent implements OnInit {
       Email: "",
       Password: ""
     };
+    this.registerID = "";
   }
 }

@@ -79,7 +79,9 @@ export class FloorsformComponent implements OnInit {
       if(!found){
         this.floorservice.addfloor(this.floorobject).subscribe(res => {
           this.toastr.success("Completed Floor Success!", "Info Message");
-          this.fetchingfloordata();
+          setTimeout(() => {
+            this.fetchingfloordata();
+          }, 1500);
           this.setDefault();
         }, err => {
           this.toastr.error("Completed Floor failed!", "Info Message");
@@ -102,7 +104,9 @@ export class FloorsformComponent implements OnInit {
       };
       this.floorservice.updatefloor(this.floorobject).subscribe(res => {
         this.toastr.success("Updated Floor Success!", "Info Message");
-        this.fetchingfloordata();
+        setTimeout(() => {
+          this.fetchingfloordata();
+        }, 1500);
         this.setDefault();
       }, err => {
         this.toastr.error("Updated Floor failed!", "Info Message");
@@ -129,7 +133,7 @@ export class FloorsformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.floorservice.deletefloor(id).subscribe(res => {
         this.toastr.success("Deleted floor!", "Info Message!");
-        this.fetchingfloordata();
+        this.floorservice.floorlist.filter(x => x.id !== id);
       }, err =>{
         this.toastr.error("Something wrong!", "Error Message!");
       });

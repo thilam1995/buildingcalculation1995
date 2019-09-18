@@ -8,6 +8,7 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { RoofskylightService } from 'src/app/service/roofskylight.service';
+import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 
 @Component({
   selector: 'app-roofskylineform',
@@ -26,7 +27,7 @@ export class RoofskylineformComponent implements OnInit {
   registeruser: Register;
 
   constructor(private roofskylightservice: RoofskylightService, public route: ActivatedRoute, private loginservice: LoginserviceService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, private buildingmodelservice: BuildingmodelService) {
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
@@ -104,7 +105,10 @@ export class RoofskylineformComponent implements OnInit {
       if(!found){
         this.roofskylightservice.addroof(this.roofobject).subscribe(res => {
           this.toastr.success("Added roof!", "Error Message!");
-          this.fetchingroof();
+          setTimeout(() => {
+            this.fetchingroof();
+          }, 1500);
+          
           this.setDefaultRoof();
         }, err => {
           this.toastr.error("Something wrong!", "Error Message!");
@@ -127,7 +131,9 @@ export class RoofskylineformComponent implements OnInit {
       };
       this.roofskylightservice.updateroof(this.roofobject).subscribe(res => {
         this.toastr.success("Updated skylight!", "Error Message!");
-        this.fetchingroof();
+        setTimeout(() => {
+          this.fetchingroof();
+        }, 1500);
         this.setDefaultRoof();
       }, err => {
         this.toastr.error("Something wrong!", "Error Message!");
@@ -155,7 +161,10 @@ export class RoofskylineformComponent implements OnInit {
       if(!found){
         this.roofskylightservice.addskylight(this.skylightsobject).subscribe(res => {
           this.toastr.success("Add skylight!", "Error Message!");
-          this.fetchingskylight();
+          setTimeout(() => {
+            this.fetchingskylight();
+          }, 1500);
+          
           this.setDefaultSkylight();
         }, err => {
           this.toastr.error("Something wrong!", "Error Message!");
@@ -179,7 +188,9 @@ export class RoofskylineformComponent implements OnInit {
       };
       this.roofskylightservice.updateskylight(this.skylightsobject, this.designid).subscribe(res => {
         this.toastr.success("Add skylight!", "Error Message!");
-        this.fetchingskylight();
+        setTimeout(() => {
+          this.fetchingskylight();
+        }, 1500);
         this.setDefaultSkylight();
       }, err => {
         this.toastr.error("Something wrong!", "Error Message!");
@@ -205,7 +216,7 @@ export class RoofskylineformComponent implements OnInit {
       this.roofskylightservice.deleteroof(id).subscribe(
         res => {
           this.toastr.success("Deleted roof!", "Info Message!");
-          this.fetchingroof();
+          this.roofskylightservice.rooflist.filter(x => x.id !== id);
         }, err => {
           this.toastr.error("Something wrong!", "Error Message!");
         }
@@ -237,8 +248,7 @@ export class RoofskylineformComponent implements OnInit {
       this.roofskylightservice.deleteskylight(id).subscribe(
         res => {
           this.toastr.success("Deleted skylight!", "Error Message!");
-          this.fetchingskylight();
-          this.fetchingskylight();
+          this.roofskylightservice.skylightlist.filter(x => x !== id);
         }, err => {
           this.toastr.error("Something wrong!", "Error Message!");
         }

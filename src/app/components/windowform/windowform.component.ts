@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Register } from 'src/app/models/register';
+import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class WindowformComponent implements OnInit {
     { percentage: 1, shade: "Fully shaded" }
   ];
   constructor(private wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, private buildingmodelservice: BuildingmodelService) {
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
@@ -102,8 +103,9 @@ export class WindowformComponent implements OnInit {
       if (!found) {
         this.wallservice.windowposting(this.windowobject, this.designid).subscribe(res => {
           this.toastr.success("Complete Wall Success.", "Successful");
-          this.fetchingwindowdata(); //Refresh Component
-          this.fetchingwindowdata();
+          setTimeout(() => {
+            this.fetchingwindowdata();
+          }, 1500);
           this.setDefault();
         }, err => {
           this.toastr.error("Complete window failed.", "Successful");
@@ -131,8 +133,10 @@ export class WindowformComponent implements OnInit {
       console.log(this.windowobject);
       this.wallservice.windowput(this.windowobject, this.designid).subscribe(res => {
         this.toastr.success("Update Wall Successfully", "Info Message!");
-        this.fetchingwindowdata();
-        this.fetchingwindowdata();
+   
+        setTimeout(() => {
+          this.fetchingwindowdata();
+        }, 1500);
         this.setDefault();
       }, err => {
         this.toastr.error("Update Wall failed", "Info Message!");
@@ -164,11 +168,22 @@ export class WindowformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.wallservice.windowdelete(id, this.designid).subscribe(res => {
         this.toastr.success("Delete successfully", "Info Message!");
-        this.fetchingwindowdata();
-        this.fetchingwindowdata();
+        //this.fetchingwindowdata();
+        this.wallservice.windowlist.filter((x) => {
+          x.id !== id;
+        });
       }, err => {
         this.toastr.error("Delete failed", "Info Message!");
       });
+    }
+  }
+
+  updatewindowvalue(id: string, windowid: string){
+    this.buildingmodelservice.fetchwallwindowdoormodel(id);
+    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
+      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+
+      }
     }
   }
 

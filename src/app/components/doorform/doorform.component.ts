@@ -22,43 +22,31 @@ export class DoorformComponent implements OnInit {
   registeruser: Register;
   constructor(private wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
     private toastr: ToastrService) {
-      this.route.queryParams.subscribe(params => {
-        this.projectid = params['projectid'];
-        this.designid = params['designid'];
-      });
-      this.setdefault();
-      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
-      this.setDefault();
-      
+    this.route.queryParams.subscribe(params => {
+      this.projectid = params['projectid'];
+      this.designid = params['designid'];
+    });
+    this.setdefault();
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
+    this.setDefault();
+
   }
 
   ngOnInit() {
-    // this.wallservice.doorlistdata(this.designid).subscribe(res => {
-    //   this.doorobjectlist = res;
-      
-    // }, err => {
-    //   this.toastr.error("Something wrong", "Error Message!");
-    // });
     this.wallservice.doorlistdata(this.designid);
   }
 
-  
 
-  fetchingdoordata(){
-    // this.wallservice.doorlistdata(this.designid).subscribe(res => {
-    //   this.doorobjectlist = res;
-      
-    // }, err => {
-    //   this.toastr.error("Something wrong", "Error Message!");
-    // });
+
+  fetchingdoordata() {
     this.wallservice.doorlistdata(this.designid);
   }
 
@@ -77,7 +65,7 @@ export class DoorformComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if(form.value.id === null){
+    if (form.value.id === null) {
       this.doorobject = {
         DesignID: this.designid,
         ProjectID: this.projectid,
@@ -88,25 +76,27 @@ export class DoorformComponent implements OnInit {
         Height: Number(form.value.height),
         Width: Number(form.value.width)
       };
-      
+
       const found = this.wallservice.doorlist.some(x => {
         return x.data.DoorName === this.doorobject.DoorName
       }); //This boolean will detect if the wall name is existed to prevent duplicate with different value
 
-      if(!found){
+      if (!found) {
         this.wallservice.doorposting(this.doorobject, this.designid).subscribe(res => {
           this.toastr.success("Complete door Success.", "Successful");
-          this.fetchingdoordata(); //Refresh Component
+          setTimeout(() => {
+            this.fetchingdoordata();
+          }, 1500);
           this.setDefault();
         }, err => {
           this.toastr.error("Complete door failed.", "Successful");
         });
-      }else{
+      } else {
         this.toastr.warning("The door name is existed.", "No Duplicate Name");
         form.reset();
       }
 
-    }else{
+    } else {
       this.doorobject = {
         ID: form.value.id,
         DesignID: this.designid,
@@ -121,8 +111,10 @@ export class DoorformComponent implements OnInit {
 
       this.wallservice.doorput(this.doorobject, this.designid).subscribe(res => {
         this.toastr.success("Update Door Successfully", "Info Message!");
-        this.fetchingdoordata();
-        this.fetchingdoordata();
+        setTimeout(() => {
+          this.fetchingdoordata();
+        }, 1500);
+
       }, err => {
         this.toastr.error("Update Door failed", "Info Message!");
       });
@@ -151,10 +143,9 @@ export class DoorformComponent implements OnInit {
 
   deleteFieldValue(id: string) {
     if (confirm("Are you sure to delete this item?") === true) {
-      this.wallservice.doordelete(id, this.designid).subscribe(res =>{
+      this.wallservice.doordelete(id, this.designid).subscribe(res => {
         this.toastr.success("Delete successfully", "Info Message!");
-        this.ngOnInit();
-        this.ngOnInit();
+        this.wallservice.doorlist.filter(x => x.id !== id);
       }, err => {
         this.toastr.error("Delete failed", "Info Message!");
       });
@@ -181,7 +172,7 @@ export class DoorformComponent implements OnInit {
 
   }
 
-  setdefault(){
+  setdefault() {
     this.loginservice.registermember = {
       ID: "",
       FirstName: "",

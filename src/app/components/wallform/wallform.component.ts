@@ -46,12 +46,6 @@ export class WallformComponent implements OnInit {
   }
 
   fetchingwalldata(){
-    // this.wallservice.walllistdata(this.designid).subscribe(res => {
-    //   this.wallobjectlist = res;
-    // }, err => {
-    //   this.toastr.error("Something Wrong!", "Error Message")
-    // });
-
     this.wallservice.walllistdata(this.designid);
   }
 
@@ -88,8 +82,9 @@ export class WallformComponent implements OnInit {
       if(!found){
         this.wallservice.wallposting(this.wallobject, this.designid).subscribe(res => {
           this.toastr.success("Complete Wall Success.", "Successful");
-          this.fetchingwalldata(); //Refresh Component
-          this.fetchingwalldata();
+          setTimeout(() => {
+            this.fetchingwalldata(); //Refresh Component
+          }, 1500);
           this.setdefault();
           
         }, err => {
@@ -113,8 +108,9 @@ export class WallformComponent implements OnInit {
       console.log(this.wallobject);
       this.wallservice.wallput(this.wallobject, this.designid).subscribe(res => {
         this.toastr.success("Update Wall Successfully", "Info Message!");
-        this.fetchingwalldata(); //Refresh Component
-        this.fetchingwalldata();
+        setTimeout(() => {
+          this.fetchingwalldata();
+        }, 1500);
         this.setdefault();
       }, err => {
         this.toastr.error("Update Wall failed", "Info Message!");
@@ -148,8 +144,7 @@ export class WallformComponent implements OnInit {
       this.wallservice.walldelete(id, this.designid).subscribe(
         res => {
           this.toastr.success("Delete successfully", "Info Message!");
-          this.fetchingwalldata();
-          this.fetchingwalldata();
+          this.wallservice.walllist.filter(x => x.id !== id);
         }, err => {
           this.toastr.error("Delete failed", "Info Message!");
         }
