@@ -134,7 +134,6 @@ export class RoofskylineformComponent implements OnInit {
         setTimeout(() => {
           this.fetchingroof();
         }, 1500);
-        this.setDefaultRoof();
       }, err => {
         this.toastr.error("Something wrong!", "Error Message!");
       });
@@ -216,7 +215,9 @@ export class RoofskylineformComponent implements OnInit {
       this.roofskylightservice.deleteroof(id).subscribe(
         res => {
           this.toastr.success("Deleted roof!", "Info Message!");
-          this.roofskylightservice.rooflist.filter(x => x.id !== id);
+          setTimeout(() => {
+            this.fetchingroof();
+          }, 1500);
         }, err => {
           this.toastr.error("Something wrong!", "Error Message!");
         }
@@ -248,7 +249,9 @@ export class RoofskylineformComponent implements OnInit {
       this.roofskylightservice.deleteskylight(id).subscribe(
         res => {
           this.toastr.success("Deleted skylight!", "Error Message!");
-          this.roofskylightservice.skylightlist.filter(x => x !== id);
+          setTimeout(() => {
+            this.fetchingskylight();
+          }, 1500);
         }, err => {
           this.toastr.error("Something wrong!", "Error Message!");
         }

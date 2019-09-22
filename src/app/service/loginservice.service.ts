@@ -95,7 +95,13 @@ export class LoginserviceService {
     //this.loggedIn.next(false);
     localStorage.removeItem('currentUser');
     localStorage.removeItem('login');
-    this.registermember = null;
+    this.registermember = {
+      ID: "",
+      Email: "",
+      FirstName: "",
+      LastName: "",
+      Password: ""
+    };
     this.router.navigate(['/login']);
   }
 

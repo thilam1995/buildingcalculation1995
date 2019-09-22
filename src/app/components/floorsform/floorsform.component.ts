@@ -133,7 +133,9 @@ export class FloorsformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.floorservice.deletefloor(id).subscribe(res => {
         this.toastr.success("Deleted floor!", "Info Message!");
-        this.floorservice.floorlist.filter(x => x.id !== id);
+        setTimeout(() => {
+          this.fetchingfloordata();
+        }, 1500);
       }, err =>{
         this.toastr.error("Something wrong!", "Error Message!");
       });

@@ -19,7 +19,7 @@
         <td>{{i.data.OWA | number: '1.0-2'}}</td>
         <td>
             <button class="btn btn-default" type="button" (click)="editFieldValue(i)">Edit</button>
-            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i.id)">Delete</button>
+            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
         </td>
     </tr>
 
@@ -48,6 +48,7 @@
         </div>
         <div class="form-group col-md-12">
             <label>Area: <span>{{windowobject.Area | number: '1.0-2'}}</span></label>
+            
         </div>
         <div class="form-group col-md-12">
             <label>Shade</label>

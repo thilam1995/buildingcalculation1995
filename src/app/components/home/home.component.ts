@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit {
         this.registeruser = x;
       }
     });
+
+    
   }
 
   setdefault() {

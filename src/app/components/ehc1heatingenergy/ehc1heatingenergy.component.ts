@@ -72,6 +72,9 @@ export class Ehc1heatingenergyComponent implements OnInit {
   totalheatlossfloor: number = 0;
   totalproposed: number = 0;
 
+  skylightrvaluecondition:number = 0;
+  windowrvaluecondition: number = 0;
+  wallrvaluecondition: number = 0;
 
   totalheatlosswindowless30: number = 0;
   totalheatlosswindowmore30: number = 0;
@@ -281,9 +284,10 @@ export class Ehc1heatingenergyComponent implements OnInit {
             netwallarea = Number(i.data.Wall.Area) - (totalwindow + totaldoor);
             object.totalarea += Number(netwallarea);
             object.totalrvalue = Number(i.data.Wall.ConstructionRValue);
-            object.totalheatloss += Number(i.data.Wall.Area) / Number(i.data.Wall.ConstructionRValue);
+            
             object.orientation = i.data.Wall.Orientation;
           }
+          object.totalheatloss = Number((Number(object.totalarea) / Number(object.totalrvalue)).toFixed(2));
           totaldoor = 0;
           totalwindow = 0;
           netwallarea = 0;
@@ -302,9 +306,11 @@ export class Ehc1heatingenergyComponent implements OnInit {
             object.numinclusion++;
             object.totalarea += Number(x.data.Door.Area);
             object.totalrvalue = Number(x.data.Door.ConstructionRValue);
-            object.totalheatloss += Number(x.data.Door.Area) / Number(x.data.Door.ConstructionRValue);
+            //object.totalheatloss += Number(x.data.Door.Area) / Number(x.data.Door.ConstructionRValue);
           }
+          
         }
+        object.totalheatloss = Number((object.totalarea / object.totalrvalue).toFixed(2));
         this.doorlist.push(object);
         object = { doorname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
       }
@@ -319,11 +325,13 @@ export class Ehc1heatingenergyComponent implements OnInit {
               object.numinclusion++;
               object.totalarea += Number(e.Area);
               object.totalrvalue = Number(e.ConstructionRValue);
-              object.totalheatloss += Number(e.Area) / Number(e.ConstructionRValue);
+              
               object.owa = Number(e.OWA);
             }
           }
+          object.totalheatloss = Number((object.totalarea / object.totalrvalue).toFixed(2));
         }
+
         this.windowlist.push(object);
         object = { windowname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0, owa: 0 };
       }
@@ -361,8 +369,9 @@ export class Ehc1heatingenergyComponent implements OnInit {
             object.totalnetarea = netroofarea;
             object.totalarea += Number(x.data.Roof.ExposedArea);
             object.totalrvalue = Number(x.data.Roof.ConstructionRValue);
-            object.totalheatloss += Number(x.data.Roof.ExposedArea) / Number(x.data.Roof.ConstructionRValue);
+            //object.totalheatloss += Number(x.data.Roof.ExposedArea) / Number(x.data.Roof.ConstructionRValue);
           }
+          object.totalheatloss = Number((object.totalnetarea / object.totalrvalue).toFixed(2));
           totalskylightarea = 0, netroofarea = 0;
         }
         this.rooflist.push(object);
@@ -379,7 +388,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
               object.numinclusion++;
               object.totalarea += Number(e.Area);
               object.totalrvalue = Number(e.ConstructionRValue);
-              object.totalheatloss += Number(e.Area) / Number(e.ConstructionRValue);
+              object.totalheatloss += Number((Number(e.Area) / Number(e.ConstructionRValue)).toFixed(2));
             }
           }
         }
@@ -399,7 +408,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
             object.numinclusion++;
             object.totalarea += Number(i.data.Floor.ExposedArea);
             object.totalrvalue = Number(i.data.Floor.ConstructionRValue);
-            object.totalheatloss += Number(i.data.Floor.ExposedArea) / Number(i.data.Floor.ConstructionRValue);
+            object.totalheatloss += Number((Number(i.data.Floor.ExposedArea) / Number(i.data.Floor.ConstructionRValue)).toFixed(2));
           }
         }
         this.floorlist.push(object);
@@ -424,39 +433,39 @@ export class Ehc1heatingenergyComponent implements OnInit {
   finalcalculation() {
 
     for (let x of this.walllist) {
-      this.totalareawall += x.totalarea;
-      this.totalheatlosswall += x.totalheatloss;
+      this.totalareawall += Number(x.totalarea.toFixed(2));
+      this.totalheatlosswall += Number(x.totalheatloss.toFixed(2));
       this.iswallpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.wallrvalue));
     }
 
 
     for (let x of this.doorlist) {
-      this.totalareadoor += x.totalarea;
-      this.totalheatlossdoor += x.totalheatloss;
+      this.totalareadoor += Number(x.totalarea.toFixed(2));
+      this.totalheatlossdoor += Number(x.totalheatloss.toFixed(2));
     }
 
     for (var x of this.windowlist) {
-      this.totalareawindow += x.totalarea;
-      this.totalheatlosswindow += x.totalheatloss;
+      this.totalareawindow += Number(x.totalarea.toFixed(2));
+      this.totalheatlosswindow += Number(x.totalheatloss.toFixed(2));
       this.iswindowpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.windowrvalue));
     }
 
     for (var x of this.rooflist) {
-      this.totalarearoof += x.totalarea;
-      this.totalnetarearoof += x.totalnetarea;
-      this.totalheatlossroof += x.totalheatloss;
+      this.totalarearoof += Number(x.totalarea.toFixed(2));
+      this.totalnetarearoof += Number(x.totalnetarea.toFixed(2));
+      this.totalheatlossroof += Number(x.totalheatloss.toFixed(2));
       this.isroofpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.roofrvalue));
     }
 
     for (var x of this.skylightlist) {
-      this.totalareaskylight += x.totalarea;
-      this.totalheatlossskylight += x.totalheatloss;
+      this.totalareaskylight += Number(x.totalarea.toFixed(2));
+      this.totalheatlossskylight += Number(x.totalheatloss.toFixed(2));
       this.isskylightpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.skylightrvalue));
     }
 
     for (var x of this.floorlist) {
-      this.totalareafloor += x.totalarea;
-      this.totalheatlossfloor += x.totalheatloss;
+      this.totalareafloor += Number(x.totalarea.toFixed(2));
+      this.totalheatlossfloor += Number(x.totalheatloss.toFixed(2));
       this.isfloorpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.floorrvalue));
     }
 
@@ -512,14 +521,19 @@ export class Ehc1heatingenergyComponent implements OnInit {
 
 
     //this.totalwallarealeft = this.totalareawall - this.totalareawindow;
-    this.totalproposed = this.totalheatlossroof + this.totalheatlossskylight + this.totalheatlosswindow + this.totalheatlosswall + this.totalheatlossfloor;
-    this.totalareawindowless30 = (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) * 0.30;
+    this.totalproposed = Number((Number(this.totalheatlossroof.toFixed(2)) + Number(this.totalheatlossdoor.toFixed(2)) + Number(this.totalheatlossskylight.toFixed(2)) + Number(this.totalheatlosswindow.toFixed(2)) + Number(this.totalheatlosswall.toFixed(2)) + Number(this.totalheatlossfloor.toFixed(2))).toFixed(2));
 
+
+    this.totalareawindowless30 = Number(((this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) * 0.30).toFixed(2));
+
+    this.skylightrvaluecondition = 0.015 < (this.totalareaskylight / this.totalarearoof) ? this.totalareaskylight/this.skylightrvalue : this.totalareaskylight/this.roofrvalue;
+    this.wallrvaluecondition = 0.30 > (this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) ? (((this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) * 0.7) / this.wallrvalue) : (this.totalareawall / this.wallrvalue);
     if ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) < 0.30) {
-      this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
+      this.totalschedule = Number((this.totalarearoof / this.roofrvalue).toFixed(2)) + Number(this.skylightrvaluecondition.toFixed(2)) + Number(this.wallrvaluecondition.toFixed(2)) + Number((this.totalareawindowless30 / this.windowrvalue).toFixed(2)) + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
+
     } else {
-      this.totalareawindowmore30 = (this.totalareawindow + this.totalareadoor) - this.totalareawindowless30;
-      this.totalschedule = (this.totalarearoof / this.roofrvalue) + (this.totalareaskylight / this.skylightrvalue) + (this.totalareawall / this.wallrvalue) + (this.totalareawindowless30 / this.windowrvalue) + (this.totalareawindowmore30 / this.windowrvalue) + (this.totalareafloor / this.floorrvalue);
+      this.totalareawindowmore30 = Number(((this.totalareawindow + this.totalareadoor) - this.totalareawindowless30).toFixed(2));
+      this.totalschedule = Number((this.totalarearoof / this.roofrvalue).toFixed(2)) + Number(this.skylightrvaluecondition.toFixed(2)) + Number(this.wallrvaluecondition.toFixed(2)) + (Number(this.totalareawindowless30.toFixed(2)) / this.windowrvalue) + Number((this.totalareawindowmore30 / this.windowrvalue).toFixed(2)) + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
     }
   }
 

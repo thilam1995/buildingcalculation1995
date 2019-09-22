@@ -626,7 +626,12 @@
                   <td>Skylight</td>
                   <td>{{totalareaskylight | number: '1.0-2'}}</td>
                   <td>
-                    {{totalareaskylight / totalheatlossskylight ? (totalareaskylight / totalheatlossskylight) : 0 | number: '1.0-2'}}
+                    <span *ngIf="totalareaskylight / totalheatlossskylight == 0">
+                      {{0}}
+                    </span>
+                    <span *ngIf="totalareaskylight / totalheatlossskylight != 0">
+                      {{totalareaskylight / totalheatlossskylight | number: '1.0-2'}}
+                    </span>
                   </td>
                   <td>{{totalheatlossskylight | number: '1.0-2'}}</td>
                 </tr>
@@ -649,7 +654,7 @@
                     <span
                       *ngIf="maxdoorareaallow > totalareadoor">{{(totalareadoor/(totalareawall / totalheatlosswall)) | number: '1.0-2'}}</span>
                     <span
-                      *ngIf="totalareadoor > maxdoorareaallow">{{totalareadoor / totalheatlossdoor | number: '1.0-2'}}</span>
+                      *ngIf="totalareadoor > maxdoorareaallow">{{totalheatlossdoor | number: '1.0-2'}}</span>
                   </td>
                 </tr>
                 <tr>
@@ -684,16 +689,16 @@
                   <td>Skylight</td>
                   <td>{{totalareaskylight | number: '1.0-2'}}</td>
                   <td>
+                    <span *ngIf="0.015 > (totalareaskylight / totalarearoof)">{{roofrvalue | number: '1.0-2'}}</span>
                     <span
-                      *ngIf="0.015 > (totalareaskylight / totalarearoof)">{{skylightrvalue | number: '1.0-2'}}</span>
-                    <span *ngIf="(totalareaskylight / totalarearoof) > 0.015">{{roofrvalue | number: '1.0-2'}}</span>
+                      *ngIf="(totalareaskylight / totalarearoof) > 0.015">{{skylightrvalue | number: '1.0-2'}}</span>
                     <span *ngIf="skylightlist.length == 0">-</span>
                   </td>
                   <td>
                     <span
-                      *ngIf="0.015 > (totalareaskylight / totalarearoof)">{{totalareaskylight/skylightrvalue | number: '1.0-2'}}</span>
+                      *ngIf="0.015 > (totalareaskylight / totalarearoof)">{{totalareaskylight/roofrvalue | number: '1.0-2'}}</span>
                     <span
-                      *ngIf="(totalareaskylight / totalarearoof) > 0.015">{{totalareaskylight/roofrvalue | number: '1.0-2'}}</span>
+                      *ngIf="(totalareaskylight / totalarearoof) > 0.015">{{totalareaskylight/skylightrvalue | number: '1.0-2'}}</span>
                     <span *ngIf="skylightlist.length == 0">-</span>
                   </td>
                 </tr>

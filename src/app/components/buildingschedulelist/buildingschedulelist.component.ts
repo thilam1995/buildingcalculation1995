@@ -20,7 +20,7 @@ export class BuildingschedulelistComponent implements OnInit {
   registerID: string = "";
   constructor(private projectservice: ProjectService, private loginservice: LoginserviceService,
     public route: ActivatedRoute) {
-    
+
     //this.loginservice.currentUser.subscribe(x => this.registeruser = x);
   }
 
@@ -31,19 +31,22 @@ export class BuildingschedulelistComponent implements OnInit {
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     setTimeout(() => {
       this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
+        if (x === null) {
           this.registeruser = loginapp;
-        }else{
+        } else {
           this.registeruser = x;
         }
-        
+
       });
-      this.registerID = this.route.snapshot.paramMap.get('id');
+
+      this.registerID = this.registeruser.ID;
+
+      console.log(this.registerID);
       //this.registerID = this.registeruser.ID;
 
-      
+
       this.projectservice.projectfetching(this.registerID);
-    },1900);
+    }, 1900);
   }
 
 

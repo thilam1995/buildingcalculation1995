@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Register } from 'src/app/models/register';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-homelayout',
@@ -10,7 +11,7 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 export class HomelayoutComponent implements OnInit {
 
   registeruser: Register;
-  constructor(private loginservice: LoginserviceService) { 
+  constructor(private loginservice: LoginserviceService, public route: ActivatedRoute) { 
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
       this.loginservice.currentUser.subscribe(x => {
         if(x === null){

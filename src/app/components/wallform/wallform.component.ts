@@ -135,16 +135,14 @@ export class WallformComponent implements OnInit {
     this.wallobject = Object.assign({}, wall1);
   }
 
-
-
-
   deleteFieldValue(id: string) {
     if (confirm("Do you want to delete the selected wall?") === true) {
-      console.log(id);
       this.wallservice.walldelete(id, this.designid).subscribe(
         res => {
           this.toastr.success("Delete successfully", "Info Message!");
-          this.wallservice.walllist.filter(x => x.id !== id);
+          setTimeout(() => {
+            this.fetchingwalldata();
+          }, 1500);
         }, err => {
           this.toastr.error("Delete failed", "Info Message!");
         }

@@ -145,7 +145,9 @@ export class DoorformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.wallservice.doordelete(id, this.designid).subscribe(res => {
         this.toastr.success("Delete successfully", "Info Message!");
-        this.wallservice.doorlist.filter(x => x.id !== id);
+        setTimeout(() => {
+          this.fetchingdoordata();
+        }, 1500);
       }, err => {
         this.toastr.error("Delete failed", "Info Message!");
       });

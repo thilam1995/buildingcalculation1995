@@ -17,8 +17,8 @@ import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 })
 export class WindowformComponent implements OnInit {
 
-  @Input() windowobject: WindowObject;
-  @Input() windowobjectlist = [];
+  windowobject: WindowObject = null;
+  windowobjectlist = [];
 
   designid: string = "";
   projectid: string = "";
@@ -131,12 +131,15 @@ export class WindowformComponent implements OnInit {
         UserID: this.registeruser.ID
       };
       console.log(this.windowobject);
+      this.updatewindowvalue(this.designid, this.windowobject);
       this.wallservice.windowput(this.windowobject, this.designid).subscribe(res => {
         this.toastr.success("Update Wall Successfully", "Info Message!");
-   
+
         setTimeout(() => {
           this.fetchingwindowdata();
         }, 1500);
+
+
         this.setDefault();
       }, err => {
         this.toastr.error("Update Wall failed", "Info Message!");
@@ -164,28 +167,78 @@ export class WindowformComponent implements OnInit {
   }
 
 
-  deleteFieldValue(id: string) {
+  deleteFieldValue(i: any) {
     if (confirm("Are you sure to delete this item?") === true) {
-      this.wallservice.windowdelete(id, this.designid).subscribe(res => {
+      this.deletewindowvalue(this.designid, i);
+      this.wallservice.windowdelete(i.id, this.designid).subscribe(res => {
         this.toastr.success("Delete successfully", "Info Message!");
         //this.fetchingwindowdata();
-        this.wallservice.windowlist.filter((x) => {
-          x.id !== id;
-        });
+        setTimeout(() => {
+          this.fetchingwindowdata();
+        }, 1500);
+
       }, err => {
         this.toastr.error("Delete failed", "Info Message!");
       });
     }
   }
 
-  updatewindowvalue(id: string, windowid: string){
+  deletewindowvalue(id: string, windowi: any) {
     this.buildingmodelservice.fetchwallwindowdoormodel(id);
-    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
-      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+    if (this.buildingmodelservice.wallwindowdoormodellist.length !== 0) {
+      for (let i of this.buildingmodelservice.wallwindowdoormodellist) {
+        let windowmodellist: Array<any> = i.data.Window;
+        i.data.Window = windowmodellist.filter(x => x.WindowName !== windowi.data.WindowName);
+        //this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid);
+        this.buildingmodelservice.wallwindowdoormodelUpdate(id, i, this.designid).subscribe(res => {
+          this.toastr.success("Update model successfully", "Info Message");
+  
+          this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+        }, err => {
+          this.toastr.error("Update model failed", "Info Message");
+        });
+      }
+    }
+  }
+
+  updatewindowvalue(id: string, window: any) {
+    this.buildingmodelservice.fetchwallwindowdoormodel(id);
+    if (this.buildingmodelservice.wallwindowdoormodellist.length !== 0) {
+      for (let i of this.buildingmodelservice.wallwindowdoormodellist) {
+        let windowmodellist: Array<any> = i.data.Window;
+        for (let x of windowmodellist) {
+          if (x.WindowName === window.WindowName) {
+            if (x.Width !== window.Width) {
+              x.Width = window.Width;
+            }
+            if (x.ConstructionRValue !== window.ConstructionRValue) {
+              x.ConstructionRValue = window.ConstructionRValue;
+            }
+            if (x.Height !== window.Height) {
+              x.Height = window.Height;
+            }
+            if (x.OWA !== window.OWA) {
+              x.OWA = window.OWA;
+            }
+            if (x.ShadePercent !== window.ShadePercent) {
+              x.ShadePercent = window.ShadePercent;
+            }
+          }
+        }
+        i.data.Window = windowmodellist;
+        this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
+          this.toastr.success("Update model successfully", "Info Message");
+  
+          this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+        }, err => {
+          this.toastr.error("Update model failed", "Info Message");
+        });
 
       }
     }
   }
+
+
 
   onKeyWidth(event: any) { // without type info
     if (event.target.value === "") {
