@@ -304,6 +304,35 @@
             <td>Schedule Method Minimum R-value Requirements (including thermal bridging)</td>
           </tr>
           <tr>
+            <th>Roof</th>
+            <td>{{roofrvalue}}</td>
+          </tr>
+          <tr>
+            <th>Wall</th>
+            <td>{{wallrvalue}}</td>
+          </tr>
+          <tr>
+            <th>Glazing</th>
+            <td>{{windowrvalue}}</td>
+          </tr>
+          <tr>
+            <th>Floor</th>
+            <td>{{floorrvalue}}</td>
+          </tr>
+          <tr>
+            <th>Skylight</th>
+            <td>{{skylightrvalue}}</td>
+          </tr>
+        </table>
+      </div>
+      <!-- <div class="col-md-12">
+        <h1 style="text-align: center">Building Reference</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <td>{{targeting}}</td>
+            <td>Schedule Method Minimum R-value Requirements (including thermal bridging)</td>
+          </tr>
+          <tr>
             <th>Building Element</th>
             <th>
               <table class="table table-sm table-bordered">
@@ -370,7 +399,7 @@
             </th>
           </tr>
         </table>
-      </div>
+      </div> -->
 
 
       <div class="col-md-12">
@@ -653,8 +682,7 @@
                   <td>
                     <span
                       *ngIf="maxdoorareaallow > totalareadoor">{{(totalareadoor/(totalareawall / totalheatlosswall)) | number: '1.0-2'}}</span>
-                    <span
-                      *ngIf="totalareadoor > maxdoorareaallow">{{totalheatlossdoor | number: '1.0-2'}}</span>
+                    <span *ngIf="totalareadoor > maxdoorareaallow">{{totalheatlossdoor | number: '1.0-2'}}</span>
                   </td>
                 </tr>
                 <tr>

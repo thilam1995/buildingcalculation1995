@@ -17,8 +17,8 @@ import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 })
 export class RoofskylineformComponent implements OnInit {
 
-  @Input() skylightsobject: Skylights;
-  @Input() roofobject: Roof;
+  skylightsobject: Skylights;
+  roofobject: Roof;
 
   @Input() skylightsobjectlist = [];
   @Input() roofobjectlist = [];

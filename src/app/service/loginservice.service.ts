@@ -64,6 +64,10 @@ export class LoginserviceService {
     );
   }
 
+  updatepassword1(password: string, id: string){
+    
+  }
+
   register(register: Register) {
     const httpOptions = {
       headers: new HttpHeaders({

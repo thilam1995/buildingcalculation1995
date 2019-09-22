@@ -20,7 +20,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute, private loginservice: LoginserviceService,
-    private passworddecrypt: PasswordcryptService, private toastr: ToastrService) { }
+    private passworddecrypt: PasswordcryptService, private toastr: ToastrService) {
+      if(this.loginservice.currentUserValue){
+        this.router.navigate(["/main/"+`${this.loginservice.currentUserValue.ID}`+"/home"]);
+      }
+     }
 
   ngOnInit() {
     this.resetloginform();

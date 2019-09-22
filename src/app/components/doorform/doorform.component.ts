@@ -7,6 +7,7 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Register } from 'src/app/models/register';
 import { NgForm } from '@angular/forms';
+import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 
 @Component({
   selector: 'app-doorform',
@@ -15,13 +16,13 @@ import { NgForm } from '@angular/forms';
 })
 export class DoorformComponent implements OnInit {
 
-  @Input() doorobject: Door;
+  doorobject: Door;
   @Input() doorobjectlist = [];
   designid: string = "";
   projectid: string = "";
   registeruser: Register;
   constructor(private wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, buildingmodelservice: BuildingmodelService) {
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];
       this.designid = params['designid'];

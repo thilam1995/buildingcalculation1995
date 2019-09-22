@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { Register } from 'src/app/models/register';
 import { ToastrService } from 'ngx-toastr';
+import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 
 @Component({
   selector: 'app-wallform',
@@ -15,8 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class WallformComponent implements OnInit {
 
-  @Input() wallobject: Wall;
-  @Input() wallobjectlist = [];
+  wallobject: Wall;
+  wallobjectlist = [];
 
 
   designid: string = "";
@@ -24,7 +25,7 @@ export class WallformComponent implements OnInit {
   registeruser: Register;
   constructor(private wallservice: WalldoorwindowService,
     public route: ActivatedRoute, private loginservice: LoginserviceService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, buildingmodelservice: BuildingmodelService) {
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
@@ -142,6 +143,7 @@ export class WallformComponent implements OnInit {
           this.toastr.success("Delete successfully", "Info Message!");
           setTimeout(() => {
             this.fetchingwalldata();
+
           }, 1500);
         }, err => {
           this.toastr.error("Delete failed", "Info Message!");
