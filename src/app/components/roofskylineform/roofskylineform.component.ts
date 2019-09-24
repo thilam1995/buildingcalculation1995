@@ -131,6 +131,7 @@ export class RoofskylineformComponent implements OnInit {
       };
       this.roofskylightservice.updateroof(this.roofobject).subscribe(res => {
         this.toastr.success("Updated skylight!", "Error Message!");
+        this.updateroofmodel(this.designid, this.roofobject);
         setTimeout(() => {
           this.fetchingroof();
         }, 1500);
@@ -160,6 +161,7 @@ export class RoofskylineformComponent implements OnInit {
       if(!found){
         this.roofskylightservice.addskylight(this.skylightsobject).subscribe(res => {
           this.toastr.success("Add skylight!", "Error Message!");
+          
           setTimeout(() => {
             this.fetchingskylight();
           }, 1500);
@@ -187,6 +189,7 @@ export class RoofskylineformComponent implements OnInit {
       };
       this.roofskylightservice.updateskylight(this.skylightsobject, this.designid).subscribe(res => {
         this.toastr.success("Add skylight!", "Error Message!");
+        this.updateskylightmodel(this.designid, this.skylightsobject);
         setTimeout(() => {
           this.fetchingskylight();
         }, 1500);
@@ -210,11 +213,12 @@ export class RoofskylineformComponent implements OnInit {
     this.roofobject = Object.assign({}, roof1);
   }
 
-  deleteFieldValueRoof(id: string) {
+  deleteFieldValueRoof(id: string, roofi: any) {
     if (confirm("Are you sure to delete this item?") === true) {
       this.roofskylightservice.deleteroof(id).subscribe(
         res => {
           this.toastr.success("Deleted roof!", "Info Message!");
+          this.deleteroofmodel(this.designid, roofi);
           setTimeout(() => {
             this.fetchingroof();
           }, 1500);
@@ -244,11 +248,12 @@ export class RoofskylineformComponent implements OnInit {
 
 
 
-  deleteFieldValueSkylight(id: string) {
+  deleteFieldValueSkylight(id: string, skylight: any) {
     if (confirm("Are you sure to delete this item?") === true) {
       this.roofskylightservice.deleteskylight(id).subscribe(
         res => {
           this.toastr.success("Deleted skylight!", "Error Message!");
+          this.deleteskylightmodel(this.designid, skylight);
           setTimeout(() => {
             this.fetchingskylight();
           }, 1500);
@@ -256,6 +261,90 @@ export class RoofskylineformComponent implements OnInit {
           this.toastr.error("Something wrong!", "Error Message!");
         }
       );
+    }
+  }
+
+  updateroofmodel(id: string, roof: Roof){
+    this.buildingmodelservice.fetchroofskylightmodelGet(id);
+    console.log(this.buildingmodelservice.roofskylightmodellist);
+    if(this.buildingmodelservice.roofskylightmodellist.length !== 0){
+      for(let i of this.buildingmodelservice.roofskylightmodellist){
+        if(i.data.Roof.RoofName === roof.RoofName){
+          if(i.data.Roof.ConstructionRValue !== roof.ConstructionRValue){
+            i.data.Roof.ConstructionRValue = roof.ConstructionRValue;
+            this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
+              this.toastr.success("Update model successfully", "Info Message");
+              this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+            }, err => {
+              this.toastr.error("Update model failed", "Info Message");
+            });
+          }
+        }
+      }
+    }
+  }
+
+  deleteroofmodel(id: string, roofi: any){
+    this.buildingmodelservice.fetchroofskylightmodelGet(id);
+    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
+      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+        if(i.data.Roof.RoofName === roofi.Roof.RoofName){
+          i.data.Roof = {};
+          this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
+            this.toastr.success("Update model successfully", "Info Message");
+
+            this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+          }, err => {
+            this.toastr.error("Update model failed", "Info Message");
+          });
+        }
+      }
+    }
+  }
+
+  updateskylightmodel(id: string, skylight: Skylights){
+    this.buildingmodelservice.fetchroofskylightmodelGet(this.designid);
+    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
+      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+        let skylightmodellist:Array<any> = i.data.Skylight;
+        let skylightmodel1:Array<any> = skylightmodellist.filter((x) => x.SkylightsName === skylight.SkylightsName);
+        let skylightmodel2:Array<any> = skylightmodellist.filter((x) => x.SkylightsName !== skylight.SkylightsName)
+        skylightmodellist.forEach((element, index) => {
+          if(element.SkylightsName === skylight.SkylightsName){
+              element.ConstructionRValue = skylight.SkylightsName;
+              element.Width = skylight.Width;
+              element.Length = skylight.Length;
+              element.Area = skylight.Area;
+          }
+        });
+        i.data.Skylight = skylightmodellist;
+        this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
+          this.toastr.success("Update model successfully", "Info Message");
+
+          this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+        }, err => {
+          this.toastr.error("Update model failed", "Info Message");
+        });
+      }
+    }else{
+      this.setDefaultRoof();
+    }
+  }
+
+  deleteskylightmodel(id: string, roofi: any){
+    this.buildingmodelservice.fetchroofskylightmodelGet(id);
+    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
+      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+        let skylightmodellist:Array<any> = i.data.Skylight;
+        i.data.Skylight = skylightmodellist.filter(x => x.SkylightsName !== roofi.SkylightsName);
+        this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
+          this.toastr.success("Update model successfully", "Info Message");
+
+          this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+        }, err => {
+          this.toastr.error("Update model failed", "Info Message");
+        });
+      }
     }
   }
 

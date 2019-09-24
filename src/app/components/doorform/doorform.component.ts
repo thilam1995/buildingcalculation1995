@@ -22,12 +22,12 @@ export class DoorformComponent implements OnInit {
   projectid: string = "";
   registeruser: Register;
   constructor(private wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
-    private toastr: ToastrService, buildingmodelservice: BuildingmodelService) {
+    private toastr: ToastrService, private buildingmodelservice: BuildingmodelService) {
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
     });
-    this.setdefault();
+    //this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     this.loginservice.currentUser.subscribe(x => {
       if (x === null) {
@@ -152,6 +152,51 @@ export class DoorformComponent implements OnInit {
       }, err => {
         this.toastr.error("Delete failed", "Info Message!");
       });
+    }
+  }
+
+  updatedoormodel(id: string, door: Door){
+    this.buildingmodelservice.fetchwallwindowdoormodel(this.designid);
+    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
+      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+        if(i.data.Door.DoorName === door.DoorName){
+          if(i.data.Door.ConstructionRValue !== door.ConstructionRValue){
+            i.data.Door.ConstructionRValue = door.ConstructionRValue;
+          }
+          if(i.data.Door.Width !== door.Width){
+            i.data.Door.Width = door.Width;
+          }
+          if(i.data.Door.Height !== door.Height){
+            i.data.Door.Height = door.Height;
+          }
+          this.buildingmodelservice.wallwindowdoormodelUpdate(id, i, this.designid).subscribe(res => {
+            this.toastr.success("Update model successfully", "Info Message");
+  
+            this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+          }, err => {
+            this.toastr.error("Update model failed", "Info Message");
+          });
+        }
+      }
+    }
+
+  }
+
+  deletedoormodel(id: string, doori: any){
+    this.buildingmodelservice.fetchwallwindowdoormodel(this.designid);
+    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
+      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+        if(i.data.Door.DoorName === doori.DoorName){
+          i.data.Door = {};
+          this.buildingmodelservice.wallwindowdoormodelUpdate(id, i, this.designid).subscribe(res => {
+            this.toastr.success("Update model successfully", "Info Message");
+  
+            this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+          }, err => {
+            this.toastr.error("Update model failed", "Info Message");
+          });
+        }
+      }
     }
   }
 

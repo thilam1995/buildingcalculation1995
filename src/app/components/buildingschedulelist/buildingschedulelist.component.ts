@@ -39,7 +39,7 @@ export class BuildingschedulelistComponent implements OnInit {
 
       });
 
-      this.registerID = this.registeruser.ID;
+      this.registerID = this.loginservice.currentUserValue.ID;
 
       console.log(this.registerID);
       //this.registerID = this.registeruser.ID;
@@ -52,13 +52,13 @@ export class BuildingschedulelistComponent implements OnInit {
 
   setdefault() {
     this.projectservice.projectList = [];
-    this.registeruser = {
-      ID: "",
-      FirstName: "",
-      LastName: "",
-      Email: "",
-      Password: ""
-    };
+    // this.registeruser = {
+    //   ID: "",
+    //   FirstName: "",
+    //   LastName: "",
+    //   Email: "",
+    //   Password: ""
+    // };
     this.registerID = "";
   }
 }

@@ -15,7 +15,9 @@ export class PasswordchangeComponent implements OnInit {
   oldpassword: string = "";
   newpassword: string = "";
   confirmpassword: string = "";
-  constructor(private loginservice: LoginserviceService, private passwordencrypt: PasswordcryptService) { }
+  constructor(private loginservice: LoginserviceService, private passwordencrypt: PasswordcryptService) {
+
+  }
 
   ngOnInit() {
   }

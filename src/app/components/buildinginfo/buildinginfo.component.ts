@@ -28,7 +28,7 @@ export class BuildinginfoComponent implements OnInit {
     private router: Router, private climateservice: ClimateService,
     private route: ActivatedRoute, private loginservice: LoginserviceService, private localSt: LocalStorageService,
     private designservice: DesignService, private toastr: ToastrService) {
-    this.setDefault();
+    //this.setDefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
       this.loginservice.currentUser.subscribe(x => {
         if(x === null){

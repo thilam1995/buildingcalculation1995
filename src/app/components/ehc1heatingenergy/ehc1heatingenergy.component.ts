@@ -70,6 +70,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   totalheatlossroof: number = 0;
   totalheatlossskylight: number = 0;
   totalheatlossfloor: number = 0;
+  doorheatlost: number = 0;
   totalproposed: number = 0;
 
   skylightrvaluecondition:number = 0;
@@ -451,10 +452,11 @@ export class Ehc1heatingenergyComponent implements OnInit {
     }
 
     for (var x of this.rooflist) {
-      this.totalarearoof += Number(x.totalarea.toFixed(2));
+      this.totalarearoof += x.totalarea;
       this.totalnetarearoof += Number(x.totalnetarea.toFixed(2));
       this.totalheatlossroof += Number(x.totalheatloss.toFixed(2));
       this.isroofpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.roofrvalue));
+      console.log(this.totalarearoof);
     }
 
     for (var x of this.skylightlist) {
@@ -519,22 +521,40 @@ export class Ehc1heatingenergyComponent implements OnInit {
 
     this.maxdoorareaallow = Math.max(6, (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) * 0.06);
 
-
+    this.doorheatlost = this.maxdoorareaallow > this.totalareadoor ? Number((this.totalareadoor/(this.totalareawall / this.totalheatlosswall)).toFixed(2)) : Number(this.totalheatlossdoor.toFixed(2));
     //this.totalwallarealeft = this.totalareawall - this.totalareawindow;
-    this.totalproposed = Number((Number(this.totalheatlossroof.toFixed(2)) + Number(this.totalheatlossdoor.toFixed(2)) + Number(this.totalheatlossskylight.toFixed(2)) + Number(this.totalheatlosswindow.toFixed(2)) + Number(this.totalheatlosswall.toFixed(2)) + Number(this.totalheatlossfloor.toFixed(2))).toFixed(2));
+    this.totalproposed = Number((Number(this.totalheatlossroof.toFixed(2)) + Number(this.doorheatlost.toFixed(2)) + Number(this.totalheatlossskylight.toFixed(2)) + Number(this.totalheatlosswindow.toFixed(2)) + Number(this.totalheatlosswall.toFixed(2)) + Number(this.totalheatlossfloor.toFixed(2))).toFixed(2));
 
+    // console.log(Number(this.totalheatlossroof.toFixed(2)));
+    // console.log(Number(this.totalheatlossdoor.toFixed(2)));
+    // console.log(Number(this.totalheatlossskylight.toFixed(2)));
+    // console.log(Number(this.totalheatlosswindow.toFixed(2)));
+    // console.log(Number(this.totalheatlosswall.toFixed(2)));
+    // console.log(Number(this.totalheatlossfloor.toFixed(2)));
 
     this.totalareawindowless30 = Number(((this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) * 0.30).toFixed(2));
-
+    
     this.skylightrvaluecondition = 0.015 < (this.totalareaskylight / this.totalarearoof) ? this.totalareaskylight/this.skylightrvalue : this.totalareaskylight/this.roofrvalue;
     this.wallrvaluecondition = 0.30 > (this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) ? (((this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) * 0.7) / this.wallrvalue) : (this.totalareawall / this.wallrvalue);
     if ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) < 0.30) {
-      this.totalschedule = Number((this.totalarearoof / this.roofrvalue).toFixed(2)) + Number(this.skylightrvaluecondition.toFixed(2)) + Number(this.wallrvaluecondition.toFixed(2)) + Number((this.totalareawindowless30 / this.windowrvalue).toFixed(2)) + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
-
+      this.totalschedule = Number((this.totalarearoof / this.roofrvalue).toFixed(2)) + Number(this.skylightrvaluecondition.toFixed(2)) 
+      + Number(this.wallrvaluecondition.toFixed(2)) + Number((this.totalareawindowless30 / this.windowrvalue).toFixed(2)) 
+      + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
+      console.log(this.totalschedule);
     } else {
       this.totalareawindowmore30 = Number(((this.totalareawindow + this.totalareadoor) - this.totalareawindowless30).toFixed(2));
-      this.totalschedule = Number((this.totalarearoof / this.roofrvalue).toFixed(2)) + Number(this.skylightrvaluecondition.toFixed(2)) + Number(this.wallrvaluecondition.toFixed(2)) + (Number(this.totalareawindowless30.toFixed(2)) / this.windowrvalue) + Number((this.totalareawindowmore30 / this.windowrvalue).toFixed(2)) + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
+      this.totalschedule = Number((this.totalarearoof / this.roofrvalue).toFixed(2)) 
+      + Number(this.skylightrvaluecondition.toFixed(2)) 
+      + Number(this.wallrvaluecondition.toFixed(2)) + (Number(this.totalareawindowless30.toFixed(2)) / this.windowrvalue) 
+      + Number((this.totalareawindowmore30 / this.wallrvalue).toFixed(2)) + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
+      console.log(this.totalschedule);
     }
+    console.log(Number((this.totalarearoof).toFixed(2)));
+    console.log(Number(this.totalareaskylight.toFixed(2)));
+    console.log(Number(this.totalareawall.toFixed(2)));
+    console.log(Number((this.totalareawindowless30).toFixed(2)));
+    console.log(Number((this.totalareafloor).toFixed(2)));
+    console.log(this.totalareawindowmore30);
   }
 
 

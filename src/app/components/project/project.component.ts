@@ -12,7 +12,7 @@ export class ProjectComponent implements OnInit {
 
   registeruser: Register;
   constructor(private loginservice: LoginserviceService) { 
-    this.setdefault();
+    //this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
       this.loginservice.currentUser.subscribe(x => {
         if(x === null){

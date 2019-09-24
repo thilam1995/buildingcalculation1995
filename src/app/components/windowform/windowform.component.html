@@ -19,7 +19,7 @@
         <td>{{i.data.OWA | number: '1.0-2'}}</td>
         <td>
             <button class="btn btn-default" type="button" (click)="editFieldValue(i)">Edit</button>
-            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">Delete</button>
+            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i.id, i.data)">Delete</button>
         </td>
     </tr>
 

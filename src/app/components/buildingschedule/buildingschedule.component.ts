@@ -72,7 +72,7 @@ export class BuildingscheduleComponent implements OnInit {
     private loginservice: LoginserviceService, private designservice: DesignService,
     private wallservice: WalldoorwindowService, private roofskylightservice: RoofskylightService,
     private floorservice: FloorService) {
-    this.setdefault();
+    //this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
       this.loginservice.currentUser.subscribe(x => {
         if(x === null){

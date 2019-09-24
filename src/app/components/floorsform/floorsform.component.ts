@@ -7,6 +7,7 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { FloorService } from 'src/app/service/floor.service';
 import { NgForm } from '@angular/forms';
+import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 
 @Component({
   selector: 'app-floorsform',
@@ -24,12 +25,12 @@ export class FloorsformComponent implements OnInit {
   registeruser: Register;
 
   constructor(public route: ActivatedRoute, private loginservice: LoginserviceService,
-    private toastr: ToastrService, private floorservice: FloorService) {
+    private toastr: ToastrService, private floorservice: FloorService, private buildingmodelservice: BuildingmodelService) {
       this.route.queryParams.subscribe(params => {
         this.projectid = params['projectid'];
         this.designid = params['designid'];
       });
-      this.setdefault();
+      //this.setdefault();
       let loginapp = JSON.parse(localStorage.getItem('currentUser'));
       this.loginservice.currentUser.subscribe(x => {
         if(x === null){
@@ -104,6 +105,7 @@ export class FloorsformComponent implements OnInit {
       };
       this.floorservice.updatefloor(this.floorobject).subscribe(res => {
         this.toastr.success("Updated Floor Success!", "Info Message");
+        this.updatefloormodel(this.designid, this.floorobject);
         setTimeout(() => {
           this.fetchingfloordata();
         }, 1500);
@@ -129,16 +131,55 @@ export class FloorsformComponent implements OnInit {
 
 
 
-  deleteFieldValue(id: string) {
+  deleteFieldValue(id: string, floori: any) {
     if (confirm("Are you sure to delete this item?") === true) {
       this.floorservice.deletefloor(id).subscribe(res => {
         this.toastr.success("Deleted floor!", "Info Message!");
+        this.deletefloormodel(this.designid, floori);
         setTimeout(() => {
           this.fetchingfloordata();
         }, 1500);
       }, err =>{
         this.toastr.error("Something wrong!", "Error Message!");
       });
+    }
+  }
+
+  updatefloormodel(designid: string, floor: Floors){
+    this.buildingmodelservice.floormodelGet(designid);
+    if(this.buildingmodelservice.floormodellist.length !== 0){
+      for(let i of this.buildingmodelservice.floormodellist){
+        if(i.data.Floor.FloorName === floor.FloorName){
+          if(i.data.Floor.ConstructionRValue === floor.ConstructionRValue){
+            i.data.Floor.ConstructionRValue = floor.ConstructionRValue;
+            this.buildingmodelservice.floormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
+              this.toastr.success("Update model successfully", "Info Message");
+
+              this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+            }, err => {
+              this.toastr.error("Update model failed", "Info Message");
+            });
+          }
+        }
+      }
+    }
+  }
+
+  deletefloormodel(designid: string, floori: any){
+    this.buildingmodelservice.floormodelGet(designid);
+    if(this.buildingmodelservice.floormodellist.length !== 0){
+      for(let i of this.buildingmodelservice.floormodellist){
+        if(i.data.Floor.FloorName === floori.FloorName){
+          i.data.Floor = {};
+          this.buildingmodelservice.floormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
+            this.toastr.success("Update model successfully", "Info Message");
+
+            this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
+          }, err => {
+            this.toastr.error("Update model failed", "Info Message");
+          });
+        }
+      }
     }
   }
 

@@ -130,17 +130,14 @@ export class WindowformComponent implements OnInit {
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
       };
-      console.log(this.windowobject);
-      this.updatewindowvalue(this.designid, this.windowobject);
+      //console.log(this.windowobject);
+      
       this.wallservice.windowput(this.windowobject, this.designid).subscribe(res => {
         this.toastr.success("Update Wall Successfully", "Info Message!");
-
+        this.updatewindowvalue(this.designid, this.windowobject);
         setTimeout(() => {
           this.fetchingwindowdata();
         }, 1500);
-
-
-        this.setDefault();
       }, err => {
         this.toastr.error("Update Wall failed", "Info Message!");
       });
@@ -167,12 +164,13 @@ export class WindowformComponent implements OnInit {
   }
 
 
-  deleteFieldValue(i: any) {
+  deleteFieldValue(id: string, window: any) {
     if (confirm("Are you sure to delete this item?") === true) {
-      this.deletewindowvalue(this.designid, i);
-      this.wallservice.windowdelete(i.id, this.designid).subscribe(res => {
+      this.deletewindowvalue(this.designid, window);
+      this.wallservice.windowdelete(id, this.designid).subscribe(res => {
         this.toastr.success("Delete successfully", "Info Message!");
         //this.fetchingwindowdata();
+        this.deletewindowvalue(this.designid, window);
         setTimeout(() => {
           this.fetchingwindowdata();
         }, 1500);
@@ -190,9 +188,9 @@ export class WindowformComponent implements OnInit {
         let windowmodellist: Array<any> = i.data.Window;
         i.data.Window = windowmodellist.filter(x => x.WindowName !== windowi.data.WindowName);
         //this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid);
-        this.buildingmodelservice.wallwindowdoormodelUpdate(id, i, this.designid).subscribe(res => {
+        this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
           this.toastr.success("Update model successfully", "Info Message");
-  
+
           this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
         }, err => {
           this.toastr.error("Update model failed", "Info Message");
@@ -201,41 +199,41 @@ export class WindowformComponent implements OnInit {
     }
   }
 
-  updatewindowvalue(id: string, window: any) {
+  updatewindowvalue(id: string, window: WindowObject) {
     this.buildingmodelservice.fetchwallwindowdoormodel(id);
     if (this.buildingmodelservice.wallwindowdoormodellist.length !== 0) {
       for (let i of this.buildingmodelservice.wallwindowdoormodellist) {
         let windowmodellist: Array<any> = i.data.Window;
-        for (let x of windowmodellist) {
-          if (x.WindowName === window.WindowName) {
-            if (x.Width !== window.Width) {
-              x.Width = window.Width;
-            }
-            if (x.ConstructionRValue !== window.ConstructionRValue) {
-              x.ConstructionRValue = window.ConstructionRValue;
-            }
-            if (x.Height !== window.Height) {
-              x.Height = window.Height;
-            }
-            if (x.OWA !== window.OWA) {
-              x.OWA = window.OWA;
-            }
-            if (x.ShadePercent !== window.ShadePercent) {
-              x.ShadePercent = window.ShadePercent;
-            }
+        //console.log(windowmodellist);
+        windowmodellist.forEach((element, index) => {
+          if (element.WindowName === window.WindowName){
+            element.ConstructionRValue = window.ConstructionRValue;
+            element.Width = window.Width;
+            element.Height = window.Height;
+            element.OWA = window.OWA;
+            element.ShadePercent = window.ShadePercent;
           }
-        }
+        });
+
         i.data.Window = windowmodellist;
+        //console.log(windowmodellist);
         this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
           this.toastr.success("Update model successfully", "Info Message");
-  
+
           this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
         }, err => {
           this.toastr.error("Update model failed", "Info Message");
         });
-
+        
       }
+      setTimeout(() => {
+        this.setDefault();
+      }, 2000);
+      
+    }else{
+      this.setDefault();
     }
+    
   }
 
 

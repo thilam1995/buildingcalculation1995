@@ -18,7 +18,7 @@ export class ProjectformComponent implements OnInit {
 
   constructor(private projectservice: ProjectService, private toastr: ToastrService,
     private loginservice: LoginserviceService) {
-      this.setDefault();
+      //this.setDefault();
       let loginapp = JSON.parse(localStorage.getItem('currentUser'));
       this.loginservice.currentUser.subscribe(x => {
         if(x === null){

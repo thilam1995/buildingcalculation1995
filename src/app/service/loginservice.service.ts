@@ -91,7 +91,19 @@ export class LoginserviceService {
       Email: login.Email
     });
 
-    return this.http.post<any>(this.url1, body, httpOptions);
+    return this.http.post<any>(this.url1, body, httpOptions).pipe(map(user => {
+      let registermember:Register = {
+        ID: user.id,
+        Email: user.data.Email,
+        FirstName: user.data.FirstName,
+        LastName: user.data.LastName,
+        Password: user.data.Password
+      };
+      localStorage.setItem('currentUser', JSON.stringify(registermember));
+      this.currentUserSubject.next(registermember);
+      console.log(registermember)
+      return registermember;
+    }));
 
   }
 
@@ -106,7 +118,7 @@ export class LoginserviceService {
       LastName: "",
       Password: ""
     };
-    this.router.navigate(['/login']);
+    this.currentUserSubject.next(null);
   }
 
   private handleError(error: HttpErrorResponse) {

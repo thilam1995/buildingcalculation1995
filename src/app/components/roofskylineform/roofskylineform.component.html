@@ -12,7 +12,7 @@
     <td>{{i.data.Description}}</td>
     <td>
         <button class="btn btn-default" type="button" (click)="editFieldValueRoof(i)">Edit</button>
-        <button class="btn btn-default" type="button" (click)="deleteFieldValueRoof(i.id)">Delete</button>
+        <button class="btn btn-default" type="button" (click)="deleteFieldValueRoof(i.id, i.data)">Delete</button>
     </td>
   </tr>
 </table>
@@ -58,7 +58,7 @@
     <td>{{i.data.Area | number: '1.0-2'}}</td>
     <td>
         <button class="btn btn-default" type="button" (click)="editFieldValueSkylight(i)">Edit</button>
-        <button class="btn btn-default" type="button" (click)="deleteFieldValueSkylight(i.id)">Delete</button>
+        <button class="btn btn-default" type="button" (click)="deleteFieldValueSkylight(i.id, i.data)">Delete</button>
     </td>
   </tr>
 </table>

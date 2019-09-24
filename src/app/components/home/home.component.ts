@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.setdefault();
+    //this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     this.loginservice.currentUser.subscribe(x => {
       if (x === null) {
