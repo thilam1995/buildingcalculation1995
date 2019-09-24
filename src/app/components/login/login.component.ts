@@ -54,10 +54,9 @@ export class LoginComponent implements OnInit {
                 Email: res.Email,
                 Password: res.Password
               }; 
-              console.log(this.loginservice.registermember);
-              localStorage.setItem('currentUser', JSON.stringify(this.loginservice.registermember));
-              localStorage.setItem('login', JSON.stringify(true));
-              console.log(this.loginservice.currentUserValue.ID);
+
+              // localStorage.setItem('currentUser', JSON.stringify(this.loginservice.registermember));
+              // localStorage.setItem('login', JSON.stringify(true));
               if(this.loginservice.currentUserValue.ID === null || this.loginservice.currentUserValue.ID === undefined){
                 this.router.navigate(["/main/"+`${this.loginservice.registermember.ID}`+"/home"]);
               }else{
