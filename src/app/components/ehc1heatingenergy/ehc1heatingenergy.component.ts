@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Register } from 'src/app/models/register';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ProjectService } from 'src/app/service/project.service';
+import { Project } from 'src/app/models/project';
 
 
 @Component({
@@ -36,6 +38,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   floormodellist = []
 
   designobject: Design;
+  projectobject: Project;
 
   roofrvalue: number = 0;
   wallrvalue: number = 0;
@@ -105,6 +108,11 @@ export class Ehc1heatingenergyComponent implements OnInit {
   isfloorpass: boolean = false;
   iswindowpass: boolean = false;
 
+  islessthan30window: boolean = false;
+  iswallwesteatsouthlessthan30: boolean = false;
+  isskylightarealessthen1point5: boolean = false;
+  isachievedallrequire: boolean = false;
+
   isroofpasslist: Array<boolean> = [];
   iswallpasslist: Array<boolean> = [];
   isskylightpasslist: Array<boolean> = [];
@@ -125,7 +133,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   constructor(public route: ActivatedRoute,
     private router: Router, private loginservice: LoginserviceService,
     private buildingmodelservice: BuildingmodelService, private designservice: DesignService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, private projectservice: ProjectService) {
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     this.loginservice.currentUser.subscribe(x => {
       if (x === null) {
@@ -161,11 +169,27 @@ export class Ehc1heatingenergyComponent implements OnInit {
       ProjectID: "",
       UserID: ""
     };
+    this.projectobject = {
+      ProjectID: "",
+      ProjectName: "",
+      DateCreated: "",
+      DateModified: "",
+      UserID: ""
+    };
   }
 
   featchingmodel() {
 
-
+    this.projectservice.getprojectid(this.projectid).subscribe(x => {
+      console.log(x);
+      this.projectobject = {
+        ProjectID: x.id,
+        ProjectName: x.data.ProjectName,
+        DateCreated: x.data.DateCreated,
+        DateModified: x.data.DateModified,
+        UserID: x.data.UserID
+      }
+    });
     this.designservice.getdesignbyID(this.designid).subscribe(res => {
       //console.log(res);
       this.designobject = {
@@ -195,6 +219,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
     }, err => {
       this.toastr.error("Something wrong!", "Error Message");
     });
+
 
     this.startcalculate();
   }
@@ -549,12 +574,13 @@ export class Ehc1heatingenergyComponent implements OnInit {
       + Number((this.totalareawindowmore30 / this.wallrvalue).toFixed(2)) + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
       console.log(this.totalschedule);
     }
-    console.log(Number((this.totalarearoof).toFixed(2)));
-    console.log(Number(this.totalareaskylight.toFixed(2)));
-    console.log(Number(this.totalareawall.toFixed(2)));
-    console.log(Number((this.totalareawindowless30).toFixed(2)));
-    console.log(Number((this.totalareafloor).toFixed(2)));
-    console.log(this.totalareawindowmore30);
+
+    this.islessthan30window = 0.30 >= ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth));
+    this.iswallwesteatsouthlessthan30 = 0.30 >= ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest));
+    this.isskylightarealessthen1point5 = 0.015 > (this.totalareaskylight / this.totalarearoof);
+    this.isachievedallrequire = this.isroofpass && this.iswallpass && this.isskylightpass && this.isfloorpass && this.iswindowpass;
+
+
   }
 
 

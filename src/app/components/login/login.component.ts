@@ -28,11 +28,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.resetloginform();
-    // this.route.queryParams.subscribe(params => {
-    //   if(this.login.Email === null && this.login.Password === null){
-    //     this.return = this.route.snapshot.queryParams['returnUrl'] || '/';
-    //   }
-    // });
+    this.route.queryParams.subscribe(params => {
+      if(this.login.Email === null && this.login.Password === null){
+        this.return = this.route.snapshot.queryParams['returnUrl'] || '/';
+      }
+    });
     // this.setdefault();
   }
 
@@ -63,10 +63,6 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(["/main/"+`${this.loginservice.currentUserValue.ID}`+"/home"]);
               }
               
-              if (this.loginservice.registermember.ID === null || this.loginservice.registermember.ID === undefined ||
-                !this.loginservice.registermember.ID){
-
-              }
 
             }, 2000);
           }else{

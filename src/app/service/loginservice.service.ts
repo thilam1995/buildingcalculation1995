@@ -16,15 +16,12 @@ export class LoginserviceService {
 
   url: string = "http://localhost:8080/api/account";
   url1: string = "http://localhost:8080/api/login";
+  url2: string = "http://localhost:8080/api/account/changename";
   incorrectpassword: boolean = false;
   registermember: Register;
-  //private loggedIn = new BehaviorSubject<boolean>(false); // {1}
   private currentUserSubject: BehaviorSubject<Register>;
   currentUser: Observable<Register>
 
-  // get isLoggedIn() {
-  //   return this.loggedIn.asObservable(); // {2}
-  // }
   isLogin: boolean = false;
   constructor(private router: Router, private http: HttpClient, private passworddecrypt: PasswordcryptService,
     private localSt: LocalStorageService) {
@@ -56,6 +53,14 @@ export class LoginserviceService {
         'Content-Type': 'application/json'
       })
     };
+    if(JSON.parse(localStorage.getItem('currentUser')) !== undefined || JSON.parse(localStorage.getItem('currentUser')) !== null){
+      this.registermember = this.currentUserValue;
+      this.registermember.Password = password;
+      localStorage.setItem('currentUser', JSON.stringify(this.registermember));
+      this.currentUserSubject.next(null);
+      this.currentUserSubject.next(this.registermember);
+    }
+
     let body = JSON.stringify({
       Password: password
     });
@@ -64,8 +69,25 @@ export class LoginserviceService {
     );
   }
 
-  updatepassword1(password: string, id: string){
-    
+  updatename(firstname: string, lastname: string, id: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify({
+      FirstName: firstname,
+      LastName: lastname
+    });
+    this.registermember = this.currentUserValue;
+    this.registermember.FirstName = firstname;
+    this.registermember.LastName = lastname;
+    localStorage.setItem('currentUser', JSON.stringify(this.registermember));
+    this.currentUserSubject.next(null);
+    this.currentUserSubject.next(this.registermember);
+    return this.http.put<Register>(this.url2 + "/" + `${id}`, body, httpOptions).pipe(retry(3),
+      catchError(this.handleError)
+    );
   }
 
   register(register: Register) {
@@ -92,7 +114,7 @@ export class LoginserviceService {
     });
 
     return this.http.post<any>(this.url1, body, httpOptions).pipe(map(user => {
-      let registermember:Register = {
+      let registermember: Register = {
         ID: user.id,
         Email: user.data.Email,
         FirstName: user.data.FirstName,
@@ -100,8 +122,8 @@ export class LoginserviceService {
         Password: user.data.Password
       };
       localStorage.setItem('currentUser', JSON.stringify(registermember));
+      
       this.currentUserSubject.next(registermember);
-      console.log(registermember)
       return registermember;
     }));
 

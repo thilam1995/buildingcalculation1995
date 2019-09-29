@@ -10,45 +10,47 @@ import { catchError, map } from 'rxjs/operators';
 export class ProjectService {
 
   projectList = [];
+  project: Project;
   url: string = "http://localhost:8080/api/project";
+  url1: string = "http://localhost:8080/api/projectid";
   constructor(private http: HttpClient) { }
 
-  projectposting(project: Project, id?: string){
+  projectposting(project: Project, id?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
     let body = JSON.stringify(project);
-    return this.http.post<Project>(this.url, body, httpOptions).pipe(map(res =>{
+    return this.http.post<Project>(this.url, body, httpOptions).pipe(map(res => {
       this.projectfetching(id);
     }),
       catchError(this.handleError)
     );
   }
 
-  projectupdate(project: Project, id?: string, userid?: string){
+  projectupdate(project: Project, id?: string, userid?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
     let body = JSON.stringify(project);
-    return this.http.put<Project>(this.url + "/"+`${id}`, body, httpOptions).pipe(map(res =>{
+    return this.http.put<Project>(this.url + "/" + `${id}`, body, httpOptions).pipe(map(res => {
       this.projectfetching(userid);
     }),
       catchError(this.handleError)
     );
   }
 
-  projectdelete(projectid: string,id?: string){
+  projectdelete(projectid: string, id?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.delete(this.url + "/"+`${projectid}`, httpOptions).pipe(
+    return this.http.delete(this.url + "/" + `${projectid}`, httpOptions).pipe(
       map(
         res => {
           this.projectfetching(id);
@@ -57,17 +59,26 @@ export class ProjectService {
     );
   }
 
-  projectfetching(id?: string){
-    
-    this.http.get(this.url+"/"+`${id}`).pipe(map((data: Response)=>{
+  projectfetching(id?: string) {
+
+    this.http.get(this.url + "/" + `${id}`).pipe(map((data: Response) => {
       return data as any;
     })).toPromise().then(
-      x =>{
+      x => {
         this.projectList = x;
       }
-    ).catch(e =>{
+    ).catch(e => {
       catchError(this.handleError);
     });
+  }
+
+  getprojectid(id: string) {
+    return this.http.get(this.url1 + "/" + `${id}`).pipe(map((data: Response) => {
+      console.log(data);
+      return data as any;
+    }),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

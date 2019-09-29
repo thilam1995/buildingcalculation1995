@@ -7,8 +7,8 @@
     <h1>Building Info</h1>
     <table class="table table-sm table-bordered">
       <tr>
-        <td>Project ID</td>
-        <td *ngIf="designobject">{{designobject.ProjectID}}</td>
+        <td>Project</td>
+        <td *ngIf="designobject">{{projectobject.ProjectName}}</td>
       </tr>
       <tr>
         <td>Targeting</td>
@@ -549,6 +549,20 @@
               <img src="../../../assets/pic/pass.png" *ngIf="isskylightpass">
               <img src="../../../assets/pic/fail.png" *ngIf="!isskylightpass">
             </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12">
+        <h1 style="text-align: center">EHC-1 Schedule Method (Simple)</h1>
+        <table class="table table-sm table-bordered">
+          <tr>
+            <th>Result</th>
+            <td>
+              {{(islessthan30window && iswallwesteatsouthlessthan30 && isskylightarealessthen1point5 && isachievedallrequire) ? "The Building Complies with Homestar Schedule Method" : "The Building Does Not Comply with Homestar Schedule Method" }}
+            </td>
+            <td> <img src="../../../assets/pic/pass.png" *ngIf="(islessthan30window && iswallwesteatsouthlessthan30 && isskylightarealessthen1point5 && isachievedallrequire)">
+              <img src="../../../assets/pic/fail.png" *ngIf="!(islessthan30window && iswallwesteatsouthlessthan30 && isskylightarealessthen1point5 && isachievedallrequire)"></td>
           </tr>
         </table>
       </div>

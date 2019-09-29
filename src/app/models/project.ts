@@ -5,6 +5,5 @@ export class Project {
     ProjectName: string;
     DateCreated: string;
     DateModified: string;
-    DesignList?: Array<Design>;
     UserID?: string;
 }

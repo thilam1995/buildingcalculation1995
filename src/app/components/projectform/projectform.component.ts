@@ -41,7 +41,6 @@ export class ProjectformComponent implements OnInit {
         ProjectName: form.value.projectname,
         DateCreated: date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString(),
         DateModified: date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString(),
-        DesignList: null,
         UserID: this.registeruser.ID
       }
       console.log(this.project);
@@ -62,7 +61,6 @@ export class ProjectformComponent implements OnInit {
       ProjectName: "",
       DateCreated: null,
       DateModified: null,
-      DesignList: null
     };
   }
 
