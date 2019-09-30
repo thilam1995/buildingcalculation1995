@@ -1,41 +1,45 @@
-<table class="table table-sm table-hover">
-    <tr>
-        <th>Wall Name</th>
-        <th>Construction R-Value</th>
-        <th>Description</th>
-        <th>Action</th>
-    </tr>
-    <tr *ngFor="let i of wallservice.walllist">
-        <td>{{i.data.WallName}}</td>
-        <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
-        <td>{{i.data.Description}}</td>
-        <td>
-            <button class="btn btn-default" type="button" (click)="editFieldValue(i)">Edit</button>
-            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i.id, i.data)">Delete</button>
-        </td>
-    </tr>
+<div class="row">
+    <form class="buildingform col-md-4" #wallform="ngForm" (ngSubmit)="onSubmit(wallform)">
+        <input type="hidden" name="ID" #ID="ngModel" [(ngModel)]="wallobject.ID">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <input class="form-control" type="text" name="wallName" #wallName="ngModel" placeholder="Wall Name"
+                    [(ngModel)]="wallobject.WallName">
+            </div>
+            <div class="form-group col-md-12">
+                <input class="form-control" type="text" name="constructionRValue" #constructionRValue="ngModel"
+                    placeholder="Construction R-Value" [(ngModel)]="wallobject.ConstructionRValue" digitOnly
+                    inputmode="numeric" pattern="[0-9]*">
+            </div>
+            <div class="form-group col-md-12">
+                <textarea cols="30" rows="5" class="form-control" name="description" #description="ngModel"
+                    placeholder="Description" [(ngModel)]="wallobject.Description"></textarea>
+            </div>
+            <div class="form-group col-md-12">
+                <button [disabled]="wallobject.WallName == null || wallobject.ConstructionRValue == null"
+                    class="btn btn-primary" type="submit">Complete Wall</button>
+                <button class="btn btn-primary" type="reset">Reset</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-sm table-hover col-md-8">
+        <tr>
+            <th>Wall Name</th>
+            <th>R-Value</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let i of wallservice.walllist">
+            <td>{{i.data.WallName}}</td>
+            <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
+            <td><p class="overflowdesc">{{i.data.Description}}</p></td>
+            <td>
+                <button class="btn btn-secondary" type="button" (click)="editFieldValue(i)"><i class="fas fa-pen-square"></i></button>
+                <button type="button" class="btn btn-danger" (click)="deleteFieldValue(i.id, i.data)"><i class="fas fa-trash-alt"></i></button>
+            </td>
+        </tr>
+    
+    </table>
+</div>
 
-</table>
-<form class="buildingform" #wallform="ngForm" (ngSubmit)="onSubmit(wallform)">
-    <input type="hidden" name="ID" #ID="ngModel" [(ngModel)]="wallobject.ID">
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <input class="form-control" type="text" name="wallName" #wallName="ngModel" placeholder="Wall Name"
-                [(ngModel)]="wallobject.WallName">
-        </div>
-        <div class="form-group col-md-12">
-            <input class="form-control" type="text" name="constructionRValue" #constructionRValue="ngModel"
-                placeholder="Construction R-Value" [(ngModel)]="wallobject.ConstructionRValue" digitOnly
-                inputmode="numeric" pattern="[0-9]*">
-        </div>
-        <div class="form-group col-md-12">
-            <textarea cols="30" rows="5" class="form-control" name="description" #description="ngModel"
-                placeholder="Description" [(ngModel)]="wallobject.Description"></textarea>
-        </div>
-        <div class="form-group col-md-12">
-            <button [disabled]="wallobject.WallName == null || wallobject.ConstructionRValue == null"
-                class="btn btn-primary" type="submit">Complete Wall</button>
-            <button class="btn btn-primary" type="reset">Reset</button>
-        </div>
-    </div>
-</form>
+

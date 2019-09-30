@@ -117,16 +117,18 @@ export class FloorsformComponent implements OnInit {
   }
 
   editFieldValue(floor: any) {
+    console.log(floor);
     let floor1: Floors = {
       ID: floor.id,
-      FloorName: floor.data.floorname,
-      ConstructionRValue: floor.data.constructionrvalue,
-      Description: floor.data.description,
+      FloorName: floor.data.FloorName,
+      ConstructionRValue: floor.data.ConstructionRValue,
+      Description: floor.data.Description,
       DesignID: floor.data.DesignID,
       ProjectID: floor.data.ProjectID,
       UserID: floor.data.UserID
     };
     this.floorobject = Object.assign({}, floor1);
+    console.log()
   }
 
 

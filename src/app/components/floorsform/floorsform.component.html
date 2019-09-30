@@ -1,40 +1,42 @@
-<table class="table table-sm table-hover">
-    <tr>
-        <th>Susp. Floor Name</th>
-        <th>Construction R-Value</th>
-        <th>Description</th>
-        <th>Action</th>
-    </tr>
-    <tr *ngFor="let i of floorservice.floorlist">
-        <td>{{i.data.FloorName}}</td>
-        <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
-        <td>{{i.data.Description}}</td>
-        <td>
-            <button class="btn btn-default" type="button" (click)="editFieldValue(i)">Edit</button>
-            <button class="btn btn-default" type="button" (click)="deleteFieldValue(i.id, i.data)">Delete</button>
-        </td>
-    </tr>
-</table>
-
-<form class="buildingform" #floorform="ngForm" (ngSubmit)="onSubmit(floorform)">
-    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="floorobject.ID">
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <input type="text" class="form-control" name="floorname" #floorname="ngModel"
-            [(ngModel)]="floorobject.FloorName" placeholder="Floor Name">
+<div class="row">
+    <form class="buildingform col-md-5" #floorform="ngForm" (ngSubmit)="onSubmit(floorform)">
+        <input type="hidden" name="id" #id="ngModel" [(ngModel)]="floorobject.ID">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <input type="text" class="form-control" name="floorname" #floorname="ngModel"
+                    [(ngModel)]="floorobject.FloorName" placeholder="Floor Name">
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" class="form-control" name="constructionrvalue" #constructionrvalue="ngModel"
+                    [(ngModel)]="floorobject.ConstructionRValue" placeholder="ConstructionRValue">
+            </div>
+            <div class="form-group col-md-12">
+                <input type="text" class="form-control" name="description" #description="ngModel"
+                    [(ngModel)]="floorobject.Description" placeholder="Description">
+            </div>
+            <div class="form-group col-md-12">
+                <button [disabled]="floorobject.FloorName == null || floorobject.ConstructionRValue == null"
+                    class="btn btn-primary" type="submit">Complete
+                    Floor</button>
+                <button class="btn btn-primary" type="reset">Reset</button>
+            </div>
         </div>
-        <div class="form-group col-md-12">
-            <input type="text" class="form-control" name="constructionrvalue" #constructionrvalue="ngModel"
-            [(ngModel)]="floorobject.ConstructionRValue" placeholder="ConstructionRValue">
-        </div>
-        <div class="form-group col-md-12">
-            <input type="text" class="form-control" name="description" #description="ngModel"
-            [(ngModel)]="floorobject.Description" placeholder="Description">
-        </div>
-        <div class="form-group col-md-12">
-            <button [disabled]="floorobject.FloorName == null || floorobject.ConstructionRValue == null" class="btn btn-primary" type="submit">Complete
-                Floor</button>
-            <button class="btn btn-primary" type="reset">Reset</button>
-        </div>
-    </div>
-</form>
+    </form>
+    <table class="table table-sm table-hover col-md-7">
+        <tr>
+            <th>Susp. Floor Name</th>
+            <th>R-Value</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let i of floorservice.floorlist">
+            <td>{{i.data.FloorName}}</td>
+            <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
+            <td><p class="overflowdesc">{{i.data.Description}}</p></td>
+            <td>
+                <button class="btn btn-secondary" type="button" (click)="editFieldValue(i)"><i class="fas fa-pen-square"></i></button>
+                <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i.id, i.data)"><i class="fas fa-trash-alt"></i></button>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,11 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Door } from 'src/app/models/door';
-import { Wall } from 'src/app/models/wall';
-import { WindowObject } from 'src/app/models/windowobject';
-import { Skylights } from 'src/app/models/skylights';
-import { Roof } from 'src/app/models/roof';
-import { Floors } from 'src/app/models/floors';
-import { LocalStorage } from 'ngx-webstorage';
+import { WalldoorwindowService } from 'src/app/service/walldoorwindow.service';
+import { RoofskylightService } from 'src/app/service/roofskylight.service';
+import { FloorService } from 'src/app/service/floor.service';
+import { LoginserviceService } from 'src/app/service/loginservice.service';
+import { Register } from 'src/app/models/register';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -13,26 +12,35 @@ import { LocalStorage } from 'ngx-webstorage';
   styleUrls: ['./schedule.component.css']
 })
 export class ScheduleComponent implements OnInit {
-  // @Input() doorobject: Door;
-  // @Input() wallobject: Wall;
-  // @Input() windowobject: WindowObject;
-  // @Input() skylightsobject: Skylights;
-  // @Input() roofobject: Roof;
-  // @Input() floorobject: Floors;
 
-  // @Input() windowobjectlist: WindowObject[];
-  // @Input() wallobjectlist: Wall[];
-  // @Input() doorobjectlist: Door[];
-  // @Input() skylightsobjectlist: Skylights[];
-  // @Input() roofobjectlist: Roof[];
-  // @Input() floorobjectlist: Floors[];
+  registeruser: Register;
+  designid: string = "";
+  projectid: string = "";
+  constructor(private wallservice: WalldoorwindowService, private roofskylightservice: RoofskylightService,
+    private floorservice: FloorService, private loginservice: LoginserviceService, public route: ActivatedRoute) { 
+      this.route.queryParams.subscribe(params => {
+        this.projectid = params['projectid'];
+        this.designid = params['designid'];
+      });
+      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+      this.loginservice.currentUser.subscribe(x => {
+        if(x === null){
+          this.registeruser = loginapp;
+        }else{
+          this.registeruser = x;
+        }
+        
+      });
+    }
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit() { 
+    this.wallservice.walllistdata(this.designid);
+    this.wallservice.windowlistdata(this.designid);
+    this.wallservice.doorlistdata(this.designid);
+    this.roofskylightservice.rooflistdata(this.designid);
+    this.roofskylightservice.skylightlistdata(this.designid);
+    this.floorservice.floorlistdata(this.designid);
+    this.floorservice.floorlist
   }
 
-  ngDoCheck(){
-    
-  }
 }

@@ -1,8 +1,11 @@
 <!-- <app-buildinginfo></app-buildinginfo> -->
 <div class="row">
     <div class="col-md-12">
-        <a mat-button (click)="isopen = !isopen"
-            style="text-align: center; margin:0 auto">{{isopen ? "Cancel" : "Create A Project"}}</a>
+        <div class="col-md-12" style="text-align: center">
+            <a mat-button (click)="isopen = !isopen"
+                style="margin:0 auto">{{isopen ? "Cancel" : "Create A Project"}}</a>
+        </div>
+
         <div class="col-md-12" *ngIf="isopen">
             <app-projectform></app-projectform>
         </div>

@@ -1,58 +1,59 @@
-<table class="table table-sm table-hover">
-        <tr>
-                <th>Door Name</th>
-                <th>Construction R-Value</th>
-                <th>Width</th>
-                <th>Height</th>
-                <th>Area</th>
-                <th>Action</th>
-        </tr>
-        <tr *ngFor="let i of wallservice.doorlist">
-                <td>{{i.data.DoorName}}</td>
-                <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
-                <td>{{i.data.Width | number: '1.0-2'}}</td>
-                <td>{{i.data.Height | number: '1.0-2'}}</td>
-                <td>{{i.data.Area | number: '1.0-2'}}</td>
-                <td>
-                        <button class="btn btn-default" type="button" (click)="editFieldValue(i)">Edit</button>
-                        <button class="btn btn-default" type="button" (click)="deleteFieldValue(i.id, i.data)">Delete</button>
-                </td>
-        </tr>
+<div class="row">
+        <form class="buildingform col-md-6" #doorform="ngForm" (ngSubmit)="onSubmit(doorform)">
+                <input type="hidden" name="id" #id="ngModel" [(ngModel)]="doorobject.ID">
+                <div class="form-row">
+                        <div class="form-group col-md-12">
+                                <input class="form-control" type="text" name="doorName" #doorName="ngModel"
+                                        placeholder="Door Name" [(ngModel)]="doorobject.DoorName">
+                        </div>
+                        <div class="form-group col-md-12">
+                                <input class="form-control" type="text" name="constructionRValue"
+                                        #constructionRValue="ngModel" placeholder="Construction R-Value"
+                                        [(ngModel)]="doorobject.ConstructionRValue" inputmode="numeric">
+                        </div>
+                        <div class="form-group col-md-12">
+                                <input class="form-control" type="text" pattern="[0-9]*" name="width" #width="ngModel"
+                                        placeholder="Width" [(ngModel)]="doorobject.Width" (keyup)="onKeyWidth($event)"
+                                        inputmode="numeric">
+                        </div>
+                        <div class="form-group col-md-12">
+                                <input class="form-control" type="text" pattern="[0-9]*" name="height" #height="ngModel"
+                                        placeholder="Height" [(ngModel)]="doorobject.Height"
+                                        (keyup)="onKeyHeight($event)" inputmode="numeric">
+                        </div>
+                        <div class="form-group col-md-12">
+                                <label>Area: <span>{{doorobject.Area | number: '1.0-2'}}</span></label>
+                        </div>
+                        <div class="form-group col-md-12">
+                                <button [disabled]="doorobject.DoorName == null || doorobject.ConstructionRValue == null 
+                                || doorobject.Width == null || doorobject.Height == null" class="btn btn-primary"
+                                        type="submit">Complete
+                                        Door</button>
+                                <button class="btn btn-primary" type="reset">Reset</button>
+                        </div>
+                </div>
+        </form>
+        <table class="table table-sm table-hover col-md-6">
+                <tr>
+                        <th>Door Name</th>
+                        <th>R-Value</th>
+                        <th>Width</th>
+                        <th>Height</th>
+                        <th>Area</th>
+                        <th>Action</th>
+                </tr>
+                <tr *ngFor="let i of wallservice.doorlist">
+                        <td>{{i.data.DoorName}}</td>
+                        <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
+                        <td>{{i.data.Width | number: '1.0-2'}}</td>
+                        <td>{{i.data.Height | number: '1.0-2'}}</td>
+                        <td>{{i.data.Area | number: '1.0-2'}}</td>
+                        <td>
+                                <button class="btn btn-secondary" type="button" (click)="editFieldValue(i)"><i class="fas fa-pen-square"></i></button>
+                                <button class="btn btn-danger" type="button"
+                                        (click)="deleteFieldValue(i.id, i.data)"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                </tr>
 
-</table>
-
-
-
-<form class="buildingform" #doorform="ngForm" (ngSubmit)="onSubmit(doorform)">
-        <input type="hidden" name="id" #id="ngModel" [(ngModel)]="doorobject.ID">
-        <div class="form-row">
-                <div class="form-group col-md-12">
-                        <input class="form-control" type="text" name="doorName" #doorName="ngModel"
-                                placeholder="Door Name" [(ngModel)]="doorobject.DoorName">
-                </div>
-                <div class="form-group col-md-12">
-                        <input class="form-control" type="text" name="constructionRValue" #constructionRValue="ngModel"
-                                placeholder="Construction R-Value" [(ngModel)]="doorobject.ConstructionRValue"
-                                inputmode="numeric">
-                </div>
-                <div class="form-group col-md-12">
-                        <input class="form-control" type="text" pattern="[0-9]*" name="width" #width="ngModel"
-                                placeholder="Width" [(ngModel)]="doorobject.Width" (keyup)="onKeyWidth($event)"
-                                inputmode="numeric">
-                </div>
-                <div class="form-group col-md-12">
-                        <input class="form-control" type="text" pattern="[0-9]*" name="height" #height="ngModel"
-                                placeholder="Height" [(ngModel)]="doorobject.Height" (keyup)="onKeyHeight($event)"
-                                inputmode="numeric">
-                </div>
-                <div class="form-group col-md-12">
-                        <label>Area: <span>{{doorobject.Area | number: '1.0-2'}}</span></label>
-                </div>
-                <div class="form-group col-md-12">
-                        <button [disabled]="doorobject.DoorName == null || doorobject.ConstructionRValue == null 
-                        || doorobject.Width == null || doorobject.Height == null" class="btn btn-primary" type="submit">Complete
-                                Door</button>
-                        <button class="btn btn-primary" type="reset">Reset</button>
-                </div>
-        </div>
-</form>
+        </table>
+</div>
