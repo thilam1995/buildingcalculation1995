@@ -5,7 +5,7 @@
                 <ng-template matStepLabel matStepperIcon="done">Wall</ng-template>
                 <!-- <app-wallform [wallobject]="wallobject" [wallobjectlist]="wallobjectlist"></app-wallform> -->
                 <app-wallform></app-wallform>
-                <div>
+                <div style="text-align: center">
                     <button type="button" color="default" [disabled]="wallservice.walllist.length === 0" mat-button matStepperNext>Go to Windows</button>
                 </div>
             </mat-step>
@@ -13,7 +13,7 @@
                 <ng-template matStepLabel matStepperIcon="done">Windows</ng-template>
                 <!-- <app-windowform [windowobject]="windowobject" [windowobjectlist]="windowobjectlist"></app-windowform> -->
                 <app-windowform></app-windowform>
-                <div>
+                <div style="text-align: center">
                     <button type="button" color="default" mat-button matStepperPrevious>Back to Wall</button>
                     <button type="button" color="default" [disabled]="wallservice.windowlist.length === 0" mat-button matStepperNext>Go to Door</button>
                 </div>
@@ -22,7 +22,7 @@
                 <ng-template matStepLabel matStepperIcon="done">Door</ng-template>
                 <!-- <app-doorform [doorobject]="doorobject" [doorobjectlist]="doorobjectlist"></app-doorform> -->
                 <app-doorform></app-doorform>
-                <div>
+                <div style="text-align: center">
                     <button type="button" color="default" mat-button matStepperPrevious>Back to Windows</button>
                     <button type="button" color="default" [disabled]="wallservice.doorlist.length === 0" mat-button matStepperNext>Go to Roof & Skylight</button>
                 </div>
@@ -32,7 +32,7 @@
                 <!-- <app-roofskylineform [skylightsobject]="skylightsobject" [roofobject]="roofobject"
                     [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist"></app-roofskylineform> -->
                 <app-roofskylineform></app-roofskylineform>
-                <div>
+                <div style="text-align: center">
                     <button type="button" color="default" mat-button matStepperPrevious>Back to Door</button>
                     <button type="button" color="default" [disabled]="roofskylightservice.rooflist.length === 0" mat-button matStepperNext>Go to Floor</button>
                 </div>
@@ -41,7 +41,7 @@
                 <ng-template matStepLabel matStepperIcon="done">Floor</ng-template>
                 <!-- <app-floorsform [floorobject]="floorobject" [floorobjectlist]="floorobjectlist"></app-floorsform> -->
                 <app-floorsform></app-floorsform>
-                <div>
+                <div style="text-align: center">
                     <button type="button" color="default" mat-button matStepperPrevious>Back to Roof & Skylight</button>
                     <button type="button" color="default" [disabled]="floorservice.floorlist.length === 0" mat-button matStepperNext>Next</button>
                 </div>

@@ -62,14 +62,14 @@
       <mat-step>
         <ng-template matStepLabel>Building Schedule</ng-template>
           <app-schedule></app-schedule>
-        <div>
+        <div style="text-align: center">
           <button type="button" color="default" mat-button matStepperNext>Go to Building Model</button>
         </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Building Model</ng-template>
           <app-buildingmodel></app-buildingmodel>
-        <div>
+        <div style="text-align: center">
           <button type="button" color="default" mat-button matStepperPrevious>Back to Building Schedule</button>
           <button type="button" color="default" mat-button matStepperNext>Finish</button>
         </div>
@@ -77,7 +77,7 @@
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         You are now done.
-        <div>
+        <div style="text-align: center">
           <button class="btn btn-primary" (click)="getcalculate()">Calculate</button>
         </div>
       </mat-step>
