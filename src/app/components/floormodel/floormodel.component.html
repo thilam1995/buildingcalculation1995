@@ -1,34 +1,33 @@
 <div class="row">
-  <div class="col-md-12">
-    <app-floormodelitem *ngFor="let flooritem of buildingmodelservice.floormodellist" [flooritem]="flooritem"></app-floormodelitem>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <button class="btn btn-primary" (click)="addfloortoggle()">{{display ? "Cancel" : "+ Add Floor"}}</button>
-      <div *ngIf="display">
-        <table class="table table-sm table-hover">
-          <tr>
-            <td>
-              <input type="text" class="form-control" name="floorsection" #floorsection="ngModel"
-                placeholder="Floor Section" [(ngModel)]="floorextendobject.FloorSection">
-            </td>
-            <td>
-              <span>Construction
-                <select class="form-control" [(ngModel)]="floorobject">
-                  <option *ngFor="let i of floorservice.floorlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
-                </select>
-              </span>
-            </td>
-            <td>
-              <input type="text" class="form-control" name="exposedarea" #exposedarea="ngModel"
-                placeholder="Exposed Area" [(ngModel)]="floorextendobject.ExposedArea">
-            </td>
-          </tr>
-        </table>
-        <button class="btn btn-primary" (click)="addFieldValue()">Validate</button>
-      </div>
+  <div class="col-md-12">
+    <button class="btn btn-primary" (click)="addfloortoggle()">{{display ? "Cancel" : "+ Add Floor"}}</button>
+    <div *ngIf="display">
+      <table class="table table-sm table-hover">
+        <tr>
+          <td>
+            <input type="text" class="form-control" name="floorsection" #floorsection="ngModel"
+              placeholder="Floor Section" [(ngModel)]="floorextendobject.FloorSection">
+          </td>
+          <td>
+            <span>Construction
+              <select class="form-control" [(ngModel)]="floorobject">
+                <option *ngFor="let i of floorservice.floorlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
+              </select>
+            </span>
+          </td>
+          <td>
+            <input type="text" class="form-control" name="exposedarea" #exposedarea="ngModel" placeholder="Exposed Area"
+              [(ngModel)]="floorextendobject.ExposedArea">
+          </td>
+        </tr>
+      </table>
+      <button class="btn btn-primary" (click)="addFieldValue()">Validate</button>
     </div>
+  </div>
+  <div class="col-md-12">
+    <app-floormodelitem *ngFor="let flooritem of buildingmodelservice.floormodellist" [flooritem]="flooritem">
+    </app-floormodelitem>
   </div>
 
 

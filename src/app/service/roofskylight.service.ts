@@ -46,7 +46,7 @@ export class RoofskylightService {
     });
   }
 
-  addroof(Roof: Roof, ProjectID?: string){
+  addroof(Roof: Roof, designID?: string){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -54,11 +54,11 @@ export class RoofskylightService {
     };
     let body = JSON.stringify(Roof);
     return this.http.post<Roof>(this.url1, body, httpOptions).pipe(map(res => {
-      this.rooflistdata(ProjectID);
+      this.rooflistdata(designID);
     }), catchError(this.handleError));
   }
 
-  addskylight(Skylight: Skylights, ProjectID?: string){
+  addskylight(Skylight: Skylights, designID?: string){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -66,11 +66,11 @@ export class RoofskylightService {
     };
     let body = JSON.stringify(Skylight);
     return this.http.post<Skylights>(this.url2, body, httpOptions).pipe(map(res => {
-      this.rooflistdata(ProjectID);
+      this.skylightlistdata(designID);
     }), catchError(this.handleError));
   }
 
-  updateroof(Roof: Roof, ProjectID?: string){
+  updateroof(Roof: Roof, designID?: string){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -78,11 +78,11 @@ export class RoofskylightService {
     };
     let body = JSON.stringify(Roof);
     return this.http.put<Roof>(this.url1 + "/" + `${Roof.ID}`, body, httpOptions).pipe(map(res => {
-      this.rooflistdata(ProjectID);
+      this.rooflistdata(designID);
     }), catchError(this.handleError));
   }
 
-  updateskylight(Skylight: Skylights, ProjectID?: string){
+  updateskylight(Skylight: Skylights, designID?: string){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ export class RoofskylightService {
     };
     let body = JSON.stringify(Skylight);
     return this.http.put<Skylights>(this.url2 + "/" + `${Skylight.ID}`, body, httpOptions).pipe(map(res => {
-      this.rooflistdata(ProjectID);
+      this.rooflistdata(designID);
     }), catchError(this.handleError));
   }
 

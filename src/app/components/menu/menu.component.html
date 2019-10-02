@@ -1,6 +1,5 @@
-<header>
+<!-- <header>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark pink scrolling-navbar">
-    <!-- <a class="navbar-brand" href="#"><strong>Navbar</strong></a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -23,4 +22,47 @@
     </div>
   </nav>
 
-</header>
+</header> -->
+
+<ul class="nav justify-content-center grey lighten-4 py-4 scrolling-navbar fixed-top" (window:resize)="onResize($event)" *ngIf="!ismobile">
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/main/{{registeruser.ID}}"><i class="fas fa-home"></i> Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['project']"><i class="fas fa-tasks"></i> Project</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['setting']"><i class="fas fa-cog"></i> Setting</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </li>
+</ul>
+
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-1 navbar-dark grey scrolling-navbar fixed-top" [containerInside]="false" (window:resize)="onResize($event)" *ngIf="ismobile">
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto justify-content-center">
+      <li class="nav-item active">
+        <a class="nav-link waves-light" routerLink="/main/{{registeruser.ID}}" mdbWavesEffect><i class="fas fa-home"></i> Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" [routerLink]="['project']" mdbWavesEffect><i class="fas fa-tasks"></i> Project</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" [routerLink]="['setting']" mdbWavesEffect><i class="fas fa-cog"></i> Setting</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" (click)="logout()" mdbWavesEffect><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </li>
+    </ul>
+    <!-- Links -->
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->

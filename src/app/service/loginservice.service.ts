@@ -53,12 +53,16 @@ export class LoginserviceService {
         'Content-Type': 'application/json'
       })
     };
-    if(JSON.parse(localStorage.getItem('currentUser')) !== undefined || JSON.parse(localStorage.getItem('currentUser')) !== null){
-      this.registermember = this.currentUserValue;
-      this.registermember.Password = password;
-      localStorage.setItem('currentUser', JSON.stringify(this.registermember));
-      this.currentUserSubject.next(null);
-      this.currentUserSubject.next(this.registermember);
+    console.log()
+    if (localStorage.getItem('currentUser') !== undefined || localStorage.getItem('currentUser') !== null 
+    || !localStorage.getItem('currentUser')) {
+      if(this.currentUserValue){
+        this.registermember = this.currentUserValue;
+        this.registermember.Password = password;
+        localStorage.setItem('currentUser', JSON.stringify(this.registermember));
+        this.currentUserSubject.next(null);
+        this.currentUserSubject.next(this.registermember);
+      }
     }
 
     let body = JSON.stringify({
@@ -122,7 +126,7 @@ export class LoginserviceService {
         Password: user.data.Password
       };
       localStorage.setItem('currentUser', JSON.stringify(registermember));
-      
+
       this.currentUserSubject.next(registermember);
       return registermember;
     }));

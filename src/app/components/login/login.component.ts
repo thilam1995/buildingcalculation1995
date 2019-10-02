@@ -37,15 +37,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    if(form.value.Email && form.value.Password){
+    if(form.value.email && form.value.password){
       this.isclicked = true;
-      this.loginservice.login(form.value).subscribe(res =>{
+      this.login ={
+        Email: form.value.email,
+        Password: form.value.password
+      };
+      this.loginservice.login(this.login).subscribe(res =>{
         //console.log(res);
         if(Object.keys(res).length === 0) {
           this.toastr.error("The Account is not available!", "Error Message");
           this.isclicked = false;
         }else{
-          if(form.value.Password === this.passworddecrypt.get('123456$#@$^@1ERF', res.Password)){
+          if(form.value.password === this.passworddecrypt.get('123456$#@$^@1ERF', res.Password)){
             setTimeout(() => {
               this.loginservice.registermember = {
                 ID: res.ID,
@@ -72,6 +76,7 @@ export class LoginComponent implements OnInit {
         }
       }, err =>{
         console.log(err);
+        this.toastr.error(err, "Error Message")
         this.isclicked = false;
       });
     }

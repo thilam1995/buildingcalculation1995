@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, } from '@angular/core';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { Observable, Subscription } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -10,13 +10,16 @@ import { Router } from '@angular/router';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit, OnDestroy {
+export class MenuComponent implements OnInit, OnDestroy, OnChanges {
 
   registeruser: Register;
   //isexisted: boolean = false;
+  widthscreen: number = 0;
+  ismobile: boolean = false;
   
   currentUserSubscription: Subscription;
   constructor(private loginservice: LoginserviceService, private router: Router) {
+    this.widthscreen = window.screen.width;
     this.setdefault();
     //console.log(this.loginapp);
 
@@ -33,8 +36,10 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
-    
+
+  }
+
+  ngOnChanges(){
   }
 
 
@@ -56,5 +61,15 @@ export class MenuComponent implements OnInit, OnDestroy {
       Email: "",
       Password: ""
     };
+  }
+
+  onResize(event) {
+    console.log(event.target.innerWidth);
+    this.widthscreen = event.target.innerWidth;
+    if(this.widthscreen <= 768){
+      this.ismobile = true;
+    }else{
+      this.ismobile = false;
+    }
   }
 }

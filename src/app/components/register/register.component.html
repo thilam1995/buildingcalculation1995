@@ -17,10 +17,10 @@
 
   <!-- E-mail -->
   <div class="form-group">
-    <input type="email" class="form-control" name="email" [email]="registerobject.Email !== ''" #email="ngModel"
+    <input type="email" class="form-control" name="email" [email]="true" #email="ngModel"
       [(ngModel)]="registerobject.Email" placeholder="Email" required>
     <div class="validation-error" *ngIf="email.error?.required && email.touched">Please fill your Email.</div>
-    <div class="validation-error" *ngIf="email.error?.email && email.touched">Email is invalid</div>
+    <div class="validation-error" *ngIf="email.error?.email">Email is invalid</div>
   </div>
 
   <div class="form-row mb-4">

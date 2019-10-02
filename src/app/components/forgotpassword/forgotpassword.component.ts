@@ -65,11 +65,12 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   onSubmitPassword(form: NgForm) {
+    console.log(form.value);
     if (form.value.newpass !== form.value.renewpass) {
       this.toastr.error("The password is not the same as the retyped", "Error Message");
     } else {
 
-      this.loginservice.updatepassword(this.passwordencrypt.set('123456$#@$^@1ERF', form.value.newpass), this.register.ID).subscribe(res => {
+      this.loginservice.updatepassword(this.passwordencrypt.set('123456$#@$^@1ERF', this.Renewpass), this.register.ID).subscribe(res => {
         this.toastr.success("Password updated", "Update Message");
         this.Newpass = "";
         this.Renewpass = "";

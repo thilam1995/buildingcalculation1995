@@ -32,7 +32,6 @@ import { WalldoorwindowmodelComponent } from './components/walldoorwindowmodel/w
 import { WalldoorwindowService } from './service/walldoorwindow.service';
 import { BuildingschedulelistComponent } from './components/buildingschedulelist/buildingschedulelist.component';
 import { BuildingscheduleitemComponent } from './components/buildingscheduleitem/buildingscheduleitem.component';
-import { RoofskylineformComponent } from './components/roofskylineform/roofskylineform.component';
 import { FloorsformComponent } from './components/floorsform/floorsform.component';
 import { HeatlossComponent } from './components/heatloss/heatloss.component';
 import { RoofskylightmodelComponent } from './components/roofskylightmodel/roofskylightmodel.component';
@@ -61,6 +60,8 @@ import { SettingComponent } from './components/setting/setting.component';
 import { ProfilesettingComponent } from './components/profilesetting/profilesetting.component';
 import { PasswordchangeComponent } from './components/passwordchange/passwordchange.component';
 import { ProjectfilterpipePipe } from './pipe/projectfilterpipe.pipe';
+import { RoofformComponent } from './components/roofform/roofform.component';
+import { SkylightformComponent } from './components/skylightform/skylightform.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,6 @@ import { ProjectfilterpipePipe } from './pipe/projectfilterpipe.pipe';
     WalldoorwindowmodelComponent,
     BuildingschedulelistComponent,
     BuildingscheduleitemComponent,
-    RoofskylineformComponent,
     FloorsformComponent,
     HeatlossComponent,
     RoofskylightmodelComponent,
@@ -98,7 +98,9 @@ import { ProjectfilterpipePipe } from './pipe/projectfilterpipe.pipe';
     SettingComponent,
     ProfilesettingComponent,
     PasswordchangeComponent,
-    ProjectfilterpipePipe
+    ProjectfilterpipePipe,
+    RoofformComponent,
+    SkylightformComponent
   ],
   imports: [
     BrowserModule,

@@ -28,10 +28,19 @@
                 </div>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel matStepperIcon="done">Roof & Skylight</ng-template>
+                <ng-template matStepLabel matStepperIcon="done">Roof</ng-template>
                 <!-- <app-roofskylineform [skylightsobject]="skylightsobject" [roofobject]="roofobject"
                     [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist"></app-roofskylineform> -->
-                <app-roofskylineform></app-roofskylineform>
+                <!-- <app-roofskylineform></app-roofskylineform> -->
+                <app-roofform></app-roofform>
+                <div style="text-align: center">
+                    <button type="button" color="default" mat-button matStepperPrevious>Back to Door</button>
+                    <button type="button" color="default" [disabled]="roofskylightservice.rooflist.length === 0" mat-button matStepperNext>Go to Floor</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel matStepperIcon="done">Skylight</ng-template>
+                <app-skylightform></app-skylightform>
                 <div style="text-align: center">
                     <button type="button" color="default" mat-button matStepperPrevious>Back to Door</button>
                     <button type="button" color="default" [disabled]="roofskylightservice.rooflist.length === 0" mat-button matStepperNext>Go to Floor</button>
