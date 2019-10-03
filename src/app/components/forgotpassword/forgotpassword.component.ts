@@ -75,6 +75,13 @@ export class ForgotpasswordComponent implements OnInit {
         this.Newpass = "";
         this.Renewpass = "";
         this.Email = "";
+        this.register = {
+          ID: null,
+          Email: null,
+          FirstName: null,
+          LastName: null,
+          Password: null
+        };
       }, err => {
         this.toastr.error("Something wrong", "Error Message");
       });

@@ -510,6 +510,8 @@
             <td>{{minrvalueroof}}</td>
             <td>{{roofrvalue}}</td>
             <td>
+                <span *ngIf="minrvalueroof == 0">-</span>
+                <span *ngIf="minrvalueroof != 0"></span>
               <img src="../../../assets/pic/pass.png" *ngIf="isroofpass">
               <img src="../../../assets/pic/fail.png" *ngIf="!isroofpass">
             </td>
@@ -519,8 +521,12 @@
             <td>{{minrvaluewall}}</td>
             <td>{{wallrvalue}}</td>
             <td>
-              <img src="../../../assets/pic/pass.png" *ngIf="iswallpass">
-              <img src="../../../assets/pic/fail.png" *ngIf="!iswallpass">
+                <span *ngIf="minrvaluewall == 0">-</span>
+              <span *ngIf="minrvaluewall != 0">
+                  <img src="../../../assets/pic/pass.png" *ngIf="iswallpass">
+                  <img src="../../../assets/pic/fail.png" *ngIf="!iswallpass">
+              </span>
+
             </td>
           </tr>
           <tr>
@@ -528,8 +534,11 @@
             <td>{{minrvaluewindow}}</td>
             <td>{{windowrvalue}}</td>
             <td>
-              <img src="../../../assets/pic/pass.png" *ngIf="iswindowpass">
-              <img src="../../../assets/pic/fail.png" *ngIf="!iswindowpass">
+                <span *ngIf="minrvaluewindow == 0">-</span>
+                <span *ngIf="minrvaluewindow != 0">
+                    <img src="../../../assets/pic/pass.png" *ngIf="iswindowpass">
+                    <img src="../../../assets/pic/fail.png" *ngIf="!iswindowpass">
+                </span>
             </td>
           </tr>
           <tr>
@@ -537,8 +546,11 @@
             <td>{{minrvaluefloor}}</td>
             <td>{{floorrvalue}}</td>
             <td>
-              <img src="../../../assets/pic/pass.png" *ngIf="isfloorpass">
-              <img src="../../../assets/pic/fail.png" *ngIf="!isfloorpass">
+                <span *ngIf="minrvaluefloor == 0">-</span>
+                <span *ngIf="minrvaluefloor != 0">
+                    <img src="../../../assets/pic/pass.png" *ngIf="isfloorpass">
+                    <img src="../../../assets/pic/fail.png" *ngIf="!isfloorpass">
+                </span>
             </td>
           </tr>
           <tr>
@@ -546,8 +558,11 @@
             <td>{{minrvalueskylight}}</td>
             <td>{{skylightrvalue}}</td>
             <td>
-              <img src="../../../assets/pic/pass.png" *ngIf="isskylightpass">
-              <img src="../../../assets/pic/fail.png" *ngIf="!isskylightpass">
+                <span *ngIf="minrvaluewall == 0">-</span>
+                <span *ngIf="minrvaluewall != 0">
+                    <img src="../../../assets/pic/pass.png" *ngIf="isskylightpass">
+                    <img src="../../../assets/pic/fail.png" *ngIf="!isskylightpass">
+                </span>
             </td>
           </tr>
         </table>
@@ -634,7 +649,7 @@
             </td>
             <td>
               <img src="../../../assets/pic/pass.png" *ngIf="totalschedule >= totalproposed">
-              <img src="../../../assets/pic/fail.png" *ngIf="totalproposed > totalschedule">
+              <img src="../../../assets/pic/fail.png" *ngIf="totalproposed > totalschedule || 0.26 > (totalareawindow / totalheatlosswindow)">
             </td>
           </tr>
         </table>
