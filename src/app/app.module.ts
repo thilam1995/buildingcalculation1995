@@ -19,7 +19,6 @@ import { LocationService } from './service/location.service';
 import { ClimateService } from './service/climate.service';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { BuildinginfoComponent } from './components/buildinginfo/buildinginfo.component';
-import { BuildingproposedComponent } from './components/buildingproposed/buildingproposed.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { WallformComponent } from './components/wallform/wallform.component';
 import { DoorformComponent } from './components/doorform/doorform.component';
@@ -62,13 +61,13 @@ import { PasswordchangeComponent } from './components/passwordchange/passwordcha
 import { ProjectfilterpipePipe } from './pipe/projectfilterpipe.pipe';
 import { RoofformComponent } from './components/roofform/roofform.component';
 import { SkylightformComponent } from './components/skylightform/skylightform.component';
+import { Notfound404Component } from './components/notfound404/notfound404.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScheduleComponent,
     BuildinginfoComponent,
-    BuildingproposedComponent,
     WallformComponent,
     DoorformComponent,
     WindowformComponent,
@@ -100,7 +99,8 @@ import { SkylightformComponent } from './components/skylightform/skylightform.co
     PasswordchangeComponent,
     ProjectfilterpipePipe,
     RoofformComponent,
-    SkylightformComponent
+    SkylightformComponent,
+    Notfound404Component
   ],
   imports: [
     BrowserModule,

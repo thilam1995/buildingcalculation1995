@@ -1,12 +1,13 @@
 <h1>Start Building Schedule</h1>
-<!-- <pre>{{ state$ | async | json }}</pre> -->
 <div class="row">
   <button class="btn btn-primary" routerLink="/main/{{registeruser.ID}}/project">Back To Building Info</button>
   <div class="col-md-12 jumbotron">
     <table class="table table-sm">
+      <tr></tr>
       <tr>
         <th>Design</th>
         <th>Target Rating</th>
+        <th>Location</th>
         <th>Climate Category</th>
         <th>Completed By</th>
         <th>Drawing Set</th>
@@ -16,37 +17,39 @@
       </tr>
       <tr *ngIf="!isedit">
         <td *ngIf="designobject.DesignName != null">{{designobject.DesignName}}</td>
-
-        <td *ngIf="designobject.TargetRating != null">{{designobject.TargetRating.data.Type}}</td>
-
-        <td *ngIf="designobject.Location != null">{{designobject.Location.data.place}} - {{designobject.Location.data.climatezone}}</td>
-
+        <td *ngIf="designobject.TargetRating != null">{{designobject.TargetRating.HomeStar}}</td>
+        <td *ngIf="designobject.LocationName != null">{{designobject.LocationName}}</td>
+        <td *ngIf="designobject.Climatetype != null">{{designobject.Climatetype}}</td>
         <td *ngIf="designobject.CompletedBy != null">{{designobject.CompletedBy}}</td>
-
         <td *ngIf="designobject.DrawingSet != null">{{designobject.DrawingSet}}</td>
-
         <td *ngIf="designobject.Typology != null">{{designobject.Typology}}</td>
-
         <td *ngIf="designobject.FloorArea != null">{{designobject.FloorArea}}</td>
-
         <td *ngIf="designobject.NumofHabitationroom != null">{{designobject.NumofHabitationroom}}</td>
-        
       </tr>
       <tr *ngIf="isedit">
-        <td><input type="text" class="form-control" name="designname" #designname="ngModel" [(ngModel)]="designobject1.DesignName" placeholder="Design Name" required></td>
-        <td><select class="form-control" name="targetRating" #targetRating="ngModel" [(ngModel)]="designobject1.TargetRating" [compareWith]="compareFn" (change)="changeoption1()">
-          <option></option>
-          <option *ngFor="let i of climateservice.targetratinglist" [ngValue]="i">{{i.data.Type}}</option>
-        </select></td>
-        <td><select class="form-control" name="location" #location="ngModel" [(ngModel)]="designobject1.Location" [compareWith]="compareFn" (change)="changeoption2()">
-          <option></option>
-          <option *ngFor="let x of locationService.location" [ngValue]="x">{{x.data.place}}</option>
-        </select></td>
-        <td><input type="text" class="form-control" name="completedBy" #completedBy="ngModel" [(ngModel)]="designobject1.CompletedBy" placeholder="Completed By" required></td>
-        <td><input type="text" class="form-control" name="drawingSet" #drawingSet="ngModel" [(ngModel)]="designobject1.DrawingSet" placeholder="Drawing Set" required></td>
-        <td><input type="text" class="form-control" name="typology" #typology="ngModel" [(ngModel)]="designobject1.Typology" placeholder="Typology" required></td>
-        <td><input type="text" class="form-control" name="floorArea" #floorArea="ngModel" [(ngModel)]="designobject1.FloorArea" placeholder="FloorArea" required></td>
-        <td><input type="text" class="form-control" name="numofHabitationroom" #numofHabitationroom="ngModel" [(ngModel)]="designobject1.NumofHabitationroom" placeholder="# of Habitation room" required></td>
+        <td><input type="text" class="form-control" name="designname" #designname="ngModel"
+            [(ngModel)]="designobject1.DesignName" placeholder="Design Name" required></td>
+        <td><select class="form-control" name="targetRating" #targetRating="ngModel"
+            [(ngModel)]="designobject1.TargetRating" [compareWith]="compareFn" (change)="changeoption1()">
+            <option *ngFor="let i of climateservice.homestarlist" [ngValue]="i">{{i.HomeStar}}</option>
+          </select></td>
+        <td><select class="form-control" name="climatetype" #climatetype="ngModel"
+            [(ngModel)]="designobject1.Climatetype">
+            <option *ngFor="let x of climateservice.climatelist" [ngValue]="x">{{x}}</option>
+          </select></td>
+        <td><select class="form-control" name="location" #location="ngModel" [(ngModel)]="designobject1.LocationName">
+            <option *ngFor="let x of locationService.location" [ngValue]="x">{{x}}</option>
+          </select></td>
+        <td><input type="text" class="form-control" name="completedBy" #completedBy="ngModel"
+            [(ngModel)]="designobject1.CompletedBy" placeholder="Completed By" required></td>
+        <td><input type="text" class="form-control" name="drawingSet" #drawingSet="ngModel"
+            [(ngModel)]="designobject1.DrawingSet" placeholder="Drawing Set" required></td>
+        <td><input type="text" class="form-control" name="typology" #typology="ngModel"
+            [(ngModel)]="designobject1.Typology" placeholder="Typology" required></td>
+        <td><input type="text" class="form-control" name="floorArea" #floorArea="ngModel"
+            [(ngModel)]="designobject1.FloorArea" placeholder="FloorArea" required></td>
+        <td><input type="text" class="form-control" name="numofHabitationroom" #numofHabitationroom="ngModel"
+            [(ngModel)]="designobject1.NumofHabitationroom" placeholder="# of Habitation room" required></td>
       </tr>
       <tr>
         <button class="btn btn-primary" *ngIf="!isedit" (click)="toggleedit(designobject)">Edit</button>
@@ -61,14 +64,14 @@
     <mat-horizontal-stepper labelPosition="bottom" #stepper>
       <mat-step>
         <ng-template matStepLabel>Building Schedule</ng-template>
-          <app-schedule></app-schedule>
+        <app-schedule></app-schedule>
         <div style="text-align: center">
           <button type="button" color="default" mat-button matStepperNext>Go to Building Model</button>
         </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Building Model</ng-template>
-          <app-buildingmodel></app-buildingmodel>
+        <app-buildingmodel></app-buildingmodel>
         <div style="text-align: center">
           <button type="button" color="default" mat-button matStepperPrevious>Back to Building Schedule</button>
           <button type="button" color="default" mat-button matStepperNext>Finish</button>

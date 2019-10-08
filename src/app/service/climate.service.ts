@@ -8,31 +8,43 @@ import { Observable } from 'rxjs';
 })
 export class ClimateService {
 
-  climateUrl = 'assets/jsondata/homestar.json';
-  url: string = "http://localhost:8080/api/targetrating";
-  targetratinglist = [];
+  homestarUrl = 'assets/jsondata/homestar.json';
+  climatetypeUrl = 'assets/jsondata/climatezonetype.json';
+
+  //url: string = "http://localhost:8080/api/targetrating";
+  homestarlist = [];
+  climatelist = [];
   constructor(private http: HttpClient) { 
   }
 
-  // getallclimatetolist(){
-  //   this.getallclimate().subscribe(data =>{
-  //     this.climatelist = data.HomeStarRating;
-  //   });
-  // }
-
-  // getallclimate(): Observable<any>{
-  //   return this.http.get<any>(this.climateUrl);
-  // }
-
-
-  getallclimate(){
-    this.http.get(this.url).pipe(map((data: Response)=>{
+  getallhomestarlist(){
+    this.http.get(this.homestarUrl).pipe(map((data: any)=>{
       return data as any;
-    })).toPromise().then(
-      x =>{
-        this.targetratinglist = x;
-      }
-    );
-
+    })).toPromise().then(x =>{
+      this.homestarlist = x.Homestars;
+      this.homestarlist.sort((a: any, b: any) =>{
+        return (a.HomeStar > b.HomeStar) ? 1 : ((b.HomeStar > a.HomeStar) ? -1 : 0)
+      });
+    });
   }
+
+  getclimatelist(){
+    this.http.get(this.climatetypeUrl).pipe(map((data: any)=>{
+      return data as any;
+    })).toPromise().then(x =>{
+      this.climatelist = x.climatezonetypes;
+    });
+  }
+
+
+  // getallclimate(){
+  //   this.http.get(this.url).pipe(map((data: Response)=>{
+  //     return data as any;
+  //   })).toPromise().then(
+  //     x =>{
+  //       this.targetratinglist = x;
+  //     }
+  //   );
+
+  // }
 }

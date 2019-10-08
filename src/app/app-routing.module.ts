@@ -13,6 +13,7 @@ import { Buildinginfo } from './models/buildinginfo';
 import { BuildinginfoComponent } from './components/buildinginfo/buildinginfo.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { SettingComponent } from './components/setting/setting.component';
+import { Notfound404Component } from './components/notfound404/notfound404.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,7 +32,8 @@ const routes: Routes = [
   },
   { path: 'register', component: RegisterComponent, data: { title: "Register" } },
   { path: 'passwordreset', component: ForgotpasswordComponent, data: { title: "Reset Password" } },
-  { path: '**', redirectTo: '' }
+  { path: 'notfound', component: Notfound404Component, data: {title: "Not Found"}},
+  { path: '**', redirectTo: 'notfound' }
 ];
 
 @NgModule({

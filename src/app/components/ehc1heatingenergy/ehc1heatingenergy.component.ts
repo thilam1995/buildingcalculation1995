@@ -165,9 +165,13 @@ export class Ehc1heatingenergyComponent implements OnInit {
       Typology: "",
       NumofHabitationroom: null,
       FloorArea: null,
-      Location: null,
+      DateCreated: null,
       ProjectID: "",
-      UserID: ""
+      UserID: "",
+      Climatetype: "",
+      City: "",
+      StateName: "",
+      StreetName: ""
     };
     this.projectobject = {
       ProjectID: "",
@@ -198,18 +202,21 @@ export class Ehc1heatingenergyComponent implements OnInit {
         TargetRating: res.data.TargetRating,
         CompletedBy: res.data.CompletedBy,
         DrawingSet: res.data.DrawingSet,
-        Typology: res.data.Typology,
+        Typology: res.data.Typology,DateCreated: res.data.DateCreated,
         NumofHabitationroom: Number(res.data.NumofHabitationroom),
         FloorArea: res.data.FloorArea,
-        Location: res.data.Location,
         ProjectID: res.data.ProjectID,
-        UserID: res.data.UserID
+        UserID: res.data.UserID,
+        Climatetype: res.data.Climatetype,
+        City: res.data.City,
+        StateName: res.data.StateName,
+        StreetName: res.data.StreetName
       };
-      this.location = this.designobject.Location.data.place;
-      this.targeting = this.designobject.TargetRating.data.Type;
-      this.climatezone = this.designobject.Location.data.climatezone;
-      this.targetingschedule = this.designobject.TargetRating.data.ClimatezoneList.find(x => x.climatezone === this.climatezone);
-      this.schedulemethod = this.designobject.TargetRating.data.ClimatezoneList;
+      // this.location = this.designobject.LocationName.data.place;
+      // this.targeting = this.designobject.TargetRating.data.Type;
+      // this.climatezone = this.designobject.LocationName.data.climatezone;
+      // this.targetingschedule = this.designobject.TargetRating.data.ClimatezoneList.find(x => x.climatezone === this.climatezone);
+      // this.schedulemethod = this.designobject.TargetRating.data.ClimatezoneList;
       this.skylightrvalue = this.targetingschedule.constructionrvalue.Skylight;
       this.roofrvalue = this.targetingschedule.constructionrvalue.Roof;
       this.wallrvalue = this.targetingschedule.constructionrvalue.Wall;

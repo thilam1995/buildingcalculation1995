@@ -24,67 +24,79 @@ export class BuildinginfoComponent implements OnInit {
   registeruser: Register;
   projectid: string = "";
   projectname: string = "";
-  constructor(private locationService: LocationService,
-    private router: Router, private climateservice: ClimateService,
+  constructor(private router: Router, private climateservice: ClimateService,
     private route: ActivatedRoute, private loginservice: LoginserviceService, private localSt: LocalStorageService,
     private designservice: DesignService, private toastr: ToastrService) {
     //this.setDefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
   }
 
   ngOnInit() {
 
     this.setdefault();
-    this.climateservice.getallclimate();
-    this.locationService.getallLocation();
+    this.fetchingclimate();
     this.projectid = this.route.snapshot.paramMap.get("projectid");
     this.route.queryParams.subscribe(params => {
       this.projectname = decodeURIComponent(params['projectname']);
     });
   }
 
+  fetchingclimate(){
+    this.climateservice.getallhomestarlist();
+    this.climateservice.getclimatelist();
+  }
+
 
 
   selected1() {
-    //console.log(this.buildinginfoobject.Location);
-    this.localSt.store('targetrating', this.design.TargetRating);
-    console.log(this.localSt.retrieve('targetrating'));
+
   }
 
   setdefault() {
     this.design = {
       DesignName: "",
       TargetRating: null,
-      Location: null,
+      Climatetype: null,
       CompletedBy: "",
       DrawingSet: "",
       FloorArea: null,
       NumofHabitationroom: null,
       Typology: "",
+      DateCreated: "",
+      City: "",
+      StateName: "",
+      StreetName: ""
     };
   }
 
   onSubmit(form: NgForm) {
-
+    let date = new Date();
+    var datestring: string = date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString();
+    var timestring = (date.getHours() < 10 ? "0" + date.getHours(): date.getHours()) + ":" +(date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" +(date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+    let timedatestring = datestring + " - " + timestring;
     this.design = {
       DesignName: form.value.designname,
       TargetRating: form.value.targetrating,
-      Location: form.value.location,
+      Climatetype: form.value.climatetype,
       CompletedBy: form.value.completedby,
       DrawingSet: form.value.drawingset,
       FloorArea: Number(form.value.floorarea),
       NumofHabitationroom: Number(form.value.numofHabitationroom),
       Typology: form.value.typology,
       ProjectID: this.projectid,
-      UserID: this.registeruser.ID
+      UserID: this.registeruser.ID,
+      DateCreated: timedatestring,
+      City: form.value.city,
+      StateName: form.value.state,
+      StreetName: form.value.street
     }
     console.log(this.design);
     this.designservice.designPosting(this.design).subscribe(x => {
@@ -101,7 +113,7 @@ export class BuildinginfoComponent implements OnInit {
   }
 
 
-  setDefault(){
+  setDefault() {
     this.loginservice.registermember = {
       ID: "",
       FirstName: "",

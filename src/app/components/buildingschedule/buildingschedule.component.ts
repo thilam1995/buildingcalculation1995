@@ -69,9 +69,7 @@ export class BuildingscheduleComponent implements OnInit {
     private climateservice: ClimateService,
     public route: ActivatedRoute,
     private router: Router, private toastr: ToastrService, private localSt: LocalStorageService,
-    private loginservice: LoginserviceService, private designservice: DesignService,
-    private wallservice: WalldoorwindowService, private roofskylightservice: RoofskylightService,
-    private floorservice: FloorService) {
+    private loginservice: LoginserviceService, private designservice: DesignService) {
     //this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
       this.loginservice.currentUser.subscribe(x => {
@@ -90,9 +88,10 @@ export class BuildingscheduleComponent implements OnInit {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
     });
-    this.climateservice.getallclimate();
+    // this.climateservice.getallclimate();
     this.locationService.getallLocation();
-
+    this.climateservice.getallhomestarlist();
+    this.climateservice.getclimatelist();
     this.designservice.getdesignbyID(this.designid).subscribe(res => {
       //console.log(res);
       this.designobject = {
@@ -104,10 +103,13 @@ export class BuildingscheduleComponent implements OnInit {
         Typology: res.data.Typology,
         NumofHabitationroom: res.data.NumofHabitationroom,
         FloorArea: res.data.FloorArea,
-        Location: res.data.Location,
         ProjectID: res.data.ProjectID,
-        UserID: res.data.UserID
-        
+        UserID: res.data.UserID,
+        DateCreated: res.data.DateCreated,
+        Climatetype: res.data.Climatetype,
+        City: res.data.City,
+        StateName: res.data.StateName,
+        StreetName: res.data.StreetName
       };
       console.log(this.designobject);
     }, err => {
@@ -160,9 +162,13 @@ export class BuildingscheduleComponent implements OnInit {
       Typology: "",
       NumofHabitationroom: null,
       FloorArea: null,
-      Location: null,
       ProjectID: "",
-      UserID: ""
+      UserID: "",
+      DateCreated: "",
+      Climatetype: "",
+      City: "",
+      StateName: "",
+      StreetName: ""
     };
 
     this.designobject1 = {
@@ -174,9 +180,13 @@ export class BuildingscheduleComponent implements OnInit {
       Typology: "",
       NumofHabitationroom: null,
       FloorArea: null,
-      Location: null,
       ProjectID: "",
-      UserID: ""
+      UserID: "",
+      DateCreated: "",
+      Climatetype: "",
+      City: "",
+      StateName: "",
+      StreetName: ""
     };
     
     this.doorobject = {
@@ -253,7 +263,7 @@ export class BuildingscheduleComponent implements OnInit {
   }
 
   changeoption2(){
-    console.log(this.designobject1.Location);
+    console.log(this.designobject1);
   }
 
 
@@ -275,9 +285,13 @@ export class BuildingscheduleComponent implements OnInit {
         Typology: "",
         NumofHabitationroom: null,
         FloorArea: null,
-        Location: null,
         ProjectID: "",
-        UserID: ""
+        UserID: "",
+        DateCreated: "",
+        Climatetype: "",
+        City: "",
+        StateName: "",
+        StreetName: ""
       };
     }
   }

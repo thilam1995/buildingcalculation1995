@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
+  isregister: boolean = false;
   registerobject: Register;
   Repassword: string = "";
   constructor(private toastr: ToastrService, private loginservice: LoginserviceService,

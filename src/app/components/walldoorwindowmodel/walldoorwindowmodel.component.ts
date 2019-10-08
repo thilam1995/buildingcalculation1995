@@ -46,10 +46,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
 
   registeruser: Register;
 
-  orientation = ["North", "North North East", "North East", "East North East",
-    "South", "South South West", "South West", "West South West",
-    "East", "East South East", "South East", "South South East",
-    "West", "West North West", "North West", "North North West"];
+  orientation = ["North", "South", "East", "West"];
 
 
   constructor(private toastr: ToastrService, public route: ActivatedRoute,

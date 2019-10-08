@@ -10,26 +10,40 @@
       <div class="validation-error" *ngIf="designname.invalid && designname.touched">Please fill design name.</div>
     </div>
     <div class="form-group col-md-12">
+      <input class="form-control" type="text" name="completedby" #completedby="ngModel" placeholder="Completed By"
+        [(ngModel)]="design.CompletedBy" required>
+      <div class="validation-error" *ngIf="completedby.invalid && completedby.touched">Please fill the name who
+        completes the design.</div>
+    </div>
+    <div class="form-group col-md-6">
       <label>Target Rating</label>
       <select class="form-control" name="targetrating" #targetrating="ngModel" [(ngModel)]="design.TargetRating"
         (change)="selected1()">
-        <option></option>
-        <option *ngFor="let i of climateservice.targetratinglist" [ngValue]="i">{{i.data.Type}}</option>
+        <option *ngFor="let i of climateservice.homestarlist" [ngValue]="i">{{i.HomeStar}}</option>
       </select>
-      <div class="validation-error" *ngIf="targetrating.invalid && targetrating.touched">Please fill your first name.</div>
+      <div class="validation-error" *ngIf="targetrating.invalid && targetrating.touched">Please choose HomeStar.</div>
     </div>
-    <div class="form-group col-md-12">
-      <label>Location</label>
-      <select class="form-control" name="location" #location="ngModel" [(ngModel)]="design.Location">
-        <option></option>
-        <option *ngFor="let x of locationService.location" [ngValue]="x">{{x.data.place}} -{{x.data.climatezone}}</option>
+    <div class="form-group col-md-6">
+      <label>Climate Type</label>
+      <select class="form-control" name="climatetype" #climatetype="ngModel" [(ngModel)]="design.Climatetype">
+        <option *ngFor="let x of climateservice.climatelist" [ngValue]="x">{{x}}</option>
       </select>
-      <div class="validation-error" *ngIf="location.invalid && location.touched">Please fill your first name.</div>
+      <div class="validation-error" *ngIf="climatetype.invalid && climatetype.touched">Please choose climate type.</div>
     </div>
-    <div class="form-group col-md-12">
-      <input class="form-control" type="text" name="completedby" #completedby="ngModel" placeholder="Completed By"
-        [(ngModel)]="design.CompletedBy" required>
-      <div class="validation-error" *ngIf="completedby.invalid && completedby.touched">Please fill your first name.</div>
+    <div class="form-group col-md-4">
+      <input class="form-control" name="street" #street="ngModel"
+        placeholder="Street Number and Name (Physical Address)" [(ngModel)]="design.StreetName" required>
+      <div class="validation-error" *ngIf="street.invalid && street.touched">Please fill your street number and name.
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <input class="form-control" name="city" #city="ngModel" placeholder="City" [(ngModel)]="design.City" required>
+      <div class="validation-error" *ngIf="city.invalid && city.touched">Please fill your first name.</div>
+    </div>
+    <div class="form-group col-md-4">
+      <input class="form-control" name="state" #state="ngModel" placeholder="State" [(ngModel)]="design.StreetName"
+        required>
+      <div class="validation-error" *ngIf="state.invalid && state.touched">Please fill your first name.</div>
     </div>
     <div class="form-group col-md-6">
       <input class="form-control" type="text" name="drawingset" #drawingset="ngModel" placeholder="Drawing Set"
@@ -51,7 +65,8 @@
     <div class="form-group col-md-6">
       <input class="form-control" type="text" name="numofHabitationroom" #numofHabitationroom="ngModel"
         placeholder="# of Habitable Rooms" [(ngModel)]="design.NumofHabitationroom" required>
-      <div class="validation-error" *ngIf="numofHabitationroom.invalid && numofHabitationroom.touched">Please fill your first name.</div>
+      <div class="validation-error" *ngIf="numofHabitationroom.invalid && numofHabitationroom.touched">Please fill your
+        first name.</div>
     </div>
   </div>
 

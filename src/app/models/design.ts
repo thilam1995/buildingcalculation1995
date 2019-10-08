@@ -1,13 +1,17 @@
 export class Design {
     DesignID?: string;
     DesignName: string;
-    TargetRating: any;
+    TargetRating: string;
     CompletedBy: string;
     DrawingSet: string;
-    Typology: string;
+    Typology: any;
     NumofHabitationroom: number;
     FloorArea: number;
-    Location: any;
+    Climatetype: any;
+    DateCreated: string;
     ProjectID?: string;
     UserID?: string;
+    StreetName: string;
+    City: string;
+    StateName: string;
 }

@@ -35,15 +35,15 @@
                 <app-roofform></app-roofform>
                 <div style="text-align: center">
                     <button type="button" color="default" mat-button matStepperPrevious>Back to Door</button>
-                    <button type="button" color="default" [disabled]="roofskylightservice.rooflist.length === 0" mat-button matStepperNext>Go to Floor</button>
+                    <button type="button" color="default" [disabled]="roofskylightservice.rooflist.length === 0" mat-button matStepperNext>Go to Skylight</button>
                 </div>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel matStepperIcon="done">Skylight</ng-template>
+                <ng-template matStepLabel matStepperIcon="done">Skylight (Optional)</ng-template>
                 <app-skylightform></app-skylightform>
                 <div style="text-align: center">
-                    <button type="button" color="default" mat-button matStepperPrevious>Back to Door</button>
-                    <button type="button" color="default" [disabled]="roofskylightservice.rooflist.length === 0" mat-button matStepperNext>Go to Floor</button>
+                    <button type="button" color="default" mat-button matStepperPrevious>Back to Roof</button>
+                    <button type="button" color="default" mat-button matStepperNext>Go to Floor</button>
                 </div>
             </mat-step>
             <mat-step>
@@ -51,7 +51,7 @@
                 <!-- <app-floorsform [floorobject]="floorobject" [floorobjectlist]="floorobjectlist"></app-floorsform> -->
                 <app-floorsform></app-floorsform>
                 <div style="text-align: center">
-                    <button type="button" color="default" mat-button matStepperPrevious>Back to Roof & Skylight</button>
+                    <button type="button" color="default" mat-button matStepperPrevious>Back to Skylight</button>
                     <button type="button" color="default" [disabled]="floorservice.floorlist.length === 0" mat-button matStepperNext>Next</button>
                 </div>
             </mat-step>
