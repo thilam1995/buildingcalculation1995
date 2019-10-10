@@ -1,7 +1,7 @@
 export class Design {
     DesignID?: string;
     DesignName: string;
-    TargetRating: string;
+    TargetRating: any;
     CompletedBy: string;
     DrawingSet: string;
     Typology: any;

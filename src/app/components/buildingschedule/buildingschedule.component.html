@@ -2,57 +2,96 @@
 <div class="row">
   <button class="btn btn-primary" routerLink="/main/{{registeruser.ID}}/project">Back To Building Info</button>
   <div class="col-md-12 jumbotron">
-    <table class="table table-sm">
-      <tr></tr>
+    <table class="table table-sm" *ngIf="!isedit">
       <tr>
         <th>Design</th>
-        <th>Target Rating</th>
-        <th>Location</th>
-        <th>Climate Category</th>
-        <th>Completed By</th>
-        <th>Drawing Set</th>
-        <th>Typology/Dwelling</th>
-        <th>Floor Area</th>
-        <th># of Habitation Room</th>
-      </tr>
-      <tr *ngIf="!isedit">
         <td *ngIf="designobject.DesignName != null">{{designobject.DesignName}}</td>
+      </tr>
+      <tr>
+        <th>Target Rating</th>
         <td *ngIf="designobject.TargetRating != null">{{designobject.TargetRating.HomeStar}}</td>
-        <td *ngIf="designobject.LocationName != null">{{designobject.LocationName}}</td>
+      </tr>
+      <tr>
+        <th>Climate Category</th>
         <td *ngIf="designobject.Climatetype != null">{{designobject.Climatetype}}</td>
+      </tr>
+      <tr>
+        <th>Completed By</th>
         <td *ngIf="designobject.CompletedBy != null">{{designobject.CompletedBy}}</td>
+      </tr>
+      <tr>
+        <th>Drawing Set</th>
         <td *ngIf="designobject.DrawingSet != null">{{designobject.DrawingSet}}</td>
+      </tr>
+      <tr>
+        <th>Typology/Dwelling</th>
         <td *ngIf="designobject.Typology != null">{{designobject.Typology}}</td>
+      </tr>
+      <tr>
+        <th>Floor Area</th>
         <td *ngIf="designobject.FloorArea != null">{{designobject.FloorArea}}</td>
+      </tr>
+      <tr>
+        <th># of Habitation Room</th>
         <td *ngIf="designobject.NumofHabitationroom != null">{{designobject.NumofHabitationroom}}</td>
       </tr>
-      <tr *ngIf="isedit">
+      <tr>
+        <th>Address</th>
+        <td *ngIf="designobject.StreetName != null && designobject.City != null && designobject.StateName != null">
+          {{designobject.StreetName}}, {{designobject.City}}, {{designobject.StateName}}</td>
+      </tr>
+    </table>
+    <button class="btn btn-primary" *ngIf="!isedit" (click)="toggleedit(designobject)">Edit</button>
+    <table class="table table-sm" *ngIf="isedit">
+      <tr>
         <td><input type="text" class="form-control" name="designname" #designname="ngModel"
             [(ngModel)]="designobject1.DesignName" placeholder="Design Name" required></td>
+      </tr>
+      <tr>
         <td><select class="form-control" name="targetRating" #targetRating="ngModel"
             [(ngModel)]="designobject1.TargetRating" [compareWith]="compareFn" (change)="changeoption1()">
             <option *ngFor="let i of climateservice.homestarlist" [ngValue]="i">{{i.HomeStar}}</option>
           </select></td>
+      </tr>
+      <tr>
+        <td><input type="text" class="form-control" name="completedBy" #completedBy="ngModel"
+            [(ngModel)]="designobject1.CompletedBy" placeholder="Completed By" required></td>
+      </tr>
+      <tr>
+        <td><input type="text" class="form-control" name="street" #street="ngModel"
+            [(ngModel)]="designobject1.StreetName" placeholder="Street Address" required></td>
+      </tr>
+      <tr>
+        <td><input type="text" class="form-control" name="city" #city="ngModel"
+            [(ngModel)]="designobject1.City" placeholder="Completed By" required></td>
+      </tr>
+      <tr>
+        <td><input type="text" class="form-control" name="state" #state="ngModel"
+            [(ngModel)]="designobject1.StateName" placeholder="Completed By" required></td>
+      </tr>
+      <tr>
         <td><select class="form-control" name="climatetype" #climatetype="ngModel"
             [(ngModel)]="designobject1.Climatetype">
             <option *ngFor="let x of climateservice.climatelist" [ngValue]="x">{{x}}</option>
           </select></td>
-        <td><select class="form-control" name="location" #location="ngModel" [(ngModel)]="designobject1.LocationName">
-            <option *ngFor="let x of locationService.location" [ngValue]="x">{{x}}</option>
-          </select></td>
-        <td><input type="text" class="form-control" name="completedBy" #completedBy="ngModel"
-            [(ngModel)]="designobject1.CompletedBy" placeholder="Completed By" required></td>
+      </tr>
+      <tr>
         <td><input type="text" class="form-control" name="drawingSet" #drawingSet="ngModel"
             [(ngModel)]="designobject1.DrawingSet" placeholder="Drawing Set" required></td>
+      </tr>
+      <tr>
         <td><input type="text" class="form-control" name="typology" #typology="ngModel"
             [(ngModel)]="designobject1.Typology" placeholder="Typology" required></td>
+      </tr>
+      <tr>
         <td><input type="text" class="form-control" name="floorArea" #floorArea="ngModel"
             [(ngModel)]="designobject1.FloorArea" placeholder="FloorArea" required></td>
+      </tr>
+      <tr>
         <td><input type="text" class="form-control" name="numofHabitationroom" #numofHabitationroom="ngModel"
             [(ngModel)]="designobject1.NumofHabitationroom" placeholder="# of Habitation room" required></td>
       </tr>
       <tr>
-        <button class="btn btn-primary" *ngIf="!isedit" (click)="toggleedit(designobject)">Edit</button>
         <button class="btn btn-primary" *ngIf="isedit" (click)="updatedesign()">Update</button>
         <button class="btn btn-primary" *ngIf="isedit" (click)="toggleedit()">Cancel</button>
       </tr>

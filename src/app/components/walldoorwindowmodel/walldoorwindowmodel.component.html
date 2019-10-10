@@ -55,6 +55,7 @@
             <tr>
               <td><label>Window</label>
                 <select class="form-control" [(ngModel)]="windowobject" (change)="optionchange1()">
+                  <option [ngValue]="null">Please select the window to add...</option>
                   <option *ngFor="let i of wallservice.windowlist" [ngValue]="i.data">{{i.data.WindowName}}</option>
                 </select></td>
               <td>{{windowwidth | number: '1.0-2'}}</td>
@@ -81,6 +82,7 @@
               <td><label>Door</label>
                 <select class="form-control" name="Doorobject" #Doorobject="ngModel" [(ngModel)]="doorobject"
                   (change)="optionchange2()">
+                  <option [ngValue]="null">Please select the door to add...</option>
                   <option *ngFor="let i of wallservice.doorlist" [ngValue]="i.data">{{i.data.DoorName}}</option>
                 </select></td>
               <td>{{doorwidth | number: '1.0-2'}}</td>
@@ -92,7 +94,7 @@
 
         </div>
       </div>
-      <button class="btn btn-primary" (click)="onSubmitModel()">Validate</button>
+      <button class="btn btn-primary" (click)="onSubmitModel()">Complete Wall Model</button>
     </div>
   </div>
 

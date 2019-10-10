@@ -49,7 +49,7 @@ export class BuildinginfoComponent implements OnInit {
     });
   }
 
-  fetchingclimate(){
+  fetchingclimate() {
     this.climateservice.getallhomestarlist();
     this.climateservice.getclimatelist();
   }
@@ -57,7 +57,7 @@ export class BuildinginfoComponent implements OnInit {
 
 
   selected1() {
-
+    console.log(this.design.TargetRating);
   }
 
   setdefault() {
@@ -79,8 +79,8 @@ export class BuildinginfoComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     let date = new Date();
-    var datestring: string = date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString();
-    var timestring = (date.getHours() < 10 ? "0" + date.getHours(): date.getHours()) + ":" +(date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" +(date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+    var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+    var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
     let timedatestring = datestring + " - " + timestring;
     this.design = {
       DesignName: form.value.designname,
@@ -100,13 +100,21 @@ export class BuildinginfoComponent implements OnInit {
     }
     console.log(this.design);
     this.designservice.designPosting(this.design).subscribe(x => {
-      this.toastr.success("New Design Added!", "Design Message");
-      // this.designservice.getlastdesignid(this.projectid, this.registeruser.ID).subscribe(res => {
-      //   console.log(res);
-      //   this.designid = res[res.length - 1].id;
-      //   this.router.navigateByUrl("/main/" + `${this.registeruser.ID}` + "/buildingschedule", { queryParams: { projectid: this.projectid, designid: this.designid } });
-      // });
-      this.router.navigateByUrl("/main/" + `${this.registeruser.ID}` + "/project");
+      this.toastr.success("New Design Added! Please wait...", "Design Message");
+
+      setTimeout(() => {
+        this.designservice.getlastdesignid(timedatestring).subscribe(res => {
+          console.log(res);
+          this.designid = res.id;
+          console.log(this.designid);
+          setTimeout(() => {
+            this.router.navigate(["/main/"+`${this.registeruser.ID}`+"/buildingschedule"],{ queryParams: { projectid: this.projectid, designid: this.designid } });
+          }, 1400);
+
+        });
+      }, 1400);
+
+      //this.router.navigateByUrl("/main/" + `${this.registeruser.ID}` + "/project");
     }, err => {
       this.toastr.error("Something wrong!", "Design Message");
     });

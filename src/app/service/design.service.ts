@@ -55,8 +55,8 @@ export class DesignService {
     }), catchError(this.handleError));
   }
 
-  getlastdesignid(projectid: string, userid?: string){
-    return this.http.get(this.url+"/last/"+`${projectid}` + "/" +`${userid}`).pipe(map((data: Response) =>{
+  getlastdesignid(datetime: string){
+    return this.http.get(this.url+"/last/"+`${datetime}`).pipe(map((data: Response) =>{
       return data as any;
     }), catchError(this.handleError));
   }

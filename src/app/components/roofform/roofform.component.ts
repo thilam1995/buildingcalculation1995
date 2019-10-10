@@ -77,7 +77,7 @@ export class RoofformComponent implements OnInit {
 
       if(!found){
         this.roofskylightservice.addroof(this.roofobject).subscribe(res => {
-          this.toastr.success("Added roof!", "Error Message!");
+          this.toastr.success("Added roof!", "Info Message!");
           setTimeout(() => {
             this.fetchingroof();
           }, 1500);

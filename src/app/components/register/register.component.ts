@@ -50,9 +50,11 @@ export class RegisterComponent implements OnInit {
         this.loginservice.register(registermember).subscribe(x=>{
           this.toastr.success("Register Sucessfully!", "Register Info");
           this.setdefault();
-          this.router.navigateByUrl('/login');
+          //this.router.navigateByUrl('/login');
+          this.isregister = true;
         }, error=>{
           this.toastr.error("Something wrong with register function!", "Register Info");
+          this.isregister = false;
         });
         
       }

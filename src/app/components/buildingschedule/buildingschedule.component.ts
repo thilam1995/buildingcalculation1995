@@ -318,7 +318,7 @@ export class BuildingscheduleComponent implements OnInit {
 
   compareFn(a, b) {
     //console.log(a, b, a && b && a.id == b.id);
-    return a && b && a.id == b.id;
+    return a && b && a.HomeStar == b.HomeStar;
   }
 
   setdefault(){
