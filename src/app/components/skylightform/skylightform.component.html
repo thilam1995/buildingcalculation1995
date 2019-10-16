@@ -46,10 +46,10 @@
             <td>{{i.data.Length | number: '1.0-2'}}</td>
             <td>{{i.data.Area | number: '1.0-2'}}</td>
             <td>
-                <button class="btn btn-secondary" type="button" (click)="editFieldValueSkylight(i)"><i
+                <button class="btn btn-secondary" type="button" (click)="editFieldValueSkylight(i)" matTooltip="Edit"><i
                         class="fas fa-pen-square"></i></button>
-                <button class="btn btn-danger" type="button" (click)="deleteFieldValueSkylight(i.id, i.data)"><i
-                        class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-danger" type="button" (click)="deleteFieldValueSkylight(i.id, i.data)"
+                    matTooltip="Delete"><i class="fas fa-trash-alt"></i></button>
             </td>
         </tr>
     </table>

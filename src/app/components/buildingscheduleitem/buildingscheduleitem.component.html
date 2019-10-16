@@ -1,14 +1,34 @@
 <div class="row board">
-    <div class="col-md-7"><span *ngIf="!isedit">{{project.data.ProjectName}}</span>
-        <input type="text" class="form-control" *ngIf="isedit" name="projectname" #projectname="ngModel"
-            [(ngModel)]="projecttitle">
-        <button mat-button *ngIf="isedit" (click)="renameedit(project)">Update</button>
+    <div class="boardheader col-md-12">
+        <table class="table table-borderless tableboardheader">
+            <tr>
+                <td><span class="projectname" *ngIf="!isedit">{{project.data.ProjectName}}</span>
+                    <input type="text" class="form-control" *ngIf="isedit" name="projectname" #projectname="ngModel"
+                        [(ngModel)]="projecttitle">
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary" *ngIf="isedit" (click)="renameedit(project)">Update <i
+                            class="fas fa-edit"></i></button>
+                    <a (click)="edittoggle()" class="btn btn-outline-primary">{{isedit ? "Cancel" : "Rename"}} <i
+                            class="far fa-edit" *ngIf="!isedit"></i>
+                        <i *ngIf="isedit" class="far fa-window-close"></i></a>
+                </td>
+                <td>
+                    <a class="btn btn-outline-primary" [routerLink]="['../createdesign', project.id]"
+                        [queryParams]="{ projectname: encodeparam }"><i class="fas fa-plus-square"></i> Create New
+                        Design</a>
+                </td>
+                <td>
+                    <a (click)="deleteproject(project.id)" style="float: right;" matTooltip="Delete"
+                        class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        </table>
+
     </div>
-    <div class="col-md-4"><a (click)="edittoggle()" mat-button>{{isedit ? "Cancel" : "Rename"}}</a></div>
-    
-    <div class="col-md-3"><a (click)="deleteproject(project.id)" mat-button>Delete</a></div>
+    <hr class="col-md-12">
     <div class="col-md-12">
-        <table class="table table-sm table-hover">
+        <table class="table table-borderless table-hover">
             <tr>
                 <th>Decisions Project</th>
                 <th>Created Date: {{project.data.DateCreated}}</th>
@@ -16,15 +36,23 @@
             </tr>
         </table>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 rounded border border-primary scrolldiv">
 
-        <ul>
+        <ul class="itemHolder">
             <li *ngFor="let i of designsetlist">
-                <a (click)="redirecttoSchedule(i, project.id)">{{i.data.DesignName}}</a><a mat-button (click)="seeResult(i, project.id)">See Result</a>
+                <div>
+                    <a (click)="redirecttoSchedule(i, project.id)"
+                        class="btn btn-outline-primary">{{i.data.DesignName}}</a><a mat-button
+                        (click)="seeResult(i, project.id)">See Result</a>
+                    <a style="float: right;" class="btn btn-outline-danger" (click)="deleteselecteddesign(i.id)"
+                        matTooltip="Delete"><i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
             </li>
         </ul>
 
+
     </div>
-    <div class="col-md-12"><a mat-button [routerLink]="['../createdesign', project.id]" [queryParams]="{ projectname: encodeparam }">Create New Design</a></div>
+
 </div>
 <br>

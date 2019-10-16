@@ -72,6 +72,7 @@ export class ProjectService {
     });
   }
 
+
   getprojectid(id: string) {
     return this.http.get(this.url1 + "/" + `${id}`).pipe(map((data: Response) => {
       console.log(data);

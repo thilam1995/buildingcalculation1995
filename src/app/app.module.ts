@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {SuiModule} from 'ng2-semantic-ui';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
@@ -62,6 +63,8 @@ import { ProjectfilterpipePipe } from './pipe/projectfilterpipe.pipe';
 import { RoofformComponent } from './components/roofform/roofform.component';
 import { SkylightformComponent } from './components/skylightform/skylightform.component';
 import { Notfound404Component } from './components/notfound404/notfound404.component';
+import { RecentprojectComponent } from './components/recentproject/recentproject.component';
+import { SortbydatePipe } from './pipe/sortbydate.pipe';
 
 @NgModule({
   declarations: [
@@ -100,7 +103,9 @@ import { Notfound404Component } from './components/notfound404/notfound404.compo
     ProjectfilterpipePipe,
     RoofformComponent,
     SkylightformComponent,
-    Notfound404Component
+    Notfound404Component,
+    RecentprojectComponent,
+    SortbydatePipe
   ],
   imports: [
     BrowserModule,
@@ -117,7 +122,9 @@ import { Notfound404Component } from './components/notfound404/notfound404.compo
     MatStepperModule,
     ToastrModule.forRoot(),
     NgxWebstorageModule.forRoot(),
-    SuiModule
+    SuiModule,
+    NgbPaginationModule,
+    MatTooltipModule
   ],
   providers: [LocationService, ClimateService, 
     WalldoorwindowService, AuthGuard, LoginserviceService,

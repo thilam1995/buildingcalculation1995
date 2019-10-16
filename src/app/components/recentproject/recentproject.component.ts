@@ -1,33 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { BuildinginfoserviceService } from 'src/app/service/buildinginfoservice.service';
-import { ProjectService } from 'src/app/service/project.service';
 import { Register } from 'src/app/models/register';
-import { LoginComponent } from '../login/login.component';
+import { ProjectService } from 'src/app/service/project.service';
 import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-buildingschedulelist',
-  templateUrl: './buildingschedulelist.component.html',
-  styleUrls: ['./buildingschedulelist.component.css']
+  selector: 'app-recentproject',
+  templateUrl: './recentproject.component.html',
+  styleUrls: ['./recentproject.component.css']
 })
-export class BuildingschedulelistComponent implements OnInit {
+export class RecentprojectComponent implements OnInit {
 
-  buildingschedulelistfilter = [];
   searchproject: string = "";
   registeruser: Register;
   registerID: string = "";
   constructor(private projectservice: ProjectService, private loginservice: LoginserviceService,
-    public route: ActivatedRoute) {
-
-    //this.loginservice.currentUser.subscribe(x => this.registeruser = x);
-  }
+    public route: ActivatedRoute) { }
 
   ngOnInit() {
-    //this.buildingschedulelist = this.buildingservice.buildinginfolistdata();
     this.setdefault();
-
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     setTimeout(() => {
       this.loginservice.currentUser.subscribe(x => {
@@ -41,15 +32,13 @@ export class BuildingschedulelistComponent implements OnInit {
 
       this.registerID = this.loginservice.currentUserValue.ID;
 
-
-
       this.projectservice.projectfetching(this.registerID);
     }, 1900);
   }
-
 
   setdefault() {
     this.projectservice.projectList = [];
     this.registerID = "";
   }
+
 }

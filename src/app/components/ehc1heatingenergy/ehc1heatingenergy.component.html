@@ -59,12 +59,12 @@
     <div class="row">
       <div class="col-md-4">
         <table class="table table-sm table-bordered">
-          <tr style="background-color: limegreen; color: honeydew;">
+          <tr style="background-color: limegreen; color: white;">
             <th colspan="4">Window to Wall Ratios</th>
           </tr>
 
           <tbody>
-            <tr style="background-color: lightgray; color: honeydew;">
+            <tr style="background-color: lightgray; color: white;">
               <th>Elevation</th>
               <th>Gross Wall Area</th>
               <th>Window Area</th>
@@ -117,10 +117,10 @@
       <div class="col-md-4">
 
         <table class="table table-sm table-bordered">
-          <tr style="background-color: limegreen; color: lightyellow;">
+          <tr style="background-color: limegreen; color: white;">
             <th colspan="4">Skylight Ratios</th>
           </tr>
-          <tr style="background-color: lightgray; color: lightyellow;">
+          <tr style="background-color: lightgray; color: white;">
             <th>Gross Roof Area</th>
             <th>Skylight Area</th>
             <th>Skylight Ratio</th>
@@ -138,10 +138,10 @@
         </table>
 
         <table class="table table-sm table-bordered">
-          <tr style="background-color: limegreen; color: lightyellow;">
+          <tr style="background-color: limegreen; color: white;">
             <th colspan="4">Door Area Allowance</th>
           </tr>
-          <tr style="background-color: lightgray; color: lightyellow;">
+          <tr style="background-color: lightgray; color: white;">
             <th>Gross Wall Area</th>
             <th>Door Area</th>
             <th>Max. Door Area Allowed</th>
@@ -162,28 +162,29 @@
 
       <div class="col-md-4">
         <table class="table table-sm table-bordered">
-          <tr style="background-color: limegreen; color: lightyellow;">
+          <tr style="background-color: limegreen; color: white;">
             <th colspan="4">Proposed Construction R-values</th>
           </tr>
-          <tr style="background-color: lightgray; color: lightyellow;">
+          <tr style="background-color: lightgray; color: white;">
             <th>Construction Element</th>
             <th>Proposed R-value</th>
             <th>Required R-value</th>
             <th>Homestar Compliance</th>
           </tr>
           <tr>
-            <td style="background-color: lightgray; color: lightyellow;">Roof</td>
+            <td style="background-color: lightgray; color: white;">Roof</td>
             <td>{{minrvalueroof}}</td>
             <td>{{roofrvalue}}</td>
             <td>
               <span *ngIf="minrvalueroof == 0">-</span>
-              <span *ngIf="minrvalueroof != 0"></span>
-              <img src="../../../assets/pic/pass.png" *ngIf="isroofpass">
-              <img src="../../../assets/pic/fail.png" *ngIf="!isroofpass">
+              <span *ngIf="minrvalueroof != 0">
+                <img src="../../../assets/pic/pass.png" *ngIf="isroofpass">
+                <img src="../../../assets/pic/fail.png" *ngIf="!isroofpass">
+              </span>
             </td>
           </tr>
           <tr>
-            <td style="background-color: lightgray; color: lightyellow;">Wall</td>
+            <td style="background-color: lightgray; color: white;">Wall</td>
             <td>{{minrvaluewall}}</td>
             <td>{{wallrvalue}}</td>
             <td>
@@ -196,7 +197,7 @@
             </td>
           </tr>
           <tr>
-            <td style="background-color: lightgray; color: lightyellow;">Glazing</td>
+            <td style="background-color: lightgray; color: white;">Glazing</td>
             <td>{{minrvaluewindow}}</td>
             <td>{{windowrvalue}}</td>
             <td>
@@ -208,7 +209,7 @@
             </td>
           </tr>
           <tr>
-            <td style="background-color: lightgray; color: lightyellow;">Floor</td>
+            <td style="background-color: lightgray; color: white;">Floor</td>
             <td>{{minrvaluefloor}}</td>
             <td>{{floorrvalue}}</td>
             <td>
@@ -220,7 +221,7 @@
             </td>
           </tr>
           <tr>
-            <td style="background-color: lightgray; color: lightyellow;">Skylight</td>
+            <td style="background-color: lightgray; color: white;">Skylight</td>
             <td>{{minrvalueskylight}}</td>
             <td>{{skylightrvalue}}</td>
             <td>
@@ -236,7 +237,7 @@
 
       <div class="col-md-12">
         <table class="table table-sm table-bordered">
-          <tr style="background-color: limegreen; color: honeydew;">
+          <tr style="background-color: limegreen; color: white;">
             <th colspan="4">EHC-1 Schedule Method (Simple)</th>
           </tr>
           <tr>
@@ -256,7 +257,7 @@
 
     <div class="col-md-12">
       <table class="table table-sm table-bordered">
-        <tr style="background-color: lightslategrey; color: honeydew;">
+        <tr style="background-color: lightslategrey; color: white;">
           <th>Homestar Compliance Requirements</th>
           <th>Result</th>
           <th>Homestar Compliance</th>
@@ -315,7 +316,7 @@
     <br>
     <div class="col-md-12">
       <table class="table table-sm table-bordered">
-        <tr style="background-color: limegreen; color: honeydew;">
+        <tr style="background-color: limegreen; color: white;">
           <th colspan="3">EHC-1 Schedule Method by Calculation (using NZS 4218:2009)</th>
         </tr>
         <tr>
@@ -341,13 +342,13 @@
     <div class="col-md-12">
       <table class="table table-sm table-bordered">
         <tr>
-          <th style="background-color: gray; color: honeydew;" colspan="2">Proposed</th>
-          <th style="background-color: lightslategrey; color: honeydew;" colspan="2">Reference</th>
+          <th style="background-color: gray; color: white;" colspan="2">Proposed</th>
+          <th style="background-color: lightslategrey; color: white;" colspan="2">Reference</th>
         </tr>
         <tr>
           <td colspan="2">
             <table class="table table-sm table-bordered">
-              <tr style="background-color: gray; color: honeydew;">
+              <tr style="background-color: gray; color: white;">
                 <td>Construction</td>
                 <td>Area</td>
                 <td>R-Value</td>
@@ -409,7 +410,7 @@
           </td>
           <td colspan="2">
             <table class="table table-sm table-bordered">
-              <tr style="background-color: lightslategrey; color: honeydew;">
+              <tr style="background-color: lightslategrey; color: white;">
                 <td>Construction</td>
                 <td>Area</td>
                 <td>R-Value</td>

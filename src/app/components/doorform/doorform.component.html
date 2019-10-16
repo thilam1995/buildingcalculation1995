@@ -49,9 +49,10 @@
                         <td>{{i.data.Height | number: '1.0-2'}}</td>
                         <td>{{i.data.Area | number: '1.0-2'}}</td>
                         <td>
-                                <button class="btn btn-secondary" type="button" (click)="editFieldValue(i)"><i class="fas fa-pen-square"></i></button>
-                                <button class="btn btn-danger" type="button"
-                                        (click)="deleteFieldValue(i.id, i.data)"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-secondary" type="button" (click)="editFieldValue(i)"
+                                        matTooltip="Edit"><i class="fas fa-pen-square"></i></button>
+                                <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i.id, i.data)"><i
+                                                class="fas fa-trash-alt" matTooltip="Delete"></i></button>
                         </td>
                 </tr>
 

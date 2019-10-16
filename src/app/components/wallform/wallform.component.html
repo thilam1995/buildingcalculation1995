@@ -32,14 +32,16 @@
         <tr *ngFor="let i of wallservice.walllist">
             <td>{{i.data.WallName}}</td>
             <td>{{i.data.ConstructionRValue | number: '1.0-2'}}</td>
-            <td><p class="overflowdesc">{{i.data.Description}}</p></td>
             <td>
-                <button class="btn btn-secondary" type="button" (click)="editFieldValue(i)"><i class="fas fa-pen-square"></i></button>
-                <button type="button" class="btn btn-danger" (click)="deleteFieldValue(i.id, i.data)"><i class="fas fa-trash-alt"></i></button>
+                <p class="overflowdesc">{{i.data.Description}}</p>
+            </td>
+            <td>
+                <button class="btn btn-secondary" type="button" (click)="editFieldValue(i)" matTooltip="Edit"><i
+                        class="fas fa-pen-square"></i></button>
+                <button type="button" class="btn btn-danger" (click)="deleteFieldValue(i.id, i.data)"
+                    matTooltip="Delete"><i class="fas fa-trash-alt"></i></button>
             </td>
         </tr>
-    
+
     </table>
 </div>
-
-

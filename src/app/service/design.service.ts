@@ -61,6 +61,23 @@ export class DesignService {
     }), catchError(this.handleError));
   }
 
+  deleteselectdesignid(id: string, projectid: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.delete(this.url+ "/" +`${id}`, httpOptions).pipe(
+      map(
+        res => {
+          setTimeout(() => {
+            this.designFetching(projectid);
+          }, 1200);
+        }
+      ), catchError(this.handleError)
+    );
+  }
+
 
 
   private handleError(error: HttpErrorResponse) {

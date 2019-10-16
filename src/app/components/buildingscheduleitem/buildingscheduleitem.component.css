@@ -1,11 +1,61 @@
 div.board{
-    background-color: #dbdbdb;
-    border-radius: 4px;
     padding: 10px;
     animation: fadein 2s;
     -moz-animation: fadein 2s; /* Firefox */
     -webkit-animation: fadein 2s; /* Safari and Chrome */
     -o-animation: fadein 2s; /* Opera */
+    border-radius: 9px;
+    background-image: linear-gradient(to right, white, white, white);
+}
+
+
+
+
+.boardheader{
+    /* background-color: darkgrey; */
+    background-image: linear-gradient(to right, white, white , rgb(128, 219, 128));
+    border-radius: 9px;
+}
+.tableboardheader table{
+    background-color: mediumturquoise;
+    border-radius: 9px;
+}
+
+.projectname span{
+    padding: 0.75rem;
+    vertical-align: top;
+}
+
+ul{
+    list-style-type: none;
+    
+}
+
+.itemHolder{
+    margin:0;
+    padding:0;
+}
+
+.scrolldiv{
+    overflow-y: scroll;
+    height: 168.450px;
+}
+
+.itemHolder li{
+    float:left;
+    margin-top:10px;
+    margin-bottom:10px;
+    /* margin-right: 200px; */
+}
+.itemHolder li div{
+    float:left;
+    width:220px;
+    margin-right: 120px;
+}
+
+.pagistyle{
+    background-image: linear-gradient(to right, white, white);
+    border-radius: 9px;
 }
 
 
