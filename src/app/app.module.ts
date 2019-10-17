@@ -65,6 +65,7 @@ import { SkylightformComponent } from './components/skylightform/skylightform.co
 import { Notfound404Component } from './components/notfound404/notfound404.component';
 import { RecentprojectComponent } from './components/recentproject/recentproject.component';
 import { SortbydatePipe } from './pipe/sortbydate.pipe';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { SortbydatePipe } from './pipe/sortbydate.pipe';
     NgxWebstorageModule.forRoot(),
     SuiModule,
     NgbPaginationModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatIconModule
   ],
   providers: [LocationService, ClimateService, 
     WalldoorwindowService, AuthGuard, LoginserviceService,

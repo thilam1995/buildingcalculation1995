@@ -102,14 +102,14 @@
   <div class="col-md-12">
     <mat-horizontal-stepper labelPosition="bottom" #stepper>
       <mat-step>
-        <ng-template matStepLabel>Building Schedule</ng-template>
+        <ng-template matStepLabel matStepperIcon="done">Building Schedule</ng-template>
         <app-schedule></app-schedule>
         <div style="text-align: center">
           <button type="button" color="default" mat-button matStepperNext>Go to Building Model</button>
         </div>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Building Model</ng-template>
+        <ng-template matStepLabel matStepperIcon="done">Building Model</ng-template>
         <app-buildingmodel></app-buildingmodel>
         <div style="text-align: center">
           <button type="button" color="default" mat-button matStepperPrevious>Back to Building Schedule</button>
@@ -117,7 +117,7 @@
         </div>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
+        <ng-template matStepLabel matStepperIcon="done">Done</ng-template>
         You are now done.
         <div style="text-align: center">
           <button class="btn btn-primary" (click)="getcalculate()">Calculate</button>

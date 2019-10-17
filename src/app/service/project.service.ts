@@ -43,6 +43,25 @@ export class ProjectService {
     );
   }
 
+  projectupdatedatemodify(datemodify: string, id: string, userid: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    const bodyobject = {
+      DateModified: datemodify
+    };
+
+    const body = JSON.stringify(bodyobject);
+    return this.http.put<Project>(this.url + "/updatedate/" + `${id}`, body, httpOptions).pipe(map(res => {
+      this.projectfetching(userid);
+    }),
+      catchError(this.handleError)
+    );
+
+  }
+
   projectdelete(projectid: string, id?: string) {
     const httpOptions = {
       headers: new HttpHeaders({

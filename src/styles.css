@@ -41,13 +41,13 @@ div.buildingmodel{
 }
 
 .loginform{
-    background-color: cadetblue;
+    background-color: lightgray;
     border-radius: 4px;
     padding: 10px;
 }
 
 .changeprofileform{
-    background-color: seagreen;
+    background-color: gray;
     border-radius: 4px;
     padding: 10px;
 }

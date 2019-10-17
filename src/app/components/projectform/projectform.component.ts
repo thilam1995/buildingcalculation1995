@@ -18,16 +18,16 @@ export class ProjectformComponent implements OnInit {
 
   constructor(private projectservice: ProjectService, private toastr: ToastrService,
     private loginservice: LoginserviceService) {
-      //this.setDefault();
-      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
+    //this.setDefault();
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
   }
 
   ngOnInit() {
@@ -36,14 +36,17 @@ export class ProjectformComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     let date = new Date();
+    var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+    var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+    const timedatestring = datestring + " - " + timestring;
     if (form.value.projectname) {
+      
       this.project = {
         ProjectName: form.value.projectname,
-        DateCreated: date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString(),
-        DateModified: date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString(),
+        DateCreated: timedatestring,
+        DateModified: timedatestring,
         UserID: this.registeruser.ID
       }
-      console.log(this.project);
 
       this.projectservice.projectposting(this.project, this.registeruser.ID).toPromise().then(res => {
         this.toastr.success("Create Project Successful.", "ProjectForm Message");
@@ -64,7 +67,7 @@ export class ProjectformComponent implements OnInit {
     };
   }
 
-  setDefault(){
+  setDefault() {
     this.registeruser = {
       ID: "",
       FirstName: "",

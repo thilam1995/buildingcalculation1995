@@ -43,19 +43,22 @@ export class BuildingscheduleitemComponent implements OnInit {
     this.fetchingdesigndata();
   }
 
-  fetchingdesigndata(){
+  fetchingdesigndata() {
     this.designservice.designFetching(this.project.id).subscribe(res => {
       this.designsetlist = res;
     }, err => {
       this.toastr.error("Error at fetching", "Error Message");
     });
-    
+
   }
 
 
   renameedit(project) {
     console.log(project);
     let date = new Date();
+    var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+    var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+    const timedatestring = datestring + " - " + timestring;
     if (this.projecttitle === "" || this.projecttitle === null ||
       this.projecttitle === undefined) {
       this.toastr.error("The project title is blank. Please fill out", "Project Message");
@@ -63,8 +66,8 @@ export class BuildingscheduleitemComponent implements OnInit {
       const projectmodel: Project = {
         ProjectName: this.projecttitle,
         DateCreated: this.project.data.DateCreated,
-        DateModified: date.getDate().toString() + "/" + (date.getMonth() + 1).toString() + "/" + date.getFullYear().toString()
-      }
+        DateModified: timedatestring
+      };
       this.projectservice.projectupdate(projectmodel, project.id, this.registeruser.ID).subscribe(x => {
         this.toastr.info("Update project name success!", "Project Message");
         this.projectservice.projectfetching(this.registeruser.ID);
@@ -76,10 +79,25 @@ export class BuildingscheduleitemComponent implements OnInit {
   }
 
   deleteproject(id: string) {
+    let date = new Date();
+    var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+    var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+    const timedatestring = datestring + " - " + timestring;
     if (confirm("Do you want to delete it?") === true) {
       this.projectservice.projectdelete(id, this.registeruser.ID).subscribe(res => {
         this.toastr.info("Delete project success!", "Project Message");
-        this.projectservice.projectfetching(this.registeruser.ID);
+        setTimeout(() => {
+          this.projectservice.projectupdatedatemodify(timedatestring, id, this.registeruser.ID).subscribe(x => {
+            this.toastr.info("Project Date Modify changed!", "Design Message");
+            setTimeout(() => {
+              this.projectservice.projectfetching(this.registeruser.ID);
+            }, 1200);
+          }, err => {
+            this.toastr.error("Something Wrong", "Design Message");
+          })
+
+        }, 1200);
+
       }, err => {
         this.toastr.error("Delete project failed!", "Project Message");
       });
@@ -116,13 +134,29 @@ export class BuildingscheduleitemComponent implements OnInit {
   }
 
   deleteselecteddesign(id: string) {
-    if(confirm("Do you want to remove the selected design set?") === true){
+    let date = new Date();
+    var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+    var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+    const timedatestring = datestring + " - " + timestring;
+    if (confirm("Do you want to remove the selected design set?") === true) {
       this.designservice.deleteselectdesignid(id, this.project.id).subscribe(x => {
-        this.toastr.success("The selected design has been deleted!")
+        this.toastr.success("The selected design has been deleted!");
         setTimeout(() => {
-          this.fetchingdesigndata();
-        }, 1300);
-      }, err =>{
+          this.projectservice.projectupdatedatemodify(timedatestring, id, this.registeruser.ID).subscribe(x => {
+            this.toastr.info("Project Date Modify changed!", "Design Message");
+            setTimeout(() => {
+              this.projectservice.projectfetching(this.registeruser.ID);
+            }, 1200);
+            setTimeout(() => {
+              this.fetchingdesigndata();
+            }, 1300);
+          }, err => {
+            this.toastr.error("Something Wrong", "Design Message");
+          })
+
+        }, 1200);
+
+      }, err => {
         this.toastr.error("Something Wrong!");
         console.log(err);
       });

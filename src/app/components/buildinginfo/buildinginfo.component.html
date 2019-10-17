@@ -1,7 +1,7 @@
 <div class="col-md-12">
   <h1 style="text-align: center">Project: {{projectname}}</h1>
 </div>
-
+<hr class="col-md-12">
 <form class="buildingform" #designform="ngForm" (ngSubmit)="onSubmit(designform)">
   <div class="form-row">
     <div class="form-group col-md-12">
@@ -72,8 +72,8 @@
     </div>
   </div>
 
-  <div class="form-group col-md-12" style="text-align: left;">
-    <button type="submit" mat-button [disabled]="!designform.valid">Complete Design</button>
-    <a mat-button routerLink="/main/{{registeruser.ID}}/project">Back To Project</a>
+  <div class="form-group col-md-12" style="text-align: right;">
+    <button type="submit" class="btn btn-outline-primary" [disabled]="!designform.valid">Complete Design</button>
+    <a class="btn btn-outline-primary" routerLink="/main/{{registeruser.ID}}/project">Back To Project</a>
   </div>
 </form>

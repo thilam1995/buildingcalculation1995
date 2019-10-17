@@ -6,9 +6,11 @@
                 style="margin:0 auto">{{isopen ? "Cancel" : "Create A Project"}}</a>
         </div>
 
+        <hr class="col-md-12" *ngIf="isopen">
         <div class="col-md-12" *ngIf="isopen">
             <app-projectform></app-projectform>
         </div>
+        <hr class="col-md-12">
         <app-buildingschedulelist></app-buildingschedulelist>
     </div>
 </div>

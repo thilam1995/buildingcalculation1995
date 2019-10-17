@@ -2,10 +2,10 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <input type="text" placeholder="Project Name" class="form-control" name="projectname" #projectname="ngModel"
-        [(ngModel)]="project.ProjectName" required>
+        [(ngModel)]="project.ProjectName" maxlength="30" required>
         <div class="validation-error" *ngIf="projectname.invalid && projectname.touched">Please fill your project name.</div>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12" style="text-align: center;">
       <button class="btn btn-primary" [disabled]="projectname.invalid">Create</button>
     </div>
   </div>

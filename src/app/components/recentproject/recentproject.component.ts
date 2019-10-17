@@ -14,25 +14,28 @@ export class RecentprojectComponent implements OnInit {
   searchproject: string = "";
   registeruser: Register;
   registerID: string = "";
+  loading: boolean = false;
   constructor(private projectservice: ProjectService, private loginservice: LoginserviceService,
     public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-    setTimeout(() => {
-      this.loginservice.currentUser.subscribe(x => {
-        if (x === null) {
-          this.registeruser = loginapp;
-        } else {
-          this.registeruser = x;
-        }
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
 
-      });
+    });
+    setTimeout(() => {
+
 
       this.registerID = this.loginservice.currentUserValue.ID;
 
       this.projectservice.projectfetching(this.registerID);
+      this.loading = true;
     }, 1900);
   }
 

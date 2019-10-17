@@ -14,10 +14,10 @@ import { switchMap } from 'rxjs/operators';
 })
 export class BuildingschedulelistComponent implements OnInit {
 
-  buildingschedulelistfilter = [];
   searchproject: string = "";
   registeruser: Register;
   registerID: string = "";
+  loading: boolean = false;
   constructor(private projectservice: ProjectService, private loginservice: LoginserviceService,
     public route: ActivatedRoute) {
 
@@ -44,6 +44,7 @@ export class BuildingschedulelistComponent implements OnInit {
 
 
       this.projectservice.projectfetching(this.registerID);
+      this.loading = true;
     }, 1900);
   }
 

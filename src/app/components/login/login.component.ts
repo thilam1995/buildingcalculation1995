@@ -21,35 +21,35 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute, private loginservice: LoginserviceService,
     private passworddecrypt: PasswordcryptService, private toastr: ToastrService) {
-      if(this.loginservice.currentUserValue){
-        this.router.navigate(["/main/"+`${this.loginservice.currentUserValue.ID}`+"/home"]);
-      }
-     }
+    if (this.loginservice.currentUserValue) {
+      this.router.navigate(["/main/" + `${this.loginservice.currentUserValue.ID}` + "/home"]);
+    }
+  }
 
   ngOnInit() {
     this.resetloginform();
     this.route.queryParams.subscribe(params => {
-      if(this.login.Email === null && this.login.Password === null){
+      if (this.login.Email === null && this.login.Password === null) {
         this.return = this.route.snapshot.queryParams['returnUrl'] || '/';
       }
     });
     // this.setdefault();
   }
 
-  onSubmit(form: NgForm){
-    if(form.value.email && form.value.password){
+  onSubmit(form: NgForm) {
+    if (form.value.email && form.value.password) {
       this.isclicked = true;
-      this.login ={
-        Email: form.value.email,
+      this.login = {
+        Email: form.value.email.toLowerCase(),
         Password: form.value.password
       };
-      this.loginservice.login(this.login).subscribe(res =>{
+      this.loginservice.login(this.login).subscribe(res => {
         //console.log(res);
-        if(Object.keys(res).length === 0) {
+        if (Object.keys(res).length === 0) {
           this.toastr.error("The Account is not available!", "Error Message");
           this.isclicked = false;
-        }else{
-          if(form.value.password === this.passworddecrypt.get('123456$#@$^@1ERF', res.Password)){
+        } else {
+          if (form.value.password === this.passworddecrypt.get('123456$#@$^@1ERF', res.Password)) {
             setTimeout(() => {
               this.loginservice.registermember = {
                 ID: res.ID,
@@ -57,24 +57,24 @@ export class LoginComponent implements OnInit {
                 LastName: res.LastName,
                 Email: res.Email,
                 Password: res.Password
-              }; 
+              };
 
               // localStorage.setItem('currentUser', JSON.stringify(this.loginservice.registermember));
               // localStorage.setItem('login', JSON.stringify(true));
-              if(this.loginservice.currentUserValue.ID === null || this.loginservice.currentUserValue.ID === undefined){
-                this.router.navigate(["/main/"+`${this.loginservice.registermember.ID}`+"/home"]);
-              }else{
-                this.router.navigate(["/main/"+`${this.loginservice.currentUserValue.ID}`+"/home"]);
+              if (this.loginservice.currentUserValue.ID === null || this.loginservice.currentUserValue.ID === undefined) {
+                this.router.navigate(["/main/" + `${this.loginservice.registermember.ID}` + "/home"]);
+              } else {
+                this.router.navigate(["/main/" + `${this.loginservice.currentUserValue.ID}` + "/home"]);
               }
-              
+
 
             }, 2000);
-          }else{
+          } else {
             this.toastr.error("Incorrect Password", "Login Message");
             this.isclicked = false;
           }
         }
-      }, err =>{
+      }, err => {
         console.log(err);
         this.toastr.error(err, "Error Message")
         this.isclicked = false;
@@ -82,14 +82,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  resetloginform(){
+  resetloginform() {
     this.login = {
       Email: "",
       Password: ""
     }
   }
 
-  setdefault(){
+  setdefault() {
     this.loginservice.registermember = {
       ID: "",
       FirstName: "",

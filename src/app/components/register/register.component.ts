@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
         let registermember: Register = {
           FirstName: form.value.firstname,
           LastName: form.value.lastname,
-          Email: form.value.email.toLocaleLowerCase(),
+          Email: form.value.email.toLowerCase(),
           Password: this.passwordencrypt.set('123456$#@$^@1ERF',form.value.password)
         }
         this.loginservice.register(registermember).subscribe(x=>{

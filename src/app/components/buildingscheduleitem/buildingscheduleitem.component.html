@@ -4,7 +4,7 @@
             <tr>
                 <td><span class="projectname" *ngIf="!isedit">{{project.data.ProjectName}}</span>
                     <input type="text" class="form-control" *ngIf="isedit" name="projectname" #projectname="ngModel"
-                        [(ngModel)]="projecttitle">
+                        [(ngModel)]="projecttitle" maxlength="30" required placeholder="Project name">
                 </td>
                 <td>
                     <button class="btn btn-outline-primary" *ngIf="isedit" (click)="renameedit(project)">Update <i
@@ -30,13 +30,12 @@
     <div class="col-md-12">
         <table class="table table-borderless table-hover">
             <tr>
-                <th>Decisions Project</th>
                 <th>Created Date: {{project.data.DateCreated}}</th>
                 <th>Modified Date: {{project.data.DateModified}}</th>
             </tr>
         </table>
     </div>
-    <div class="col-md-12 rounded border border-primary scrolldiv">
+    <div class="col-md-12 rounded border border-primary scrolldiv" *ngIf="designsetlist.length != 0">
 
         <ul class="itemHolder">
             <li *ngFor="let i of designsetlist">
