@@ -2,6 +2,7 @@
 
   <div class="col-md-12">
     <button class="btn btn-primary" (click)="addwalltoggle()">{{display ? "Cancel" : "+ Add Wall"}}</button>
+    <hr class="col-md-12">
     <div *ngIf="display">
       <table class="table table-sm table-hover">
         <tr>
@@ -10,19 +11,22 @@
               [(ngModel)]="wallextendobject.WallSection">
           </td>
           <td>
-            <span>Construction
               <select class="form-control" [(ngModel)]="wallobject" (change)="optionchange()">
+                <option [ngValue]="null">Select Wall...</option>
                 <option *ngFor="let wall of wallservice.walllist" [ngValue]="wall.data">{{wall.data.WallName}}
                 </option>
-              </select></span>
+              </select>
           </td>
           <td>
-            <span>Orientation
-              <select class="form-control" [(ngModel)]="wallextendobject.Orientation">
+              <select class="form-control" [(ngModel)]="wallextendobject.Orientation"
+                aria-placeholder="Please select orientation">
+                <option [ngValue]="null">Select Orientation....</option>
                 <option *ngFor="let orient of orientation" [ngValue]="orient">{{orient}}</option>
               </select>
-            </span>
           </td>
+
+        </tr>
+        <tr>
           <td><input type="text" class="form-control" placeholder="Width" name="width" #width="ngModel"
               [(ngModel)]="wallextendobject.Width" (keyup)="onKeyWidthWall($event)"></td>
           <td><input type="text" class="form-control" placeholder="Height" name="height" #height="ngModel"
@@ -30,6 +34,8 @@
           <td>Area: {{wallextendobject.Area | number: '1.0-2'}}</td>
         </tr>
       </table>
+
+      <hr class="col-md-12">
       <div class="col-md-12">
         <button class="btn btn-primary" (click)="addwindowtoggle()">{{display1 ? "Cancel" : "+ Add Windows"}}</button>
         <div *ngIf="display1">
@@ -51,6 +57,7 @@
               <td><button class="btn btn-primary" (click)="deletewindow(i)">Delete</button></td>
             </tr>
           </table>
+
           <table class="table table-sm table-hover">
             <tr>
               <td><label>Window</label>
@@ -69,6 +76,7 @@
           </table>
         </div>
       </div>
+      <hr class="col-md-12">
       <div class="col-md-12">
         <button class="btn btn-primary" (click)="adddoortoggle()">{{display2 ? "Cancel" : "+ Add Door"}}</button>
         <div *ngIf="display2">
@@ -94,7 +102,9 @@
 
         </div>
       </div>
-      <button class="btn btn-primary" (click)="onSubmitModel()">Complete Wall Model</button>
+      <hr class="col-md-12">
+      <button class="btn btn-primary" (click)="onSubmitModel()"><i class="far fa-check-circle"></i> Complete Wall
+        Model</button>
     </div>
   </div>
 

@@ -1,22 +1,22 @@
 <div class="row">
-        <form class="buildingform col-md-6" #doorform="ngForm" (ngSubmit)="onSubmit(doorform)">
+        <form class="buildingform col-md-4" #doorform="ngForm" (ngSubmit)="onSubmit(doorform)">
                 <input type="hidden" name="id" #id="ngModel" [(ngModel)]="doorobject.ID">
                 <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                                 <input class="form-control" type="text" name="doorName" #doorName="ngModel"
                                         placeholder="Door Name" [(ngModel)]="doorobject.DoorName">
                         </div>
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                                 <input class="form-control" type="text" name="constructionRValue"
                                         #constructionRValue="ngModel" placeholder="Construction R-Value"
                                         [(ngModel)]="doorobject.ConstructionRValue" inputmode="numeric">
                         </div>
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                                 <input class="form-control" type="text" pattern="[0-9]*" name="width" #width="ngModel"
                                         placeholder="Width" [(ngModel)]="doorobject.Width" (keyup)="onKeyWidth($event)"
                                         inputmode="numeric">
                         </div>
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                                 <input class="form-control" type="text" pattern="[0-9]*" name="height" #height="ngModel"
                                         placeholder="Height" [(ngModel)]="doorobject.Height"
                                         (keyup)="onKeyHeight($event)" inputmode="numeric">
@@ -27,13 +27,13 @@
                         <div class="form-group col-md-12">
                                 <button [disabled]="doorobject.DoorName == null || doorobject.ConstructionRValue == null 
                                 || doorobject.Width == null || doorobject.Height == null" class="btn btn-primary"
-                                        type="submit">Complete
+                                        type="submit"><i class="far fa-check-circle"></i> Complete
                                         Door</button>
-                                <button class="btn btn-primary" type="reset">Reset</button>
+                                <button class="btn btn-link btn-sm" style="float: right;" type="reset"><i class="fas fa-redo"></i> Reset</button>
                         </div>
                 </div>
         </form>
-        <table class="table table-sm table-hover col-md-6">
+        <table class="table table-sm table-hover col-md-8">
                 <tr>
                         <th>Door Name</th>
                         <th>R-Value</th>

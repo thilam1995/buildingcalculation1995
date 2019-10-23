@@ -58,7 +58,7 @@ export class BuildingscheduleitemComponent implements OnInit {
     let date = new Date();
     var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
     var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
-    const timedatestring = datestring + " - " + timestring;
+    const timedatestring = datestring;
     if (this.projecttitle === "" || this.projecttitle === null ||
       this.projecttitle === undefined) {
       this.toastr.error("The project title is blank. Please fill out", "Project Message");
@@ -82,7 +82,7 @@ export class BuildingscheduleitemComponent implements OnInit {
     let date = new Date();
     var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
     var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
-    const timedatestring = datestring + " - " + timestring;
+    const timedatestring = datestring;
     if (confirm("Do you want to delete it?") === true) {
       this.projectservice.projectdelete(id, this.registeruser.ID).subscribe(res => {
         this.toastr.info("Delete project success!", "Project Message");
@@ -137,7 +137,7 @@ export class BuildingscheduleitemComponent implements OnInit {
     let date = new Date();
     var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
     var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
-    const timedatestring = datestring + " - " + timestring;
+    const timedatestring = datestring;
     if (confirm("Do you want to remove the selected design set?") === true) {
       this.designservice.deleteselectdesignid(id, this.project.id).subscribe(x => {
         this.toastr.success("The selected design has been deleted!");

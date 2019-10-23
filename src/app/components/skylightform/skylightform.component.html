@@ -2,19 +2,19 @@
     <form class="buildingform col-md-4" #skylightform="ngForm" (ngSubmit)="onSubmitSkylight(skylightform)">
         <input type="hidden" name="id" #id="ngModel" [(ngModel)]="skylightsobject.ID">
         <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <input type="text" name="skylightname" class="form-control" #skylightname="ngModel"
                     [(ngModel)]="skylightsobject.SkylightsName" placeholder="Skylight Name">
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <input type="text" name="constructionrvalue" class="form-control" #constructionrvalue="ngModel"
                     [(ngModel)]="skylightsobject.ConstructionRValue" placeholder="Construction R-Value">
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <input type="text" name="length" class="form-control" #length="ngModel"
                     [(ngModel)]="skylightsobject.Length" placeholder="Length" (keyup)="onKeyLengthSkylight($event)">
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <input type="text" name="width" class="form-control" #width="ngModel"
                     [(ngModel)]="skylightsobject.Width" placeholder="Width" (keyup)="onKeyWidthSkylight($event)">
             </div>
@@ -24,9 +24,9 @@
             <div class="form-group col-md-12">
                 <button [disabled]="skylightsobject.SkylightsName == null || skylightsobject.ConstructionRValue == null ||
                           skylightsobject.Length == null || skylightsobject.Width == null" class="btn btn-primary"
-                    type="submit">Complete
+                    type="submit"><i class="far fa-check-circle"></i> Complete
                     Roof</button>
-                <button class="btn btn-primary" type="reset">Reset</button>
+                <button class="btn btn-link btn-sm" style="float: right;" type="reset"><i class="fas fa-redo"></i> Reset</button>
             </div>
         </div>
     </form>

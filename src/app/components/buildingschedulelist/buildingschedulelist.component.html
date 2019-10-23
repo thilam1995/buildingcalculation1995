@@ -1,8 +1,5 @@
 <div class="col-md-12">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search Project" name="searchpro" #searchpro="ngModel"
-            [(ngModel)]="searchproject">
-    </div>
+
 </div>
 <div class="col-md-12" style="text-align: center" *ngIf="!loading">
     <div class="d-flex justify-content-center">
@@ -12,11 +9,16 @@
     </div>
 </div>
 <div class="col-md-12" *ngIf="loading">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search Project" name="searchpro" #searchpro="ngModel"
+            [(ngModel)]="searchproject">
+    </div>
     <div style="text-align: center" *ngIf="projectservice.projectList.length == 0">
         <span>You currently have no projects.</span>
     </div>
     <div *ngIf="projectservice.projectList.length != 0">
-        <app-buildingscheduleitem *ngFor="let project of projectservice.projectList | sortbydate" [project]="project">
+        <app-buildingscheduleitem *ngFor="let project of projectservice.projectList | projectfilterpipe: searchproject"
+            [project]="project">
         </app-buildingscheduleitem>
     </div>
 

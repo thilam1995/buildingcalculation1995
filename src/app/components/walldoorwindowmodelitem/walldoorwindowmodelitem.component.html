@@ -39,7 +39,9 @@
             <td>
               <span>Construction
                 <select class="form-control" [(ngModel)]="wallobject" [compareWith]="compareFn">
-                  <option *ngFor="let wall of wallservice.walllist" [ngValue]="wall.data">{{wall.data.WallName}}</option>
+                  <option [ngValue]="null">Select Wall...</option>
+                  <option *ngFor="let wall of wallservice.walllist" [ngValue]="wall.data">{{wall.data.WallName}}
+                  </option>
                 </select></span>
             </td>
             <td>
@@ -71,8 +73,8 @@
             <td>{{window.Height | number: '1.0-2'}}</td>
             <td>{{window.ConstructionRValue | number: '1.0-2'}}</td>
             <td>
-                <button class="btn btn-primary" (click)="updatewindowvalue(window)">Update Window</button>
-                <button class="btn btn-primary" (click)="deletewindow(i)">Delete</button></td>
+              <button class="btn btn-primary" (click)="updatewindowvalue(window)">Update Window</button>
+              <button class="btn btn-primary" (click)="deletewindow(i)">Delete</button></td>
           </tr>
           <tr>
             <td><label>Window</label>

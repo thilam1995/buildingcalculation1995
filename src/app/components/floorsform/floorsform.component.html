@@ -1,5 +1,5 @@
 <div class="row">
-    <form class="buildingform col-md-5" #floorform="ngForm" (ngSubmit)="onSubmit(floorform)">
+    <form class="buildingform col-md-4" #floorform="ngForm" (ngSubmit)="onSubmit(floorform)">
         <input type="hidden" name="id" #id="ngModel" [(ngModel)]="floorobject.ID">
         <div class="form-row">
             <div class="form-group col-md-12">
@@ -16,13 +16,13 @@
             </div>
             <div class="form-group col-md-12">
                 <button [disabled]="floorobject.FloorName == null || floorobject.ConstructionRValue == null"
-                    class="btn btn-primary" type="submit">Complete
+                    class="btn btn-primary" type="submit"><i class="far fa-check-circle"></i> Complete
                     Floor</button>
-                <button class="btn btn-primary" type="reset">Reset</button>
+                <button class="btn btn-link btn-sm" style="float: right;" type="reset"><i class="fas fa-redo"></i> Reset</button>
             </div>
         </div>
     </form>
-    <table class="table table-sm table-hover col-md-7">
+    <table class="table table-sm table-hover col-md-8">
         <tr>
             <th>Susp. Floor Name</th>
             <th>R-Value</th>

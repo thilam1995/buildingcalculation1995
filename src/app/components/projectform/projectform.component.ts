@@ -38,7 +38,7 @@ export class ProjectformComponent implements OnInit {
     let date = new Date();
     var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
     var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
-    const timedatestring = datestring + " - " + timestring;
+    const timedatestring = datestring;
     if (form.value.projectname) {
       
       this.project = {

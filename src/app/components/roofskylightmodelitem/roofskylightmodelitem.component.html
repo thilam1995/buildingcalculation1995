@@ -28,10 +28,12 @@
         <table class="table table-sm table-hover">
           <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel"
               [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></td>
-          <td><span>Construction: <select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()"
-                [compareWith]="compareFn">
-                <option *ngFor="let roof of roofskylightservice.rooflist" [ngValue]="roof.data">{{roof.data.RoofName}}</option>
-              </select></span></td>
+          <td><select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()"
+              [compareWith]="compareFn">
+              <option [ngValue]="null">Select Roof...</option>
+              <option *ngFor="let roof of roofskylightservice.rooflist" [ngValue]="roof.data">{{roof.data.RoofName}}
+              </option>
+            </select></td>
           <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel"
               [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></td>
         </table>
@@ -57,7 +59,9 @@
             <td><span>Skylight
                 <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()"
                   [compareWith]="compareFn">
-                  <option *ngFor="let i of roofskylightservice.skylightlist" [ngValue]="i.data">{{i.data.SkylightsName}}</option>
+                  <option [ngValue]="null">Select Skylight...</option>
+                  <option *ngFor="let i of roofskylightservice.skylightlist" [ngValue]="i.data">{{i.data.SkylightsName}}
+                  </option>
                 </select>
               </span></td>
             <td>{{skylightwidth | number: '1.0-2'}}</td>

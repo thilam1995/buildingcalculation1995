@@ -10,11 +10,10 @@
               placeholder="Floor Section" [(ngModel)]="floorextendobject.FloorSection">
           </td>
           <td>
-            <span>Construction
-              <select class="form-control" [(ngModel)]="floorobject">
-                <option *ngFor="let i of floorservice.floorlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
-              </select>
-            </span>
+            <select class="form-control" [(ngModel)]="floorobject">
+              <option [ngValue]="null">Select Floor...</option>
+              <option *ngFor="let i of floorservice.floorlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
+            </select>
           </td>
           <td>
             <input type="text" class="form-control" name="exposedarea" #exposedarea="ngModel" placeholder="Exposed Area"
@@ -22,7 +21,7 @@
           </td>
         </tr>
       </table>
-      <button class="btn btn-primary" (click)="addFieldValue()">Complete Floor Model</button>
+      <button class="btn btn-primary" (click)="addFieldValue()"><i class="far fa-check-circle"></i> Complete Floor Model</button>
     </div>
   </div>
   <div class="col-md-12">

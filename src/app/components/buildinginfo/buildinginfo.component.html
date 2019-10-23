@@ -6,7 +6,7 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <input class="form-control" name="designname" #designname="ngModel" placeholder="Design Name"
-        [(ngModel)]="design.DesignName" required>
+        [(ngModel)]="design.DesignName" required maxlength="25">
       <div class="validation-error" *ngIf="designname.invalid && designname.touched">Please fill design name.</div>
     </div>
     <div class="form-group col-md-12">
@@ -73,7 +73,8 @@
   </div>
 
   <div class="form-group col-md-12" style="text-align: right;">
-    <button type="submit" class="btn btn-outline-primary" [disabled]="!designform.valid">Complete Design</button>
+    <button type="submit" class="btn btn-outline-primary" [disabled]="!designform.valid"><i
+        class="far fa-check-circle"></i> Complete Design</button>
     <a class="btn btn-outline-primary" routerLink="/main/{{registeruser.ID}}/project">Back To Project</a>
   </div>
 </form>

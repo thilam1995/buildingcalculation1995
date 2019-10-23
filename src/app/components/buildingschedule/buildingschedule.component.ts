@@ -105,6 +105,7 @@ export class BuildingscheduleComponent implements OnInit {
         FloorArea: res.data.FloorArea,
         ProjectID: res.data.ProjectID,
         UserID: res.data.UserID,
+        DateUpdate: res.data.DateUpdate,
         DateCreated: res.data.DateCreated,
         Climatetype: res.data.Climatetype,
         City: res.data.City,
@@ -168,7 +169,8 @@ export class BuildingscheduleComponent implements OnInit {
       Climatetype: "",
       City: "",
       StateName: "",
-      StreetName: ""
+      StreetName: "",
+      DateUpdate: ""
     };
 
     this.designobject1 = {
@@ -186,7 +188,8 @@ export class BuildingscheduleComponent implements OnInit {
       Climatetype: "",
       City: "",
       StateName: "",
-      StreetName: ""
+      StreetName: "",
+      DateUpdate: ""
     };
     
     this.doorobject = {
@@ -291,7 +294,8 @@ export class BuildingscheduleComponent implements OnInit {
         Climatetype: "",
         City: "",
         StateName: "",
-        StreetName: ""
+        StreetName: "",
+        DateUpdate: ""
       };
     }
   }
@@ -300,6 +304,11 @@ export class BuildingscheduleComponent implements OnInit {
     if(this.designobject1.DesignID === null){
       this.toastr.error("No Design ID Available", "Error Message")
     }else{
+      let date = new Date();
+      var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+      var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+      const timedatestring = datestring + " - " + timestring;
+      this.designobject1.DateUpdate = timedatestring;
       this.designservice.designUpdating(this.designobject1, this.designobject1.DesignID).subscribe(res =>{
         this.toastr.success("Update Design Successfully", "Success Message");
         this.isedit = false;

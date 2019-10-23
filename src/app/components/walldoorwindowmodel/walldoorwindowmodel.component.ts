@@ -118,16 +118,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       Orientation: null
     };
     this.doorobject = null;
-    this.windowobject = {
-      WindowName: null,
-      ConstructionRValue: 0,
-      Width: null,
-      Height: null,
-      Area: 0,
-      ID: null,
-      OWA: 0,
-      ShadePercent: 0
-    };
+    this.windowobject = null;
     this.wallextendobject = {
       WallSection: null,
       WallName: null,
@@ -137,6 +128,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       Height: null,
       Width: null
     };
+    this.wallobject = null;
   }
 
   addvaluewindow() {
@@ -147,6 +139,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
       this.windowheight = 0;
       this.windowwidth = 0;
       this.rvavluewindow = 0;
+    }else if(this.windowobject === null){
+      this.toastr.error("Error! Window cannot be empty!");
     }
   }
 
@@ -154,6 +148,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
     this.doorheight = 0;
     this.doorwidth = 0;
     this.doorobject = null;
+    this.rvaluedoor = 0;
   }
 
 

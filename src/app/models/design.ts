@@ -9,6 +9,7 @@ export class Design {
     FloorArea: number;
     Climatetype: any;
     DateCreated: string;
+    DateUpdate: string;
     ProjectID?: string;
     UserID?: string;
     StreetName: string;

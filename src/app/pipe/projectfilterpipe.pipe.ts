@@ -5,12 +5,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ProjectfilterpipePipe implements PipeTransform {
 
-  transform(projectlist: any[], searchProject: string): any {
-    if(!projectlist || !searchProject){
+  transform(projectlist: any[], searchproject: string): any {
+    if(!projectlist || !searchproject){
       return projectlist;
     }
     return projectlist.filter(x => 
-      x.data.ProjectName.toLowerCase().indexOf(searchProject.toLowerCase()) !== -1);
+      x.data.ProjectName.toLowerCase().indexOf(searchproject.toLowerCase()) !== -1);
   }
 
 }

@@ -71,6 +71,7 @@ export class BuildinginfoComponent implements OnInit {
       FloorArea: null,
       NumofHabitationroom: null,
       Typology: "",
+      DateUpdate: "",
       DateCreated: "",
       City: "",
       StateName: "",
@@ -85,7 +86,7 @@ export class BuildinginfoComponent implements OnInit {
       let date = new Date();
       var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
       var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
-      const timedatestring = datestring + " - " + timestring;
+      const timedatestring = datestring;
       this.design = {
         DesignName: form.value.designname,
         TargetRating: form.value.targetrating,
@@ -98,6 +99,7 @@ export class BuildinginfoComponent implements OnInit {
         ProjectID: this.projectid,
         UserID: this.registeruser.ID,
         DateCreated: timedatestring,
+        DateUpdate: timedatestring,
         City: form.value.city,
         StateName: form.value.state,
         StreetName: form.value.street

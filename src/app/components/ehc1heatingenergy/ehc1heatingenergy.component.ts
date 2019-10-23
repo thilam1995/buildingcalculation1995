@@ -171,7 +171,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
       Climatetype: "",
       City: "",
       StateName: "",
-      StreetName: ""
+      StreetName: "",
+      DateUpdate: ""
     };
     this.projectobject = {
       ProjectID: "",
@@ -210,7 +211,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
         Climatetype: res.data.Climatetype,
         City: res.data.City,
         StateName: res.data.StateName,
-        StreetName: res.data.StreetName
+        StreetName: res.data.StreetName,
+        DateUpdate: res.data.DateUpdate
       };
       this.location = this.designobject.StreetName + ", " + this.designobject.City + ", " + this.designobject.StateName;
       this.targeting = this.designobject.TargetRating.HomeStar;

@@ -74,11 +74,7 @@ export class FloormodelComponent implements OnInit {
   }
 
   setdefault() {
-    this.floorobject = {
-      FloorName: null,
-      ConstructionRValue: null,
-      Description: null
-    };
+    this.floorobject = null;
 
     this.floorextendobject = {
       FloorSection: null,

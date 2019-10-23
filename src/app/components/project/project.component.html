@@ -2,8 +2,8 @@
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-12" style="text-align: center">
-            <a mat-button (click)="isopen = !isopen"
-                style="margin:0 auto">{{isopen ? "Cancel" : "Create A Project"}}</a>
+            <button class="btn btn-primary" (click)="isopen = !isopen"
+                style="margin:0 auto">{{isopen ? "Cancel" : "Create A Project"}}</button>
         </div>
 
         <hr class="col-md-12" *ngIf="isopen">

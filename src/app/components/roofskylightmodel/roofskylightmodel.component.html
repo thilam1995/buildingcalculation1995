@@ -2,17 +2,20 @@
 
   <div class="col-md-12">
     <button class="btn btn-primary" (click)="addrooftoggle()">{{display ? "Cancel" : "+ Add Roof"}}</button>
+    <hr class="col-md-12">
     <div *ngIf="display">
       <table class="table table-sm table-hover">
         <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel"
             [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></td>
-        <td><span>Construction: <select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()">
+        <td><select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()">
+          <option [ngValue]="null">Please select roof...</option>
               <option *ngFor="let roof of roofskylightservice.rooflist" [ngValue]="roof.data">{{roof.data.RoofName}}
               </option>
-            </select></span></td>
+            </select></td>
         <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel"
             [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></td>
       </table>
+      <hr class="col-md-12">
       <div class="col-md-12">
         <button class="btn btn-primary"
           (click)="addskylighttoggle()">{{display1 ? "Cancel" : "+ Add Skylight"}}</button>
@@ -36,6 +39,7 @@
             <tr>
               <td><span>Skylight
                   <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()">
+                    <option [ngValue]="null">Select Skylights</option>
                     <option *ngFor="let i of roofskylightservice.skylightlist" [ngValue]="i.data">
                       {{i.data.SkylightsName}}</option>
                   </select>
@@ -47,7 +51,8 @@
           </table>
         </div>
       </div>
-      <button class="btn btn-primary" (click)="addFieldValue()">Complete Roof Model</button>
+      <hr class="col-md-12">
+      <button class="btn btn-primary" (click)="addFieldValue()"><i class="far fa-check-circle"></i> Complete Roof Model</button>
     </div>
   </div>
   <div class="col-md-12">
