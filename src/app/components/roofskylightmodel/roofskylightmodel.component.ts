@@ -132,16 +132,12 @@ export class RoofskylightmodelComponent implements OnInit {
       this.skylightobject.Width = Number(this.skylightobject.Width);
       this.skylightobject.ConstructionRValue = Number(this.skylightobject.ConstructionRValue);
       this.skylightmodellist.push(this.skylightobject);
-      this.skylightobject = {
-        Area: 0,
-        ConstructionRValue: null,
-        Length: null,
-        SkylightsName: null,
-        Width: null
-      };
+      this.skylightobject = null;
       this.rvalueskylight = 0;
       this.skylightwidth = 0;
       this.skylightlength = 0;
+    }else if (this.skylightobject === null){
+      this.toastr.error("Skylight cannot be added as null!");
     }
 
   }

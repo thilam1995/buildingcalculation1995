@@ -243,6 +243,8 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       this.windowheight = 0;
       this.windowwidth = 0;
       this.rvavluewindow = 0;
+    }else if(this.windowobject === null){
+      this.toastr.error("Window cannot be null!");
     }
   }
 
