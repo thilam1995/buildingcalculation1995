@@ -1,7 +1,8 @@
 <h1 style="text-align: center;">Start Building Schedule</h1>
 <div style="text-align: center;">
-  <button class="btn btn-primary" routerLink="/main/{{registeruser.ID}}/project">Back To Building Info</button>
-  <button class="btn btn-primary" (click)="toggleedit(designobject)">
+  <button class="btn btn-primary" style="margin: 10px" routerLink="/main/{{registeruser.ID}}/project">Back To Building
+    Info</button>
+  <button class="btn btn-primary" style="margin: 10px" (click)="toggleedit(designobject)">
     <span *ngIf="!isedit"><i class="fas fa-edit"></i>
       Edit</span>
     <span *ngIf="isedit">
