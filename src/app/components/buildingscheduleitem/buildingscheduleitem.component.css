@@ -8,6 +8,15 @@ div.board{
     background-image: linear-gradient(to right, white, white, white);
 }
 
+table tr th{
+    text-align: center;
+    font-size: 100%;
+}
+
+table tr td{
+    text-align: center;
+    font-size: 100%;
+}
 
 .vl {
     border-left: 6px solid green;

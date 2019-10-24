@@ -64,7 +64,7 @@ export class MenuComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onResize(event) {
-    console.log(event.target.innerWidth);
+    //console.log(event.target.innerWidth);
     this.widthscreen = event.target.innerWidth;
     if(this.widthscreen <= 768){
       this.ismobile = true;

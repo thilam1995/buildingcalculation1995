@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { WalldoorwindowService } from 'src/app/service/walldoorwindow.service';
 import { LocationService } from 'src/app/service/location.service';
 import { ClimateService } from 'src/app/service/climate.service';
-import { BuildinginfoserviceService } from 'src/app/service/buildinginfoservice.service';
 import { Buildinginfo } from 'src/app/models/buildinginfo';
 import { Door } from 'src/app/models/door';
 import { WindowObject } from 'src/app/models/windowobject';
@@ -49,16 +48,6 @@ export class BuildingscheduleComponent implements OnInit {
   roofobject: Roof;
   floorobject: Floors;
 
-  // buildingscheduleproposed = {};
-  // roofskylightobject = {};
-  // floorsobject = {};
-
-  // doorobjectlist = [];
-  // windowobjectlist = [];
-  // wallobjectlist = [];
-  // skylightsobjectlist = [];
-  // roofobjectlist = [];
-  // floorobjectlist = [];
 
   wallwindowdoorobjectlist = [];
   floormodelobjectlist = [];
@@ -69,17 +58,19 @@ export class BuildingscheduleComponent implements OnInit {
     private climateservice: ClimateService,
     public route: ActivatedRoute,
     private router: Router, private toastr: ToastrService, private localSt: LocalStorageService,
-    private loginservice: LoginserviceService, private designservice: DesignService) {
+    private loginservice: LoginserviceService, private designservice: DesignService,
+    private wallservice: WalldoorwindowService, private roofskylightservice: RoofskylightService,
+    private floorservice: FloorService) {
     //this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
   }
 
   ngOnInit() {
@@ -92,6 +83,7 @@ export class BuildingscheduleComponent implements OnInit {
     this.locationService.getallLocation();
     this.climateservice.getallhomestarlist();
     this.climateservice.getclimatelist();
+    this.fetchingallhousecomponent();
     this.designservice.getdesignbyID(this.designid).subscribe(res => {
       //console.log(res);
       this.designobject = {
@@ -116,42 +108,19 @@ export class BuildingscheduleComponent implements OnInit {
     }, err => {
       this.toastr.error("Something wrong!", "Error Message");
     });
-    
+
     //this.fetchingdata(this.designid);
   }
 
-  // fetchingdata(designid: string){
-  //   this.wallservice.walllistdata(designid).subscribe(res => {
-  //     this.wallobjectlist = res;
-  //   }, err => {
-  //     this.toastr.error("Something Wrong!", "Error Message");
-  //   });
-  //   this.wallservice.windowlistdata(this.designid).subscribe(res => {
-  //     this.windowobjectlist = res;
-  //   }, err => {
-  //     this.toastr.error("Something wrong", "Error Message!");
-  //   });
-  //   this.wallservice.doorlistdata(this.designid).subscribe(res => {
-  //     this.doorobjectlist = res;
-  //   }, err => {
-  //     this.toastr.error("Something wrong", "Error Message!");
-  //   });
-  //   this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
-  //     this.roofobjectlist = res;
-  //   }, err => {
-  //     this.toastr.error("Something Wrong", "Error Message!");
-  //   });
-  //   this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
-  //     this.skylightsobjectlist = res;
-  //   }, err => {
-  //     this.toastr.error("Something Wrong", "Error Message!");
-  //   });
-  //   this.floorservice.floorlistdata(this.designid).subscribe(res => {
-  //     this.floorobjectlist = res;
-  //   }, err => {
-  //     this.toastr.error("Error! Something Wrong.", "Error Message")
-  //   });
-  // }
+  fetchingallhousecomponent() {
+    this.wallservice.walllistdata(this.designid);
+    this.wallservice.windowlistdata(this.designid);
+    this.wallservice.doorlistdata(this.designid);
+    this.roofskylightservice.rooflistdata(this.designid);
+    this.roofskylightservice.skylightlistdata(this.designid);
+    this.floorservice.floorlistdata(this.designid);
+
+  }
 
   setnulldefault() {
     this.designobject = {
@@ -191,12 +160,12 @@ export class BuildingscheduleComponent implements OnInit {
       StreetName: "",
       DateUpdate: ""
     };
-    
+
     this.doorobject = {
       DesignID: null,
       ID: null,
       ProjectID: null,
-      UserID: null, 
+      UserID: null,
       DoorName: null,
       Area: null,
       ConstructionRValue: null,
@@ -261,24 +230,24 @@ export class BuildingscheduleComponent implements OnInit {
     }
   }
 
-  changeoption1(){
+  changeoption1() {
     console.log(this.designobject1.TargetRating);
   }
 
-  changeoption2(){
+  changeoption2() {
     console.log(this.designobject1);
   }
 
 
   getcalculate() {
-    this.router.navigate(["/main/"+`${this.registeruser.ID}`+"/ehc1heatingenergy"],{ queryParams: { projectid: this.projectid, designid: this.designid } });
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1heatingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 
-  toggleedit(designobject?: Design){
+  toggleedit(designobject?: Design) {
     this.isedit = !this.isedit;
-    if(this.isedit){
+    if (this.isedit) {
       this.designobject1 = Object.assign({}, designobject);
-    }else{
+    } else {
       this.designobject1 = {
         DesignID: "",
         DesignName: "",
@@ -300,29 +269,32 @@ export class BuildingscheduleComponent implements OnInit {
     }
   }
 
-  updatedesign(){
-    if(this.designobject1.DesignID === null){
+  updatedesign() {
+    if (this.designobject1.DesignID === null) {
       this.toastr.error("No Design ID Available", "Error Message")
-    }else{
-      let date = new Date();
-      var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
-      var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
-      const timedatestring = datestring + " - " + timestring;
-      this.designobject1.DateUpdate = timedatestring;
-      this.designservice.designUpdating(this.designobject1, this.designobject1.DesignID).subscribe(res =>{
-        this.toastr.success("Update Design Successfully", "Success Message");
-        this.isedit = false;
-        this.designservice.getdesignbyID(this.designid).subscribe(res => {
-          
-          this.ngOnInit();
+    } else {
+      if (confirm("Are you sure that you want to update the information?") === true) {
+        let date = new Date();
+        var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+        var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+        const timedatestring = datestring + " - " + timestring;
+        this.designobject1.DateUpdate = timedatestring;
+        this.designservice.designUpdating(this.designobject1, this.designobject1.DesignID).subscribe(res => {
+          this.toastr.success("Update Design Successfully", "Success Message");
+          this.isedit = false;
+          this.designservice.getdesignbyID(this.designid).subscribe(res => {
+
+            this.ngOnInit();
+          }, err => {
+            this.toastr.error("Something wrong!", "Error Message");
+          });
         }, err => {
-          this.toastr.error("Something wrong!", "Error Message");
+          this.toastr.error("Something Wrong!", "Error Message")
         });
-      }, err => {
-        this.toastr.error("Something Wrong!", "Error Message")
-      });
+      }
+
     }
-    
+
   }
 
   compareFn(a, b) {
@@ -330,7 +302,7 @@ export class BuildingscheduleComponent implements OnInit {
     return a && b && a.HomeStar == b.HomeStar;
   }
 
-  setdefault(){
+  setdefault() {
     this.loginservice.registermember = {
       ID: "",
       FirstName: "",

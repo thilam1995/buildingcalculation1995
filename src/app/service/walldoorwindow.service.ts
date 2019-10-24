@@ -49,6 +49,9 @@ export class WalldoorwindowService {
       return data as any;
     })).toPromise().then(res =>{
       this.windowlist = res;
+      this.windowlist.sort((a: any, b: any) =>{
+        return (a.data.WindowName > b.data.WindowName) ? 1 : ((b.data.WindowName > a.data.WindowName) ? -1 : 0)
+      });
     }).catch(err => this.handleError);
   }
 
@@ -57,6 +60,9 @@ export class WalldoorwindowService {
       return data as any;
     })).toPromise().then(res =>{
       this.walllist = res;
+      this.walllist.sort((a: any, b: any) =>{
+        return (a.data.WallName > b.data.WallName) ? 1 : ((b.data.WallName > a.data.WallName) ? -1 : 0)
+      });
     }).catch(err => this.handleError);
   }
 
@@ -65,6 +71,9 @@ export class WalldoorwindowService {
       return data as any;
     })).toPromise().then(res =>{
       this.doorlist = res;
+      this.doorlist.sort((a: any, b: any) =>{
+        return (a.data.DoorName > b.data.DoorName) ? 1 : ((b.data.DoorName > a.data.DoorName) ? -1 : 0)
+      });
     }).catch(err => this.handleError);
   }
 

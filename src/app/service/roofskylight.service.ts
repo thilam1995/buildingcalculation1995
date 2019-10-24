@@ -18,35 +18,30 @@ export class RoofskylightService {
 
   constructor(private http: HttpClient) { }
 
-  // rooflistdata(designID: string){
-  //   return this.http.get(this.url1 + "/" + `${designID}`).pipe(map((data: Response) =>{
-  //     return data as any;
-  //   }));
-  // }
 
-  // skylightlistdata(designID: string){
-  //   return this.http.get(this.url2 + "/" + `${designID}`).pipe(map((data: Response) =>{
-  //     return data as any;
-  //   }));
-  // }
-
-  rooflistdata(designID: string){
-    this.http.get(this.url1 + "/" + `${designID}`).pipe(map((data: Response) =>{
+  rooflistdata(designID: string) {
+    this.http.get(this.url1 + "/" + `${designID}`).pipe(map((data: Response) => {
       return data as any;
-    })).toPromise().then(res =>{
+    })).toPromise().then(res => {
       this.rooflist = res;
+      this.rooflist.sort((a: any, b: any) => {
+        return (a.data.RoofName > b.data.RoofName) ? 1 : ((b.data.RoofName > a.data.RoofName) ? -1 : 0)
+      });
     });
   }
 
-  skylightlistdata(designID: string){
-    this.http.get(this.url2 + "/" + `${designID}`).pipe(map((data: Response) =>{
+  skylightlistdata(designID: string) {
+    this.http.get(this.url2 + "/" + `${designID}`).pipe(map((data: Response) => {
       return data as any;
-    })).toPromise().then(res =>{
+    })).toPromise().then(res => {
       this.skylightlist = res;
+      this.skylightlist.sort((a: any, b: any) => {
+        return (a.data.SkylightsName > b.data.SkylightsName) ? 1 : ((b.data.SkylightsName > a.data.SkylightsName) ? -1 : 0)
+      });
     });
   }
 
-  addroof(Roof: Roof, designID?: string){
+  addroof(Roof: Roof, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -58,7 +53,7 @@ export class RoofskylightService {
     }), catchError(this.handleError));
   }
 
-  addskylight(Skylight: Skylights, designID?: string){
+  addskylight(Skylight: Skylights, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -70,7 +65,7 @@ export class RoofskylightService {
     }), catchError(this.handleError));
   }
 
-  updateroof(Roof: Roof, designID?: string){
+  updateroof(Roof: Roof, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -82,7 +77,7 @@ export class RoofskylightService {
     }), catchError(this.handleError));
   }
 
-  updateskylight(Skylight: Skylights, designID?: string){
+  updateskylight(Skylight: Skylights, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -94,7 +89,7 @@ export class RoofskylightService {
     }), catchError(this.handleError));
   }
 
-  deleteroof(id: string, DesignID?: string){
+  deleteroof(id: string, DesignID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -103,7 +98,7 @@ export class RoofskylightService {
     return this.http.delete(this.url1 + "/" + `${id}`, httpOptions).pipe(catchError(this.handleError));
   }
 
-  deleteskylight(id: string, ProjectID?: string){
+  deleteskylight(id: string, ProjectID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -127,5 +122,5 @@ export class RoofskylightService {
     return throwError(
       'Something bad happened; please try again later.');
   };
-  
+
 }

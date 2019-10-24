@@ -40,6 +40,7 @@ export class ScheduleComponent implements OnInit {
     this.roofskylightservice.rooflistdata(this.designid);
     this.roofskylightservice.skylightlistdata(this.designid);
     this.floorservice.floorlistdata(this.designid);
+
   }
 
 }

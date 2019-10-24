@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BuildinginfoserviceService } from 'src/app/service/buildinginfoservice.service';
 import { ProjectService } from 'src/app/service/project.service';
 import { Register } from 'src/app/models/register';
 import { LoginComponent } from '../login/login.component';

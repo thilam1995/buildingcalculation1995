@@ -6,8 +6,10 @@
   <div class="form-group">
     <input type="email" class="form-control mb-4" placeholder="Email" name="email" #email="ngModel"
       [(ngModel)]="login.Email" [email]="true" required>
-    <div class="validation-error" *ngIf="email.invalid && email.touched">Please fill your email.</div>
-    <div class="validation-error" *ngIf="email.error?.email">Email is invalid</div>
+    <div class="validation-error" *ngIf="email.invalid && email.touched">Please fill your email.
+      <div class="validation-error" *ngIf="email.errors.required">Email is required</div>
+      <div class="validation-error" *ngIf="email.errors.email">Email must be a valid email address</div>
+    </div>
   </div>
   <div class="form-group">
     <input type="password" class="form-control  mb-4" placeholder="Password" name="password" #password="ngModel"

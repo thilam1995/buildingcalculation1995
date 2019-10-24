@@ -60,8 +60,8 @@ export class WindowformComponent implements OnInit {
       Height: null,
       Area: null,
       ID: null,
-      OWA: null,
-      ShadePercent: null,
+      OWA: 0,
+      ShadePercent: 0,
       DesignID: null,
       ProjectID: null,
       UserID: null

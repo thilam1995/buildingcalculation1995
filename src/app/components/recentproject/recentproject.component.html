@@ -12,8 +12,9 @@
         <span>You currently have no projects.</span>
         <br>
         <div class="col-md-12" style="text-align: center">
-            <a class="btn btn-outline-primary" (click)="isopen = !isopen"
-                style="margin:0 auto">{{isopen ? "Cancel" : "Create A Project"}}</a>
+            <a class="btn btn-outline-primary" (click)="isopen = !isopen" style="margin:0 auto"><i
+                    class="fas fa-plus-square" *ngIf="!isopen"></i><i class="fas fa-ban" *ngIf="isopen"></i>
+                {{isopen ? "Cancel" : "Create A Project"}}</a>
         </div>
         <hr class="col-md-12" *ngIf="isopen">
         <div class="col-md-12" *ngIf="isopen">
