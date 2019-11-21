@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-md-12">
+        <form class="buildingform" #roomform="ngForm" (ngSubmit)="onSubmit(roomform)">
+            <div class="form-row">
+                <legend>Customize Room</legend>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" placeholder="Room ID" name="roomid" #roomid="ngModel"
+                        [(ngModel)]="room.RoomID">
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" placeholder="Room Area" name="roomarea" #roomarea="ngModel"
+                        [(ngModel)]="room.RoomArea">
+                </div>
+
+                <legend>Adding Windows</legend>
+                <div class="form-group col-md-6">
+                    <legend>Windows ID</legend>
+                    <select class="form-control" name="windowid" #windowid="ngModel" [(ngModel)]="room.WindowID">
+                        <option [ngValue]="null">Please Select Windows...</option>
+                        <option *ngFor="let i of wallservice.windowlist" [ngValue]="i.data">{{i.data.WindowName}} - {{i.data.Area}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <legend>Orientation</legend>
+                    <select name="orient" class="form-control" #orient="ngModel" [(ngModel)]="room.Orientation">
+                        <option [ngValue]="null">Select Orientation...</option>
+                        <option *ngFor="let i of orientation" [ngValue]="i">{{i}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <legend>Safely Secure</legend>
+                    <select name="safesecure" class="form-control" #safesecure="ngModel"
+                        [(ngModel)]="room.IsSafelysecure">
+                        <option [ngValue]="false">No</option>
+                        <option [ngValue]="true">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <legend>Shading</legend>
+                    <select name="shading" class="form-control" #shading="ngModel" [(ngModel)]="room.IsShading">
+                        <option [ngValue]="false">No</option>
+                        <option [ngValue]="true">Yes</option>
+                    </select>
+                </div>
+
+                <div class="col-md-12">
+                    <button class="btn btn-primary" style="float: right;" type="submit"><i
+                            class="far fa-check-circle"></i> Complete
+                        Room</button>
+                    <button class="btn btn-link btn-sm" style="float: right;" type="reset"><i class="fas fa-redo"></i>
+                        Reset</button>
+                </div>
+
+
+                <div class="form-group col-md-12">
+                    <legend>Window List</legend>
+                    <table class="table table-sm table-hover">
+                        <tr>
+                            <th>Window ID</th>
+                            <th>Orientation</th>
+                            <th>Safely Secure</th>
+                            <th>Shading</th>
+                            <th>Option</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td> <button class="btn btn-danger" type="button" matTooltip="Delete"><i
+                                        class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

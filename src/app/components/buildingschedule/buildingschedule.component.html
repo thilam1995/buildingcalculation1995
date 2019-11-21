@@ -125,7 +125,8 @@
           building model.
         </p>
         <div style="text-align: center">
-          <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Go to Building Model <i
+          <button type="button" color="default" class="btn btn-primary btn-lg"
+            [disabled]="floorservice.floorlist.length === 0" matStepperNext>Go to Room Breakdown <i
               class="fas fa-arrow-right"></i></button>
         </div>
         <app-schedule></app-schedule>
@@ -139,11 +140,13 @@
         </p>
         <div style="text-align: center">
           <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext><i
-              class="far fa-check-circle"></i> Finish</button>
+            class="far fa-check-circle"></i> Finish</button>
         </div>
         <app-buildingmodel></app-buildingmodel>
 
       </mat-step>
+
+
       <mat-step>
         <ng-template matStepLabel matStepperIcon="done">Done & Start Calculate</ng-template>
         <div style="text-align: center">

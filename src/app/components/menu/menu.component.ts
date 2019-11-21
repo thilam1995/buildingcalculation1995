@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Register } from 'src/app/models/register';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +19,8 @@ export class MenuComponent implements OnInit, OnDestroy, OnChanges {
   ismobile: boolean = false;
   
   currentUserSubscription: Subscription;
-  constructor(private loginservice: LoginserviceService, private router: Router) {
+  constructor(private loginservice: LoginserviceService, private router: Router,
+    private toastr: ToastrService) {
     this.widthscreen = window.screen.width;
     this.setdefault();
     //console.log(this.loginapp);
@@ -44,8 +46,11 @@ export class MenuComponent implements OnInit, OnDestroy, OnChanges {
 
 
   logout() {
-    this.loginservice.logout();
-    this.router.navigate(['/login']);
+    this.toastr.warning("You are about to sign out! Please Wait...");
+    setTimeout(() => {
+      this.loginservice.logout();
+      this.router.navigate(['/login']);
+    }, 2000);
   }
 
   ngOnDestroy() {

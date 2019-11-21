@@ -38,6 +38,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
   windowobject: WindowObject;
   wallwindowdoormodel: Wallwindowdoormodel;
   windowobjectmodellist = [];
+  doorobjectmodellist = [];
 
   registeruser: Register;
 
@@ -149,7 +150,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       this.wallwindowdoormodel = {
         Wall: this.wallextendobject,
         Window: this.windowobjectmodellist,
-        Door: this.doorobject,
+        Door: this.doorobjectmodellist,
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
@@ -235,6 +236,10 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     }else if(this.windowobject === null){
       this.toastr.error("Window cannot be null!");
     }
+  }
+
+  addvaluedoor(){
+    
   }
 
 

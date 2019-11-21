@@ -598,10 +598,11 @@ export class Ehc1heatingenergyComponent implements OnInit {
     let date = new Date();
     let stringdate: string = "";
     stringdate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + "_" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds();
+    this.toastr.info("Please wait until finishing rendering!");
     html2canvas(document.querySelector('#content'),
       { scale: 2 }
     ).then(canvas => {
-
+      
       let pdf = new jsPDF('p', 'mm', 'a4'), margin = {
         top: 40,
         bottom: 60,
@@ -613,6 +614,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
         // y coord
         width: margin.width // max width of content on PDF
       }, dispose => {
+        this.toastr.success("Rendering Completed!");
         pdf.save(stringdate);
       }, margin)
     });

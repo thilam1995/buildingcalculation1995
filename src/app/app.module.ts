@@ -66,6 +66,11 @@ import { Notfound404Component } from './components/notfound404/notfound404.compo
 import { RecentprojectComponent } from './components/recentproject/recentproject.component';
 import { SortbydatePipe } from './pipe/sortbydate.pipe';
 import {MatIconModule} from '@angular/material/icon';
+import { RoombreakdownComponent } from './components/roombreakdown/roombreakdown.component';
+import { CoolingenergyresultComponent } from './components/coolingenergyresult/coolingenergyresult.component';
+import { PassiveventilationComponent } from './components/passiveventilation/passiveventilation.component';
+import { NaturallightingComponent } from './components/naturallighting/naturallighting.component';
+import { RoombreakdownitemComponent } from './components/roombreakdownitem/roombreakdownitem.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +111,12 @@ import {MatIconModule} from '@angular/material/icon';
     SkylightformComponent,
     Notfound404Component,
     RecentprojectComponent,
-    SortbydatePipe
+    SortbydatePipe,
+    RoombreakdownComponent,
+    CoolingenergyresultComponent,
+    PassiveventilationComponent,
+    NaturallightingComponent,
+    RoombreakdownitemComponent
   ],
   imports: [
     BrowserModule,

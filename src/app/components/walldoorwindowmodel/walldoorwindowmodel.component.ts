@@ -29,7 +29,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
   windowobject: WindowObject;
   wallwindowdoormodel: Wallwindowdoormodel;
   windowobjectmodellist = [];
-
+  doorobjectmodellist = [];
 
   wallwidth = 0;
   wallheight = 0;
@@ -223,7 +223,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       this.wallwindowdoormodel = {
         Wall: this.wallextendobject,
         Window: this.windowobjectmodellist,
-        Door: this.doorobject,
+        Door: this.doorobjectmodellist,
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID

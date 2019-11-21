@@ -5,7 +5,7 @@ export class Wallwindowdoormodel {
     ID?: string;
     Wall: WallExtend;
     Window: Array<any>;
-    Door: Door;
+    Door: Array<any>;
     ProjectID?: string;
     DesignID?: string;
     UserID?: string;
