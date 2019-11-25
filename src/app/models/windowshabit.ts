@@ -1,6 +1,5 @@
 export class Windowshabit {
-    WindowID: string;
-    WindowArea: number;
+    WindowID: any;
     Orientation: string;
     IsSafelysecure: Boolean;
     IsShading: Boolean;

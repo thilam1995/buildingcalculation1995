@@ -1,17 +1,68 @@
 <div class="row">
 
-  <div class="col-md-12">
+  <div class="col-md-5">
     <button class="btn btn-primary" (click)="addrooftoggle()">{{display ? "Cancel" : "+ Add Roof"}}</button>
-    <hr class="col-md-12">
+    <form class="buildingform" *ngIf="display">
+      <div class="form-row">
+        <legend>Roof</legend>
+        <div class="form-group col-md-6"><input type="text" class="form-control" name="roofsection"
+            #roofsection="ngModel" [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></div>
+        <div class="form-group col-md-6"> <select class="form-control" [(ngModel)]="roofobject"
+            (change)="optionchange3()" name="Roofobject" #Roofobject="ngModel">
+            <option [ngValue]="null">Please select roof...</option>
+            <option *ngFor="let roof of roofskylightservice.rooflist" [ngValue]="roof.data">{{roof.data.RoofName}}
+            </option>
+          </select></div>
+        <div class="form-group col-md-12"><input type="text" class="form-control" name="exposedearea"
+            #exposedearea="ngModel" [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></div>
+        <div class="form-group col-md-12">
+          <button class="btn btn-primary"
+            (click)="addskylighttoggle()">{{display1 ? "Cancel" : "+ Add Skylight"}}</button>
+        </div>
+
+        <legend *ngIf="display1">Skylight</legend>
+        <div *ngIf="display1" class="form-group col-md-12">
+
+          <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()" name="Skylightobject"
+            #Skylightobject="ngModel">
+            <option [ngValue]="null">Select Skylights</option>
+            <option *ngFor="let i of roofskylightservice.skylightlist" [ngValue]="i.data">
+              {{i.data.SkylightsName}}</option>
+          </select>
+        </div>
+        <div *ngIf="display1" class="form-group col-md-12">
+          <table class="table table-sm table-hover">
+            <tr>
+              <th>Skylight ID</th>
+              <th>Width</th>
+              <th>Length</th>
+              <th>R-Value</th>
+              <th>Option</th>
+            </tr>
+            <tr *ngFor="let iskylight of skylightmodellist; let i = index">
+              <td>{{iskylight.SkylightsName}}</td>
+              <td>{{iskylight.Width | number: '1.0-2'}}</td>
+              <td>{{iskylight.Length | number: '1.0-2'}}</td>
+              <td>{{iskylight.ConstructionRValue | number: '1.0-2'}}</td>
+              <td>
+                <button class="btn btn-primary" (click)="deleteFieldValueSkylight(i)">Delete</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
+
+    <!-- <hr class="col-md-12">
     <div *ngIf="display">
       <table class="table table-sm table-hover">
         <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel"
             [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></td>
         <td><select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()">
-          <option [ngValue]="null">Please select roof...</option>
-              <option *ngFor="let roof of roofskylightservice.rooflist" [ngValue]="roof.data">{{roof.data.RoofName}}
-              </option>
-            </select></td>
+            <option [ngValue]="null">Please select roof...</option>
+            <option *ngFor="let roof of roofskylightservice.rooflist" [ngValue]="roof.data">{{roof.data.RoofName}}
+            </option>
+          </select></td>
         <td><input type="text" class="form-control" name="exposedearea" #exposedearea="ngModel"
             [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></td>
       </table>
@@ -52,10 +103,11 @@
         </div>
       </div>
       <hr class="col-md-12">
-      <button class="btn btn-primary" (click)="addFieldValue()"><i class="far fa-check-circle"></i> Complete Roof Model</button>
-    </div>
+      <button class="btn btn-primary" (click)="addFieldValue()"><i class="far fa-check-circle"></i> Complete Roof
+        Model</button>
+    </div> -->
   </div>
-  <div class="col-md-12">
+  <div class="col-md-7 overflowdiv">
     <app-roofskylightmodelitem *ngFor="let i of buildingmodelservice.roofskylightmodellist" [i]="i">
     </app-roofskylightmodelitem>
   </div>

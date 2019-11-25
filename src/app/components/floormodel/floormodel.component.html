@@ -1,33 +1,29 @@
 <div class="row">
 
-  <div class="col-md-12">
+  <div class="col-md-5">
     <button class="btn btn-primary" (click)="addfloortoggle()">{{display ? "Cancel" : "+ Add Floor"}}</button>
     <div *ngIf="display">
-      <table class="table table-sm table-hover">
-        <tr>
-          <td>
-            <input type="text" class="form-control" name="floorsection" #floorsection="ngModel"
-              placeholder="Floor Section" [(ngModel)]="floorextendobject.FloorSection">
-          </td>
-          <td>
-            <select class="form-control" [(ngModel)]="floorobject">
+      <form class="buildingform">
+        <div class="form-row">
+          <div class="form-group col-md-6"><input type="text" class="form-control" name="floorsection"
+              #floorsection="ngModel" placeholder="Floor Section" [(ngModel)]="floorextendobject.FloorSection"></div>
+          <div class="form-group col-md-6"> <select class="form-control" name="Floorobject" [(ngModel)]="floorobject">
               <option [ngValue]="null">Select Floor...</option>
               <option *ngFor="let i of floorservice.floorlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
-            </select>
-          </td>
-          <td>
-            <input type="text" class="form-control" name="exposedarea" #exposedarea="ngModel" placeholder="Exposed Area"
-              [(ngModel)]="floorextendobject.ExposedArea">
-          </td>
-        </tr>
-      </table>
-      <button class="btn btn-primary" (click)="addFieldValue()"><i class="far fa-check-circle"></i> Complete Floor Model</button>
+            </select></div>
+          <div class="form-group col-md-12"> <input type="text" class="form-control" name="exposedarea"
+              #exposedarea="ngModel" placeholder="Exposed Area" [(ngModel)]="floorextendobject.ExposedArea"></div>
+        </div>
+        <div class="form-group col-md-12">
+          <button class="btn btn-primary col-md-12" (click)="addFieldValue()"><i class="far fa-check-circle"></i>
+            Complete Floor Model</button>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="col-md-12">
+
+  <div class="col-md-7 overflowdiv">
     <app-floormodelitem *ngFor="let flooritem of buildingmodelservice.floormodellist" [flooritem]="flooritem">
     </app-floormodelitem>
   </div>
-
-
 </div>

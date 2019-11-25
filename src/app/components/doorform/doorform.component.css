@@ -1,9 +1,19 @@
 table tr th{
     text-align: center;
     font-size: 100%;
+    vertical-align: middle;
+    padding: 15px;
 }
 
 table tr td{
     text-align: center;
     font-size: 100%;
+    vertical-align: middle;
+    padding: 15px;
+}
+
+.overflowdiv{
+    height: 272.800px;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: scroll; /* Add vertical scrollbar */
 }

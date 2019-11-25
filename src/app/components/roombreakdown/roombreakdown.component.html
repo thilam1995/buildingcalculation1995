@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <form class="buildingform" #roomform="ngForm" (ngSubmit)="onSubmit(roomform)">
             <div class="form-row">
                 <legend>Customize Room</legend>
@@ -15,14 +15,16 @@
                 <legend>Adding Windows</legend>
                 <div class="form-group col-md-6">
                     <legend>Windows ID</legend>
-                    <select class="form-control" name="windowid" #windowid="ngModel" [(ngModel)]="room.WindowID">
+                    <select class="form-control" name="windowid" [(ngModel)]="windowsobjectprop"
+                        (change)="getwindownameandarea()">
                         <option [ngValue]="null">Please Select Windows...</option>
-                        <option *ngFor="let i of wallservice.windowlist" [ngValue]="i.data">{{i.data.WindowName}} - {{i.data.Area}}</option>
+                        <option *ngFor="let i of wallservice.windowlist" [ngValue]="i.data">{{i.data.WindowName}} -
+                            Area: {{i.data.Area  | number: '1.0-2'}} m2</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <legend>Orientation</legend>
-                    <select name="orient" class="form-control" #orient="ngModel" [(ngModel)]="room.Orientation">
+                    <select name="orient" class="form-control" #orient="ngModel" [(ngModel)]="windowhabit.Orientation">
                         <option [ngValue]="null">Select Orientation...</option>
                         <option *ngFor="let i of orientation" [ngValue]="i">{{i}}</option>
                     </select>
@@ -30,20 +32,22 @@
                 <div class="form-group col-md-6">
                     <legend>Safely Secure</legend>
                     <select name="safesecure" class="form-control" #safesecure="ngModel"
-                        [(ngModel)]="room.IsSafelysecure">
-                        <option [ngValue]="false">No</option>
-                        <option [ngValue]="true">Yes</option>
+                        [(ngModel)]="windowhabit.IsSafelysecure">
+                        <option *ngFor="let boo of booleanlist" [ngValue]="boo">{{boo ? "Yes" : "No"}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <legend>Shading</legend>
-                    <select name="shading" class="form-control" #shading="ngModel" [(ngModel)]="room.IsShading">
-                        <option [ngValue]="false">No</option>
-                        <option [ngValue]="true">Yes</option>
+                    <select name="shading" class="form-control" #shading="ngModel" [(ngModel)]="windowhabit.IsShading">
+                        <option *ngFor="let boo of booleanlist" [ngValue]="boo">{{boo ? "Yes" : "No"}}</option>
                     </select>
                 </div>
+                <div class="form-group col-md-12">
+                    <button type="button" class="btn btn-primary" style="float: right;" (click)="addwindowhabit()"><i
+                            class="far fa-check-circle"></i> Add Window</button>
+                </div>
 
-                <div class="col-md-12">
+                <div class="form-group col-md-12">
                     <button class="btn btn-primary" style="float: right;" type="submit"><i
                             class="far fa-check-circle"></i> Complete
                         Room</button>
@@ -62,12 +66,12 @@
                             <th>Shading</th>
                             <th>Option</th>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td> <button class="btn btn-danger" type="button" matTooltip="Delete"><i
+                        <tr *ngFor="let i of windowhabitlist, let in = index">
+                            <td>{{i.WindowID.Name}}</td>
+                            <td>{{i.IsSafelysecure ? "Yes" : "No"}}</td>
+                            <td>{{i.IsShading ? "Yes" : "No"}}</td>
+                            <td>{{i.Orientation}}</td>
+                            <td><button class="btn btn-danger" type="button" (click)="deletewindowhabit(in)" matTooltip="Delete"><i
                                         class="fas fa-trash-alt"></i></button></td>
                         </tr>
                     </table>
@@ -75,6 +79,9 @@
             </div>
 
         </form>
+    </div>
+    <div class="col-md-6">
+        <app-roombreakdownitem *ngFor="let i of roomserv.roomlist"></app-roombreakdownitem>
     </div>
 
 </div>

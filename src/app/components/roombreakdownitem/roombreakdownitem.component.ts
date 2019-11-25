@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoomserviceService } from 'src/app/service/roomservice.service';
 
 @Component({
   selector: 'app-roombreakdownitem',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoombreakdownitemComponent implements OnInit {
 
-  constructor() { }
+  constructor(private roomserv: RoomserviceService) { }
 
   ngOnInit() {
   }

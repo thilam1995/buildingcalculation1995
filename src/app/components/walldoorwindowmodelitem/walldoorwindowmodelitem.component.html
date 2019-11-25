@@ -1,18 +1,15 @@
-<div class="col-md-12 card">
-  <div class="col-md-12">
+  <div>
     <table class="table table-sm bluetablehead">
       <tr>
         <th>Wall Section: {{i.data.Wall.WallSection}}</th>
         <th>Wall Name: {{i.data.Wall.WallName}}</th>
         <th>Width: {{i.data.Wall.Width | number: '1.0-2'}}m</th>
-        <th>Height: {{i.data.Wall.Height | number: '1.0-2'}}m</th>
-        <th>Area: {{i.data.Wall.Area | number: '1.0-2'}} m2</th>
-        <th>Orientation: {{i.data.Wall.Orientation}}</th>
-        <th *ngIf="!isedit"><button class="btn btn-primary"
+
+        <th rowspan="2" *ngIf="!isedit"><button class="btn btn-primary"
             (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></th>
         <th *ngIf="!isedit"><button class="btn btn-primary" (click)="selecttoEdit(i)">Edit</button>
         </th>
-        <th *ngIf="isedit">
+        <th rowspan="2" *ngIf="isedit">
           <button class="btn btn-primary" (click)="onCancel()">Cancel</button>
           <button class="btn btn-primary" (click)="updateselectedmodel(i.id)">
             Save
@@ -20,9 +17,14 @@
           <button class="btn btn-primary" (click)="deleleselectmodel(i.id)">Delete</button>
         </th>
       </tr>
+      <tr>
+        <th>Height: {{i.data.Wall.Height | number: '1.0-2'}}m</th>
+        <th>Area: {{i.data.Wall.Area | number: '1.0-2'}} m2</th>
+        <th>Orientation: {{i.data.Wall.Orientation}}</th>
+      </tr>
     </table>
 
-    <div class="col-md-12" *ngIf="isdisplay">
+    <div *ngIf="isdisplay">
       <div>
         <app-heatloss [i]="i">
         </app-heatloss>
@@ -110,6 +112,3 @@
 
     </div>
   </div>
-
-
-</div>

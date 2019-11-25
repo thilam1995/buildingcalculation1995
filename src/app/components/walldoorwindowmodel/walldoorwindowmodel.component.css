@@ -5,4 +5,16 @@
 
 table tr th{
     text-align: center;
+    font-size: 90%;
+}
+
+table tr td{
+    text-align: center;
+    font-size: 100%;
+}
+
+.overflowdiv{
+    height: 272.800px;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: scroll; /* Add vertical scrollbar */
 }
