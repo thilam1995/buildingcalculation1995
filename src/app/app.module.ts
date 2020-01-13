@@ -71,6 +71,10 @@ import { CoolingenergyresultComponent } from './components/coolingenergyresult/c
 import { PassiveventilationComponent } from './components/passiveventilation/passiveventilation.component';
 import { NaturallightingComponent } from './components/naturallighting/naturallighting.component';
 import { RoombreakdownitemComponent } from './components/roombreakdownitem/roombreakdownitem.component';
+import { ResultcarouselComponent } from './components/resultcarousel/resultcarousel.component';
+import { NaturallightingitemComponent } from './components/naturallightingitem/naturallightingitem.component';
+import { RoomfilterPipe } from './pipe/roomfilter.pipe';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -116,7 +120,10 @@ import { RoombreakdownitemComponent } from './components/roombreakdownitem/roomb
     CoolingenergyresultComponent,
     PassiveventilationComponent,
     NaturallightingComponent,
-    RoombreakdownitemComponent
+    RoombreakdownitemComponent,
+    ResultcarouselComponent,
+    NaturallightingitemComponent,
+    RoomfilterPipe
   ],
   imports: [
     BrowserModule,
@@ -136,7 +143,9 @@ import { RoombreakdownitemComponent } from './components/roombreakdownitem/roomb
     SuiModule,
     NgbPaginationModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule,
+    MatRadioModule
   ],
   providers: [LocationService, ClimateService, 
     WalldoorwindowService, AuthGuard, LoginserviceService,

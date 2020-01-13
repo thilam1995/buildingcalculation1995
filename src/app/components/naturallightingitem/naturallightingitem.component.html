@@ -1,0 +1,40 @@
+<div class="row" *ngIf="i.data.RoomID != 'Bathroom'">
+    <div class="col-md-12">
+        <table class="table table-sm">
+            <tr>
+                <th>Room Type</th>
+                <th>Total Window Area</th>
+                <th>Room Floor Area</th>
+                <th>Shading Level</th>
+                <th>Natural Lighting Requirement</th>
+                <th>Natural Lighting Achieved</th>
+                <th>HomeStar Compliance</th>
+            </tr>
+            <tr>
+                <td>{{i.data.RoomID}}</td>
+                <td>{{totalwindowarea | number: '1.0-2'}}</td>
+                <td>{{i.data.RoomArea | number: '1.0-2'}}</td>
+                <td>{{shadelevel}}</td>
+                <td>>{{naturallightrequire * 100  | number: '1.0-2'}} %</td>
+                <td [ngStyle]="{'color': (totalwindowarea / i.data.RoomArea) >= naturallightrequire ? 'lime' : 'red'}">{{(totalwindowarea / i.data.RoomArea) * 100 | number: '1.0-2'}} %</td>
+                <td [ngStyle]="{'color': (totalwindowarea / i.data.RoomArea) >= naturallightrequire ? 'lime' : 'red'}" style="font-weight: bold;">{{(totalwindowarea / i.data.RoomArea) >= naturallightrequire ? "PASS" : "FAIL"}}</td>
+                <td><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></td>
+            </tr>
+
+
+        </table>
+
+        <table class="table table-sm" *ngIf="isdisplay">
+            <tr>
+                <th>Window ID</th>
+                <th>Window Area</th>
+                <th>Shading (?)</th>
+            </tr>
+            <tr *ngFor="let z of i.data.WindowList">
+                <td>{{z.WindowID.Name}}</td>
+                <td>{{z.WindowID.Area}}</td>
+                <td>{{z.IsShading ? "Shaded" : "Unshaded"}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

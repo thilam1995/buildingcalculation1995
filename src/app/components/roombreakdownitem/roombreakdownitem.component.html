@@ -2,11 +2,114 @@
     <div class="col-md-12">
         <table class="table table-sm bluetablehead">
             <tr>
-                <th>Room ID: </th>
-                <th>Room Area</th>
-                <th><button class="btn btn-primary">Show</button></th>
-                <th><button class="btn btn-primary">Edit</button></th>
+                <th>Room ID: {{i.data.RoomID}}</th>
+                <th>Room Area: {{i.data.RoomArea}} m2</th>
+                <th><button class="btn btn-primary"
+                        (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></th>
+                <th *ngIf="!isedit"><button class="btn btn-primary" (click)="onEdit(i)">Edit</button></th>
+                <th *ngIf="isedit"><button class="btn btn-primary" (click)="onCancel()">Cancel</button>
+                    <button class="btn btn-danger" (click)="onDelete(i.id)">Delete</button>
+                    <button class="btn btn-primary" (click)="onUpdate(i.id)">Save</button>
+                </th>
             </tr>
         </table>
+    </div>
+    <div class="col-md-12" *ngIf="isdisplay">
+        <table class="table table-sm" *ngIf="i.data.WindowList.length != 0">
+            <tr>
+                <th>WindowID</th>
+                <th>Area</th>
+                <th>Orientation</th>
+                <th>Safely Secured</th>
+                <th>Shading</th>
+            </tr>
+            <tr *ngFor="let window of i.data.WindowList">
+                <td>{{window.WindowID.Name}}</td>
+                <td>{{window.WindowID.Area}}</td>
+                <td>{{window.Orientation}}</td>
+                <td>{{window.IsSafelysecure ? "Yes" : "No"}}</td>
+                <td>{{window.IsShading  ? "Yes" : "No"}}</td>
+            </tr>
+        </table>
+        <h1 style="text-align: center;" *ngIf="i.data.WindowList.length == 0">No Windows display!</h1>
+    </div>
+    <div class="col-md-12" *ngIf="isedit">
+        <form class="buildingform" #roomform="ngForm">
+            <div class="form-row">
+                <legend>Customize Room</legend>
+                <div class="form-group col-md-6">
+                    <mat-checkbox  name="habitable" #habitable="ngModel" [(ngModel)]="ishabitable">Is the room habitable?
+                    </mat-checkbox>
+                </div>
+                <div class="form-group col-md-6">
+                    <select class="form-control" placeholder="Room ID" name="roomid" #roomid="ngModel"
+                        [(ngModel)]="room.RoomID">
+                        <option [ngValue]="null">Please Select Room...</option>
+                        <option *ngFor="let x of roomserv.roomtypelist | roomfilter: ishabitable" [ngValue]="x.roomtype">{{x.roomtype}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control" placeholder="Room Area" name="roomarea" #roomarea="ngModel"
+                        [(ngModel)]="room.RoomArea">
+                </div>
+
+                <legend>Adding Windows</legend>
+                <div class="form-group col-md-6">
+                    <legend>Windows ID</legend>
+                    <select class="form-control" name="windowid" [(ngModel)]="windowsobjectprop"
+                        (change)="getwindownameandarea()">
+                        <option *ngFor="let i of wallservice.windowlist" [ngValue]="i.data">{{i.data.WindowName}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <legend>Orientation</legend>
+                    <select name="orient" class="form-control" #orient="ngModel" [(ngModel)]="windowhabit.Orientation">
+                        <option [ngValue]="null">Select Orientation...</option>
+                        <option *ngFor="let i of orientation" [ngValue]="i">{{i}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <legend>Safely Secure</legend>
+                    <select name="safesecure" class="form-control" #safesecure="ngModel"
+                        [(ngModel)]="windowhabit.IsSafelysecure">
+                        <option *ngFor="let boo of booleanlist" [ngValue]="boo">{{boo ? "Yes" : "No"}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <legend>Shading</legend>
+                    <select name="shading" class="form-control" #shading="ngModel" [(ngModel)]="windowhabit.IsShading">
+                        <option *ngFor="let boo of booleanlist" [ngValue]="boo">{{boo ? "Yes" : "No"}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="button" class="btn btn-primary" style="float: right;" (click)="addwindowhabit()"><i
+                            class="far fa-check-circle"></i> Add Window</button>
+                </div>
+
+
+                <div class="form-group col-md-12">
+                    <legend>Window List</legend>
+                    <table class="table table-sm table-hover">
+                        <tr>
+                            <th>Window ID</th>
+                            <th>Orientation</th>
+                            <th>Safely Secure</th>
+                            <th>Shading</th>
+                            <th>Option</th>
+                        </tr>
+                        <tr *ngFor="let i of windowhabitlist, let in = index">
+                            <td>{{i.WindowID.Name}}</td>
+                            <td>{{i.Orientation}}</td>
+                            <td>{{i.IsSafelysecure ? "Yes" : "No"}}</td>
+                            <td>{{i.IsShading ? "Yes" : "No"}}</td>
+                            
+                            <td><button class="btn btn-danger" type="button" (click)="deletewindowhabit(in)"
+                                    matTooltip="Delete"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </form>
     </div>
 </div>

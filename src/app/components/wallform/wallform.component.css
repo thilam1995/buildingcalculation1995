@@ -1,7 +1,7 @@
 table tr th{
     text-align: center;
     font-size: 100%;
-    padding: 15px;
+    padding: 3px;
     vertical-align: middle;
 }
 
@@ -10,7 +10,7 @@ table tr td{
     font-size: 100%;
     word-wrap: break-word;
     max-width: 160px;
-    padding: 15px;
+    padding: 3px;
     vertical-align: middle;
 }
 

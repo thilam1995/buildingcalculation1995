@@ -2,7 +2,7 @@ table tr th{
     text-align: center;
     font-size: 100%;
     vertical-align: middle;
-    padding: 15px;
+    padding: 3px;
 }
 
 table tr td{
@@ -11,7 +11,7 @@ table tr td{
     word-wrap: break-word;
     max-width: 160px;
     vertical-align: middle;
-    padding: 15px;
+    padding: 3px;
 }
 
 .overflowdiv{

@@ -104,7 +104,7 @@ export class FloormodelitemComponent implements OnInit {
   }
 
   compareFn(a, b) {
-    //console.log(JSON.stringify(a) + " " + JSON.stringify(b));
+    console.log(JSON.stringify(a) + " " + JSON.stringify(b));
     return a && b && a.FloorName === b.FloorName && a.ConstructionRValue === b.ConstructionRValue;
   }
 

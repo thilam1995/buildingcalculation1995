@@ -2,14 +2,14 @@ table tr th{
     text-align: center;
     font-size: 100%;
     vertical-align: middle;
-    padding: 15px;
+    padding: 3px;
 }
 
 table tr td{
     text-align: center;
     font-size: 100%;
     vertical-align: middle;
-    padding: 15px;
+    padding: 3px;
 }
 
 .overflowdiv{

@@ -2,8 +2,14 @@
   <h1 style="text-align: center">Project: {{projectname}}</h1>
 </div>
 <hr class="col-md-12">
+<div class="col-md-12" style="text-align: center">
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="selectoption">
+    <mat-radio-button *ngFor="let option of designoption" [value]="option">{{option == "filldesign" ? "Fill Design" : "Choose Existed Design"}}</mat-radio-button>
+  </mat-radio-group>
+</div>
+<hr class="col-md-12">
 <form class="buildingform" #designform="ngForm" (ngSubmit)="onSubmit(designform)">
-  <div class="form-row">
+  <div class="form-row" *ngIf="selectoption == 'filldesign'">
     <div class="form-group col-md-12">
       <input class="form-control" name="designname" #designname="ngModel" placeholder="Design Name"
         [(ngModel)]="design.DesignName" required maxlength="25">
@@ -43,9 +49,9 @@
       <div class="validation-error" *ngIf="city.invalid && city.touched">Please fill your city name.</div>
     </div>
     <div class="form-group col-md-4">
-      <input class="form-control" name="state" #state="ngModel" placeholder="State" [(ngModel)]="design.StateName"
+      <input class="form-control" name="postcode" #postcode="ngModel" placeholder="Post Code" [(ngModel)]="design.Postcode"
         required>
-      <div class="validation-error" *ngIf="state.invalid && state.touched">Please fill state first name.</div>
+      <div class="validation-error" *ngIf="postcode.invalid && postcode.touched">Please fill postcode name.</div>
     </div>
     <div class="form-group col-md-6">
       <input class="form-control" type="text" name="drawingset" #drawingset="ngModel" placeholder="Drawing Set"
@@ -71,10 +77,17 @@
         number of rooms.</div>
     </div>
   </div>
-
+  <div class="form-row" *ngIf="selectoption == 'selectexisted'">
+    <div class="form-group col-md-12">
+      <select class="form-control" name="designselect" #designselect="ngModel" [(ngModel)]="designSelect">
+        <option [ngValue]="null">Please select the existed design...</option>
+        <option *ngFor="let i of designsetlist" [ngValue]="i.data">{{i.data.DesignName}}</option>
+      </select>
+    </div>
+  </div>
   <div class="form-group col-md-12" style="text-align: right;">
     <button type="submit" class="btn btn-outline-primary" [disabled]="!designform.valid"><i
-        class="far fa-check-circle"></i> Complete Design</button>
+        class="far fa-check-circle"></i> Save</button>
     <a class="btn btn-outline-primary" routerLink="/main/{{registeruser.ID}}/project">Back To Project</a>
   </div>
 </form>

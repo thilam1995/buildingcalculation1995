@@ -64,7 +64,7 @@ export class RoofformComponent implements OnInit {
     if (form.value.id === null) {
       this.roofobject = {
         Description: form.value.description,
-        ConstructionRValue: form.value.constructionrvalue,
+        ConstructionRValue: Number(form.value.constructionrvalue),
         RoofName: form.value.roofname,
         DesignID: this.designid,
         ProjectID: this.projectid,
@@ -96,17 +96,18 @@ export class RoofformComponent implements OnInit {
       this.roofobject = {
         ID: form.value.id,
         Description: form.value.description,
-        ConstructionRValue: form.value.constructionrvalue,
+        ConstructionRValue: Number(form.value.constructionrvalue),
         RoofName: form.value.roofname,
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
       };
       this.roofskylightservice.updateroof(this.roofobject).subscribe(res => {
-        this.toastr.success("Updated skylight!", "Error Message!");
+        this.toastr.success("Updated Roof!", "Success Message!");
         this.updateroofmodel(this.designid, this.roofobject);
         setTimeout(() => {
           this.fetchingroof();
+          form.reset();
         }, 1500);
       }, err => {
         this.toastr.error("Something wrong!", "Error Message!");

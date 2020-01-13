@@ -1,0 +1,20 @@
+{
+    "Roomtypelist": [
+        {
+            "roomtype" : "Living Room",
+            "ishabitable" : true
+        },
+        {
+            "roomtype" : "Bedroom",
+            "ishabitable" : true
+        },
+        {
+            "roomtype" : "Bathroom",
+            "ishabitable" : false
+        },
+        {
+            "roomtype" : "Studioroom",
+            "ishabitable" : true
+        }
+    ]
+}

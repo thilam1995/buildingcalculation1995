@@ -6,7 +6,6 @@ export class WindowObject {
     Height: number;
     OWA: number;
     Area: number;
-    ShadePercent: number;
     DesignID?: string;
     ProjectID?: string;
     UserID?: string;

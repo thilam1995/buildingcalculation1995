@@ -14,5 +14,5 @@ export class Design {
     UserID?: string;
     StreetName: string;
     City: string;
-    StateName: string;
+    Postcode: string;
 }

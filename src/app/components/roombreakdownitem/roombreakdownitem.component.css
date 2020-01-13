@@ -1,8 +1,14 @@
 .bluetablehead{
-    background-color: darkcyan;
-    color: white;
+    background-color: ghostwhite;
+    color: hotpink;
 }
 
 table tr th{
     text-align: center;
+    font-size: 100%;
+}
+
+table tr td{
+    text-align: center;
+    font-size: 100%;
 }

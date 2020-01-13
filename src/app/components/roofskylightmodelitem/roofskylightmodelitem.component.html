@@ -25,7 +25,7 @@
       </div>
 
       <div class="col-md-12" *ngIf="isedit">
-        <table class="table table-sm table-hover">
+        <!-- <table class="table table-sm table-hover">
           <td><input type="text" class="form-control" name="roofsection" #roofsection="ngModel"
               [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></td>
           <td><select class="form-control" [(ngModel)]="roofobject" (change)="optionchange3()"
@@ -69,7 +69,53 @@
             <td>{{rvalueskylight | number: '1.0-2'}}</td>
             <td><button class="btn btn-primary" (click)="addvalueskylight()">Add Skylight</button></td>
           </tr>
-        </table>
+        </table> -->
+        <form class="buildingform">
+          <div class="form-row">
+            <legend>Roof</legend>
+            <div class="form-group col-md-6"><input type="text" class="form-control" name="roofsection"
+                #roofsection="ngModel" [(ngModel)]="roofextendobject.RoofSection" placeholder="Roof Section"></div>
+            <div class="form-group col-md-6">
+              <select class="form-control" [(ngModel)]="roofobject" name="Roofobject" #Roofobject="ngModel"
+                [compareWith]="compareFn">
+                <option *ngFor="let roof of roofskylightservice.rooflist" [ngValue]="roof.data">{{roof.data.RoofName}}
+                </option>
+              </select></div>
+            <div class="form-group col-md-12"><input type="text" class="form-control" name="exposedearea"
+                #exposedearea="ngModel" [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></div>
+
+            <legend>Skylight</legend>
+            <div class="form-group col-md-12">
+
+              <select class="form-control" [(ngModel)]="skylightobject" (change)="optionchange()" name="Skylightobject"
+                #Skylightobject="ngModel">
+                <option [ngValue]="null">Select Skylights</option>
+                <option *ngFor="let i of roofskylightservice.skylightlist" [ngValue]="i.data">
+                  {{i.data.SkylightsName}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-12">
+              <table class="table table-sm table-hover">
+                <tr>
+                  <th>Skylight ID</th>
+                  <th>Width</th>
+                  <th>Length</th>
+                  <th>R-Value</th>
+                  <th>Option</th>
+                </tr>
+                <tr *ngFor="let iskylight of skylightmodellist; let i = index">
+                  <td>{{iskylight.SkylightsName}}</td>
+                  <td>{{iskylight.Width | number: '1.0-2'}}</td>
+                  <td>{{iskylight.Length | number: '1.0-2'}}</td>
+                  <td>{{iskylight.ConstructionRValue | number: '1.0-2'}}</td>
+                  <td>
+                    <button class="btn btn-primary" (click)="deleteskylight(i)">Delete</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

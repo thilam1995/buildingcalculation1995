@@ -1,13 +1,26 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <form class="buildingform" #roomform="ngForm" (ngSubmit)="onSubmit(roomform)">
             <div class="form-row">
                 <legend>Customize Room</legend>
                 <div class="form-group col-md-6">
+                    <mat-checkbox  name="habitable" #habitable="ngModel" [(ngModel)]="ishabitable">Is the room habitable?
+                    </mat-checkbox>
+                </div>
+                <div class="form-group col-md-6">
+                    <!-- <input type="text" class="form-control" placeholder="Room ID" name="roomid" #roomid="ngModel"
+                        [(ngModel)]="room.RoomID"> -->
+                    <select class="form-control" placeholder="Room Type" name="roomtype" #roomtype="ngModel"
+                        [(ngModel)]="room.RoomType">
+                        <option [ngValue]="null">Please Select Room...</option>
+                        <option *ngFor="let x of roomserv.roomtypelist | roomfilter: ishabitable" [ngValue]="x.roomtype">{{x.roomtype}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
                     <input type="text" class="form-control" placeholder="Room ID" name="roomid" #roomid="ngModel"
                         [(ngModel)]="room.RoomID">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <input type="text" class="form-control" placeholder="Room Area" name="roomarea" #roomarea="ngModel"
                         [(ngModel)]="room.RoomArea">
                 </div>
@@ -18,8 +31,8 @@
                     <select class="form-control" name="windowid" [(ngModel)]="windowsobjectprop"
                         (change)="getwindownameandarea()">
                         <option [ngValue]="null">Please Select Windows...</option>
-                        <option *ngFor="let i of wallservice.windowlist" [ngValue]="i.data">{{i.data.WindowName}} -
-                            Area: {{i.data.Area  | number: '1.0-2'}} m2</option>
+                        <option *ngFor="let i of wallservice.windowlist" [ngValue]="i.data">{{i.data.WindowName}}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -48,15 +61,6 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                    <button class="btn btn-primary" style="float: right;" type="submit"><i
-                            class="far fa-check-circle"></i> Complete
-                        Room</button>
-                    <button class="btn btn-link btn-sm" style="float: right;" type="reset"><i class="fas fa-redo"></i>
-                        Reset</button>
-                </div>
-
-
-                <div class="form-group col-md-12">
                     <legend>Window List</legend>
                     <table class="table table-sm table-hover">
                         <tr>
@@ -71,17 +75,24 @@
                             <td>{{i.IsSafelysecure ? "Yes" : "No"}}</td>
                             <td>{{i.IsShading ? "Yes" : "No"}}</td>
                             <td>{{i.Orientation}}</td>
-                            <td><button class="btn btn-danger" type="button" (click)="deletewindowhabit(in)" matTooltip="Delete"><i
-                                        class="fas fa-trash-alt"></i></button></td>
+                            <td><button class="btn btn-danger" type="button" (click)="deletewindowhabit(in)"
+                                    matTooltip="Delete"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>
                     </table>
+                </div>
+                <div class="form-group col-md-12">
+                    <button class="btn btn-primary" style="float: right;" type="submit"><i
+                            class="far fa-check-circle"></i> Complete
+                        Room</button>
+                    <button class="btn btn-link btn-sm" style="float: right;" type="reset"><i class="fas fa-redo"></i>
+                        Reset</button>
                 </div>
             </div>
 
         </form>
     </div>
-    <div class="col-md-6">
-        <app-roombreakdownitem *ngFor="let i of roomserv.roomlist"></app-roombreakdownitem>
+    <div class="col-md-7">
+        <app-roombreakdownitem *ngFor="let i of roomserv.roomlist" [i]="i"></app-roombreakdownitem>
     </div>
 
 </div>

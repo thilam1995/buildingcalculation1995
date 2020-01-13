@@ -101,8 +101,8 @@ export class BuildingscheduleComponent implements OnInit {
         DateCreated: res.data.DateCreated,
         Climatetype: res.data.Climatetype,
         City: res.data.City,
-        StateName: res.data.StateName,
-        StreetName: res.data.StreetName
+        StreetName: res.data.StreetName,
+        Postcode: res.data.Postcode
       };
       console.log(this.designobject);
     }, err => {
@@ -137,9 +137,9 @@ export class BuildingscheduleComponent implements OnInit {
       DateCreated: "",
       Climatetype: "",
       City: "",
-      StateName: "",
       StreetName: "",
-      DateUpdate: ""
+      DateUpdate: "",
+      Postcode: ""
     };
 
     this.designobject1 = {
@@ -156,9 +156,9 @@ export class BuildingscheduleComponent implements OnInit {
       DateCreated: "",
       Climatetype: "",
       City: "",
-      StateName: "",
       StreetName: "",
-      DateUpdate: ""
+      DateUpdate: "",
+      Postcode: ""
     };
 
     this.doorobject = {
@@ -191,7 +191,6 @@ export class BuildingscheduleComponent implements OnInit {
       Area: null,
       ID: null,
       OWA: null,
-      ShadePercent: 0,
       DesignID: null,
       ProjectID: null,
       UserID: null
@@ -239,8 +238,20 @@ export class BuildingscheduleComponent implements OnInit {
   }
 
 
-  getcalculate() {
+  getcalculateheatloss() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1heatingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  getcalculatenaturallighting() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1naturallightingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  getcalculatecoolingenergy() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1coolingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+  
+  getcalculatepassive() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 
   toggleedit(designobject?: Design) {
@@ -262,9 +273,9 @@ export class BuildingscheduleComponent implements OnInit {
         DateCreated: "",
         Climatetype: "",
         City: "",
-        StateName: "",
         StreetName: "",
-        DateUpdate: ""
+        DateUpdate: "",
+        Postcode: ""
       };
     }
   }

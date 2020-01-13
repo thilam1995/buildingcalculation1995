@@ -56,8 +56,8 @@
       </tr>
       <tr>
         <th>Address</th>
-        <td *ngIf="designobject.StreetName != null && designobject.City != null && designobject.StateName != null">
-          {{designobject.StreetName}}, {{designobject.City}}, {{designobject.StateName}}</td>
+        <td *ngIf="designobject.StreetName != null && designobject.City != null && designobject.Postcode != null">
+          {{designobject.StreetName}}, {{designobject.City}}, {{designobject.Postcode}}</td>
       </tr>
     </table>
   </div>
@@ -80,8 +80,8 @@
         </td>
         <td><input type="text" class="form-control" name="city" #city="ngModel" [(ngModel)]="designobject1.City"
             placeholder="Completed By" required matTooltip="City"></td>
-        <td><input type="text" class="form-control" name="state" #state="ngModel" [(ngModel)]="designobject1.StateName"
-            placeholder="Completed By" required matTooltip="State"></td>
+        <td><input type="text" class="form-control" name="postcode" #postcode="ngModel" [(ngModel)]="designobject1.Postcode"
+            placeholder="Completed By" required matTooltip="Postcode"></td>
       </tr>
       <tr>
         <td><select class="form-control" name="targetRating" #targetRating="ngModel"
@@ -140,7 +140,7 @@
         </p>
         <div style="text-align: center">
           <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext><i
-            class="far fa-check-circle"></i> Finish</button>
+              class="far fa-check-circle"></i> Finish</button>
         </div>
         <app-buildingmodel></app-buildingmodel>
 
@@ -150,7 +150,14 @@
       <mat-step>
         <ng-template matStepLabel matStepperIcon="done">Done & Start Calculate</ng-template>
         <div style="text-align: center">
-          <button class="btn btn-primary" (click)="getcalculate()"><i class="fas fa-calculator"></i> Calculate</button>
+          <button class="btn btn-danger" (click)="getcalculateheatloss()"><i class="fas fa-calculator"></i> Heat Loss
+            Calculate 🌡</button>
+          <button class="btn btn-primary" (click)="getcalculatecoolingenergy()"><i class="fas fa-calculator"></i> Cooling
+            Calculate 🌬</button>
+          <button class="btn btn-warning" (click)="getcalculatenaturallighting()"><i class="fas fa-calculator"></i> Natural Lighting
+            Calculate ☀</button>
+          <button class="btn btn-success" (click)="getcalculatepassive()"><i class="fas fa-calculator"></i> Passive Ventilation
+            Calculate 🌫</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>

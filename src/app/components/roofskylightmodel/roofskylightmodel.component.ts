@@ -99,7 +99,7 @@ export class RoofskylightmodelComponent implements OnInit {
       ProjectID: null,
       UserID: null,
     };
-
+    this.skylightmodellist = [];
   }
 
   addrooftoggle() {
@@ -126,34 +126,45 @@ export class RoofskylightmodelComponent implements OnInit {
     }
   }
 
-  addvalueskylight() {
-    if (this.skylightobject) {
-      this.skylightobject.Length = Number(this.skylightobject.Length);
-      this.skylightobject.Width = Number(this.skylightobject.Width);
-      this.skylightobject.ConstructionRValue = Number(this.skylightobject.ConstructionRValue);
-      this.skylightmodellist.push(this.skylightobject);
-      this.skylightobject = null;
-      this.rvalueskylight = 0;
-      this.skylightwidth = 0;
-      this.skylightlength = 0;
-    }else if (this.skylightobject === null){
-      this.toastr.error("Skylight cannot be added as null!");
-    }
+  // addvalueskylight() {
+  //   if (this.skylightobject) {
+  //     this.skylightobject.Length = Number(this.skylightobject.Length);
+  //     this.skylightobject.Width = Number(this.skylightobject.Width);
+  //     this.skylightobject.ConstructionRValue = Number(this.skylightobject.ConstructionRValue);
+  //     this.skylightmodellist.push(this.skylightobject);
+  //     this.skylightobject = null;
+  //     this.rvalueskylight = 0;
+  //     this.skylightwidth = 0;
+  //     this.skylightlength = 0;
+  //   }else if (this.skylightobject === null){
+  //     this.toastr.error("Skylight cannot be added as null!");
+  //   }
 
-  }
+  // }
 
 
   optionchange() {
-    this.skylightwidth = this.skylightobject.Width;
-    this.skylightlength = this.skylightobject.Length;
-    this.rvalueskylight = this.skylightobject.ConstructionRValue;
+    if (this.skylightobject) {
+      this.skylightwidth = this.skylightobject.Width;
+      this.skylightlength = this.skylightobject.Length;
+      this.rvalueskylight = this.skylightobject.ConstructionRValue;
+      this.skylightmodellist.push(this.skylightobject);
+      setTimeout(() => {
+        this.skylightobject = null;
+        this.skylightwidth = 0;
+        this.skylightlength = 0;
+        this.rvalueskylight = 0;
+      }, 200);
+      
+    } else if (this.skylightobject === null) {
+      this.skylightwidth = 0;
+      this.skylightlength = 0;
+      this.rvalueskylight = 0;
+    }
   }
 
-  optionchange3() {
-    console.log(this.roofobject);
-  }
 
-  addFieldValue() {
+  onSubmitModel() {
 
     this.roofextendobject.RoofName = this.roofobject.RoofName;
     this.roofextendobject.ConstructionRValue = Number(this.roofobject.ConstructionRValue);

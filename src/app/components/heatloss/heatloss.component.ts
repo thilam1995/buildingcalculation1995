@@ -33,15 +33,18 @@ export class HeatlossComponent implements OnInit {
     }
 
 
-    if(this.i.data.hasOwnProperty("Door")){
-      if(this.i.data.Door){
-        if(this.i.data.Door.Area){
-          this.grossdoorarea += Number(this.i.data.Door.Area);
-        }
-      }else{
+    if (this.i.data.hasOwnProperty("Door")) {
+      if (this.i.data.Door.length !== 0) {
+        this.i.data.Door.forEach(e => {
+          console.log(e);
+          this.grossdoorarea += Number(e.Area);
+        });
+      } else {
         this.grossdoorarea = 0;
       }
+
     }
+
 
     this.grosswindowdoorarea = this.grosswindowarea + this.grossdoorarea;
 

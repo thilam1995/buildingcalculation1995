@@ -18,6 +18,7 @@ export class RoombreakdownComponent implements OnInit {
 
   windowhabitlist = [];
   room: Room;
+  ishabitable:boolean = true;
   windowhabit: Windowshabit;
   orientation = ["North", "South", "East", "West"];
 
@@ -49,10 +50,12 @@ export class RoombreakdownComponent implements OnInit {
   ngOnInit() {
     this.setDefault();
     this.roomserv.getallroombydesignid(this.designid);
+    this.fetchingdata();
   }
 
-  fetchingwindowdata(){
+  fetchingdata(){
     this.wallservice.windowlistdata(this.designid);
+    this.roomserv.getallroomtypelist();
   }
 
   addwindowhabit() {
@@ -89,25 +92,46 @@ export class RoombreakdownComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     console.log(form.value);
-    if(this.room.ID === null){
-      this.room = {
-        RoomID: form.value.roomid,
-        RoomArea: Number(form.value.roomarea),
-        WindowList: this.windowhabitlist,
-        DesignID: this.designid,
-        ProjectID: this.projectid,
-        UserID: this.registeruser.ID
-      };
-      console.log(this.room);
-      this.roomserv.postingroom(this.room, this.designid).subscribe(x =>{
-        this.toastr.success("Insert new room successfully", "Info Message");
-        this.setDefault();
-      }, err => {
-        this.toastr.error("Insert new model failed", "Info Message");
-      })
+    if(this.windowhabitlist.length === 0){
+      if(confirm("There is no window! Are you sure you want to add new habitable room?") === true){
+        if(this.room.ID === null){
+          this.room = {
+            RoomID: form.value.roomid,
+            RoomType: form.value.roomtype,
+            RoomArea: Number(form.value.roomarea),
+            WindowList: this.windowhabitlist,
+            DesignID: this.designid,
+            ProjectID: this.projectid,
+            UserID: this.registeruser.ID
+          };
+          this.roomserv.postingroom(this.room, this.designid).subscribe(x =>{
+            this.toastr.success("Insert new room successfully", "Info Message");
+            this.setDefault();
+          }, err => {
+            this.toastr.error("Insert new model failed", "Info Message");
+          })
+        }
+      }
     }else{
-
+      if(this.room.ID === null){
+        this.room = {
+          RoomID: form.value.roomid,
+          RoomType: form.value.roomtype,
+          RoomArea: Number(form.value.roomarea),
+          WindowList: this.windowhabitlist,
+          DesignID: this.designid,
+          ProjectID: this.projectid,
+          UserID: this.registeruser.ID
+        };
+        this.roomserv.postingroom(this.room, this.designid).subscribe(x =>{
+          this.toastr.success("Insert new room successfully", "Info Message");
+          this.setDefault();
+        }, err => {
+          this.toastr.error("Insert new model failed", "Info Message");
+        })
+      }
     }
+
   }
 
   setDefault() {
@@ -115,7 +139,11 @@ export class RoombreakdownComponent implements OnInit {
       ID: null,
       RoomArea: null,
       RoomID: null,
-      WindowList: []
+      WindowList: [],
+      RoomType: null,
+      DesignID: null,
+      ProjectID: null,
+      UserID: null
     };
     this.windowhabitlist = [];
     this.windowhabit = {

@@ -14,6 +14,9 @@ import { BuildinginfoComponent } from './components/buildinginfo/buildinginfo.co
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { SettingComponent } from './components/setting/setting.component';
 import { Notfound404Component } from './components/notfound404/notfound404.component';
+import { CoolingenergyresultComponent } from './components/coolingenergyresult/coolingenergyresult.component';
+import { NaturallightingComponent } from './components/naturallighting/naturallighting.component';
+import { PassiveventilationComponent } from './components/passiveventilation/passiveventilation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,10 +27,14 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent, data: { title: "Home" } },
       { path: 'project', component: ProjectComponent, data: { title: "Project" } },
       // { path: 'buildingschedulelist', component: BuildingschedulelistComponent, data: { title: "Building Schedule List" } },
-      { path: 'ehc1heatingenergy', component: Ehc1heatingenergyComponent, data: { title: "Heating Energy Result" } },
+      
       { path: 'createdesign/:projectid', component: BuildinginfoComponent, data: { title: "Create a design" } },
       { path: 'buildingschedule', component: BuildingscheduleComponent, data: { title: 'Building Schedule' } },
-      { path: 'setting', data: {title: 'Setting'}, component: SettingComponent}
+      { path: 'setting', data: {title: 'Setting'}, component: SettingComponent},
+      { path: 'ehc1heatingenergy', component: Ehc1heatingenergyComponent, data: { title: "Heating Energy Result 🌡" } },
+      { path: 'ehc1coolingenergy', component: CoolingenergyresultComponent, data: { title: "Cooling Energy Result 🌬" } },
+      { path: 'ehc1naturallightingenergy', component: NaturallightingComponent, data: { title: "Natural Lighting Result ☀" } },
+      { path: 'ehc1passiveventilation', component: PassiveventilationComponent, data: { title: "Passive Ventilation Result 🌫" } },
     ]
   },
   { path: 'register', component: RegisterComponent, data: { title: "Register" } },

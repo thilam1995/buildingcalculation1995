@@ -170,9 +170,9 @@ export class Ehc1heatingenergyComponent implements OnInit {
       UserID: "",
       Climatetype: "",
       City: "",
-      StateName: "",
       StreetName: "",
-      DateUpdate: ""
+      DateUpdate: "",
+      Postcode: ""
     };
     this.projectobject = {
       ProjectID: "",
@@ -186,7 +186,6 @@ export class Ehc1heatingenergyComponent implements OnInit {
   featchingmodel() {
 
     this.projectservice.getprojectid(this.projectid).subscribe(x => {
-      console.log(x);
       this.projectobject = {
         ProjectID: x.id,
         ProjectName: x.data.ProjectName,
@@ -210,11 +209,11 @@ export class Ehc1heatingenergyComponent implements OnInit {
         UserID: res.data.UserID,
         Climatetype: res.data.Climatetype,
         City: res.data.City,
-        StateName: res.data.StateName,
         StreetName: res.data.StreetName,
-        DateUpdate: res.data.DateUpdate
+        DateUpdate: res.data.DateUpdate,
+        Postcode: res.data.Postcode
       };
-      this.location = this.designobject.StreetName + ", " + this.designobject.City + ", " + this.designobject.StateName;
+      this.location = this.designobject.StreetName + ", " + this.designobject.City + ", " + this.designobject.Postcode;
       this.targeting = this.designobject.TargetRating.HomeStar;
       this.climatezone = this.designobject.Climatetype;
       this.targetingschedule = this.designobject.TargetRating.ClimateZoneList.find(x => x.ClimateZone === this.climatezone);
@@ -255,10 +254,10 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.windowdistinct.sort();
 
       for (let i of this.wallwindowdoormodellist) {
-        if (i.data.Door !== null) {
-          if (i.data.Door.hasOwnProperty("DoorName")) {
-            this.doornamelist.push(i.data.Door.DoorName);
-          }
+        if (i.data.Door.length !== 0) {
+          i.data.Door.forEach(e => {
+            this.doornamelist.push(e.DoorName);
+          });
         }
       }
       this.doordistinct = Array.from(new Set(this.doornamelist.map((x: any) =>
@@ -309,12 +308,19 @@ export class Ehc1heatingenergyComponent implements OnInit {
               }
             }
 
-            if (i.data.Door !== null) {
-              totaldoor += i.data.Door.Area;
-              if (Number.isNaN(totaldoor)) {
-                totaldoor = 0;
-              }
+            if (i.data.Door.length !== 0) {
+              i.data.Door.forEach(e => {
+                totaldoor += e.Area;
+              });
+
+
+            } else {
+
+              totaldoor = 0;
+
             }
+
+
 
             netwallarea = Number(i.data.Wall.Area) - (totalwindow + totaldoor);
             object.totalarea += Number(netwallarea);
@@ -336,13 +342,18 @@ export class Ehc1heatingenergyComponent implements OnInit {
       for (let i of this.doordistinct) {
         let object = { doorname: i, numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0 };
         for (let x of this.wallwindowdoormodellist) {
-          if (x.data.Door !== null && x.data.Door.DoorName === i) {
+          if (x.data.Door.length !== 0) {
+            x.data.Door.forEach(e => {
+              if (e.DoorName === i) {
+                object.numinclusion++;
+                object.totalarea += Number(e.Area);
+                object.totalrvalue = Number(e.ConstructionRValue);
+              }
 
-            object.numinclusion++;
-            object.totalarea += Number(x.data.Door.Area);
-            object.totalrvalue = Number(x.data.Door.ConstructionRValue);
+            });
             //object.totalheatloss += Number(x.data.Door.Area) / Number(x.data.Door.ConstructionRValue);
           }
+
 
         }
         object.totalheatloss = Number((object.totalarea / object.totalrvalue).toFixed(2));
@@ -602,7 +613,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
     html2canvas(document.querySelector('#content'),
       { scale: 2 }
     ).then(canvas => {
-      
+
       let pdf = new jsPDF('p', 'mm', 'a4'), margin = {
         top: 40,
         bottom: 60,

@@ -39,21 +39,21 @@ export class RoofskylightmodelitemComponent implements OnInit {
 
   constructor(private toastr: ToastrService, public route: ActivatedRoute,
     private loginservice: LoginserviceService, private roofskylightservice: RoofskylightService,
-    private buildingmodelservice: BuildingmodelService) { 
-      let loginapp = JSON.parse(localStorage.getItem('currentUser'));
-      this.loginservice.currentUser.subscribe(x => {
-        if(x === null){
-          this.registeruser = loginapp;
-        }else{
-          this.registeruser = x;
-        }
-        
-      });
-      this.route.queryParams.subscribe(params => {
-        this.projectid = params['projectid'];
-        this.designid = params['designid'];
-      });
-    }
+    private buildingmodelservice: BuildingmodelService) {
+    let loginapp = JSON.parse(localStorage.getItem('currentUser'));
+    this.loginservice.currentUser.subscribe(x => {
+      if (x === null) {
+        this.registeruser = loginapp;
+      } else {
+        this.registeruser = x;
+      }
+
+    });
+    this.route.queryParams.subscribe(params => {
+      this.projectid = params['projectid'];
+      this.designid = params['designid'];
+    });
+  }
 
   ngOnInit() {
     this.setDefault();
@@ -61,7 +61,7 @@ export class RoofskylightmodelitemComponent implements OnInit {
     this.fetchingskylight();
   }
 
-  fetchingroof(){
+  fetchingroof() {
     // this.roofskylightservice.rooflistdata(this.designid).subscribe(res => {
     //   this.roofobjectlist = res;
     // }, err => {
@@ -70,7 +70,7 @@ export class RoofskylightmodelitemComponent implements OnInit {
     this.roofskylightservice.rooflistdata(this.designid);
   }
 
-  fetchingskylight(){
+  fetchingskylight() {
     // this.roofskylightservice.skylightlistdata(this.designid).subscribe(res => {
     //   this.skylightsobjectlist = res;
     // }, err => {
@@ -78,14 +78,15 @@ export class RoofskylightmodelitemComponent implements OnInit {
     // });
     this.roofskylightservice.skylightlistdata(this.designid);
   }
-  
+
 
   setDefault() {
+    this.skylightmodellist = [];
     this.roofobject = {
-      Description: null,
+      RoofName: null,
       ConstructionRValue: null,
-      RoofName: null
-    };
+
+    }
     this.skylightobject = {
       Area: 0,
       ConstructionRValue: null,
@@ -97,7 +98,7 @@ export class RoofskylightmodelitemComponent implements OnInit {
     this.roofextendobject = {
       RoofSection: null,
       ConstructionRValue: null,
-      RoofName: null, 
+      RoofName: null,
       ExposedArea: null
     };
 
@@ -111,54 +112,74 @@ export class RoofskylightmodelitemComponent implements OnInit {
 
   }
 
-  deleteskylight(i: number){
-    if(confirm("Do you want to delete this section") === true){
+  deleteskylight(i: number) {
+    if (confirm("Do you want to delete this section") === true) {
       this.skylightmodellist.splice(i, 1);
     }
   }
 
-  onEdit(i: any){
+  onEdit(i: any) {
     this.isedit = true;
+    console.log(i);
     this.roofextendobject = Object.assign({}, i.data.Roof);
-    this.skylightmodellist = i.data.Skylight;
     this.roofobject = {
       RoofName: this.roofextendobject.RoofName,
       ConstructionRValue: this.roofextendobject.ConstructionRValue
     }
+    console.log(this.roofextendobject);
+    this.skylightmodellist = i.data.Skylight;
+    console.log(this.skylightmodellist);
+
+    console.log(this.roofobject);
   }
 
   compareFn(a, b) {
+    console.log (JSON.stringify(a) + " " + JSON.stringify(b));
     return a && b && a.RoofName === b.RoofName && a.ConstructionRValue === b.ConstructionRValue;
   }
 
   optionchange() {
-    this.skylightwidth = this.skylightobject.Width;
-    this.skylightlength = this.skylightobject.Length;
-    this.rvalueskylight = this.skylightobject.ConstructionRValue;
+    if (this.skylightobject) {
+      this.skylightwidth = this.skylightobject.Width;
+      this.skylightlength = this.skylightobject.Length;
+      this.rvalueskylight = this.skylightobject.ConstructionRValue;
+      this.skylightmodellist.push(this.skylightobject);
+      setTimeout(() => {
+        this.skylightobject = null;
+        this.skylightwidth = 0;
+        this.skylightlength = 0;
+        this.rvalueskylight = 0;
+      }, 200);
+
+    } else if (this.skylightobject === null) {
+      this.skylightwidth = 0;
+      this.skylightlength = 0;
+      this.rvalueskylight = 0;
+    }
   }
 
-  onCancel(){
+  onCancel() {
     this.isedit = false;
   }
 
-  onDelete(id: string){
+  onDelete(id: string) {
     if (confirm("Do you want to delete this section") === true) {
-      this.buildingmodelservice.roofskylightmodelDelete(id, this.designid).subscribe(res =>{
+      this.buildingmodelservice.roofskylightmodelDelete(id, this.designid).subscribe(res => {
         this.toastr.success("Delete Successfully", "Info");
         this.buildingmodelservice.roofskylightmodelGet(this.designid);
-      }, err =>{
+      }, err => {
         this.toastr.error("Delete failed", "Info");
       });
     }
   }
 
-  onUpdate(id: string){
+  onUpdate(id: string) {
     this.roofextendobject.RoofName = this.roofobject.RoofName;
     this.roofextendobject.ConstructionRValue = Number(this.roofobject.ConstructionRValue);
     this.roofextendobject.ExposedArea = Number(this.roofextendobject.ExposedArea);
-    if(this.roofextendobject.RoofName === null || this.roofextendobject.RoofSection === null || this.roofextendobject.ExposedArea === null){
+    if (this.roofextendobject.RoofName === null || this.roofextendobject.RoofSection === null || this.roofextendobject.ExposedArea === null) {
       this.toastr.error("Please Complete Roof Information", "Error Message");
-    }else{
+    } else {
       this.roofskylightmodel = {
         Roof: this.roofextendobject,
         Skylight: this.skylightmodellist,
@@ -166,9 +187,9 @@ export class RoofskylightmodelitemComponent implements OnInit {
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
       };
-  
+
       console.log(this.roofskylightmodel);
-      this.buildingmodelservice.roofskylightmodelUpdate(id ,this.roofskylightmodel, this.designid).subscribe(res => {
+      this.buildingmodelservice.roofskylightmodelUpdate(id, this.roofskylightmodel, this.designid).subscribe(res => {
         this.toastr.success("Insert Roof Successfully", "Info");
         this.setDefault();
         this.buildingmodelservice.roofskylightmodelGet(this.designid);
@@ -176,29 +197,5 @@ export class RoofskylightmodelitemComponent implements OnInit {
         this.toastr.error("Insert Roof and Skylight failed", "Error");
       });
     }
-  }
-
-  addvalueskylight() {
-    if(this.skylightobject){
-      this.skylightobject.Length = Number(this.skylightobject.Length);
-      this.skylightobject.Width = Number(this.skylightobject.Width);
-      this.skylightobject.ConstructionRValue = Number(this.skylightobject.ConstructionRValue);
-      this.skylightmodellist.push(this.skylightobject);
-      this.skylightobject = {
-        Area: 0,
-        ConstructionRValue: null,
-        Length: null,
-        SkylightsName: null,
-        Width: null
-      };
-      this.rvalueskylight = 0;
-      this.skylightwidth = 0;
-      this.skylightlength = 0;
-    }
-
-  }
-
-  updateskylight(iskylight): void{
-    
   }
 }

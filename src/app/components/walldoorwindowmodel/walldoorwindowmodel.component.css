@@ -14,7 +14,7 @@ table tr td{
 }
 
 .overflowdiv{
-    height: 272.800px;
+    max-height: 600px;
     overflow-x: hidden; /* Hide horizontal scrollbar */
     overflow-y: scroll; /* Add vertical scrollbar */
 }

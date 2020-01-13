@@ -27,16 +27,7 @@
                     <label>Area: <span>{{windowobject.Area | number: '1.0-2'}}</span></label>
 
                 </div>
-                <div class="form-group col-md-6">
-                    <label>Shade</label>
-                    <select class="form-control" [(ngModel)]="windowobject.ShadePercent" name="shadepercent"
-                        #shadepercent="ngModel">
-                        <option *ngFor="let x of shadeList" [ngValue]="x.percentage">
-                            {{x.percentage * 100 | number: '1.0-0'}}% {{x.shade}}
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label>O.W.A (%)</label><select class="form-control" name="owa" #owa="ngModel"
                         [(ngModel)]="windowobject.OWA">
                         <option *ngFor="let i of owaList" [ngValue]="i">{{i * 100 | number: '1.0-0'}}%</option>
@@ -45,9 +36,9 @@
 
                 <div class="form-group col-md-12">
                     <button [disabled]="windowobject.WindowName == null || windowobject.ConstructionRValue == null ||
-                            windowobject.Width == null || windowobject.Height == null || windowobject.OWA == null ||
-                            windowobject.ShadePercent == null" class="btn btn-primary" type="submit"><i
-                            class="far fa-check-circle"></i> Complete Window</button>
+                            windowobject.Width == null || windowobject.Height == null || windowobject.OWA == null"
+                        class="btn btn-primary" type="submit"><i class="far fa-check-circle"></i> Complete
+                        Window</button>
                     <button class="btn btn-link btn-sm" style="float: right;" type="reset"><i class="fas fa-redo"></i>
                         Reset</button>
                 </div>
@@ -63,7 +54,6 @@
                 <th>Width</th>
                 <th>Height</th>
                 <th>Area</th>
-                <th>Shade (%)</th>
                 <th>O.W.A (%)</th>
                 <th>Action</th>
             </tr>
@@ -73,8 +63,7 @@
                 <td>{{i.data.Width | number: '1.0-2'}}</td>
                 <td>{{i.data.Height | number: '1.0-2'}}</td>
                 <td>{{i.data.Area | number: '1.0-2'}}</td>
-                <td>{{i.data.ShadePercent | number: '1.0-2'}}</td>
-                <td>{{i.data.OWA | number: '1.0-2'}}</td>
+                <td>{{i.data.OWA * 100 | number: '1.0-2'}}</td>
                 <td>
                     <button class="btn btn-secondary" type="button" (click)="editFieldValue(i)" matTooltip="Edit"><i
                             class="fas fa-pen-square"></i></button>

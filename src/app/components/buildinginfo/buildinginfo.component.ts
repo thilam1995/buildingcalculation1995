@@ -25,6 +25,12 @@ export class BuildinginfoComponent implements OnInit {
   registeruser: Register;
   projectid: string = "";
   projectname: string = "";
+  selectoption: string = "";
+  designoption: string[] = ["filldesign", "selectexisted"];
+  design1: Design;
+  designSelect: any;
+  designsetlist = [];
+
   constructor(private router: Router, private climateservice: ClimateService,
     private route: ActivatedRoute, private loginservice: LoginserviceService, private localSt: LocalStorageService,
     private designservice: DesignService, private toastr: ToastrService, private projectservice: ProjectService) {
@@ -41,13 +47,14 @@ export class BuildinginfoComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.selectoption = this.designoption[0];
     this.setdefault();
     this.fetchingclimate();
     this.projectid = this.route.snapshot.paramMap.get("projectid");
     this.route.queryParams.subscribe(params => {
       this.projectname = decodeURIComponent(params['projectname']);
     });
+    this.fetchingdesigndata();
   }
 
   fetchingclimate() {
@@ -55,13 +62,23 @@ export class BuildinginfoComponent implements OnInit {
     this.climateservice.getclimatelist();
   }
 
+  fetchingdesigndata() {
+    this.designservice.designFetching(this.projectid).subscribe(res => {
+      this.designsetlist = res;
+    }, err => {
+      this.toastr.error("Error at fetching", "Error Message");
+    });
+
+  }
 
 
   selected1() {
     console.log(this.design.TargetRating);
   }
 
+
   setdefault() {
+    this.designSelect = null;
     this.design = {
       DesignName: "",
       TargetRating: null,
@@ -74,62 +91,133 @@ export class BuildinginfoComponent implements OnInit {
       DateUpdate: "",
       DateCreated: "",
       City: "",
-      StateName: "",
-      StreetName: ""
+      StreetName: "",
+      Postcode: ""
+    };
+    this.design1 = {
+      DesignName: "",
+      TargetRating: null,
+      Climatetype: null,
+      CompletedBy: "",
+      DrawingSet: "",
+      FloorArea: null,
+      NumofHabitationroom: null,
+      Typology: "",
+      DateUpdate: "",
+      DateCreated: "",
+      City: "",
+      StreetName: "",
+      Postcode: ""
     };
   }
 
   onSubmit(form: NgForm) {
-    if(form.value.targetrating === null || form.value.climatetype === null){
-      this.toastr.error("Error! Target Rating or Climate Type must not be empty or null.", "Design Message");
-    }else{
-      let date = new Date();
-      var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
-      var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
-      const timedatestring = datestring;
-      this.design = {
-        DesignName: form.value.designname,
-        TargetRating: form.value.targetrating,
-        Climatetype: form.value.climatetype,
-        CompletedBy: form.value.completedby,
-        DrawingSet: form.value.drawingset,
-        FloorArea: Number(form.value.floorarea),
-        NumofHabitationroom: Number(form.value.numofHabitationroom),
-        Typology: form.value.typology,
-        ProjectID: this.projectid,
-        UserID: this.registeruser.ID,
-        DateCreated: timedatestring,
-        DateUpdate: timedatestring,
-        City: form.value.city,
-        StateName: form.value.state,
-        StreetName: form.value.street
-      }
-      console.log(this.design);
-      this.designservice.designPosting(this.design).subscribe(x => {
-        this.toastr.success("New Design Added! Please wait...", "Design Message");
-        this.projectservice.projectupdatedatemodify(timedatestring, this.projectid, this.registeruser.ID).subscribe(x => {
-          this.toastr.info("Project Date Modify changed!", "Design Message");
+    if (this.selectoption === "filldesign") {
+      if (form.value.targetrating === null || form.value.climatetype === null) {
+        this.toastr.error("Error! Target Rating or Climate Type must not be empty or null.", "Design Message");
+      } else {
+        let date = new Date();
+        var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+        var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+        const timedatestring = datestring + " " + timestring;
+        this.design = {
+          DesignName: form.value.designname,
+          TargetRating: form.value.targetrating,
+          Climatetype: form.value.climatetype,
+          CompletedBy: form.value.completedby,
+          DrawingSet: form.value.drawingset,
+          FloorArea: Number(form.value.floorarea),
+          NumofHabitationroom: Number(form.value.numofHabitationroom),
+          Typology: form.value.typology,
+          ProjectID: this.projectid,
+          UserID: this.registeruser.ID,
+          DateCreated: timedatestring,
+          DateUpdate: timedatestring,
+          City: form.value.city,
+          StreetName: form.value.street,
+          Postcode: form.value.postcode
+        }
+        console.log(this.design);
+        this.designservice.designPosting(this.design).subscribe(x => {
+          this.toastr.success("New Design Added! Please wait...", "Design Message");
+          this.projectservice.projectupdatedatemodify(timedatestring, this.projectid, this.registeruser.ID).subscribe(x => {
+            this.toastr.info("Project Date Modify changed!", "Design Message");
+          }, err => {
+            this.toastr.error("Something Wrong", "Design Message");
+          })
+
+          setTimeout(() => {
+            this.designservice.getlastdesignid(timedatestring).subscribe(res => {
+              console.log(res);
+              this.designid = res.id;
+              console.log(this.designid);
+              setTimeout(() => {
+                this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/buildingschedule"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+              }, 1400);
+
+            });
+          }, 1400);
+
+          //this.router.navigateByUrl("/main/" + `${this.registeruser.ID}` + "/project");
         }, err => {
-          this.toastr.error("Something Wrong", "Design Message");
-        })
-        
-        setTimeout(() => {
-          this.designservice.getlastdesignid(timedatestring).subscribe(res => {
-            console.log(res);
-            this.designid = res.id;
-            console.log(this.designid);
-            setTimeout(() => {
-              this.router.navigate(["/main/"+`${this.registeruser.ID}`+"/buildingschedule"],{ queryParams: { projectid: this.projectid, designid: this.designid } });
-            }, 1400);
+          this.toastr.error("Something wrong!", "Design Message");
+        });
+      }
+    } else {
+      if(this.designSelect === null){
+        this.toastr.error("Please select existed design!", "Design Message");
+      }else{
+        let date = new Date();
+        var datestring: string = date.getDate().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getFullYear().toString();
+        var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+        const timedatestring = datestring + " " + timestring;
+        this.design = {
+          DesignName: this.designSelect.DesignName,
+          TargetRating: this.designSelect.TargetRating,
+          Climatetype: this.designSelect.Climatetype,
+          CompletedBy: this.designSelect.CompletedBy,
+          DrawingSet: this.designSelect.DrawingSet,
+          FloorArea: this.designSelect.FloorArea,
+          NumofHabitationroom: this.designSelect.NumofHabitationroom,
+          Typology: this.designSelect.Typology,
+          ProjectID: this.projectid,
+          UserID: this.registeruser.ID,
+          DateCreated: timedatestring,
+          DateUpdate: timedatestring,
+          City: this.designSelect.City,
+          StreetName: this.designSelect.StreetName,
+          Postcode: this.designSelect.Postcode
+        };
+        console.log(this.design);
+        this.designservice.designPosting(this.design).subscribe(x => {
+          this.toastr.success("New Design Added! Please wait...", "Design Message");
+          this.projectservice.projectupdatedatemodify(timedatestring, this.projectid, this.registeruser.ID).subscribe(x => {
+            this.toastr.info("Project Date Modify changed!", "Design Message");
+          }, err => {
+            this.toastr.error("Something Wrong", "Design Message");
+          })
   
-          });
-        }, 1400);
+          setTimeout(() => {
+            this.designservice.getlastdesignid(timedatestring).subscribe(res => {
+              console.log(res);
+              this.designid = res.id;
+              console.log(this.designid);
+              setTimeout(() => {
+                this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/buildingschedule"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+              }, 1400);
   
-        //this.router.navigateByUrl("/main/" + `${this.registeruser.ID}` + "/project");
-      }, err => {
-        this.toastr.error("Something wrong!", "Design Message");
-      });
+            });
+          }, 1400);
+  
+          //this.router.navigateByUrl("/main/" + `${this.registeruser.ID}` + "/project");
+        }, err => {
+          this.toastr.error("Something wrong!", "Design Message");
+        });
+      }
+
+
     }
+
 
   }
 

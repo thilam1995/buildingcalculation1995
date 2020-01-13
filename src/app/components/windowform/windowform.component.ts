@@ -61,7 +61,6 @@ export class WindowformComponent implements OnInit {
       Area: null,
       ID: null,
       OWA: 0,
-      ShadePercent: 0,
       DesignID: null,
       ProjectID: null,
       UserID: null
@@ -91,7 +90,6 @@ export class WindowformComponent implements OnInit {
         Height: Number(form.value.windowsHeight),
         Area: Number(this.windowobject.Area),
         OWA: Number(form.value.owa),
-        ShadePercent: Number(form.value.shadepercent),
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
@@ -125,7 +123,6 @@ export class WindowformComponent implements OnInit {
         Height: Number(form.value.windowsHeight),
         Area: Number(this.windowobject.Area),
         OWA: Number(form.value.owa),
-        ShadePercent: Number(form.value.shadepercent),
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
@@ -154,7 +151,6 @@ export class WindowformComponent implements OnInit {
       Area: window.data.Area,
       ID: window.id,
       OWA: window.data.OWA,
-      ShadePercent: window.data.ShadePercent,
       DesignID: window.data.DesignID,
       ProjectID: window.data.ProjectID,
       UserID: window.data.UserID
@@ -220,7 +216,6 @@ export class WindowformComponent implements OnInit {
               element.Width = window.Width;
               element.Height = window.Height;
               element.OWA = window.OWA;
-              element.ShadePercent = window.ShadePercent;
             }
           });
 

@@ -8,40 +8,73 @@ import { Room } from '../models/room';
 })
 export class RoomserviceService {
   url: string = "http://localhost:8080/api/roomhabit";
+  urljson: string = "assets/jsondata/roomtype.json";
   roomlist = [];
+  roomtypelist = [];
 
   constructor(private http: HttpClient) { }
 
-  postingroom(room: Room ,DesignID: string){
+  getallroomtypelist() {
+    this.http.get(this.urljson).pipe(map((data: Response) => {
+      return data as any;
+    })).toPromise().then(
+      x => {
+        console.log(x.Roomtypelist);
+        this.roomtypelist = x.Roomtypelist;
+      }
+    );
+  }
+
+  postingroom(room: Room, DesignID: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
     let body = JSON.stringify(room);
-    return this.http.post(this.url, body, httpOptions).pipe(map(res =>{
+    return this.http.post(this.url, body, httpOptions).pipe(map(res => {
       setTimeout(() => {
         this.getallroombydesignid(DesignID);
       }, 1200);
     }), catchError(this.handleError));
   }
 
-  updateroom(roomID: string, room: Room){
-
+  updateroom(room: Room, designID: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify(room);
+    return this.http.put(this.url + "/" + `${room.ID}`, body, httpOptions).pipe(map(res => {
+      this.getallroombydesignid(designID);
+    }), catchError(this.handleError));
   }
 
-  deleteroom(roomID: string){
-
+  deleteroom(roomID: string, designID?: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.delete(this.url + "/" + `${roomID}`, httpOptions).pipe(map(res => {
+      this.getallroombydesignid(designID);
+    }), catchError(this.handleError));
   }
 
-  getallroombydesignid(designID: string){
-    this.http.get(this.url+"/"+ `${designID}`).pipe(map((data: Response) =>{
+  getallroombydesignid(designID: string) {
+    this.http.get(this.url + "/" + `${designID}`).pipe(map((data: Response) => {
       return data as any;
-    })).toPromise().then(res =>{
+    })).toPromise().then(res => {
       this.roomlist = res;
     }).catch(err => this.handleError);
   }
 
+  fetchroombyid(designID: string){
+    return this.http.get<any>(this.url + "/" + `${designID}`).pipe(map((data: Response) => {
+      return data as any;
+    }));
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

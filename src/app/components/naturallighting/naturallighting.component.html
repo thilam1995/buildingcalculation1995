@@ -1,1 +1,54 @@
-<p>naturallighting works!</p>
+<div class="row">
+    <div class="col-md-12" style="text-align: center;">
+        <button class="btn btn-primary" style="margin: 10px" (click)="returntoSchedule()"><i
+                class="fas fa-undo-alt"></i>
+            Return to Schedule</button>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <th>Project ID</th>
+                        <th>{{projectobject.ProjectName}}</th>
+                    </tr>
+                    <tr>
+                        <th>Dwelling / Typology</th>
+                        <th>{{designobject.Typology}}</th>
+                    </tr>
+                    <tr>
+                        <th>Habitable Room</th>
+                        <th>{{designobject.NumofHabitationroom}}</th>
+                    </tr>
+                    <tr>
+                        <th>Completed By</th>
+                        <th>{{designobject.CompletedBy}}</th>
+                    </tr>
+                    <tr>
+                        <th>Drawing Set</th>
+                        <th>{{designobject.DrawingSet}}</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <th>
+                            HomeStar Compliance
+                        </th>
+                    </tr>
+                    <tr>
+                        <th [ngStyle]="{'color': compliancepoint != 0 ? 'lime' : 'red'}" style="text-decoration: underline;">
+                            {{compliancepoint}} Points
+                        </th>
+                    </tr>
+                </table>
+            </div>
+    
+            <div class="col-md-12">
+                <app-naturallightingitem *ngFor="let i of roomserv.roomlist" [i]="i"></app-naturallightingitem>
+            </div>
+        </div>
+
+    </div>
+</div>

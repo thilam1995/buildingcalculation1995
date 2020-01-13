@@ -113,8 +113,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       Height: null,
       Area: 0,
       ID: null,
-      OWA: 0,
-      ShadePercent: 0
+      OWA: 0
     };
     this.wallextendobject = null;
   }
@@ -125,10 +124,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     this.wallextendobject = Object.assign({}, i.data.Wall);
     console.log(this.wallextendobject);
     this.windowobjectmodellist = i.data.Window;
-    this.doorobject = Object.assign({}, i.data.Door);
-    this.doorheight = this.doorobject.Height;
-    this.doorwidth = this.doorobject.Width;
-    this.rvaluedoor = this.doorobject.ConstructionRValue;
+    this.doorobjectmodellist = i.data.Door;
     this.wallobject = {
       WallName: this.wallextendobject.WallName,
       ConstructionRValue: this.wallextendobject.ConstructionRValue
@@ -183,9 +179,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     //console.log(JSON.stringify(a) + " " + JSON.stringify(b));
     return a && b && a.WallName === b.WallName && a.ConstructionRValue === b.ConstructionRValue;
   }
-  compareFnDoor(a, b) {
-    return a && b && a.DoorName === b.DoorName && a.ConstructionRValue === b.ConstructionRValue;
-  }
+
 
 
 
@@ -213,17 +207,6 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     }
   }
 
-  optionchange1() {
-    this.windowwidth = this.windowobject.Width;
-    this.windowheight = this.windowobject.Height;
-    this.rvavluewindow = this.windowobject.ConstructionRValue;
-  }
-
-  optionchange2() {
-    this.doorwidth = this.doorobject.Width;
-    this.doorheight = this.doorobject.Height;
-    this.rvaluedoor = this.doorobject.ConstructionRValue;
-  }
 
   addvaluewindow() {
     if (this.windowobject) {
@@ -238,8 +221,52 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
     }
   }
 
-  addvaluedoor(){
-    
+  optionchange1() {
+    if (this.windowobject) {
+      this.windowwidth = this.windowobject.Width;
+      this.windowheight = this.windowobject.Height;
+      this.rvavluewindow = this.windowobject.ConstructionRValue;
+      this.windowobjectmodellist.push(this.windowobject);
+      setTimeout(() => {
+        this.windowobject = null;
+        this.windowwidth = 0;
+        this.windowheight = 0;
+        this.rvavluewindow = 0;
+      }, 200);
+      
+    } else if (this.windowobject === null) {
+      this.windowwidth = 0;
+      this.windowheight = 0;
+      this.rvavluewindow = 0;
+    }
+
+  }
+
+  optionchange2() {
+    if (this.doorobject) {
+      this.doorwidth = this.doorobject.Width;
+      this.doorheight = this.doorobject.Height;
+      this.rvaluedoor = this.doorobject.ConstructionRValue;
+      this.doorobjectmodellist.push(this.doorobject);
+      setTimeout(() => {
+        this.doorobject = null;
+        this.doorwidth = 0;
+        this.doorheight = 0;
+        this.rvaluedoor = 0;
+      }, 200);
+
+    } else if (this.doorobject === null){
+      this.doorwidth = 0;
+      this.doorheight = 0;
+      this.rvaluedoor = 0;
+    }
+
+  }
+
+  deletedoor(index: number) {
+    if (confirm("Do you want to delete this section?") === true) {
+      this.doorobjectmodellist.splice(index, 1);
+    }
   }
 
 

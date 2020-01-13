@@ -37,7 +37,7 @@
         <td>{{iwindow.ConstructionRValue | number: '1.0-2'}}</td>
         <td>{{iwindow.Area / iwindow.ConstructionRValue | number: '1.0-2'}}</td>
       </tr>
-      <tr *ngIf="i.data.Door != null || i.data.Door != undefined">
+      <tr *ngIf="i.data.Window.Door != 0">
         <th>#</th>
         <th>Door Area</th>
         <th>#</th>
@@ -46,16 +46,16 @@
         <th>#</th>
         <th>Door Heat Loss</th>
       </tr>
-      <tr *ngIf="i.data.Door != null || i.data.Door != undefined">
+      <tr *ngFor="let i of i.data.Door">
         <td>#</td>
-        <td>{{i.data.Door.Area | number: '1.0-2'}}</td>
+        <td>{{i.Area | number: '1.0-2'}}</td>
         <td>#</td>
-        <td>#</td>
-        <td>
-          {{i.data.Door.ConstructionRValue | number: '1.0-2'}}</td>
         <td>#</td>
         <td>
-          {{i.data.Door.Area / i.data.Door.ConstructionRValue | number: '1.0-2'}}</td>
+          {{i.ConstructionRValue | number: '1.0-2'}}</td>
+        <td>#</td>
+        <td>
+          {{i.Area / i.ConstructionRValue | number: '1.0-2'}}</td>
       </tr>
     </table>
   </div>

@@ -14,7 +14,7 @@
 
     <div class="container">
       <div class="row">
-        <img src="../../../assets/pic/homestarlogo.jpg" style="max-width: 100%; max-height: 250.8px;" class="col-md-5">
+        <!-- <img src="../../../assets/pic/homestarlogo.jpg" style="max-width: 100%; max-height: 250.8px;" class="col-md-5"> -->
         <div class="col-md-7">
           <table class="table table-sm">
             <tr>
@@ -64,7 +64,7 @@
       <div class="row">
         <div class="col-md-4">
           <table class="table table-sm table-bordered">
-            <tr style="background-color: limegreen; color: #007bff;">
+            <tr style="background-color: limegreen; color: white;">
               <th colspan="4">Window to Wall Ratios</th>
             </tr>
 
@@ -79,32 +79,32 @@
                 <td>North</td>
                 <td>{{totalwallnorth | number: '1.0-2'}}</td>
                 <td>{{totalwindownorth | number: '1.0-2'}}</td>
-                <td>%{{(totalwindownorth/totalwallnorth) * 100 | number: '1.0-2'}}</td>
+                <td>{{(totalwindownorth/totalwallnorth) * 100 | number: '1.0-2'}}%</td>
               </tr>
               <tr>
                 <td>South</td>
                 <td>{{totalwallsouth | number: '1.0-2'}}</td>
                 <td>{{totalwindowsouth | number: '1.0-2'}}</td>
-                <td>%{{(totalwindowsouth/totalwallsouth) * 100 | number: '1.0-2'}}</td>
+                <td>{{(totalwindowsouth/totalwallsouth) * 100 | number: '1.0-2'}}%</td>
               </tr>
               <tr>
                 <td>East</td>
                 <td>{{totalwalleast | number: '1.0-2'}}</td>
                 <td>{{totalwindoweast | number: '1.0-2'}}</td>
-                <td>%{{(totalwindoweast/totalwalleast) * 100 | number: '1.0-2'}}</td>
+                <td>{{(totalwindoweast/totalwalleast) * 100 | number: '1.0-2'}}%</td>
               </tr>
               <tr>
                 <td>West</td>
                 <td>{{totalwallwest | number: '1.0-2'}}</td>
                 <td>{{totalwindowwest | number: '1.0-2'}}</td>
-                <td>%{{(totalwindowwest/totalwallwest) * 100 | number: '1.0-2'}}</td>
+                <td>{{(totalwindowwest/totalwallwest) * 100 | number: '1.0-2'}}%</td>
               </tr>
               <tr>
                 <td>E/W/S Only</td>
                 <td>{{(totalwallsouth + totalwalleast + totalwallwest) | number: '1.0-2'}}</td>
                 <td>{{(totalwindowsouth + totalwindoweast + totalwindowwest) | number: '1.0-2'}}</td>
                 <td>
-                  %{{((totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest)) * 100 | number: '1.0-2'}}
+                  {{((totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest)) * 100 | number: '1.0-2'}}%
                 </td>
               </tr>
               <tr>
@@ -112,7 +112,7 @@
                 <td>{{(totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) | number: '1.0-2'}}</td>
                 <td>{{(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) | number: '1.0-2'}}</td>
                 <td>
-                  %{{((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)) * 100 | number: '1.0-2'}}
+                  {{((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)) * 100 | number: '1.0-2'}}%
                 </td>
               </tr>
             </tbody>
@@ -122,7 +122,7 @@
         <div class="col-md-4">
 
           <table class="table table-sm table-bordered">
-            <tr style="background-color: limegreen; color: #007bff;">
+            <tr style="background-color: limegreen; color: white;">
               <th colspan="4">Skylight Ratios</th>
             </tr>
             <tr style="background-color: lightgray; color: white;">
@@ -134,7 +134,7 @@
             <tr>
               <td>{{totalarearoof | number: '1.0-2'}}</td>
               <td>{{totalareaskylight | number: '1.0-2'}}</td>
-              <td>%{{totalareaskylight / totalarearoof | number: '1.0-2'}}</td>
+              <td>{{totalareaskylight / totalarearoof | number: '1.0-2'}}%</td>
               <td>
                 <img src="../../../assets/pic/pass.png" *ngIf="0.015 > (totalareaskylight / totalarearoof)">
                 <img src="../../../assets/pic/fail.png" *ngIf="totalareaskylight / totalarearoof > 0.015">
@@ -143,7 +143,7 @@
           </table>
 
           <table class="table table-sm table-bordered">
-            <tr style="background-color: limegreen; color: #007bff;">
+            <tr style="background-color: limegreen; color: white;">
               <th colspan="4">Door Area Allowance</th>
             </tr>
             <tr style="background-color: lightgray; color: white;">
@@ -167,7 +167,7 @@
 
         <div class="col-md-4">
           <table class="table table-sm table-bordered">
-            <tr style="background-color: limegreen; color: #007bff;">
+            <tr style="background-color: limegreen; color: white;">
               <th colspan="4">Proposed Construction R-values</th>
             </tr>
             <tr style="background-color: lightgray; color: white;">
@@ -242,7 +242,7 @@
 
         <div class="col-md-12">
           <table class="table table-sm table-bordered">
-            <tr style="background-color: limegreen; color: #007bff;">
+            <tr style="background-color: limegreen; color: white;">
               <th colspan="4">EHC-1 Schedule Method (Simple)</th>
             </tr>
             <tr>
@@ -282,7 +282,7 @@
           <tr>
             <td>The glazing area on the E, S and W facing walls is 30% or less of the wall area of these walls</td>
             <td>
-              %{{((totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest)) * 100 | number: '1.0-2'}}
+              {{((totalwindowsouth + totalwindoweast + totalwindowwest) / (totalwallsouth + totalwalleast + totalwallwest)) * 100 | number: '1.0-2'}}%
             </td>
             <td>
               <img src="../../../assets/pic/pass.png"
@@ -293,7 +293,7 @@
           </tr>
           <tr>
             <td>The area of all skylights is less than 1.5% of the exposed roof area</td>
-            <td>%{{totalareaskylight / totalarearoof | number: '1.0-2'}}</td>
+            <td>{{totalareaskylight / totalarearoof | number: '1.0-2'}}%</td>
             <td>
               <img src="../../../assets/pic/pass.png" *ngIf="0.015 > (totalareaskylight / totalarearoof)">
               <img src="../../../assets/pic/fail.png" *ngIf="(totalareaskylight / totalarearoof) > 0.015">
@@ -315,13 +315,13 @@
       <hr class="col-md-12">
 
       <div class="col-md-12 methoddiv">
-        <h1 style="text-align: center; color: white;">Homestar Schedule Method (option b) - NZS 4218 HL Calcs</h1>
+        <h1 style="text-align: center; color: white; font-weight: bold;">Homestar Schedule Method (option b) - NZS 4218 HL Calcs</h1>
       </div>
       <br>
       <br>
       <div class="col-md-12">
         <table class="table table-sm table-bordered">
-          <tr style="background-color: limegreen; color: #007bff;">
+          <tr style="background-color: limegreen; color: white;">
             <th colspan="3">EHC-1 Schedule Method by Calculation (using NZS 4218:2009)</th>
           </tr>
           <tr>
