@@ -14,6 +14,7 @@ import { LocalStorage } from 'ngx-webstorage';
 export class BuildingmodelComponent implements OnInit {
 
 
+  @Input() numberofhabitroom: number;
   constructor() { }
 
   ngOnInit() {

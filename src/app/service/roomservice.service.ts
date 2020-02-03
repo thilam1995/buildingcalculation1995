@@ -3,12 +3,16 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Room } from '../models/room';
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class RoomserviceService {
-  url: string = "http://localhost:8080/api/roomhabit";
+  url: string = environment.uri+"roomhabit";
   urljson: string = "assets/jsondata/roomtype.json";
+  numofroom: number = 0;
+  
   roomlist = [];
   roomtypelist = [];
 
@@ -19,7 +23,6 @@ export class RoomserviceService {
       return data as any;
     })).toPromise().then(
       x => {
-        console.log(x.Roomtypelist);
         this.roomtypelist = x.Roomtypelist;
       }
     );
@@ -51,6 +54,18 @@ export class RoomserviceService {
     }), catchError(this.handleError));
   }
 
+  updateroomfromschedule(roomid: string,room: Room, designID: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let body = JSON.stringify(room);
+    return this.http.put(this.url + "/" + `${roomid}`, body, httpOptions).pipe(map(res => {
+      console.log("Updated");
+    }), catchError(this.handleError));
+  }
+
   deleteroom(roomID: string, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -67,6 +82,7 @@ export class RoomserviceService {
       return data as any;
     })).toPromise().then(res => {
       this.roomlist = res;
+      this.numofroom = this.roomlist.length;
     }).catch(err => this.handleError);
   }
 

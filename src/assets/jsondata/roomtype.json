@@ -1,19 +1,28 @@
 {
     "Roomtypelist": [
         {
-            "roomtype" : "Living Room",
+            "roomtype" : "Mainlivingroomarea",
+            "typename" : "Main living Area",
             "ishabitable" : true
         },
         {
-            "roomtype" : "Bedroom",
+            "roomtype" : "MainBedroom",
+            "typename" : "Main Bedroom",
             "ishabitable" : true
         },
         {
-            "roomtype" : "Bathroom",
+            "roomtype" : "OtherHabitableroom",
+            "typename" : "Other Habitable Room",
+            "ishabitable" : true
+        },
+        {
+            "roomtype" : "nonhabitable",
+            "typename" : "Non-Habitable",
             "ishabitable" : false
         },
         {
-            "roomtype" : "Studioroom",
+            "roomtype" : "Studiodwelling",
+            "typename" : "Studio Dwelling",
             "ishabitable" : true
         }
     ]

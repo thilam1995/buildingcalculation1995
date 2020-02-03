@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 })
 export class LocationService {
 
-  url: string = "http://localhost:8080/api/location";
   urljson: string = "assets/jsondata/location.json";
   location = [];
   constructor(private http: HttpClient) { }

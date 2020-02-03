@@ -5,9 +5,8 @@ export class Design {
     CompletedBy: string;
     DrawingSet: string;
     Typology: any;
-    NumofHabitationroom: number;
-    FloorArea: number;
     Climatetype: any;
+    FloorArea: number;
     DateCreated: string;
     DateUpdate: string;
     ProjectID?: string;

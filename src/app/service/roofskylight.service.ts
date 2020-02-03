@@ -4,14 +4,15 @@ import { Skylights } from '../models/skylights';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoofskylightService {
 
-  url1: string = "http://localhost:8080/api/roof";
-  url2: string = "http://localhost:8080/api/skylight";
+  url1: string = environment.uri+"roof";
+  url2: string = environment.uri+"skylight";
 
   rooflist = [];
   skylightlist = [];

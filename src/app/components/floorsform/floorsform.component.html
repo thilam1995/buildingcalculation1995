@@ -12,8 +12,8 @@
                         [(ngModel)]="floorobject.ConstructionRValue" placeholder="ConstructionRValue">
                 </div>
                 <div class="form-group col-md-12">
-                    <input type="text" class="form-control" name="description" #description="ngModel"
-                        [(ngModel)]="floorobject.Description" placeholder="Description">
+                    <textarea cols="30" rows="5" class="form-control" name="description" #description="ngModel"
+                        [(ngModel)]="floorobject.Description" placeholder="Description"></textarea>
                 </div>
                 <div class="form-group col-md-12">
                     <button [disabled]="floorobject.FloorName == null || floorobject.ConstructionRValue == null"

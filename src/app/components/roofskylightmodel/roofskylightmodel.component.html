@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-md-5">
+  <div class="col-md-12">
     <button class="btn btn-primary" (click)="addrooftoggle()">{{display ? "Cancel" : "+ Add Roof"}}</button>
     <form class="buildingform" *ngIf="display">
       <div class="form-row">
@@ -16,12 +16,6 @@
         <div class="form-group col-md-12"><input type="text" class="form-control" name="exposedearea"
             #exposedearea="ngModel" [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></div>
         <div class="form-group col-md-12">
-          <button class="btn btn-primary" (click)="onSubmitModel()">
-            <i class="far fa-check-circle"></i>
-            Complete Roof Model
-          </button>
-        </div>
-        <div class="form-group col-md-12">
           <button class="btn btn-primary"
             (click)="addskylighttoggle()">{{display1 ? "Cancel" : "+ Add Skylight"}}</button>
         </div>
@@ -36,6 +30,7 @@
               {{i.data.SkylightsName}}</option>
           </select>
         </div>
+
         <div *ngIf="display1" class="form-group col-md-12">
           <table class="table table-sm table-hover">
             <tr>
@@ -55,6 +50,12 @@
               </td>
             </tr>
           </table>
+        </div>
+        <div class="form-group col-md-12">
+          <button class="btn btn-primary" (click)="onSubmitModel()">
+            <i class="far fa-check-circle"></i>
+            Complete Roof Model
+          </button>
         </div>
       </div>
     </form>
@@ -113,7 +114,10 @@
         Model</button>
     </div> -->
   </div>
-  <div class="col-md-7 overflowdiv">
+
+  <hr class="col-md-12">
+  
+  <div class="col-md-12 overflowdiv">
     <app-roofskylightmodelitem *ngFor="let i of buildingmodelservice.roofskylightmodellist" [i]="i">
     </app-roofskylightmodelitem>
   </div>

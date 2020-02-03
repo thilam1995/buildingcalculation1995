@@ -2,15 +2,7 @@
     <div class="col-md-12">
         <table class="table table-sm">
             <tr>
-                <th>Room Type</th>
-                <th>Total Window Area</th>
-                <th>Room Floor Area</th>
-                <th>Shading Level</th>
-                <th>Natural Lighting Requirement</th>
-                <th>Natural Lighting Achieved</th>
-                <th>HomeStar Compliance</th>
-            </tr>
-            <tr>
+                <td>{{i.data.RoomType}}</td>
                 <td>{{i.data.RoomID}}</td>
                 <td>{{totalwindowarea | number: '1.0-2'}}</td>
                 <td>{{i.data.RoomArea | number: '1.0-2'}}</td>

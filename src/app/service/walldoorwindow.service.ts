@@ -5,6 +5,7 @@ import { Door } from '../models/door';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,9 @@ import { throwError } from 'rxjs';
 export class WalldoorwindowService {
 
 
-  url1: string = "http://localhost:8080/api/wall";
-  url2: string = "http://localhost:8080/api/window";
-  url3: string = "http://localhost:8080/api/door";
+  url1: string = environment.uri+"wall";
+  url2: string = environment.uri+"window";
+  url3: string = environment.uri+"door";
   
   windowlist = [];
   walllist = [];

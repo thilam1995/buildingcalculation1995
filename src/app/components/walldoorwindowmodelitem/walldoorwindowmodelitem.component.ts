@@ -142,6 +142,8 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       this.wallextendobject.WallName === null || this.wallextendobject.WallName === undefined || this.wallextendobject.Height === 0 ||
       this.wallextendobject.Width === 0) {
       this.toastr.error("Please complete wall information", "Error Message");
+    } else if(this.checkifwindowareamorethanwallarea){
+      this.toastr.error("The area of windows and doors is more than wall area! Please make it less!", "Error Message");
     } else {
       this.wallwindowdoormodel = {
         Wall: this.wallextendobject,
@@ -280,6 +282,28 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
 
   fetchingdoordata() {
     this.wallservice.doorlistdata(this.designid);
+  }
+
+  checkifwindowareamorethanwallarea(): boolean {
+    let wallarea = 0;
+    if (this.wallextendobject.Area !== null) {
+      wallarea = Number(this.wallextendobject.Area);
+    }
+    let windowarea = 0;
+    if (this.windowobjectmodellist.length !== 0) {
+      this.windowobjectmodellist.forEach(e => {
+        windowarea += e.Area;
+      });
+    }
+    let doorarea = 0;
+    if(this.doorobjectmodellist.length !== 0){
+      this.doorobjectmodellist.forEach(e => {
+        doorarea += e.Area;
+      });
+    }
+
+    let windowdoorarea = windowarea + doorarea;
+    return windowdoorarea > wallarea;
   }
 
 }

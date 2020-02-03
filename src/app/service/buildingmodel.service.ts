@@ -5,15 +5,16 @@ import { throwError } from 'rxjs';
 import { Wallwindowdoormodel } from '../models/wallwindowdoormodel';
 import { Roofskylightmodel } from '../models/roofskylightmodel';
 import { Floormodel } from '../models/floormodel';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuildingmodelService {
 
-  url: string = "http://localhost:8080/api/wallwindowdoormodel";
-  url1: string = "http://localhost:8080/api/roofskylightmodel";
-  url2: string = "http://localhost:8080/api/floormodel";
+  url: string = environment.uri+"wallwindowdoormodel";
+  url1: string = environment.uri+"roofskylightmodel";
+  url2: string = environment.uri+"floormodel";
 
   wallwindowdoormodellist = [];
   roofskylightmodellist = [];

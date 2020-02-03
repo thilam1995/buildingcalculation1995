@@ -10,12 +10,12 @@
 <hr class="col-md-12">
 <form class="buildingform" #designform="ngForm" (ngSubmit)="onSubmit(designform)">
   <div class="form-row" *ngIf="selectoption == 'filldesign'">
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-6">
       <input class="form-control" name="designname" #designname="ngModel" placeholder="Design Name"
-        [(ngModel)]="design.DesignName" required maxlength="25">
+        [(ngModel)]="design.DesignName" required maxlength="30">
       <div class="validation-error" *ngIf="designname.invalid && designname.touched">Please fill design name.</div>
     </div>
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-6">
       <input class="form-control" type="text" name="completedby" #completedby="ngModel" placeholder="Completed By"
         [(ngModel)]="design.CompletedBy" required>
       <div class="validation-error" *ngIf="completedby.invalid && completedby.touched">Please fill the name who
@@ -63,18 +63,10 @@
         [(ngModel)]="design.Typology" required>
       <div class="validation-error" *ngIf="typology.invalid && typology.touched">Please fill your typology.</div>
     </div>
-
-    <div class="form-group col-md-6">
-      <input class="form-control" type="text" name="floorarea" #floorarea="ngModel" placeholder="Floor Area (ICA)"
+    <div class="form-group col-md-12">
+      <input class="form-control" type="text" name="floorarea" #floorarea="ngModel" placeholder="Floor Area"
         [(ngModel)]="design.FloorArea" required>
       <div class="validation-error" *ngIf="floorarea.invalid && floorarea.touched">Please fill your floor area.</div>
-    </div>
-
-    <div class="form-group col-md-6">
-      <input class="form-control" type="text" name="numofHabitationroom" #numofHabitationroom="ngModel"
-        placeholder="# of Habitable Rooms" [(ngModel)]="design.NumofHabitationroom" required>
-      <div class="validation-error" *ngIf="numofHabitationroom.invalid && numofHabitationroom.touched">Please fill your
-        number of rooms.</div>
     </div>
   </div>
   <div class="form-row" *ngIf="selectoption == 'selectexisted'">

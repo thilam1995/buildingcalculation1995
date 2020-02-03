@@ -8,6 +8,7 @@ import { LoginserviceService } from 'src/app/service/loginservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Register } from 'src/app/models/register';
 import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
+import { RoomserviceService } from 'src/app/service/roomservice.service';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class WindowformComponent implements OnInit {
     { percentage: 1, shade: "Fully shaded" }
   ];
   constructor(private wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
-    private toastr: ToastrService, private buildingmodelservice: BuildingmodelService) {
+    private toastr: ToastrService, private buildingmodelservice: BuildingmodelService,
+    private roomserv: RoomserviceService) {
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
@@ -130,8 +132,12 @@ export class WindowformComponent implements OnInit {
       //console.log(this.windowobject);
 
       this.wallservice.windowput(this.windowobject, this.designid).subscribe(res => {
-        this.toastr.success("Update Wall Successfully", "Info Message!");
-        this.updatewindowvalue(this.designid, this.windowobject);
+        this.toastr.success("Update Window Successfully", "Info Message!");
+        let objectbackup = this.windowobject;
+        console.log(objectbackup);
+        this.updatewindowvaluemodel(this.designid, this.windowobject);
+        this.updatewindowvaluebyroom(this.designid, objectbackup);
+
         setTimeout(() => {
           this.fetchingwindowdata();
         }, 1500);
@@ -185,12 +191,12 @@ export class WindowformComponent implements OnInit {
         const found = windowmodellist.some(x => {
           return x.WindowName === windowi.WindowName
         }); //This boolean will detect if the name is existed to prevent duplicate with different value
-        if(found){
+        if (found) {
           i.data.Window = windowmodellist.filter(x => x.WindowName !== windowi.WindowName);
           //this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid);
           this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
             this.toastr.success("Update model successfully", "Info Message");
-  
+
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
             this.toastr.error("Update model failed", "Info Message");
@@ -200,7 +206,7 @@ export class WindowformComponent implements OnInit {
     }
   }
 
-  updatewindowvalue(id: string, window: WindowObject) {
+  updatewindowvaluemodel(id: string, window: WindowObject) {
     this.buildingmodelservice.fetchwallwindowdoormodel(id);
     if (this.buildingmodelservice.wallwindowdoormodellist.length !== 0) {
       for (let i of this.buildingmodelservice.wallwindowdoormodellist) {
@@ -230,18 +236,59 @@ export class WindowformComponent implements OnInit {
           });
         }
 
-
       }
       setTimeout(() => {
         this.setDefault();
-      }, 2000);
+      }, 3000);
 
     } else {
       this.setDefault();
     }
 
+
+
   }
 
+
+  updatewindowvaluebyroom(id: string, window: WindowObject) {
+    this.roomserv.getallroombydesignid(id);
+    console.log(this.roomserv.roomlist);
+
+    if (this.roomserv.roomlist.length !== 0) {
+      for (let e of this.roomserv.roomlist) {
+        let windowroomlist: Array<any> = e.data.WindowList;
+        console.log(windowroomlist);
+        console.log(window.WindowName);
+        const found = windowroomlist.some(x => {
+          return x.WindowID.Name === window.WindowName
+        });
+        console.log(found);
+        if (found) {
+          windowroomlist.forEach(i => {
+            if (i.WindowID.Name === window.WindowName) {
+              i.WindowID.Area = window.Area;
+            }
+          });
+          e.data.WindowList = windowroomlist;
+          this.roomserv.updateroomfromschedule(e.id, e.data, this.designid).subscribe(x => {
+            this.toastr.success("Update model successfully", "Info Message");
+            setTimeout(() => {
+              this.roomserv.getallroombydesignid(this.designid);
+            }, 1300);
+
+          }, err => {
+            this.toastr.error("Update model failed", "Info Message");
+          });
+        }
+        setTimeout(() => {
+          this.setDefault();
+        }, 4000);
+      }
+
+    } else {
+      this.setDefault();
+    }
+  }
 
 
   onKeyWidth(event: any) { // without type info

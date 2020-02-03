@@ -3,14 +3,14 @@ import { Floors } from '../models/floors';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Roof } from '../models/roof';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FloorService {
   //Floor: Floors;
-  url: string = "http://localhost:8080/api/floor";
+  url: string = environment.uri+"floor";
   floorlist = [];
 
   constructor(private http: HttpClient) { }

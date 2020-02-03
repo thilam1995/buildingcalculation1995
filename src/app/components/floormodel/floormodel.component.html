@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-md-5">
+  <div class="col-md-12">
     <button class="btn btn-primary" (click)="addfloortoggle()">{{display ? "Cancel" : "+ Add Floor"}}</button>
     <div *ngIf="display">
       <form class="buildingform">
@@ -22,7 +22,9 @@
     </div>
   </div>
 
-  <div class="col-md-7 overflowdiv">
+  <hr class="col-md-12">
+
+  <div class="col-md-12 overflowdiv">
     <app-floormodelitem *ngFor="let flooritem of buildingmodelservice.floormodellist" [flooritem]="flooritem">
     </app-floormodelitem>
   </div>

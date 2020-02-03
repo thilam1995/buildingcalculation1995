@@ -8,15 +8,16 @@ import { HttpClient } from "@angular/common/http";
 import { catchError, map, retry } from 'rxjs/operators';
 import { PasswordcryptService } from './passwordcrypt.service';
 import { LocalStorageService } from 'ngx-webstorage';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginserviceService {
 
-  url: string = "http://localhost:8080/api/account";
-  url1: string = "http://localhost:8080/api/login";
-  url2: string = "http://localhost:8080/api/account/changename";
+  url: string = environment.uri+"account";
+  url1: string = environment.uri+"login";
+  url2: string = environment.uri+"account/changename";
   incorrectpassword: boolean = false;
   registermember: Register;
   private currentUserSubject: BehaviorSubject<Register>;

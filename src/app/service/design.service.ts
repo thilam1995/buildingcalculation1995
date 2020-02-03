@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Design } from '../models/design';
 import { map, catchError, retry } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { throwError } from 'rxjs';
 export class DesignService {
 
   designlist = [];
-  url: string = "http://localhost:8080/api/design";
+  url: string = environment.uri+"design";
   constructor(private http: HttpClient) { }
 
   designPosting(design: Design, projectid?: string, userid?: string){

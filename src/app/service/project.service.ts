@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Project } from '../models/project';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class ProjectService {
 
   projectList = [];
   project: Project;
-  url: string = "http://localhost:8080/api/project";
-  url1: string = "http://localhost:8080/api/projectid";
+  url: string = environment.uri+"project";
+  url1: string = environment.uri+"projectid";
   constructor(private http: HttpClient) { }
 
   projectposting(project: Project, id?: string) {

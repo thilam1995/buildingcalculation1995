@@ -105,29 +105,33 @@ export class FloormodelComponent implements OnInit {
   }
 
   addFieldValue() {
-    this.floorextendobject.FloorName = this.floorobject.FloorName;
-    this.floorextendobject.ConstructionRValue = Number(this.floorobject.ConstructionRValue);
-    this.floorextendobject.ExposedArea = Number(this.floorextendobject.ExposedArea);
-    if (this.floorextendobject.FloorName === null || this.floorextendobject.ExposedArea === null ||
-      this.floorextendobject.FloorSection === null) {
-        this.toastr.error("Please Complete Floor Info", "Error");
-    } else {
-      this.floormodel = {
-        Floor: this.floorextendobject,
-        DesignID: this.designid,
-        ProjectID: this.projectid,
-        UserID: this.registeruser.ID
-      };
-
-      console.log(this.floormodel)
-      this.buildingmodelservice.floormodelPost(this.floormodel, this.designid).subscribe(res => {
-        this.toastr.success("Insert Floor Successfully!", "Info");
-        this.setdefault();
-        this.display = false;
-        this.fetchingfloormodel();
-      }, err => {
-        this.toastr.error("Insert Floor failed!", "Info");
-      });
+    if(this.floorobject === null){
+      this.toastr.error("Please Complete Floor Info", "Error");
+    }else{
+      this.floorextendobject.FloorName = this.floorobject.FloorName;
+      this.floorextendobject.ConstructionRValue = Number(this.floorobject.ConstructionRValue);
+      this.floorextendobject.ExposedArea = Number(this.floorextendobject.ExposedArea);
+      if (this.floorextendobject.FloorName === null || this.floorextendobject.ExposedArea === null ||
+        this.floorextendobject.FloorSection === null) {
+          this.toastr.error("Please Complete Floor Info", "Error");
+      } else {
+        this.floormodel = {
+          Floor: this.floorextendobject,
+          DesignID: this.designid,
+          ProjectID: this.projectid,
+          UserID: this.registeruser.ID
+        };
+  
+        console.log(this.floormodel)
+        this.buildingmodelservice.floormodelPost(this.floormodel, this.designid).subscribe(res => {
+          this.toastr.success("Insert Floor Successfully!", "Info");
+          this.setdefault();
+          this.display = false;
+          this.fetchingfloormodel();
+        }, err => {
+          this.toastr.error("Insert Floor failed!", "Info");
+        });
+      }
     }
 
   }

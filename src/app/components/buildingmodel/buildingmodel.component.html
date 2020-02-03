@@ -2,7 +2,11 @@
     <mat-step>
         <ng-template matStepLabel matStepperIcon="done">Room Breakdown</ng-template>
         <hr class="col-md-12">
-        <app-roombreakdown></app-roombreakdown>
+        <app-roombreakdown numberofhabitroom="numberofhabitroom"></app-roombreakdown>
+        <div style="text-align: right">
+            <button type="button" color="default" class="button" matStepperNext>
+                Go to Wall Section <i class="fas fa-arrow-right"></i></button>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Wall, Windows & Door Model</ng-template>
@@ -11,6 +15,10 @@
         <!-- <div style="text-align: center">
             <button type="button" color="default" mat-button matStepperNext>Next</button>
         </div> -->
+        <div style="text-align: right">
+            <button type="button" color="default" class="button" matStepperNext>
+                Go to Next Section <i class="fas fa-arrow-right"></i></button>
+        </div>
     </mat-step>
 
     <mat-step>
@@ -21,6 +29,10 @@
             <button  type="button" color="default"  mat-button matStepperPrevious>Back</button>
             <button  type="button" color="default"  mat-button matStepperNext>Next</button>
         </div> -->
+        <div style="text-align: right">
+            <button type="button" color="default" class="button" matStepperNext>
+                Go to Next Section <i class="fas fa-arrow-right"></i></button>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Floor Model</ng-template>

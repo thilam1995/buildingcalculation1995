@@ -22,6 +22,7 @@ import { DesignService } from 'src/app/service/design.service';
 import { Design } from 'src/app/models/design';
 import { RoofskylightService } from 'src/app/service/roofskylight.service';
 import { FloorService } from 'src/app/service/floor.service';
+import { RoomserviceService } from 'src/app/service/roomservice.service';
 
 @Component({
   selector: 'app-buildingschedule',
@@ -39,7 +40,7 @@ export class BuildingscheduleComponent implements OnInit {
   isedit: boolean = false;
 
 
-
+  numberofhabitroom:number = 0;
   registeruser: Register;
   doorobject: Door;
   windowobject: WindowObject;
@@ -60,7 +61,8 @@ export class BuildingscheduleComponent implements OnInit {
     private router: Router, private toastr: ToastrService, private localSt: LocalStorageService,
     private loginservice: LoginserviceService, private designservice: DesignService,
     private wallservice: WalldoorwindowService, private roofskylightservice: RoofskylightService,
-    private floorservice: FloorService) {
+    private floorservice: FloorService,
+    private roomserv: RoomserviceService) {
     //this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     this.loginservice.currentUser.subscribe(x => {
@@ -83,7 +85,7 @@ export class BuildingscheduleComponent implements OnInit {
     this.locationService.getallLocation();
     this.climateservice.getallhomestarlist();
     this.climateservice.getclimatelist();
-    this.fetchingallhousecomponent();
+    //this.fetchingallhousecomponent();
     this.designservice.getdesignbyID(this.designid).subscribe(res => {
       //console.log(res);
       this.designobject = {
@@ -93,8 +95,6 @@ export class BuildingscheduleComponent implements OnInit {
         CompletedBy: res.data.CompletedBy,
         DrawingSet: res.data.DrawingSet,
         Typology: res.data.Typology,
-        NumofHabitationroom: res.data.NumofHabitationroom,
-        FloorArea: res.data.FloorArea,
         ProjectID: res.data.ProjectID,
         UserID: res.data.UserID,
         DateUpdate: res.data.DateUpdate,
@@ -102,7 +102,8 @@ export class BuildingscheduleComponent implements OnInit {
         Climatetype: res.data.Climatetype,
         City: res.data.City,
         StreetName: res.data.StreetName,
-        Postcode: res.data.Postcode
+        Postcode: res.data.Postcode,
+        FloorArea: Number(res.data.FloorArea)
       };
       console.log(this.designobject);
     }, err => {
@@ -119,7 +120,7 @@ export class BuildingscheduleComponent implements OnInit {
     this.roofskylightservice.rooflistdata(this.designid);
     this.roofskylightservice.skylightlistdata(this.designid);
     this.floorservice.floorlistdata(this.designid);
-
+    this.roomserv.getallroombydesignid(this.designid);
   }
 
   setnulldefault() {
@@ -130,8 +131,6 @@ export class BuildingscheduleComponent implements OnInit {
       CompletedBy: "",
       DrawingSet: "",
       Typology: "",
-      NumofHabitationroom: null,
-      FloorArea: null,
       ProjectID: "",
       UserID: "",
       DateCreated: "",
@@ -139,7 +138,8 @@ export class BuildingscheduleComponent implements OnInit {
       City: "",
       StreetName: "",
       DateUpdate: "",
-      Postcode: ""
+      Postcode: "",
+      FloorArea: null
     };
 
     this.designobject1 = {
@@ -149,8 +149,6 @@ export class BuildingscheduleComponent implements OnInit {
       CompletedBy: "",
       DrawingSet: "",
       Typology: "",
-      NumofHabitationroom: null,
-      FloorArea: null,
       ProjectID: "",
       UserID: "",
       DateCreated: "",
@@ -158,7 +156,7 @@ export class BuildingscheduleComponent implements OnInit {
       City: "",
       StreetName: "",
       DateUpdate: "",
-      Postcode: ""
+      Postcode: "", FloorArea: null
     };
 
     this.doorobject = {
@@ -266,8 +264,6 @@ export class BuildingscheduleComponent implements OnInit {
         CompletedBy: "",
         DrawingSet: "",
         Typology: "",
-        NumofHabitationroom: null,
-        FloorArea: null,
         ProjectID: "",
         UserID: "",
         DateCreated: "",
@@ -275,7 +271,8 @@ export class BuildingscheduleComponent implements OnInit {
         City: "",
         StreetName: "",
         DateUpdate: "",
-        Postcode: ""
+        Postcode: "",
+        FloorArea: null
       };
     }
   }

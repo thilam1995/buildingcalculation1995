@@ -75,6 +75,7 @@ import { ResultcarouselComponent } from './components/resultcarousel/resultcarou
 import { NaturallightingitemComponent } from './components/naturallightingitem/naturallightingitem.component';
 import { RoomfilterPipe } from './pipe/roomfilter.pipe';
 import {MatRadioModule} from '@angular/material/radio';
+import { HelpguideComponent } from './components/helpguide/helpguide.component';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,8 @@ import {MatRadioModule} from '@angular/material/radio';
     RoombreakdownitemComponent,
     ResultcarouselComponent,
     NaturallightingitemComponent,
-    RoomfilterPipe
+    RoomfilterPipe,
+    HelpguideComponent
   ],
   imports: [
     BrowserModule,

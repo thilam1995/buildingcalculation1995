@@ -17,6 +17,7 @@ import { Notfound404Component } from './components/notfound404/notfound404.compo
 import { CoolingenergyresultComponent } from './components/coolingenergyresult/coolingenergyresult.component';
 import { NaturallightingComponent } from './components/naturallighting/naturallighting.component';
 import { PassiveventilationComponent } from './components/passiveventilation/passiveventilation.component';
+import { HelpguideComponent } from './components/helpguide/helpguide.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,8 +27,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, data: { title: "Home" } },
       { path: 'project', component: ProjectComponent, data: { title: "Project" } },
-      // { path: 'buildingschedulelist', component: BuildingschedulelistComponent, data: { title: "Building Schedule List" } },
-      
+      { path: 'helpguide', component: HelpguideComponent, data: {title: "Help and Guideline"}},
       { path: 'createdesign/:projectid', component: BuildinginfoComponent, data: { title: "Create a design" } },
       { path: 'buildingschedule', component: BuildingscheduleComponent, data: { title: 'Building Schedule' } },
       { path: 'setting', data: {title: 'Setting'}, component: SettingComponent},

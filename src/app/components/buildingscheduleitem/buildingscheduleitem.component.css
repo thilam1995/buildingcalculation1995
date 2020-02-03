@@ -112,6 +112,14 @@ span.b {
     border-color: rgb(101, 224, 105);
 }
 
+.buttontext{
+    width: 95px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    text-overflow: ellipsis;
+}
+
 
 @keyframes fadein {
     from {

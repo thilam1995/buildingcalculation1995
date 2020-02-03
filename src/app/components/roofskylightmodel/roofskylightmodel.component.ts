@@ -165,33 +165,37 @@ export class RoofskylightmodelComponent implements OnInit {
 
 
   onSubmitModel() {
-
-    this.roofextendobject.RoofName = this.roofobject.RoofName;
-    this.roofextendobject.ConstructionRValue = Number(this.roofobject.ConstructionRValue);
-    this.roofextendobject.ExposedArea = Number(this.roofextendobject.ExposedArea);
-    if (this.roofextendobject.RoofName === null || this.roofextendobject.RoofSection === null || this.roofextendobject.ExposedArea === null) {
+    if(this.roofobject === null){
       this.toastr.error("Please Complete Roof Information", "Error Message");
-    } else if (this.roofobject === null) {
-      this.toastr.error("Please select roof!", "Error Message");
-     } else {
-      this.roofskylightmodel = {
-        Roof: this.roofextendobject,
-        Skylight: this.skylightmodellist,
-        DesignID: this.designid,
-        ProjectID: this.projectid,
-        UserID: this.registeruser.ID
-      };
-
-      console.log(this.roofskylightmodel);
-      this.buildingmodelservice.roofskylightmodelPost(this.roofskylightmodel, this.designid).subscribe(res => {
-        this.toastr.success("Insert Roof Successfully", "Info");
-        this.setDefault();
-        this.display = false;
-        this.display1 = false;
-        this.fetchingroofskylightmodel();
-      }, err => {
-        this.toastr.error("Insert Roof and Skylight failed", "Error");
-      });
+    }else{
+      this.roofextendobject.RoofName = this.roofobject.RoofName;
+      this.roofextendobject.ConstructionRValue = Number(this.roofobject.ConstructionRValue);
+      this.roofextendobject.ExposedArea = Number(this.roofextendobject.ExposedArea);
+      if (this.roofextendobject.RoofName === null || this.roofextendobject.RoofSection === null || this.roofextendobject.ExposedArea === null) {
+        this.toastr.error("Please Complete Roof Information", "Error Message");
+      } else if (this.roofobject === null) {
+        this.toastr.error("Please select roof!", "Error Message");
+       } else {
+        this.roofskylightmodel = {
+          Roof: this.roofextendobject,
+          Skylight: this.skylightmodellist,
+          DesignID: this.designid,
+          ProjectID: this.projectid,
+          UserID: this.registeruser.ID
+        };
+  
+        console.log(this.roofskylightmodel);
+        this.buildingmodelservice.roofskylightmodelPost(this.roofskylightmodel, this.designid).subscribe(res => {
+          this.toastr.success("Insert Roof Successfully", "Info");
+          this.setDefault();
+          this.display = false;
+          this.display1 = false;
+          this.fetchingroofskylightmodel();
+        }, err => {
+          this.toastr.error("Insert Roof and Skylight failed", "Error");
+        });
+      }
+  
     }
 
   }

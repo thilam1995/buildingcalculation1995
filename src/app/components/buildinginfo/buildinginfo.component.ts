@@ -85,14 +85,13 @@ export class BuildinginfoComponent implements OnInit {
       Climatetype: null,
       CompletedBy: "",
       DrawingSet: "",
-      FloorArea: null,
-      NumofHabitationroom: null,
       Typology: "",
       DateUpdate: "",
       DateCreated: "",
       City: "",
       StreetName: "",
-      Postcode: ""
+      Postcode: "",
+      FloorArea: null
     };
     this.design1 = {
       DesignName: "",
@@ -100,14 +99,13 @@ export class BuildinginfoComponent implements OnInit {
       Climatetype: null,
       CompletedBy: "",
       DrawingSet: "",
-      FloorArea: null,
-      NumofHabitationroom: null,
       Typology: "",
       DateUpdate: "",
       DateCreated: "",
       City: "",
       StreetName: "",
-      Postcode: ""
+      Postcode: "",
+      FloorArea: null
     };
   }
 
@@ -126,8 +124,6 @@ export class BuildinginfoComponent implements OnInit {
           Climatetype: form.value.climatetype,
           CompletedBy: form.value.completedby,
           DrawingSet: form.value.drawingset,
-          FloorArea: Number(form.value.floorarea),
-          NumofHabitationroom: Number(form.value.numofHabitationroom),
           Typology: form.value.typology,
           ProjectID: this.projectid,
           UserID: this.registeruser.ID,
@@ -135,7 +131,8 @@ export class BuildinginfoComponent implements OnInit {
           DateUpdate: timedatestring,
           City: form.value.city,
           StreetName: form.value.street,
-          Postcode: form.value.postcode
+          Postcode: form.value.postcode,
+          FloorArea: form.value.floorarea
         }
         console.log(this.design);
         this.designservice.designPosting(this.design).subscribe(x => {
@@ -177,8 +174,6 @@ export class BuildinginfoComponent implements OnInit {
           Climatetype: this.designSelect.Climatetype,
           CompletedBy: this.designSelect.CompletedBy,
           DrawingSet: this.designSelect.DrawingSet,
-          FloorArea: this.designSelect.FloorArea,
-          NumofHabitationroom: this.designSelect.NumofHabitationroom,
           Typology: this.designSelect.Typology,
           ProjectID: this.projectid,
           UserID: this.registeruser.ID,
@@ -186,7 +181,8 @@ export class BuildinginfoComponent implements OnInit {
           DateUpdate: timedatestring,
           City: this.designSelect.City,
           StreetName: this.designSelect.StreetName,
-          Postcode: this.designSelect.Postcode
+          Postcode: this.designSelect.Postcode,
+          FloorArea: this.designSelect.FloorArea
         };
         console.log(this.design);
         this.designservice.designPosting(this.design).subscribe(x => {

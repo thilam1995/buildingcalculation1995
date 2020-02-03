@@ -156,7 +156,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       this.doorheight = 0;
       this.doorwidth = 0;
       this.rvaluedoor = 0;
-    } else if (this.doorobject === null){
+    } else if (this.doorobject === null) {
       this.toastr.error("Error! Window cannot be empty!");
     }
   }
@@ -191,7 +191,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
         this.windowheight = 0;
         this.rvavluewindow = 0;
       }, 200);
-      
+
     } else if (this.windowobject === null) {
       this.windowwidth = 0;
       this.windowheight = 0;
@@ -213,7 +213,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
         this.rvaluedoor = 0;
       }, 200);
 
-    } else if (this.doorobject === null){
+    } else if (this.doorobject === null) {
       this.doorwidth = 0;
       this.doorheight = 0;
       this.rvaluedoor = 0;
@@ -227,8 +227,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
     if (event.target.value === "") {
       this.wallextendobject.Area = 0;
     } else {
-      this.wallextendobject.Width = Number(event.target.value);
-      this.wallextendobject.Area = Number(this.wallextendobject.Width * this.wallextendobject.Height);
+      this.wallextendobject.Width = event.target.value;
+      this.wallextendobject.Area = Number(this.wallextendobject.Width) * Number(this.wallextendobject.Height);
     }
   }
 
@@ -236,8 +236,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
     if (event.target.value === "") {
       this.wallextendobject.Area = 0;
     } else {
-      this.wallextendobject.Height = Number(event.target.value);
-      this.wallextendobject.Area = Number(this.wallextendobject.Width * this.wallextendobject.Height);
+      this.wallextendobject.Height = event.target.value;
+      this.wallextendobject.Area = Number(this.wallextendobject.Width) * Number(this.wallextendobject.Height);
     }
   }
 
@@ -258,7 +258,27 @@ export class WalldoorwindowmodelComponent implements OnInit {
   }
 
 
+  checkifwindowareamorethanwallarea(): boolean {
+    let wallarea = 0;
+    if (this.wallextendobject.Area !== null) {
+      wallarea = Number(this.wallextendobject.Area);
+    }
+    let windowarea = 0;
+    if (this.windowobjectmodellist.length !== 0) {
+      this.windowobjectmodellist.forEach(e => {
+        windowarea += e.Area;
+      });
+    }
+    let doorarea = 0;
+    if(this.doorobjectmodellist.length !== 0){
+      this.doorobjectmodellist.forEach(e => {
+        doorarea += e.Area;
+      });
+    }
 
+    let windowdoorarea = windowarea + doorarea;
+    return windowdoorarea > wallarea;
+  }
 
 
   onSubmitModel() {
@@ -268,7 +288,10 @@ export class WalldoorwindowmodelComponent implements OnInit {
       this.wallextendobject.WallName === null || this.wallextendobject.WallName === undefined || this.wallextendobject.Height === 0 ||
       this.wallextendobject.Width === 0) {
       this.toastr.error("Please complete wall information", "Error Message");
-    } else {
+    } else if(this.checkifwindowareamorethanwallarea()){
+      this.toastr.error("The area of windows and doors is more than wall area! Please make it less!", "Error Message");
+    }
+    else {
       this.wallwindowdoormodel = {
         Wall: this.wallextendobject,
         Window: this.windowobjectmodellist,

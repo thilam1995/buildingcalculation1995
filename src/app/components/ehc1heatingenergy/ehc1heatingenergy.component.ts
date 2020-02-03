@@ -113,6 +113,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
   isskylightarealessthen1point5: boolean = false;
   isachievedallrequire: boolean = false;
 
+  isech1pass: boolean = false;
+
   isroofpasslist: Array<boolean> = [];
   iswallpasslist: Array<boolean> = [];
   isskylightpasslist: Array<boolean> = [];
@@ -163,8 +165,6 @@ export class Ehc1heatingenergyComponent implements OnInit {
       CompletedBy: "",
       DrawingSet: "",
       Typology: "",
-      NumofHabitationroom: null,
-      FloorArea: null,
       DateCreated: null,
       ProjectID: "",
       UserID: "",
@@ -172,7 +172,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
       City: "",
       StreetName: "",
       DateUpdate: "",
-      Postcode: ""
+      Postcode: "",
+      FloorArea: null
     };
     this.projectobject = {
       ProjectID: "",
@@ -203,15 +204,14 @@ export class Ehc1heatingenergyComponent implements OnInit {
         CompletedBy: res.data.CompletedBy,
         DrawingSet: res.data.DrawingSet,
         Typology: res.data.Typology, DateCreated: res.data.DateCreated,
-        NumofHabitationroom: Number(res.data.NumofHabitationroom),
-        FloorArea: res.data.FloorArea,
         ProjectID: res.data.ProjectID,
         UserID: res.data.UserID,
         Climatetype: res.data.Climatetype,
         City: res.data.City,
         StreetName: res.data.StreetName,
         DateUpdate: res.data.DateUpdate,
-        Postcode: res.data.Postcode
+        Postcode: res.data.Postcode,
+        FloorArea: res.data.FloorArea
       };
       this.location = this.designobject.StreetName + ", " + this.designobject.City + ", " + this.designobject.Postcode;
       this.targeting = this.designobject.TargetRating.HomeStar;
@@ -545,23 +545,28 @@ export class Ehc1heatingenergyComponent implements OnInit {
       }));
     }
 
-
+    let allrequireelement = [];
 
     //Filter to check of pass
     if (this.walllist.length !== 0) {
       this.iswallpass = this.iswallpasslist.filter(x => x).length === this.walllist.length;
+      allrequireelement.push(this.iswallpass);
     }
     if (this.rooflist.length !== 0) {
       this.isroofpass = this.isroofpasslist.filter(x => x).length === this.rooflist.length;
+      allrequireelement.push(this.isroofpass)
     }
     if (this.windowlist.length !== 0) {
       this.iswindowpass = this.iswindowpasslist.filter(x => x).length === this.windowlist.length;
+      allrequireelement.push(this.iswindowpass);
     }
     if (this.floorlist.length !== 0) {
       this.isfloorpass = this.isfloorpasslist.filter(x => x).length === this.floorlist.length;
+      allrequireelement.push(this.isfloorpass);
     }
     if (this.skylightlist.length !== 0) {
       this.isskylightpass = this.isskylightpasslist.filter(x => x).length === this.skylightlist.length;
+      allrequireelement.push(this.isskylightpass);
     }
 
     this.maxdoorareaallow = Math.max(6, (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth) * 0.06);
@@ -594,11 +599,33 @@ export class Ehc1heatingenergyComponent implements OnInit {
         + Number((this.totalareawindowmore30 / this.wallrvalue).toFixed(2)) + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
       console.log(this.totalschedule);
     }
+    
+    let ehc1result = [];
 
-    this.islessthan30window = 0.30 >= ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth));
-    this.iswallwesteatsouthlessthan30 = 0.30 >= ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest));
-    this.isskylightarealessthen1point5 = 0.015 > (this.totalareaskylight / this.totalarearoof);
-    this.isachievedallrequire = this.isroofpass && this.iswallpass && this.isskylightpass && this.isfloorpass && this.iswindowpass;
+    if(((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth)) > 0){
+      this.islessthan30window = 0.30 >= ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth));
+      ehc1result.push(this.islessthan30window);
+    }
+    
+    
+    if(((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest)) > 0){
+      this.iswallwesteatsouthlessthan30 = 0.30 >= ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest));
+      ehc1result.push(this.iswallwesteatsouthlessthan30);
+    }
+    
+    if(this.totalareaskylight > 0){
+      this.isskylightarealessthen1point5 = 0.015 > (this.totalareaskylight / this.totalarearoof);
+      ehc1result.push(this.isskylightarealessthen1point5);
+    }
+    
+    if(allrequireelement.length > 0){
+      this.isachievedallrequire = allrequireelement.every(Boolean);
+      ehc1result.push(this.isachievedallrequire)
+    }
+    
+    if(ehc1result.length > 0){
+      this.isech1pass = ehc1result.every(Boolean);
+    }
 
 
   }
@@ -626,7 +653,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
         width: margin.width // max width of content on PDF
       }, dispose => {
         this.toastr.success("Rendering Completed!");
-        pdf.save(stringdate);
+        pdf.save("heatloss_"+stringdate);
       }, margin)
     });
   }
