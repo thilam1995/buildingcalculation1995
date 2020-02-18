@@ -1,6 +1,16 @@
-<div class="row" *ngIf="i.data.RoomID != 'Bathroom'">
+<div class="row" id="rcorners3" *ngIf="i.data.RoomID != 'Bathroom'">
     <div class="col-md-12">
         <table class="table table-sm">
+            <tr>
+                <th>Room Type</th>
+                <th>Room ID</th>
+                <th>Total Windows Area (m2)</th>
+                <th>Total Room Area (m2)</th>
+                <th>Shade Level</th>
+                <th>Natural Lighting Requirement (%)</th>
+                <th>Natural Lighting Achieved (WFR)</th>
+                <th>Home Compliance</th>
+            </tr>
             <tr>
                 <td>{{i.data.RoomType}}</td>
                 <td>{{i.data.RoomID}}</td>
@@ -10,13 +20,13 @@
                 <td>>{{naturallightrequire * 100  | number: '1.0-2'}} %</td>
                 <td [ngStyle]="{'color': (totalwindowarea / i.data.RoomArea) >= naturallightrequire ? 'lime' : 'red'}">{{(totalwindowarea / i.data.RoomArea) * 100 | number: '1.0-2'}} %</td>
                 <td [ngStyle]="{'color': (totalwindowarea / i.data.RoomArea) >= naturallightrequire ? 'lime' : 'red'}" style="font-weight: bold;">{{(totalwindowarea / i.data.RoomArea) >= naturallightrequire ? "PASS" : "FAIL"}}</td>
-                <td><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></td>
+                <!-- <td><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></td> -->
             </tr>
 
 
         </table>
 
-        <table class="table table-sm" *ngIf="isdisplay">
+        <table class="table table-sm">
             <tr>
                 <th>Window ID</th>
                 <th>Window Area</th>
@@ -24,7 +34,7 @@
             </tr>
             <tr *ngFor="let z of i.data.WindowList">
                 <td>{{z.WindowID.Name}}</td>
-                <td>{{z.WindowID.Area}}</td>
+                <td>{{z.WindowID.Area |  number: '1.0-2'}}</td>
                 <td>{{z.IsShading ? "Shaded" : "Unshaded"}}</td>
             </tr>
         </table>

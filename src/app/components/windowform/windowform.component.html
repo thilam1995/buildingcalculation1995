@@ -27,9 +27,10 @@
                     <label>Area: <span>{{windowobject.Area | number: '1.0-2'}}</span></label>
 
                 </div>
+
                 <div class="form-group col-md-12">
-                    <label>O.W.A (%)</label><select class="form-control" name="owa" #owa="ngModel"
-                        [(ngModel)]="windowobject.OWA">
+                    <label>O.W.A (%)</label>
+                    <select class="form-control" name="owa" #owa="ngModel" [(ngModel)]="windowobject.OWA">
                         <option *ngFor="let i of owaList" [ngValue]="i">{{i * 100 | number: '1.0-0'}}%</option>
                     </select>
                 </div>

@@ -95,7 +95,9 @@ export class FloormodelitemComponent implements OnInit {
 
   selecttoEdit(i: any){
     this.isedit = true;
-
+    if(this.isdisplay){
+      this.isdisplay = false;
+    }
     this.floorextendobject = Object.assign({}, i.data.Floor);
     this.floorobject = {
       FloorName: this.floorextendobject.FloorName,

@@ -28,6 +28,9 @@ export class BuildingmodelService {
       return data as any;
     })).toPromise().then(x => {
       this.wallwindowdoormodellist = x;
+      this.wallwindowdoormodellist.sort((a: any, b: any) => {
+        return (a.data.Wall.Orientation > b.data.Wall.Orientation) ? 1 : ((b.data.Wall.Orientation > a.data.Wall.Orientation) ? -1 : 0)
+      });
     }).catch(e =>{
       catchError(this.handleError);
     });
@@ -80,6 +83,9 @@ export class BuildingmodelService {
       return data as any;
     })).toPromise().then(x => {
       this.roofskylightmodellist = x;
+      this.roofskylightmodellist.sort((a: any, b: any) => {
+        return (a.data.Roof.RoofSection > b.data.Roof.RoofSection) ? 1 : ((b.data.Roof.RoofSection > a.data.Roof.RoofSection) ? -1 : 0)
+      });
     }).catch(e =>{
       catchError(this.handleError);
     });
@@ -132,6 +138,9 @@ export class BuildingmodelService {
       return data as any;
     })).toPromise().then(x => {
       this.floormodellist = x;
+      this.floormodellist.sort((a: any, b: any) => {
+        return (a.data.Floor.FloorSection > b.data.Floor.FloorSection) ? 1 : ((b.data.Floor.FloorSection > a.data.Floor.FloorSection) ? -1 : 0)
+      });
     }).catch(e =>{
       catchError(this.handleError);
     });

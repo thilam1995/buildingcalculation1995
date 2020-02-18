@@ -149,6 +149,9 @@ export class RoombreakdownitemComponent implements OnInit {
 
   onEdit(i: any) {
     this.isedit = true;
+    if(this.isdisplay){
+      this.isdisplay = false;
+    }
     if (i.data.RoomID !== "Bathroom") {
       this.ishabitable = true;
       this.room = {

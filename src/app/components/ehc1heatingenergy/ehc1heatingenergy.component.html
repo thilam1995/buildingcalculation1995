@@ -250,10 +250,9 @@
               <td>
                 {{isech1pass ? "The Building Complies with Homestar Schedule Method" : "The Building Does Not Comply with Homestar Schedule Method" }}
               </td>
-              <td> <img src="../../../assets/pic/pass.png"
-                  *ngIf="isech1pass">
-                <img src="../../../assets/pic/fail.png"
-                  *ngIf="!isech1pass">
+              <td>
+                <img src="../../../assets/pic/pass.png" *ngIf="isech1pass">
+                <img src="../../../assets/pic/fail.png" *ngIf="!isech1pass">
               </td>
             </tr>
           </table>
@@ -303,10 +302,8 @@
             <td>All of the building construction elements achieve the required final R-values</td>
             <td>{{isachievedallrequire ? "Yes" : "No"}}</td>
             <td>
-              <img src="../../../assets/pic/pass.png"
-                *ngIf="isachievedallrequire">
-              <img src="../../../assets/pic/fail.png"
-                *ngIf="!isachievedallrequire">
+              <img src="../../../assets/pic/pass.png" *ngIf="isachievedallrequire">
+              <img src="../../../assets/pic/fail.png" *ngIf="!isachievedallrequire">
             </td>
           </tr>
         </table>
@@ -315,7 +312,8 @@
       <hr class="col-md-12">
 
       <div class="col-md-12 methoddiv">
-        <h1 style="text-align: center; color: white; font-weight: bold;">Homestar Schedule Method (option b) - NZS 4218 HL Calcs</h1>
+        <h1 style="text-align: center; color: white; font-weight: bold;">Homestar Schedule Method (option b) - NZS 4218
+          HL Calcs</h1>
       </div>
       <br>
       <br>
@@ -335,10 +333,8 @@
               </span>
             </td>
             <td>
-              <img src="../../../assets/pic/pass.png"
-                *ngIf="totalschedule >= totalproposed || (totalareawindow / totalheatlosswindow) > 0.26">
-              <img src="../../../assets/pic/fail.png"
-                *ngIf="totalproposed > totalschedule || 0.26 > (totalareawindow / totalheatlosswindow)">
+              <img src="../../../assets/pic/pass.png" *ngIf="totalschedule >= totalproposed">
+              <img src="../../../assets/pic/fail.png" *ngIf="totalproposed > totalschedule">
             </td>
           </tr>
         </table>
@@ -462,14 +458,18 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Windows & Door (< %30)</td> <td>{{totalareawindowless30 | number: '1.0-2'}}</td>
+                  <td>Windows & Door (< %30)</td>
+                  <td>{{totalareawindowless30 | number: '1.0-2'}}</td>
                   <td>{{windowrvalue | number: '1.0-2'}}</td>
                   <td>{{totalareawindowless30/windowrvalue | number: '1.0-2'}} </td>
                 </tr>
                 <tr>
                   <td>Windows & Door (> %30)</td>
                   <td>
-                    {{totalareawindowmore30 | number: '1.0-2'}}</td>
+                    <span
+                      *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">{{totalareawindowmore30 | number: '1.0-2'}}</span>
+                    <span
+                      *ngIf="0.30 > (totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)">-</span>
                   <td>
                     <span
                       *ngIf="(totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) > 0.30">
@@ -518,11 +518,11 @@
             <td>
               <span style="color: brown;"
                 *ngIf="0.30 > ((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth))">
-                {{(((totalwallsouth + totalwalleast + totalwallwest + totalwallnorth) * 0.7) + totalareawindowless30 + totalareawindowmore30) | number: '1.0-2'}}
+                {{wallbalancecheck_proposed | number: '1.0-2'}}
               </span>
               <span style="color: brown;"
                 *ngIf="((totalwindowsouth + totalwindoweast + totalwindowwest + totalwindownorth) / (totalwallsouth + totalwalleast + totalwallwest + totalwallnorth)) > 0.30">
-                {{(totalareawall + totalareawindowless30 + totalareawindowmore30) | number: '1.0-2'}}
+                {{wallbalancecheck_reference | number: '1.0-2'}}
               </span>
             </td>
           </tr>

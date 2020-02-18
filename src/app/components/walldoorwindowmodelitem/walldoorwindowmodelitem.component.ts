@@ -120,7 +120,9 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
 
   selecttoEdit(i: any) {
     this.isedit = true;
-
+    if(this.isdisplay){
+      this.isdisplay = false;
+    }
     this.wallextendobject = Object.assign({}, i.data.Wall);
     console.log(this.wallextendobject);
     this.windowobjectmodellist = i.data.Window;
@@ -142,7 +144,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       this.wallextendobject.WallName === null || this.wallextendobject.WallName === undefined || this.wallextendobject.Height === 0 ||
       this.wallextendobject.Width === 0) {
       this.toastr.error("Please complete wall information", "Error Message");
-    } else if(this.checkifwindowareamorethanwallarea){
+    } else if(this.checkifwindowareamorethanwallarea()){
       this.toastr.error("The area of windows and doors is more than wall area! Please make it less!", "Error Message");
     } else {
       this.wallwindowdoormodel = {

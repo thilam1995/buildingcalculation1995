@@ -1,0 +1,14 @@
+table tr th{
+    text-align: center;
+    font-size: 90%;
+}
+
+
+table tr td{
+    text-align: center;
+    font-size: 100%;
+    word-wrap: break-word;
+    width: 200px;
+    vertical-align: middle;
+    padding: 3px;
+}

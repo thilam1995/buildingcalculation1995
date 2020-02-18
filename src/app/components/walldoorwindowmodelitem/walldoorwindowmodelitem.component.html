@@ -7,14 +7,14 @@
 
       <th rowspan="2" *ngIf="!isedit"><button class="btn btn-primary"
           (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></th>
-      <th *ngIf="!isedit"><button class="btn btn-primary" (click)="selecttoEdit(i)">Edit</button>
+      <th *ngIf="!isedit"><button class="btn btn-primary" (click)="selecttoEdit(i)"><i class="far fa-edit"></i> Edit</button>
       </th>
       <th rowspan="2" *ngIf="isedit">
-        <button class="btn btn-primary" (click)="onCancel()">Cancel</button>
+        <button class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-ban"></i> Cancel</button>
         <button class="btn btn-primary" (click)="updateselectedmodel(i.id)">
-          Save
+          <i class="far fa-save"></i> Save
         </button>
-        <button class="btn btn-primary" (click)="deleleselectmodel(i.id)">Delete</button>
+        <button class="btn btn-danger" (click)="deleleselectmodel(i.id)"><i class="fas fa-trash-alt"></i> Delete</button>
       </th>
     </tr>
     <tr>
@@ -74,7 +74,7 @@
           </table>
         </div>
 
-        <div  class="form-group col-md-12">
+        <div class="form-group col-md-12">
           <table class="table table-sm table-hover">
             <tr>
               <th>Window Name</th>

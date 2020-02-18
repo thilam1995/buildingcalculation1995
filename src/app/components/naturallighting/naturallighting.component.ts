@@ -293,11 +293,14 @@ export class NaturallightingComponent implements OnInit {
         } else {
           if (this.livingroompassnum === 1 && this.livingroomnum === 1 && this.livingroompassnum === this.livingroomnum) {
             let livingpoint = 0;
-            if(this.primarybednum > 0 && this.primarybednum === this.primarybedpassnum && this.otherhabitnum === 0){
+            if (this.primarybednum === 1 && this.primarybednum === this.primarybedpassnum && this.otherhabitnum === 0) {
               livingpoint = 2;
-            }else if(this.primarybednum > 0 && this.primarybednum === this.primarybedpassnum && this.otherhabitnum > 0){
+            } else if (this.primarybednum === 1 && this.primarybednum === this.primarybedpassnum && (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum)){
+              livingpoint = 1;
+            } else if (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum){
               livingpoint = 1;
             }
+
             this.compliancepoint += livingpoint;
           }
 
@@ -331,7 +334,7 @@ export class NaturallightingComponent implements OnInit {
 
   }
 
-  downloadresult(){
+  downloadresult() {
     let date = new Date();
     let stringdate: string = "";
     stringdate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + "_" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds();
@@ -352,7 +355,7 @@ export class NaturallightingComponent implements OnInit {
         width: margin.width // max width of content on PDF
       }, dispose => {
         this.toastr.success("Rendering Completed!");
-        pdf.save("naturallighting_"+stringdate);
+        pdf.save("naturallighting_" + stringdate);
       }, margin)
     });
   }

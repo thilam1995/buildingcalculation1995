@@ -1,1 +1,96 @@
-<p>passiveventilation works!</p>
+<div class="row">
+    <div class="col-md-12" style="text-align: center;">
+        <button class="btn btn-primary" style="margin: 10px" (click)="returntoSchedule()"><i
+                class="fas fa-undo-alt"></i>
+            Return to Schedule</button>
+        <button class="btn btn-primary" style="margin: 10px"><i class="fas fa-file-download"></i>
+            Download Result</button>
+    </div>
+    <div class="col-md-12" id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Project ID</th>
+                            <th>{{projectobject.ProjectName}}</th>
+                        </tr>
+                        <tr>
+                            <th>Dwelling / Typology</th>
+                            <th>{{designobject.Typology}}</th>
+                        </tr>
+                        <tr>
+                            <th>Completed By</th>
+                            <th>{{designobject.CompletedBy}}</th>
+                        </tr>
+                        <tr>
+                            <th>Drawing Set</th>
+                            <th>{{designobject.DrawingSet}}</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Homestar Compliance</th>
+                        </tr>
+                        <tr>
+                            <th [ngStyle]="{'color': iscomplied ? 'lime' : 'red'}">{{iscomplied ? 0.5 : 0 | number: '1.0-2'}} points</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>The net openable window area (OWA) must be >5% of the total floor area.</th>
+                            <td>OWA %</td>
+                            <td>{{totalnetowapercent | number: '1.0-0'}} %</td>
+                            <td [ngStyle]="{'color': iscomplied ? 'lime' : 'red'}">{{iscomplied ? "Complies" : "Fails"}}</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <hr class="col-md-12">
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Dwelling Floor Area (ICA)</th>
+                            <th>{{designobject.FloorArea}}</th>
+                        </tr>
+                    </table>
+
+                </div>
+                <hr class="col-md-12">
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Window ID</th>
+                            <th>Window Area</th>
+                            <th>OWA (%)</th>
+                            <th>OWA (m2)</th>
+                            <th># of Inclusion</th>
+                            <th>Net OWA (m2)</th>
+                            <th>O.W.A. % of floor area</th>
+                        </tr>
+                        <tr *ngFor="let x of windowlist">
+                            <td>{{x.windowname}}</td>
+                            <td>{{x.totalarea | number: '1.0-2'}}</td>
+                            <td>{{x.owa * 100 | number: '1.0-2'}}%</td>
+                            <td>{{x.totalarea * x.owa | number: '1.0-2'}}</td>
+                            <td>{{x.numinclusion}}</td>
+                            <td>{{x.numinclusion * (x.totalarea * x.owa) | number: '1.0-2'}}</td>
+                            <td>{{((x.numinclusion * (x.totalarea * x.owa))/designobject.FloorArea) * 100 | number: '1.0-2' | number: '1.0-2'}}</td>
+                        </tr>
+                    </table>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Total O.W.A</th>
+                            <td>Net OWA in Total: {{totalnetowa | number: '1.0-2'}}</td>
+                            <td>Net OWA in Total Percent: {{totalnetowapercent | number: '1.0-2'}} %</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

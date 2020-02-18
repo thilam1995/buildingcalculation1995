@@ -37,7 +37,7 @@
         <td>{{iwindow.ConstructionRValue | number: '1.0-2'}}</td>
         <td>{{iwindow.Area / iwindow.ConstructionRValue | number: '1.0-2'}}</td>
       </tr>
-      <tr *ngIf="i.data.Window.Door != 0">
+      <tr *ngIf="i.data.Door.length != 0">
         <th>#</th>
         <th>Door Area</th>
         <th>#</th>

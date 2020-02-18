@@ -120,7 +120,9 @@ export class RoofskylightmodelitemComponent implements OnInit {
 
   onEdit(i: any) {
     this.isedit = true;
-    console.log(i);
+    if(this.isdisplay){
+      this.isdisplay = false;
+    }
     this.roofextendobject = Object.assign({}, i.data.Roof);
     this.roofobject = {
       RoofName: this.roofextendobject.RoofName,

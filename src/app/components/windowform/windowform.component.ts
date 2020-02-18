@@ -28,6 +28,8 @@ export class WindowformComponent implements OnInit {
     0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6,
     0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1];
 
+
+  owaselected = "";
   shadeList = [
     { percentage: 0, shade: "Unshaded" },
     { percentage: 0.25, shade: "shaded" },
@@ -85,17 +87,20 @@ export class WindowformComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.value.id === null) {
-      this.windowobject = {
-        WindowName: form.value.windowName,
-        ConstructionRValue: Number(form.value.constructionRValue),
-        Width: Number(form.value.windowWidth),
-        Height: Number(form.value.windowsHeight),
-        Area: Number(this.windowobject.Area),
-        OWA: Number(form.value.owa),
-        DesignID: this.designid,
-        ProjectID: this.projectid,
-        UserID: this.registeruser.ID
-      };
+
+        this.windowobject = {
+          WindowName: form.value.windowName,
+          ConstructionRValue: Number(form.value.constructionRValue),
+          Width: Number(form.value.windowWidth),
+          Height: Number(form.value.windowsHeight),
+          Area: Number(this.windowobject.Area),
+          OWA: Number(form.value.owa),
+          DesignID: this.designid,
+          ProjectID: this.projectid,
+          UserID: this.registeruser.ID
+        };
+  
+
 
       const found = this.wallservice.windowlist.some(x => {
         return x.data.WindowName === this.windowobject.WindowName
