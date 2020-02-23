@@ -58,7 +58,8 @@ export class WallformComponent implements OnInit {
       Description: null,
       DesignID: null,
       ProjectID: null,
-      UserID: null
+      UserID: null,
+      DateCreated: null
     };
   }
 
@@ -66,14 +67,17 @@ export class WallformComponent implements OnInit {
   onSubmit(form: NgForm) {
 
     console.log(form.value);
+
     if (form.value.ID === null) {
+      let date = new Date();
       this.wallobject = {
         WallName: form.value.wallName,
         ConstructionRValue: Number(form.value.constructionRValue),
         Description: form.value.description,
         DesignID: this.designid,
         ProjectID: this.projectid,
-        UserID: this.registeruser.ID
+        UserID: this.registeruser.ID,
+        DateCreated: date.toString()
       };
 
       const found = this.wallservice.walllist.some(x => {
@@ -97,6 +101,7 @@ export class WallformComponent implements OnInit {
       }
 
     } else {
+      let date = new Date();
       this.wallobject = {
         ID: form.value.ID,
         WallName: form.value.wallName,
@@ -104,7 +109,8 @@ export class WallformComponent implements OnInit {
         Description: form.value.description,
         DesignID: this.designid,
         ProjectID: this.projectid,
-        UserID: this.registeruser.ID
+        UserID: this.registeruser.ID,
+        DateCreated: form.value.datecreated,
       };
       console.log(this.wallobject);
       this.wallservice.wallput(this.wallobject, this.designid).subscribe(res => {
@@ -169,7 +175,8 @@ export class WallformComponent implements OnInit {
       Description: wall.data.Description,
       DesignID: wall.data.DesignID,
       ProjectID: wall.data.ProjectID,
-      UserID: wall.data.UserID
+      UserID: wall.data.UserID,
+      DateCreated: wall.data.DateCreated
     }
     this.wallobject = Object.assign({}, wall1);
   }

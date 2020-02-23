@@ -67,7 +67,8 @@ export class WindowformComponent implements OnInit {
       OWA: 0,
       DesignID: null,
       ProjectID: null,
-      UserID: null
+      UserID: null,
+      DateCreated: null
     };
   }
 
@@ -87,7 +88,7 @@ export class WindowformComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.value.id === null) {
-
+        let date = new Date();
         this.windowobject = {
           WindowName: form.value.windowName,
           ConstructionRValue: Number(form.value.constructionRValue),
@@ -97,7 +98,8 @@ export class WindowformComponent implements OnInit {
           OWA: Number(form.value.owa),
           DesignID: this.designid,
           ProjectID: this.projectid,
-          UserID: this.registeruser.ID
+          UserID: this.registeruser.ID,
+          DateCreated: date.toString()
         };
   
 

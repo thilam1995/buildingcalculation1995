@@ -8,4 +8,5 @@ export class Skylights {
     DesignID?: string;
     ProjectID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

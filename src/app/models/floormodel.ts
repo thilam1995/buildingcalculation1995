@@ -6,4 +6,5 @@ export class Floormodel {
     ProjectID?: string;
     DesignID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

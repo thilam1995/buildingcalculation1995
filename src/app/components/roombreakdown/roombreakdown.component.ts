@@ -107,6 +107,7 @@ export class RoombreakdownComponent implements OnInit {
         if (this.windowhabitlist.length === 0) {
           if (confirm("There is no window! Are you sure you want to add new habitable room?") === true) {
             if (this.room.ID === null) {
+              let date = new Date();
               this.room = {
                 RoomID: form.value.roomid,
                 RoomType: form.value.roomtype,
@@ -114,7 +115,8 @@ export class RoombreakdownComponent implements OnInit {
                 WindowList: this.windowhabitlist,
                 DesignID: this.designid,
                 ProjectID: this.projectid,
-                UserID: this.registeruser.ID
+                UserID: this.registeruser.ID,
+                DateCreated: date.toString()
               };
               this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
                 this.toastr.success("Insert new room successfully", "Info Message");
@@ -127,6 +129,7 @@ export class RoombreakdownComponent implements OnInit {
           }
         } else {
           if (this.room.ID === null) {
+            let date = new Date();
             this.room = {
               RoomID: form.value.roomid,
               RoomType: form.value.roomtype,
@@ -134,7 +137,8 @@ export class RoombreakdownComponent implements OnInit {
               WindowList: this.windowhabitlist,
               DesignID: this.designid,
               ProjectID: this.projectid,
-              UserID: this.registeruser.ID
+              UserID: this.registeruser.ID,
+              DateCreated: date.toString()
             };
             this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
               this.toastr.success("Insert new room successfully", "Info Message");
@@ -163,6 +167,7 @@ export class RoombreakdownComponent implements OnInit {
         if (this.windowhabitlist.length === 0) {
           if (confirm("There is no window! Are you sure you want to add new habitable room?") === true) {
             if (this.room.ID === null) {
+              let date = new Date();
               this.room = {
                 RoomID: form.value.roomid,
                 RoomType: form.value.roomtype,
@@ -170,7 +175,8 @@ export class RoombreakdownComponent implements OnInit {
                 WindowList: this.windowhabitlist,
                 DesignID: this.designid,
                 ProjectID: this.projectid,
-                UserID: this.registeruser.ID
+                UserID: this.registeruser.ID,
+                DateCreated: date.toString()
               };
               this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
                 this.toastr.success("Insert new room successfully", "Info Message");
@@ -182,6 +188,7 @@ export class RoombreakdownComponent implements OnInit {
           }
         } else {
           if (this.room.ID === null) {
+            let date = new Date();
             this.room = {
               RoomID: form.value.roomid,
               RoomType: form.value.roomtype,
@@ -189,7 +196,8 @@ export class RoombreakdownComponent implements OnInit {
               WindowList: this.windowhabitlist,
               DesignID: this.designid,
               ProjectID: this.projectid,
-              UserID: this.registeruser.ID
+              UserID: this.registeruser.ID,
+              DateCreated: date.toString()
             };
             this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
               this.toastr.success("Insert new room successfully", "Info Message");
@@ -207,6 +215,7 @@ export class RoombreakdownComponent implements OnInit {
       if (this.windowhabitlist.length === 0) {
         if (confirm("There is no window! Are you sure you want to add new habitable room?") === true) {
           if (this.room.ID === null) {
+            let date = new Date();
             this.room = {
               RoomID: form.value.roomid,
               RoomType: form.value.roomtype,
@@ -214,7 +223,8 @@ export class RoombreakdownComponent implements OnInit {
               WindowList: this.windowhabitlist,
               DesignID: this.designid,
               ProjectID: this.projectid,
-              UserID: this.registeruser.ID
+              UserID: this.registeruser.ID,
+              DateCreated: date.toString()
             };
             this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
               this.toastr.success("Insert new room successfully", "Info Message");
@@ -226,6 +236,7 @@ export class RoombreakdownComponent implements OnInit {
         }
       } else {
         if (this.room.ID === null) {
+          let date = new Date();
           this.room = {
             RoomID: form.value.roomid,
             RoomType: form.value.roomtype,
@@ -233,7 +244,8 @@ export class RoombreakdownComponent implements OnInit {
             WindowList: this.windowhabitlist,
             DesignID: this.designid,
             ProjectID: this.projectid,
-            UserID: this.registeruser.ID
+            UserID: this.registeruser.ID,
+            DateCreated: date.toString()
           };
           this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
             this.toastr.success("Insert new room successfully", "Info Message");
@@ -255,7 +267,8 @@ export class RoombreakdownComponent implements OnInit {
       RoomType: null,
       DesignID: null,
       ProjectID: null,
-      UserID: null
+      UserID: null,
+      DateCreated: null
     };
     this.windowhabitlist = [];
     this.windowhabit = {

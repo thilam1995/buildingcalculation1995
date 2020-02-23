@@ -6,4 +6,5 @@ export class Wall {
     DesignID?: string;
     ProjectID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

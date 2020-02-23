@@ -7,4 +7,5 @@ export class Roofskylightmodel {
     ProjectID?: string;
     DesignID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

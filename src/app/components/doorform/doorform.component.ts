@@ -61,12 +61,14 @@ export class DoorformComponent implements OnInit {
       Area: null,
       ConstructionRValue: null,
       Height: null,
-      Width: null
+      Width: null,
+      DateCreated: null
     };
   }
 
   onSubmit(form: NgForm) {
     if (form.value.id === null) {
+      let date = new Date();
       this.doorobject = {
         DesignID: this.designid,
         ProjectID: this.projectid,
@@ -75,7 +77,8 @@ export class DoorformComponent implements OnInit {
         Area: Number(this.doorobject.Area),
         ConstructionRValue: Number(form.value.constructionRValue),
         Height: Number(form.value.height),
-        Width: Number(form.value.width)
+        Width: Number(form.value.width),
+        DateCreated: date.toString()
       };
 
       const found = this.wallservice.doorlist.some(x => {

@@ -1,5 +1,4 @@
 import { WallExtend } from './wallextend';
-import { Door } from './door';
 
 export class Wallwindowdoormodel {
     ID?: string;
@@ -10,4 +9,5 @@ export class Wallwindowdoormodel {
     ProjectID?: string;
     DesignID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

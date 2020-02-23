@@ -105,7 +105,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
       UserID: null,
       DesignID: null,
       ProjectID: null,
-      Orientation: null
+      Orientation: null,
+      DateCreated: null
     };
 
     this.wallwidth = 0;
@@ -122,6 +123,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       Width: null
     };
     this.wallobject = null;
+    this.orientationselect = "";
   }
 
   addvaluewindow() {
@@ -285,6 +287,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       this.toastr.error("The area of windows and doors is more than wall area! Please make it less!", "Error Message");
     }
     else {
+      let date = new Date();
       this.wallwindowdoormodel = {
         Wall: this.wallextendobject,
         Window: this.windowobjectmodellist,
@@ -292,7 +295,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID,
-        Orientation: this.orientationselect
+        Orientation: this.orientationselect,
+        DateCreated: date.toString()
       };
 
       console.log(this.wallwindowdoormodel);

@@ -7,4 +7,5 @@ export class Room {
     DesignID?: string;
     ProjectID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

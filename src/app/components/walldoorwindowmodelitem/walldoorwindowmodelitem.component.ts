@@ -117,6 +117,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       OWA: 0
     };
     this.wallextendobject = null;
+    this.orientationselect = "";
   }
 
   selecttoEdit(i: any) {

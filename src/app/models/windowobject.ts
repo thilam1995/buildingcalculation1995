@@ -9,4 +9,5 @@ export class WindowObject {
     DesignID?: string;
     ProjectID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

@@ -8,4 +8,5 @@ export class Door {
     DesignID?: string;
     ProjectID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

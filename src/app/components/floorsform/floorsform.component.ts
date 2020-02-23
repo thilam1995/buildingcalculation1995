@@ -51,7 +51,8 @@ export class FloorsformComponent implements OnInit {
       DesignID: null,
       FloorName: null,
       ProjectID: null,
-      UserID: null
+      UserID: null,
+      DateCreated: null
     };
   }
 
@@ -65,13 +66,15 @@ export class FloorsformComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if(form.value.id === null){
+      let date = new Date();
       this.floorobject = {
         FloorName: form.value.floorname,
         ConstructionRValue: Number(form.value.constructionrvalue),
         Description: form.value.description,
         DesignID: this.designid,
         ProjectID: this.projectid,
-        UserID: this.registeruser.ID
+        UserID: this.registeruser.ID,
+        DateCreated: date.toString()
       };
       const found = this.floorservice.floorlist.some(x => {
         return x.data.SkylightsName === this.floorobject.FloorName

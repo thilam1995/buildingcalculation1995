@@ -6,4 +6,5 @@ export class Roof {
     DesignID?: string;
     ProjectID?: string;
     UserID?: string;
+    DateCreated?: string;
 }

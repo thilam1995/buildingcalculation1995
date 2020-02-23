@@ -3,4 +3,5 @@ export class Roofextend {
     RoofName: string;
     ConstructionRValue: number;
     ExposedArea: number;
+    DateCreated?: string;
 }

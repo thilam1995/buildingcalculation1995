@@ -98,6 +98,7 @@ export class RoofskylightmodelComponent implements OnInit {
       DesignID: null,
       ProjectID: null,
       UserID: null,
+      DateCreated: null
     };
     this.skylightmodellist = [];
   }
@@ -155,7 +156,7 @@ export class RoofskylightmodelComponent implements OnInit {
         this.skylightlength = 0;
         this.rvalueskylight = 0;
       }, 200);
-      
+
     } else if (this.skylightobject === null) {
       this.skylightwidth = 0;
       this.skylightlength = 0;
@@ -165,9 +166,9 @@ export class RoofskylightmodelComponent implements OnInit {
 
 
   onSubmitModel() {
-    if(this.roofobject === null){
+    if (this.roofobject === null) {
       this.toastr.error("Please Complete Roof Information", "Error Message");
-    }else{
+    } else {
       this.roofextendobject.RoofName = this.roofobject.RoofName;
       this.roofextendobject.ConstructionRValue = Number(this.roofobject.ConstructionRValue);
       this.roofextendobject.ExposedArea = Number(this.roofextendobject.ExposedArea);
@@ -175,15 +176,17 @@ export class RoofskylightmodelComponent implements OnInit {
         this.toastr.error("Please Complete Roof Information", "Error Message");
       } else if (this.roofobject === null) {
         this.toastr.error("Please select roof!", "Error Message");
-       } else {
+      } else {
+        let date = new Date();
         this.roofskylightmodel = {
           Roof: this.roofextendobject,
           Skylight: this.skylightmodellist,
           DesignID: this.designid,
           ProjectID: this.projectid,
-          UserID: this.registeruser.ID
+          UserID: this.registeruser.ID,
+          DateCreated: date.toString()
         };
-  
+
         console.log(this.roofskylightmodel);
         this.buildingmodelservice.roofskylightmodelPost(this.roofskylightmodel, this.designid).subscribe(res => {
           this.toastr.success("Insert Roof Successfully", "Info");
@@ -195,7 +198,7 @@ export class RoofskylightmodelComponent implements OnInit {
           this.toastr.error("Insert Roof and Skylight failed", "Error");
         });
       }
-  
+
     }
 
   }

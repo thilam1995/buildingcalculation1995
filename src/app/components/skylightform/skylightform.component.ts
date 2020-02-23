@@ -56,12 +56,14 @@ export class SkylightformComponent implements OnInit {
       DesignID: null,
       ID: null,
       ProjectID: null,
-      UserID: null
+      UserID: null,
+      DateCreated: null
     };
   }
 
   onSubmitSkylight(form: NgForm) {
     if (form.value.id === null) {
+      let date = new Date();
       this.skylightsobject = {
         Area: this.skylightsobject.Area,
         ConstructionRValue: form.value.constructionrvalue,
@@ -70,7 +72,8 @@ export class SkylightformComponent implements OnInit {
         Width: form.value.width,
         DesignID: this.designid,
         ProjectID: this.projectid,
-        UserID: this.registeruser.ID
+        UserID: this.registeruser.ID,
+        DateCreated: date.toString()
       };
 
       const found = this.roofskylightservice.skylightlist.some(x => {

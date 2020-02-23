@@ -87,7 +87,8 @@ export class FloormodelComponent implements OnInit {
       Floor: null,
       DesignID: null,
       ProjectID: null,
-      UserID: null
+      UserID: null,
+      DateCreated: null
     };
 
   }
@@ -115,11 +116,13 @@ export class FloormodelComponent implements OnInit {
         this.floorextendobject.FloorSection === null) {
           this.toastr.error("Please Complete Floor Info", "Error");
       } else {
+        let date = new Date();
         this.floormodel = {
           Floor: this.floorextendobject,
           DesignID: this.designid,
           ProjectID: this.projectid,
-          UserID: this.registeruser.ID
+          UserID: this.registeruser.ID,
+          DateCreated: date.toString()
         };
   
         console.log(this.floormodel)

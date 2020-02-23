@@ -56,19 +56,22 @@ export class RoofformComponent implements OnInit {
       DesignID: null,
       ID: null,
       ProjectID: null,
-      UserID: null
+      UserID: null,
+      DateCreated: null
     };
   }
 
   onSubmitRoof(form: NgForm) {
     if (form.value.id === null) {
+      let date = new Date();
       this.roofobject = {
         Description: form.value.description,
         ConstructionRValue: Number(form.value.constructionrvalue),
         RoofName: form.value.roofname,
         DesignID: this.designid,
         ProjectID: this.projectid,
-        UserID: this.registeruser.ID
+        UserID: this.registeruser.ID,
+        DateCreated: date.toString()
       };
 
       const found = this.roofskylightservice.rooflist.some(x => {
