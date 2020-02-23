@@ -36,7 +36,7 @@ export class FloormodelComponent implements OnInit {
 
   constructor(private toastr: ToastrService, public route: ActivatedRoute,
     private loginservice: LoginserviceService, private floorservice: FloorService,
-    private buildingmodelservice: BuildingmodelService) {
+    public buildingmodelservice: BuildingmodelService) {
     //this.setDefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
       this.loginservice.currentUser.subscribe(x => {

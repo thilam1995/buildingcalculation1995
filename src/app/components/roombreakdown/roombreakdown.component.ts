@@ -33,7 +33,7 @@ export class RoombreakdownComponent implements OnInit {
   registeruser: Register;
   isshowed: boolean = false;
 
-  constructor(private roomserv: RoomserviceService, private toastr: ToastrService, public route: ActivatedRoute,
+  constructor(public roomserv: RoomserviceService, private toastr: ToastrService, public route: ActivatedRoute,
     private loginservice: LoginserviceService, private wallservice: WalldoorwindowService) {
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     this.loginservice.currentUser.subscribe(x => {

@@ -21,7 +21,7 @@ export class DoorformComponent implements OnInit {
   designid: string = "";
   projectid: string = "";
   registeruser: Register;
-  constructor(private wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
+  constructor(public wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
     private toastr: ToastrService, private buildingmodelservice: BuildingmodelService) {
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];

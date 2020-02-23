@@ -20,7 +20,7 @@ export class RoofformComponent implements OnInit {
   designid: string = "";
   projectid: string = "";
   registeruser: Register;
-  constructor(private roofskylightservice: RoofskylightService, public route: ActivatedRoute, private loginservice: LoginserviceService,
+  constructor(public roofskylightservice: RoofskylightService, public route: ActivatedRoute, private loginservice: LoginserviceService,
     private toastr: ToastrService, private buildingmodelservice: BuildingmodelService) {
     this.route.queryParams.subscribe(params => {
       this.projectid = params['projectid'];

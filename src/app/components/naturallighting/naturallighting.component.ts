@@ -46,7 +46,7 @@ export class NaturallightingComponent implements OnInit {
     private router: Router, private loginservice: LoginserviceService,
     private buildingmodelservice: BuildingmodelService, private designservice: DesignService,
     private toastr: ToastrService, private projectservice: ProjectService,
-    private roomserv: RoomserviceService) {
+    public roomserv: RoomserviceService) {
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     this.loginservice.currentUser.subscribe(x => {
       if (x === null) {

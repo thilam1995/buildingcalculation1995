@@ -37,7 +37,7 @@ export class WindowformComponent implements OnInit {
     { percentage: 0.75, shade: "shaded" },
     { percentage: 1, shade: "Fully shaded" }
   ];
-  constructor(private wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
+  constructor(public wallservice: WalldoorwindowService, public route: ActivatedRoute, private loginservice: LoginserviceService,
     private toastr: ToastrService, private buildingmodelservice: BuildingmodelService,
     private roomserv: RoomserviceService) {
     this.route.queryParams.subscribe(params => {

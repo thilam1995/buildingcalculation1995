@@ -25,7 +25,7 @@ export class FloorsformComponent implements OnInit {
   registeruser: Register;
 
   constructor(public route: ActivatedRoute, private loginservice: LoginserviceService,
-    private toastr: ToastrService, private floorservice: FloorService, private buildingmodelservice: BuildingmodelService) {
+    private toastr: ToastrService, public floorservice: FloorService, private buildingmodelservice: BuildingmodelService) {
       this.route.queryParams.subscribe(params => {
         this.projectid = params['projectid'];
         this.designid = params['designid'];

@@ -16,8 +16,8 @@ export class ScheduleComponent implements OnInit {
   registeruser: Register;
   designid: string = "";
   projectid: string = "";
-  constructor(private wallservice: WalldoorwindowService, private roofskylightservice: RoofskylightService,
-    private floorservice: FloorService, private loginservice: LoginserviceService, public route: ActivatedRoute) { 
+  constructor(public wallservice: WalldoorwindowService, public roofskylightservice: RoofskylightService,
+    public floorservice: FloorService, private loginservice: LoginserviceService, public route: ActivatedRoute) { 
       this.route.queryParams.subscribe(params => {
         this.projectid = params['projectid'];
         this.designid = params['designid'];
