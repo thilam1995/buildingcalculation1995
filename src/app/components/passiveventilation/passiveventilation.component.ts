@@ -159,17 +159,36 @@ export class PassiveventilationComponent implements OnInit {
         object = { windowname: "", numinclusion: 0, totalarea: 0, totalrvalue: 0, totalheatloss: 0, owa: 0 };
       }
 
-      this.windowlist.forEach(e => {
-        this.totalnetowa += e.numinclusion * (e.totalarea * e.owa);
-        this.totalnetowapercent += ((e.numinclusion * (e.totalarea * e.owa)) / this.designobject.FloorArea) * 100;
-      });
 
-      this.iscomplied = this.totalnetowapercent > (0.05 * 100);
     });
+
+    setTimeout(() => {
+      this.finalcalculation();
+    }, 1200);
+  }
+
+  finalcalculation(){
+    this.windowlist.forEach(e => {
+      this.totalnetowa += e.numinclusion * (e.totalarea * e.owa);
+      this.totalnetowapercent += ((e.numinclusion * (e.totalarea * e.owa)) / this.designobject.FloorArea) * 100;
+    });
+
+    this.iscomplied = this.totalnetowapercent > (0.05 * 100);
   }
   returntoSchedule() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/buildingschedule"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 
 
+  getcalculateheatloss() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1heatingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  getcalculatenaturallighting() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1naturallightingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  getcalculatecoolingenergy() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1coolingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
 }

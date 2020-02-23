@@ -55,7 +55,7 @@ export class ProjectService {
     };
 
     const body = JSON.stringify(bodyobject);
-    return this.http.put<Project>(this.url + "/updatedate/" + `${id}`, body, httpOptions).pipe(map(res => {
+    return this.http.put<Project>(this.url + "/bydatemodified/" + `${id}`, body, httpOptions).pipe(map(res => {
       this.projectfetching(userid);
     }),
       catchError(this.handleError)

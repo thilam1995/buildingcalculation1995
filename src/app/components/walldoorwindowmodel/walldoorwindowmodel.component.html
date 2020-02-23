@@ -18,7 +18,7 @@
           </select>
         </div>
         <div class="form-group col-md-12">
-          <select class="form-control" name="orienta" #orienta="ngModel" [(ngModel)]="wallextendobject.Orientation"
+          <select class="form-control" name="orienta" #orienta="ngModel" [(ngModel)]="orientationselect"
             aria-placeholder="Please select orientation">
             <option [ngValue]="null">Select Orientation....</option>
             <option *ngFor="let orient of orientation" [ngValue]="orient">{{orient}}</option>

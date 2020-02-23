@@ -5,5 +5,4 @@ export class WallExtend {
     Height: number;
     Width: number;
     Area: number;
-    Orientation: string;
 }

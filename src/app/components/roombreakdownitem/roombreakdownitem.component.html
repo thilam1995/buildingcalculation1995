@@ -26,7 +26,7 @@
             </tr>
             <tr *ngFor="let window of i.data.WindowList">
                 <td>{{window.WindowID.Name}}</td>
-                <td>{{window.WindowID.Area}}</td>
+                <td>{{window.WindowID.Area |  number: '1.0-2'}}</td>
                 <td>{{window.Orientation}}</td>
                 <td>{{window.IsSafelysecure ? "Yes" : "No"}}</td>
                 <td>{{window.IsShading  ? "Yes" : "No"}}</td>

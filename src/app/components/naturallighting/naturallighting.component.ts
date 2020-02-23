@@ -138,52 +138,7 @@ export class NaturallightingComponent implements OnInit {
 
     this.roomserv.fetchroombyid(this.designid).subscribe(res => {
       this.roomlist = res;
-      // this.roomlist.forEach(e => {
-      //   if (e.data.RoomID !== "Bathroom") {
-      //     let object = { rooname: "", totalwindowarea: 0, roomfloorarea: 0, shadinglevel: "", naturalrequire: 0, naturalachieved: 0, iscompliance: false };
-      //     let ispass: boolean = false;
-      //     let totalwindowarea: number = 0;
-      //     let naturallightrequire: number = 0;
-      //     let naturallightachieve: number = 0;
-      //     let numberofshaded: number = 0;
-      //     let numberofunshaded: number = 0;
-      //     let shadelevel: string = "";
-      //     e.data.WindowList.forEach(el => {
-      //       totalwindowarea += el.WindowID.Area;
-      //       if (el.IsShading) {
-      //         ++numberofshaded;
-      //       } else {
-      //         ++numberofunshaded;
-      //       }
-      //     });
-      //     // for(let el of e.data.WindowList){
-      //     //   totalwindowarea += el.WindowID.Area;
-      //     //   if (el.IsShading) {
-      //     //     ++numberofshaded;
-      //     //   } else {
-      //     //     ++numberofunshaded;
-      //     //   }
-      //     // }
 
-      //     naturallightachieve = totalwindowarea / e.data.RoomArea;
-      //     shadelevel = (numberofshaded === e.data.WindowList.length && numberofshaded !== 0)
-      //       || (numberofshaded !== 0 && (numberofshaded >= numberofunshaded || numberofshaded <= numberofunshaded))
-      //       ? "Shade" : "Unshaded";
-      //     naturallightrequire = shadelevel === "Shade" ? 0.20 : 0.15;
-      //     ispass = naturallightachieve >= naturallightrequire;
-      //     object = { rooname: e.data.RoomType, totalwindowarea: totalwindowarea, roomfloorarea: e.data.RoomArea, shadinglevel: shadelevel, naturalrequire: naturallightrequire, naturalachieved: naturallightachieve, iscompliance: ispass }
-      //     this.ispasslist.push(object.iscompliance);
-      //     object = { rooname: "", totalwindowarea: 0, roomfloorarea: 0, shadinglevel: "", naturalrequire: 0, naturalachieved: 0, iscompliance: false };
-      //     ispass = false;
-      //     totalwindowarea = 0;
-      //     naturallightrequire = 0;
-      //     naturallightachieve = 0;
-      //     numberofshaded = 0;
-      //     numberofunshaded = 0;
-      //     shadelevel = "";
-      //   }
-
-      // });
 
       this.roomlist.forEach(e => {
         if (e.data.RoomID !== "Bathroom") {
@@ -235,17 +190,6 @@ export class NaturallightingComponent implements OnInit {
 
       });
 
-
-      // this.iscompliance = this.ispasslist.every(Boolean);
-      // if(this.roomlist.length !== 0){
-      //   if(this.iscompliance){
-      //     this.compliancepoint = 3;
-      //   }else{
-      //     this.compliancepoint = 0;
-      //   }
-      // }else{
-      //   this.compliancepoint = 0;
-      // }
       if (this.ispasslist.length !== 0) {
         this.ispasslist.forEach(e => {
           if (e.roomname === "studiodwelling") {
@@ -360,4 +304,15 @@ export class NaturallightingComponent implements OnInit {
     });
   }
 
+  getcalculateheatloss() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1heatingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  getcalculatecoolingenergy() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1coolingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+  
+  getcalculatepassive() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
 }

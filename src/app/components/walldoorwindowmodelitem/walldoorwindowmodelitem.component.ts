@@ -18,6 +18,7 @@ import { BuildingmodelService } from 'src/app/service/buildingmodel.service';
 })
 export class WalldoorwindowmodelitemComponent implements OnInit {
 
+  orientationselect: string = "";
   windowobjectlist = [];
   wallobjectlist = [];
   doorobjectlist = [];
@@ -90,7 +91,8 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       Door: null,
       UserID: null,
       DesignID: null,
-      ProjectID: null
+      ProjectID: null,
+      Orientation: null
     };
 
     this.wallwidth = 0;
@@ -103,7 +105,6 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       Width: null,
       Area: null,
       ConstructionRValue: null,
-      Orientation: null
     };
     this.doorobject = null;
     this.windowobject = {
@@ -131,6 +132,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
       WallName: this.wallextendobject.WallName,
       ConstructionRValue: this.wallextendobject.ConstructionRValue
     };
+    this.orientationselect = i.data.Orientation;
   }
 
   onCancel() {
@@ -140,7 +142,7 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
   updateselectedmodel(id: string) {
     this.wallextendobject.WallName = this.wallobject.WallName;
     this.wallextendobject.ConstructionRValue = this.wallobject.ConstructionRValue;
-    if (this.wallextendobject.WallSection === null || this.wallextendobject.Orientation === null ||
+    if (this.wallextendobject.WallSection === null || this.orientation === null ||
       this.wallextendobject.WallName === null || this.wallextendobject.WallName === undefined || this.wallextendobject.Height === 0 ||
       this.wallextendobject.Width === 0) {
       this.toastr.error("Please complete wall information", "Error Message");
@@ -153,7 +155,8 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
         Door: this.doorobjectmodellist,
         DesignID: this.designid,
         ProjectID: this.projectid,
-        UserID: this.registeruser.ID
+        UserID: this.registeruser.ID,
+        Orientation: this.orientationselect
       };
 
       console.log(this.wallwindowdoormodel);

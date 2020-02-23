@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  uri: "http://localhost:8080/api/"
+  uri: "https://buildingcalculateapi1995.herokuapp.com/api/"
 };
 
 /*

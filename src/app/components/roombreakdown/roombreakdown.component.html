@@ -63,13 +63,13 @@
                     <legend>Safely Secure</legend>
                     <select name="safesecure" class="form-control" #safesecure="ngModel"
                         [(ngModel)]="windowhabit.IsSafelysecure">
-                        <option *ngFor="let boo of booleanlist" [ngValue]="boo">{{boo ? "Yes" : "No"}}</option>
+                        <option *ngFor="let boo of booleanlist" [ngValue]="boo">{{boo ? "Secure" : "Unsecure"}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <legend>Shading</legend>
                     <select name="shading" class="form-control" #shading="ngModel" [(ngModel)]="windowhabit.IsShading">
-                        <option *ngFor="let boo of booleanlist" [ngValue]="boo">{{boo ? "Yes" : "No"}}</option>
+                        <option *ngFor="let boo of booleanlist" [ngValue]="boo">{{boo ? "Shaded" : "Unshaded"}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-12">
@@ -89,9 +89,9 @@
                         </tr>
                         <tr *ngFor="let i of windowhabitlist, let in = index">
                             <td>{{i.WindowID.Name}}</td>
-                            <td>{{i.IsSafelysecure ? "Yes" : "No"}}</td>
-                            <td>{{i.IsShading ? "Yes" : "No"}}</td>
                             <td>{{i.Orientation}}</td>
+                            <td>{{i.IsSafelysecure ? "Secure" : "Unsecure"}}</td>
+                            <td>{{i.IsShading ? "Shaded" : "Unshaded"}}</td>
                             <td><button class="btn btn-danger" type="button" (click)="deletewindowhabit(in)"
                                     matTooltip="Delete"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>

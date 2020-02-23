@@ -1,4 +1,12 @@
 <div class="row">
+    <div style="text-align: center" class="col-md-12">
+        <button class="btn btn-danger" style="margin: 10px" (click)="getcalculateheatloss()"><i class="fas fa-calculator"></i> Heat Loss
+          Calculate 🌡</button>
+        <button class="btn btn-primary" style="margin: 10px" (click)="getcalculatecoolingenergy()"><i class="fas fa-calculator"></i> Cooling
+          Calculate 🌬</button>
+        <button class="btn btn-warning" style="margin: 10px" (click)="getcalculatenaturallighting()"><i class="fas fa-calculator"></i> Natural Lighting
+          Calculate ☀</button>
+      </div>
     <div class="col-md-12" style="text-align: center;">
         <button class="btn btn-primary" style="margin: 10px" (click)="returntoSchedule()"><i
                 class="fas fa-undo-alt"></i>
@@ -35,7 +43,8 @@
                             <th>Homestar Compliance</th>
                         </tr>
                         <tr>
-                            <th [ngStyle]="{'color': iscomplied ? 'lime' : 'red'}">{{iscomplied ? 0.5 : 0 | number: '1.0-2'}} points</th>
+                            <th [ngStyle]="{'color': iscomplied ? 'lime' : 'red'}">
+                                {{iscomplied ? 0.5 : 0 | number: '1.0-2'}} points</th>
                         </tr>
                     </table>
                 </div>
@@ -45,7 +54,8 @@
                             <th>The net openable window area (OWA) must be >5% of the total floor area.</th>
                             <td>OWA %</td>
                             <td>{{totalnetowapercent | number: '1.0-0'}} %</td>
-                            <td [ngStyle]="{'color': iscomplied ? 'lime' : 'red'}">{{iscomplied ? "Complies" : "Fails"}}</td>
+                            <td [ngStyle]="{'color': iscomplied ? 'lime' : 'red'}">{{iscomplied ? "Complies" : "Fails"}}
+                            </td>
                         </tr>
                     </table>
 
@@ -79,7 +89,8 @@
                             <td>{{x.totalarea * x.owa | number: '1.0-2'}}</td>
                             <td>{{x.numinclusion}}</td>
                             <td>{{x.numinclusion * (x.totalarea * x.owa) | number: '1.0-2'}}</td>
-                            <td>{{((x.numinclusion * (x.totalarea * x.owa))/designobject.FloorArea) * 100 | number: '1.0-2' | number: '1.0-2'}}</td>
+                            <td>{{((x.numinclusion * (x.totalarea * x.owa))/designobject.FloorArea) * 100 | number: '1.0-2' | number: '1.0-2'}}
+                            </td>
                         </tr>
                     </table>
                     <table class="table table-sm">

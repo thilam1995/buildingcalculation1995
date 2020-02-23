@@ -1,0 +1,35 @@
+<div class="col-md-12">
+    <table class="table table-sm">
+        <tr>
+            <th>Habitable Room #{{ind + 1}}</th>
+            <th>Floor Area (m2)</th>
+            <th>Net O.W.A. (m2)</th>
+            <th>Ratio</th>
+            <th>Homestar Compliance</th>
+        </tr>
+        <tr>
+            <th>{{i.data.RoomID}}</th>
+            <th>{{i.data.RoomArea}}</th>
+            <th>{{netowa | number: '1.0-2'}}</th>
+            <th>{{(netowa/i.data.RoomArea) * 100 | number: '1.0-2'}}%</th>
+            <th [ngStyle]="{'color': iscomplied ? 'lime' : 'red'}">{{iscomplied ? "Complies": "Fail"}}</th>
+        </tr>
+    </table>
+    <table class="table table-sm">
+        <tr>
+            <th>Window ID</th>
+            <th>Window Area (m2)</th>
+            <th>O.W.A. (%)</th>
+            <th>O.W.A. (m2)</th>
+            <th>O.W.A. % of floor area</th>
+        </tr>
+        <tr *ngFor="let z of i.data.WindowList">
+            <td>{{z.WindowID.Name}}</td>
+            <td>{{z.WindowID.Area | number: '1.0-2'}}</td>
+            <td>{{z.WindowID.OWA * 100 | number: '1.0-2'}}</td>
+            <td>{{(z.WindowID.Area * z.WindowID.OWA) | number: '1.0-2'}}</td>
+            <td>{{((z.WindowID.Area * z.WindowID.OWA) / i.data.RoomArea) * 100 | number: '1.0-2'}}</td>
+        </tr>
+    </table>
+    <hr class="col-md-12">
+</div>

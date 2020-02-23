@@ -73,10 +73,11 @@ export class RoombreakdownitemComponent implements OnInit {
       this.windowhabit = {
         WindowID: {
           Name: null,
-          Area: 0
+          Area: 0,
+          OWA: 0
         },
-        IsSafelysecure: false,
-        IsShading: false,
+        IsSafelysecure: true,
+        IsShading: true,
         Orientation: null
       };
       this.windowsobjectprop = null;
@@ -93,7 +94,8 @@ export class RoombreakdownitemComponent implements OnInit {
     console.log(this.windowsobjectprop);
     this.windowhabit.WindowID = {
       Name: this.windowsobjectprop.WindowName,
-      Area: this.windowsobjectprop.Area
+      Area: this.windowsobjectprop.Area,
+      OWA: this.windowsobjectprop.OWA
     };
   }
 
@@ -141,8 +143,8 @@ export class RoombreakdownitemComponent implements OnInit {
     this.windowhabitlist = [];
     this.windowhabit = {
       WindowID: null,
-      IsSafelysecure: false,
-      IsShading: false,
+      IsSafelysecure: true,
+      IsShading: true,
       Orientation: null
     };
   }

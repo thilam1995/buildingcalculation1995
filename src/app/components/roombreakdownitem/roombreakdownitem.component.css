@@ -15,4 +15,9 @@ table tr td{
 
 .mat-radio-button ~ .mat-radio-button {
     margin-right: 16px;
-  }
+}
+
+.radio-group{
+    display: flex; 
+    flex-direction: column;
+}

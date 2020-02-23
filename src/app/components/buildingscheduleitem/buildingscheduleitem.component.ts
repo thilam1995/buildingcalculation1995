@@ -87,17 +87,8 @@ export class BuildingscheduleitemComponent implements OnInit {
       this.projectservice.projectdelete(id, this.registeruser.ID).subscribe(res => {
         this.toastr.info("Delete project success!", "Project Message");
         setTimeout(() => {
-          this.projectservice.projectupdatedatemodify(timedatestring, id, this.registeruser.ID).subscribe(x => {
-            this.toastr.info("Project Date Modify changed!", "Design Message");
-            setTimeout(() => {
-              this.projectservice.projectfetching(this.registeruser.ID);
-            }, 1200);
-          }, err => {
-            this.toastr.error("Something Wrong", "Design Message");
-          })
-
+          this.projectservice.projectfetching(this.registeruser.ID);
         }, 1200);
-
       }, err => {
         this.toastr.error("Delete project failed!", "Project Message");
       });

@@ -23,6 +23,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
   projectid: string = "";
   designid: string = "";
 
+  orientationselect: string = "";
+
   wallobject: Wall;
   wallextendobject: WallExtend;
   doorobject: Door;
@@ -102,28 +104,19 @@ export class WalldoorwindowmodelComponent implements OnInit {
       Door: null,
       UserID: null,
       DesignID: null,
-      ProjectID: null
+      ProjectID: null,
+      Orientation: null
     };
 
     this.wallwidth = 0;
     this.wallheight = 0;
     this.wallarea = 0;
-    this.wallextendobject = {
-      WallSection: null,
-      WallName: null,
-      Height: null,
-      Width: null,
-      Area: null,
-      ConstructionRValue: null,
-      Orientation: null
-    };
     this.doorobject = null;
     this.windowobject = null;
     this.wallextendobject = {
       WallSection: null,
       WallName: null,
       ConstructionRValue: null,
-      Orientation: null,
       Area: 0,
       Height: null,
       Width: null
@@ -284,7 +277,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
   onSubmitModel() {
     this.wallextendobject.WallName = this.wallobject.WallName;
     this.wallextendobject.ConstructionRValue = this.wallobject.ConstructionRValue;
-    if (this.wallextendobject.WallSection === null || this.wallextendobject.Orientation === null ||
+    if (this.wallextendobject.WallSection === null || this.orientationselect === null ||
       this.wallextendobject.WallName === null || this.wallextendobject.WallName === undefined || this.wallextendobject.Height === 0 ||
       this.wallextendobject.Width === 0) {
       this.toastr.error("Please complete wall information", "Error Message");
@@ -298,7 +291,8 @@ export class WalldoorwindowmodelComponent implements OnInit {
         Door: this.doorobjectmodellist,
         DesignID: this.designid,
         ProjectID: this.projectid,
-        UserID: this.registeruser.ID
+        UserID: this.registeruser.ID,
+        Orientation: this.orientationselect
       };
 
       console.log(this.wallwindowdoormodel);
@@ -311,6 +305,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
         this.display2 = false;
         this.fetchingwallwindowdoormodel();
         this.windowobjectmodellist = [];
+        this.doorobjectmodellist = [];
       }, err => {
         this.toastr.error("Insert new model failed", "Info Message");
       });

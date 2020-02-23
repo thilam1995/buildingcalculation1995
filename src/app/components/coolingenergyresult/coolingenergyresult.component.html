@@ -1,4 +1,15 @@
 <div class="row">
+    <div style="text-align: center;" class="col-md-12">
+        <button class="btn btn-danger" style="margin: 10px" (click)="getcalculateheatloss()"><i
+                class="fas fa-calculator"></i> Heat Loss
+            Calculate 🌡</button>
+        <button class="btn btn-warning" style="margin: 10px" (click)="getcalculatenaturallighting()"><i
+                class="fas fa-calculator"></i> Natural Lighting
+            Calculate ☀</button>
+        <button class="btn btn-success" style="margin: 10px" (click)="getcalculatepassive()"><i
+                class="fas fa-calculator"></i> Passive Ventilation
+            Calculate 🌫</button>
+    </div>
     <div class="col-md-12" style="text-align: center;">
         <button class="btn btn-primary" style="margin: 10px" (click)="returntoSchedule()"><i
                 class="fas fa-undo-alt"></i>
@@ -20,10 +31,6 @@
                             <th>{{designobject.Typology}}</th>
                         </tr>
                         <tr>
-                            <th>Habitable Room</th>
-                            <th>{{roomserv.numofroom}}</th>
-                        </tr>
-                        <tr>
                             <th>Completed By</th>
                             <th>{{designobject.CompletedBy}}</th>
                         </tr>
@@ -32,6 +39,161 @@
                             <th>{{designobject.DrawingSet}}</th>
                         </tr>
                     </table>
+                </div>
+
+                <div class="col-md-6">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Home Compliance</th>
+                        </tr>
+                        <tr>
+                            <td>Points</td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-sm">
+                        <tr>
+                            <td>Part 1</td>
+                            <td>Solar Aperture</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Part 2 (i) and (ii)</td>
+                            <td>Habitable Room O.W.A & Cross Ventilation</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Part 3</td>
+                            <td>Secure Windows</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>PART 1: </th>
+                            <td>The solar aperture of each facade of the dwelling is less than 20% (using simple method)
+                            </td>
+                            <td>Complies or Fails</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Façade</th>
+                            <th>Gross Wall Area</th>
+                            <th>Window Area</th>
+                            <th>Window to Wall Ratio</th>
+                            <th>WWR Requirement </th>
+                            <th>Homestar Compliance</th>
+                        </tr>
+                        <tr>
+                            <th>North</th>
+                            <td>{{totalwallnorth | number: '1.0-2'}}</td>
+                            <td>{{totalwindownorth | number: '1.0-2'}}</td>
+                            <td>{{(totalwindownorth / totalwallnorth) * 100 | number: '1.0-0'}}%</td>
+                            <td>27%</td>
+                            <td [ngStyle]="{'color': 0.27 > (totalwindownorth / totalwallnorth) ? 'lime' : 'red'}">
+                                {{ 0.27 > (totalwindownorth / totalwallnorth) ? "Complies" : "Fail" }}</td>
+                        </tr>
+                        <tr>
+                            <th>East</th>
+                            <td>{{totalwalleast | number: '1.0-2'}}</td>
+                            <td>{{totalwindoweast | number: '1.0-2'}}</td>
+                            <td>{{(totalwindoweast / totalwalleast) * 100 | number: '1.0-0'}}%</td>
+                            <td>27%</td>
+                            <td [ngStyle]="{'color': 0.27 > (totalwindoweast / totalwalleast) ? 'lime' : 'red'}">
+                                {{0.27 > (totalwindoweast / totalwalleast) ? "Complies" : "Fail"}}</td>
+                        </tr>
+                        <tr>
+                            <th>West</th>
+                            <td>{{totalwallwest | number: '1.0-2'}}</td>
+                            <td>{{totalwindowwest | number: '1.0-2'}}</td>
+                            <td>{{(totalwindowwest / totalwallwest) * 100 | number: '1.0-0'}}%</td>
+                            <td>27%</td>
+                            <td [ngStyle]="{'color': 0.27 > (totalwindowwest / totalwallwest) ? 'lime' : 'red'}">
+                                {{0.27 > (totalwindowwest / totalwallwest) ? "Complies" : "Fail"}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <hr class="col-md-12">
+
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>PART 2 (i):</th>
+                            <td>The net openable area of the windows in each habitable room is greater than 5% of the
+                                conditioned floor area of that room</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <app-coolingroomitem class="col-md-12" *ngFor="let i of roomlist, let ind = index" [i]="i" [ind]="ind">
+                </app-coolingroomitem>
+
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>PART 2 (ii):</th>
+                            <td>At least 30% of the total required openable window area for the dwelling as a whole
+                                (i.e. 5% passive ventilation requirement) is located on different facades and/or levels
+                                of the dwelling to achieve cross ventilation.</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Floor Area (ICA)</th>
+                            <th>Dwelling O.W.A</th>
+                            <th>Cross Ventilation 30%</th>
+                        </tr>
+                        <tr>
+                            <td>{{designobject.FloorArea | number: '1.0-2'}}</td>
+                            <td>{{designobject.FloorArea * 0.05| number: '1.0-2'}}</td>
+                            <td>{{(designobject.FloorArea * 0.05) * 0.3 | number: '1.0-2'}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Façade</th>
+                            <th>O.W.A. (m2)</th>
+                            <th>>30% Achieved</th>
+                        </tr>
+                        <tr>
+                            <td>North</td>
+                            <td>{{owawindownorth| number: '1.0-2'}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>East</td>
+                            <td>{{owawindoweast | number: '1.0-2'}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>South</td>
+                            <td>{{owawindowsouth | number: '1.0-2'}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>West</td>
+                            <td>{{owawindowwest | number: '1.0-2'}}</td>
+                            <td></td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
         </div>

@@ -287,6 +287,7 @@ export class BuildingscheduleComponent implements OnInit {
         var timestring = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
         const timedatestring = datestring + " - " + timestring;
         this.designobject1.DateUpdate = timedatestring;
+        this.designobject1.FloorArea = Number(this.designobject1.FloorArea);
         this.designservice.designUpdating(this.designobject1, this.designobject1.DesignID).subscribe(res => {
           this.toastr.success("Update Design Successfully", "Success Message");
           this.isedit = false;

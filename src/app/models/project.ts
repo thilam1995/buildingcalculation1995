@@ -1,5 +1,3 @@
-import { Design } from './design';
-
 export class Project {
     ProjectID?: string;
     ProjectName: string;

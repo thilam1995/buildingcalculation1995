@@ -268,7 +268,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
       )));
 
       for (let i of this.wallwindowdoormodellist) {
-        if (i.data.Wall.Orientation === "North") {
+        if (i.data.Orientation === "North") {
           this.totalwallnorth += Number(Number(i.data.Wall.Area).toFixed(2));
           if (i.data.Window.length > 0) {
             for (let y of i.data.Window) {
@@ -278,7 +278,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
 
         }
         
-        if (i.data.Wall.Orientation === "South") {
+        if (i.data.Orientation === "South") {
           this.totalwallsouth += Number(Number(i.data.Wall.Area).toFixed(2));
           if (i.data.Window.length > 0) {
             for (let y of i.data.Window) {
@@ -287,7 +287,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
           }
         }
         
-        if (i.data.Wall.Orientation === "East") {
+        if (i.data.Orientation === "East") {
           this.totalwalleast += Number(Number(i.data.Wall.Area).toFixed(2));
           if (i.data.Window.length > 0) {
             for (let y of i.data.Window) {
@@ -671,5 +671,17 @@ export class Ehc1heatingenergyComponent implements OnInit {
         pdf.save("heatloss_"+stringdate);
       }, margin)
     });
+  }
+
+  getcalculatenaturallighting() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1naturallightingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  getcalculatecoolingenergy() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1coolingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+  
+  getcalculatepassive() {
+    this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 }

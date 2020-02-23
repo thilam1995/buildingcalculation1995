@@ -1,6 +1,7 @@
 <h1 style="text-align: center;">Start Building Schedule</h1>
 <div style="text-align: center;">
-  <button class="btn btn-primary" style="margin: 10px" routerLink="/main/{{registeruser.ID}}/project">Back To Project List</button>
+  <button class="btn btn-primary" style="margin: 10px" routerLink="/main/{{registeruser.ID}}/project">Back To Project
+    List</button>
   <button class="btn btn-primary" style="margin: 10px" (click)="toggleedit(designobject)">
     <span *ngIf="!isedit"><i class="fas fa-edit"></i>
       Edit</span>
@@ -79,8 +80,8 @@
         </td>
         <td><input type="text" class="form-control" name="city" #city="ngModel" [(ngModel)]="designobject1.City"
             placeholder="Completed By" required matTooltip="City"></td>
-        <td><input type="text" class="form-control" name="postcode" #postcode="ngModel" [(ngModel)]="designobject1.Postcode"
-            placeholder="Completed By" required matTooltip="Postcode"></td>
+        <td><input type="text" class="form-control" name="postcode" #postcode="ngModel"
+            [(ngModel)]="designobject1.Postcode" placeholder="Completed By" required matTooltip="Postcode"></td>
       </tr>
       <tr>
         <td><select class="form-control" name="targetRating" #targetRating="ngModel"
@@ -88,11 +89,18 @@
             (change)="changeoption1()">
             <option *ngFor="let i of climateservice.homestarlist" [ngValue]="i">{{i.HomeStar}}</option>
           </select></td>
-        <td colspan="1"><select class="form-control" name="climatetype" #climatetype="ngModel"
+        <td colspan="2"><select class="form-control" name="climatetype" #climatetype="ngModel"
             [(ngModel)]="designobject1.Climatetype" matTooltip="Climate Zone">
             <option *ngFor="let x of climateservice.climatelist" [ngValue]="x">{{x}}</option>
           </select></td>
-          <td><input type="text" class="form-control" name="typology" #typology="ngModel"
+
+      </tr>
+      <tr>
+        <td>
+          <input type="text" class="form-control" name="floorarea" #floorarea="ngModel"
+            [(ngModel)]="designobject1.FloorArea" placeholder="Floor Area" required matTooltip="Floor Area">
+        </td>
+        <td colspan="2"><input type="text" class="form-control" name="typology" #typology="ngModel"
             [(ngModel)]="designobject1.Typology" placeholder="Typology" required matTooltip="Typology"></td>
       </tr>
       <tr>
@@ -118,8 +126,7 @@
 
         <app-schedule></app-schedule>
         <div style="text-align: center">
-          <button type="button" color="default" class="btn btn-primary btn-lg"
-             matStepperNext>Complete Schedule <i
+          <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Complete Schedule <i
               class="fas fa-arrow-right"></i></button>
         </div>
       </mat-step>
@@ -144,11 +151,14 @@
         <div style="text-align: center">
           <button class="btn btn-danger" (click)="getcalculateheatloss()"><i class="fas fa-calculator"></i> Heat Loss
             Calculate 🌡</button>
-          <button class="btn btn-primary" (click)="getcalculatecoolingenergy()"><i class="fas fa-calculator"></i> Cooling
+          <button class="btn btn-primary" (click)="getcalculatecoolingenergy()"><i class="fas fa-calculator"></i>
+            Cooling
             Calculate 🌬</button>
-          <button class="btn btn-warning" (click)="getcalculatenaturallighting()"><i class="fas fa-calculator"></i> Natural Lighting
+          <button class="btn btn-warning" (click)="getcalculatenaturallighting()"><i class="fas fa-calculator"></i>
+            Natural Lighting
             Calculate ☀</button>
-          <button class="btn btn-success" (click)="getcalculatepassive()"><i class="fas fa-calculator"></i> Passive Ventilation
+          <button class="btn btn-success" (click)="getcalculatepassive()"><i class="fas fa-calculator"></i> Passive
+            Ventilation
             Calculate 🌫</button>
         </div>
       </mat-step>

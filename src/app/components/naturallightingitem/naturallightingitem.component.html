@@ -34,7 +34,7 @@
             </tr>
             <tr *ngFor="let z of i.data.WindowList">
                 <td>{{z.WindowID.Name}}</td>
-                <td>{{z.WindowID.Area |  number: '1.0-2'}}</td>
+                <td>{{z.WindowID.Area | number: '1.0-2'}}</td>
                 <td>{{z.IsShading ? "Shaded" : "Unshaded"}}</td>
             </tr>
         </table>
