@@ -228,7 +228,7 @@ export class NaturallightingComponent implements OnInit {
             this.compliancepoint += 3;
           } else if ((this.primarybednum === 1 && this.primarybednum === 1) && this.primarybednum === this.primarybednum) {
             this.compliancepoint += 3;
-          } else if ((this.livingroomnum === 1 && this.livingroomnum === 1) && this.livingroomnum === this.livingroomnum) {
+          } else if ((this.livingroomnum === 1 && this.livingroompassnum === 1) && this.livingroomnum === this.livingroompassnum) {
             this.compliancepoint += 3;
           }
           else if (this.otherhabitnum === 1 && this.otherhabitnum === this.otherhabitpassnum) {

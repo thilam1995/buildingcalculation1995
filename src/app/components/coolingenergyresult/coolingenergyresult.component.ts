@@ -148,6 +148,45 @@ export class CoolingenergyresultComponent implements OnInit {
           }
           this.owawindownorth = grossowa;
         }
+        if (e.data.Orientation === "South") {
+          this.totalwallsouth += Number(Number(e.data.Wall.Area).toFixed(2));
+          let grossowa: number = 0;
+          if (e.data.Window.length > 0) {
+            
+            for (let y of e.data.Window) {
+              this.totalwindowsouth += Number(Number(y.Area).toFixed(2));
+              grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
+            }
+
+          }
+          this.owawindowsouth = grossowa;
+        }
+        if (e.data.Orientation === "East") {
+          this.totalwalleast += Number(Number(e.data.Wall.Area).toFixed(2));
+          let grossowa: number = 0;
+          if (e.data.Window.length > 0) {
+            
+            for (let y of e.data.Window) {
+              this.totalwindoweast += Number(Number(y.Area).toFixed(2));
+              grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
+            }
+
+          }
+          this.owawindoweast = grossowa;
+        }
+        if (e.data.Orientation === "West") {
+          this.totalwallwest += Number(Number(e.data.Wall.Area).toFixed(2));
+          let grossowa: number = 0;
+          if (e.data.Window.length > 0) {
+            
+            for (let y of e.data.Window) {
+              this.totalwindowwest += Number(Number(y.Area).toFixed(2));
+              grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
+            }
+
+          }
+          this.owawindowwest = grossowa;
+        }
       });
 
 
