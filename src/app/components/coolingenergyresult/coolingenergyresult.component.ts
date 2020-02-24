@@ -189,67 +189,6 @@ export class CoolingenergyresultComponent implements OnInit {
         }
       });
 
-
-      // for (let i of this.wallwindowdoormodellist) {
-
-      //   if (i.data.Wall.Orientation === "North") {
-      //     this.totalwallnorth += Number(Number(i.data.Wall.Area).toFixed(2));
-      //     let grossowa: number = 0;
-      //     if (i.data.Window.length > 0) {
-            
-      //       for (let y of i.data.Window) {
-      //         this.totalwindownorth += Number(Number(y.Area).toFixed(2));
-      //         grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
-      //       }
-
-      //     }
-      //     this.owawindownorth = grossowa;
-      //   }
-
-      // }
-
-      // for (let i of this.wallwindowdoormodellist) {
-      //   if (i.data.Wall.Orientation === "South") {
-      //     this.totalwallsouth += Number(Number(i.data.Wall.Area).toFixed(2));
-      //     if (i.data.Window.length > 0) {
-      //       let grossowa: number = 0;
-      //       for (let y of i.data.Window) {
-      //         this.totalwindowsouth += Number(Number(y.Area).toFixed(2));
-      //         grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
-      //       }
-      //       this.owawindowsouth = grossowa;
-      //     }
-      //   }
-      // }
-
-      // for (let i of this.wallwindowdoormodellist) {
-      //   if (i.data.Wall.Orientation === "East") {
-      //     this.totalwalleast += Number(Number(i.data.Wall.Area).toFixed(2));
-      //     if (i.data.Window.length > 0) {
-      //       let grossowa: number = 0;
-      //       for (let y of i.data.Window) {
-      //         this.totalwindoweast += Number(Number(y.Area).toFixed(2));
-      //         grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
-      //       }
-      //       this.owawindoweast = grossowa;
-      //     }
-      //   }
-      // }
-
-      // for (let i of this.wallwindowdoormodellist) {
-      //   if (i.data.Wall.Orientation === "West") {
-      //     this.totalwallwest += Number(Number(i.data.Wall.Area).toFixed(2));
-      //     if (i.data.Window.length > 0) {
-      //       let grossowa: number = 0;
-      //       for (let y of i.data.Window) {
-      //         this.totalwindowwest += Number(Number(y.Area).toFixed(2));
-      //         grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
-      //       }
-      //       this.owawindowwest = grossowa;
-      //     }
-      //   }
-      // }
-
     });
 
     this.roomserv.fetchroombyid(this.designid).subscribe(res => {

@@ -175,25 +175,62 @@
                         <tr>
                             <td>North</td>
                             <td>{{owawindownorth| number: '1.0-2'}}</td>
-                            <td></td>
+                            <td
+                                [ngStyle]="{'color': owawindownorth > ((designobject.FloorArea * 0.05) * 0.3) ? 'lime' : 'red'}">
+                                {{owawindownorth > ((designobject.FloorArea * 0.05) * 0.3) ? "Complies" : "Failed" }}
+                            </td>
                         </tr>
                         <tr>
                             <td>East</td>
                             <td>{{owawindoweast | number: '1.0-2'}}</td>
-                            <td></td>
+                            <td
+                                [ngStyle]="{'color': owawindoweast > ((designobject.FloorArea * 0.05) * 0.3) ? 'lime' : 'red'}">
+                                {{owawindoweast > ((designobject.FloorArea * 0.05) * 0.3) ? "Complies" : "Failed" }}
+                            </td>
                         </tr>
                         <tr>
                             <td>South</td>
                             <td>{{owawindowsouth | number: '1.0-2'}}</td>
-                            <td></td>
+                            <td
+                                [ngStyle]="{'color': owawindowsouth > ((designobject.FloorArea * 0.05) * 0.3) ? 'lime' : 'red'}">
+                                {{owawindowsouth > ((designobject.FloorArea * 0.05) * 0.3) ? "Complies" : "Failed" }}
+                            </td>
                         </tr>
                         <tr>
                             <td>West</td>
                             <td>{{owawindowwest | number: '1.0-2'}}</td>
-                            <td></td>
+                            <td
+                                [ngStyle]="{'color': owawindowwest > ((designobject.FloorArea * 0.05) * 0.3) ? 'lime' : 'red'}">
+                                {{owawindowwest > ((designobject.FloorArea * 0.05) * 0.3) ? "Complies" : "Failed" }}
+                            </td>
                         </tr>
                     </table>
 
+                </div>
+
+                <div class="col-md-12">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>PART 3:</th>
+                            <td>There must be at least 1 x openable window in each habitable room that must be able to
+                                be suitably secured while open from intruder entry (to least 10mm along one edge).</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-4" *ngFor="let i of roomlist">
+                    <table class="table table-sm">
+                        <tr>
+                            <th colspan="2">{{i.data.RoomID}}</th>
+                        </tr>
+                        <tr *ngFor="let e of i.data.WindowList">
+                            <td>{{e.WindowID.Name}}</td>
+                            <td
+                                [ngStyle]="{'color': e.IsSafelysecure ? 'lime' : 'red'}">
+                                {{e.IsSafelysecure ? "Yes" : "No"}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
