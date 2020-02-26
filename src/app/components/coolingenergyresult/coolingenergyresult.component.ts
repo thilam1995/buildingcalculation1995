@@ -41,6 +41,20 @@ export class CoolingenergyresultComponent implements OnInit {
   owawindoweast: number = 0;
   owawindowwest: number = 0;
 
+  part1pass: boolean = false;
+  part2of1pass: boolean = false;
+  part2of2pass: boolean = false;
+  part2pass: boolean = false;
+  part3pass: boolean = false;
+
+  windowhabitgreatthan5percentlist = [];
+  isallwindowsecurelist = [];
+
+  isallwindowmore30 = [];
+
+  isallpass = [];
+
+  numberpoint: number = 0;
 
   constructor(public route: ActivatedRoute,
     private router: Router, private loginservice: LoginserviceService,
@@ -137,58 +151,52 @@ export class CoolingenergyresultComponent implements OnInit {
 
         if (e.data.Orientation === "North") {
           this.totalwallnorth += Number(Number(e.data.Wall.Area).toFixed(2));
-          let grossowa: number = 0;
           if (e.data.Window.length > 0) {
-            
             for (let y of e.data.Window) {
               this.totalwindownorth += Number(Number(y.Area).toFixed(2));
-              grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
+              this.owawindownorth += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
             }
 
           }
-          this.owawindownorth = grossowa;
+
         }
-        if (e.data.Orientation === "South") {
+        else if (e.data.Orientation === "South") {
           this.totalwallsouth += Number(Number(e.data.Wall.Area).toFixed(2));
-          let grossowa: number = 0;
           if (e.data.Window.length > 0) {
-            
             for (let y of e.data.Window) {
               this.totalwindowsouth += Number(Number(y.Area).toFixed(2));
-              grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
+              this.owawindowsouth += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
             }
 
           }
-          this.owawindowsouth = grossowa;
+
         }
-        if (e.data.Orientation === "East") {
+        else if (e.data.Orientation === "East") {
           this.totalwalleast += Number(Number(e.data.Wall.Area).toFixed(2));
-          let grossowa: number = 0;
           if (e.data.Window.length > 0) {
-            
             for (let y of e.data.Window) {
               this.totalwindoweast += Number(Number(y.Area).toFixed(2));
-              grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
+              this.owawindoweast += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
             }
 
           }
-          this.owawindoweast = grossowa;
+
         }
-        if (e.data.Orientation === "West") {
+        else if (e.data.Orientation === "West") {
           this.totalwallwest += Number(Number(e.data.Wall.Area).toFixed(2));
-          let grossowa: number = 0;
           if (e.data.Window.length > 0) {
-            
             for (let y of e.data.Window) {
               this.totalwindowwest += Number(Number(y.Area).toFixed(2));
-              grossowa += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
+              this.owawindowwest += Number(Number(y.OWA).toFixed(2)) * Number(Number(y.Area).toFixed(2));
             }
 
           }
-          this.owawindowwest = grossowa;
+
         }
       });
-
+      setTimeout(() => {
+        this.finalcalculation();
+      }, 1300);
     });
 
     this.roomserv.fetchroombyid(this.designid).subscribe(res => {
@@ -208,9 +216,74 @@ export class CoolingenergyresultComponent implements OnInit {
   getcalculatenaturallighting() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1naturallightingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
-  
+
   getcalculatepassive() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 
+  finalcalculation() {
+    this.part1pass = (0.27 > (this.totalwindoweast / this.totalwalleast)) && (0.27 > (this.totalwindownorth / this.totalwallnorth)) && (0.27 > (this.totalwindowwest / this.totalwallwest));
+    this.roomlist.forEach(e => {
+      let iscomplied: boolean = false;
+      let netowa: number = 0;
+      if (e.data.WindowList.length !== 0) {
+        e.data.WindowList.forEach(a => {
+          netowa = Number(Number(a.WindowID.OWA * a.WindowID.Area).toFixed(2));
+        });
+        iscomplied = (netowa / e.data.RoomArea) >= 0.05;
+      }
+      this.windowhabitgreatthan5percentlist.push(iscomplied);
+    });
+
+    this.roomlist.forEach(e => {
+      let windowsecurelist = [];
+      let isallsecure: boolean = false;
+      if(e.data.WindowList.length !== 0){
+        e.data.WindowList.forEach(element => {
+          if(element.IsSafelysecure){
+            windowsecurelist.push(element.IsSafelysecure);
+          }
+        });
+      }
+
+      if(e.data.WindowList.length === 0){
+        isallsecure = false;
+      }else{
+        isallsecure = windowsecurelist.every(Boolean);
+      }
+      this.isallwindowsecurelist.push(isallsecure);
+    });
+
+    this.part2of1pass = this.windowhabitgreatthan5percentlist.every(Boolean);
+
+    if(this.owawindownorth > ((this.designobject.FloorArea * 0.05) * 0.3)){
+      this.isallwindowmore30.push(this.owawindownorth > ((this.designobject.FloorArea * 0.05) * 0.3));
+    }
+
+    if(this.owawindoweast > ((this.designobject.FloorArea * 0.05) * 0.3)){
+      this.isallwindowmore30.push(this.owawindoweast > ((this.designobject.FloorArea * 0.05) * 0.3));
+    }
+
+    if(this.owawindowsouth > ((this.designobject.FloorArea * 0.05) * 0.3)){
+      this.isallwindowmore30.push(this.owawindowsouth > ((this.designobject.FloorArea * 0.05) * 0.3));
+    }
+
+    if(this.owawindowwest > ((this.designobject.FloorArea * 0.05) * 0.3)){
+      this.isallwindowmore30.push(this.owawindowwest > ((this.designobject.FloorArea * 0.05) * 0.3));
+    }
+
+
+    this.part2of2pass = this.isallwindowmore30.length >= 2;
+
+    this.part2pass = this.part2of1pass && this.part2of2pass;
+    this.part3pass = this.isallwindowsecurelist.every(Boolean);
+
+    this.isallpass.push(this.part1pass, this.part2pass, this.part3pass);
+
+    this.isallpass.forEach(e => {
+      if(e){
+        this.numberpoint++;
+      }
+    })
+  }
 }

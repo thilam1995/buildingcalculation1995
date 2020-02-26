@@ -47,7 +47,7 @@
                             <th>Home Compliance</th>
                         </tr>
                         <tr>
-                            <td>Points</td>
+                            <td>{{numberpoint}} Points</td>
                         </tr>
                     </table>
 
@@ -55,17 +55,32 @@
                         <tr>
                             <td>Part 1</td>
                             <td>Solar Aperture</td>
-                            <td></td>
+                            <td [ngStyle]="{'color': part1pass ? 'lime' : 'red'}">{{part1pass ? "Compiles" : "Failed"}}
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td>Part 2 (i)</td>
+                            <td>Habitable Room O.W.A</td>
+                            <td [ngStyle]="{'color': part2of1pass ? 'lime' : 'red'}">
+                                {{part2of1pass ? "Compiles" : "Failed"}}</td>
                         </tr>
                         <tr>
-                            <td>Part 2 (i) and (ii)</td>
+                            <td>Part 2 (ii)</td>
+                            <td>Cross Ventilation</td>
+                            <td [ngStyle]="{'color': part2of2pass ? 'lime' : 'red'}">
+                                {{part2of2pass ? "Compiles" : "Failed"}}</td>
+                        </tr> -->
+                        <tr>
+                            <td>Part 2 (i) & (ii)</td>
                             <td>Habitable Room O.W.A & Cross Ventilation</td>
-                            <td></td>
+                            <td [ngStyle]="{'color': part2pass ? 'lime' : 'red'}">
+                                {{part2pass ? "Compiles" : "Failed"}}</td>
                         </tr>
                         <tr>
                             <td>Part 3</td>
                             <td>Secure Windows</td>
-                            <td></td>
+                            <td [ngStyle]="{'color': part3pass ? 'lime' : 'red'}">{{part3pass ?  "Compiles" : "Failed"}}
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -76,7 +91,8 @@
                             <th>PART 1: </th>
                             <td>The solar aperture of each facade of the dwelling is less than 20% (using simple method)
                             </td>
-                            <td>Complies or Fails</td>
+                            <td [ngStyle]="{'color': part1pass ? 'lime' : 'red'}">{{part1pass ? "Compiles" : "Failed"}}
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -129,7 +145,8 @@
                             <th>PART 2 (i):</th>
                             <td>The net openable area of the windows in each habitable room is greater than 5% of the
                                 conditioned floor area of that room</td>
-                            <td></td>
+                            <td [ngStyle]="{'color': part2of1pass ? 'lime' : 'red'}">
+                                {{part2of1pass ? "Compiles" : "Failed"}}</td>
                         </tr>
                     </table>
                 </div>
@@ -144,7 +161,8 @@
                             <td>At least 30% of the total required openable window area for the dwelling as a whole
                                 (i.e. 5% passive ventilation requirement) is located on different facades and/or levels
                                 of the dwelling to achieve cross ventilation.</td>
-                            <td></td>
+                            <td [ngStyle]="{'color': part2of2pass ? 'lime' : 'red'}">
+                                {{part2of2pass ? "Compiles" : "Failed"}}</td>
                         </tr>
                     </table>
                 </div>
@@ -214,24 +232,14 @@
                             <th>PART 3:</th>
                             <td>There must be at least 1 x openable window in each habitable room that must be able to
                                 be suitably secured while open from intruder entry (to least 10mm along one edge).</td>
-                            <td></td>
+                            <td [ngStyle]="{'color': part3pass ? 'lime' : 'red'}">{{part3pass ?  "Compiles" : "Failed"}}
+                            </td>
                         </tr>
                     </table>
                 </div>
 
-                <div class="col-md-4" *ngFor="let i of roomlist">
-                    <table class="table table-sm">
-                        <tr>
-                            <th colspan="2">{{i.data.RoomID}}</th>
-                        </tr>
-                        <tr *ngFor="let e of i.data.WindowList">
-                            <td>{{e.WindowID.Name}}</td>
-                            <td
-                                [ngStyle]="{'color': e.IsSafelysecure ? 'lime' : 'red'}">
-                                {{e.IsSafelysecure ? "Yes" : "No"}}</td>
-                        </tr>
-                    </table>
-                </div>
+                <app-coolinghabitwindowitem class="col-md-4" *ngFor="let i of roomlist" [i]="i"></app-coolinghabitwindowitem>
+
             </div>
         </div>
     </div>

@@ -77,6 +77,7 @@ import { RoomfilterPipe } from './pipe/roomfilter.pipe';
 import {MatRadioModule} from '@angular/material/radio';
 import { HelpguideComponent } from './components/helpguide/helpguide.component';
 import { CoolingroomitemComponent } from './components/coolingroomitem/coolingroomitem.component';
+import { CoolinghabitwindowitemComponent } from './components/coolinghabitwindowitem/coolinghabitwindowitem.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { CoolingroomitemComponent } from './components/coolingroomitem/coolingro
     NaturallightingitemComponent,
     RoomfilterPipe,
     HelpguideComponent,
-    CoolingroomitemComponent
+    CoolingroomitemComponent,
+    CoolinghabitwindowitemComponent
   ],
   imports: [
     BrowserModule,

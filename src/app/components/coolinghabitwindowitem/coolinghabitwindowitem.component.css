@@ -1,0 +1,9 @@
+table tr th{
+    text-align: center;
+    font-size: 90%;
+}
+
+table tr td{
+    text-align: center;
+    font-size: 100%;
+}

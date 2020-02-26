@@ -23,7 +23,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
   projectid: string = "";
   designid: string = "";
 
-  orientationselect: string = "";
+  orientationselect: string = null;
 
   wallobject: Wall;
   wallextendobject: WallExtend;
@@ -123,7 +123,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
       Width: null
     };
     this.wallobject = null;
-    this.orientationselect = "";
+    this.orientationselect = null;
   }
 
   addvaluewindow() {

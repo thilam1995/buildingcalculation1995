@@ -1,0 +1,14 @@
+<table class="table table-sm">
+    <tr>
+        <th colspan="2">{{i.data.RoomID}}</th>
+    </tr>
+    <tr *ngFor="let e of i.data.WindowList">
+        <td>{{e.WindowID.Name}}</td>
+        <td [ngStyle]="{'color': e.IsSafelysecure ? 'lime' : 'red'}">
+            {{e.IsSafelysecure ? "Yes" : "No"}}</td>
+    </tr>
+    <tr>
+        <td>1 x Window Safely Secured</td>
+        <td [ngStyle]="{'color': issecure ? 'lime' : 'red'}">{{issecure ? "Complies" : "Failed"}}</td>
+    </tr>
+</table>
