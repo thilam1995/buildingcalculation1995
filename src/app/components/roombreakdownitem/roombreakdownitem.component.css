@@ -1,17 +1,20 @@
 .bluetablehead{
     background-color: ghostwhite;
-    color: hotpink;
+    color: black;
 }
 
 table tr th{
     text-align: center;
     font-size: 100%;
+    vertical-align: middle;
 }
 
 table tr td{
     text-align: center;
     font-size: 100%;
+    vertical-align: middle;
 }
+
 
 .mat-radio-button ~ .mat-radio-button {
     margin-right: 16px;

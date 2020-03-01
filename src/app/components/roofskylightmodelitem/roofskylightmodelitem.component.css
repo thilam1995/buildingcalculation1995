@@ -5,4 +5,12 @@
 
 table tr th{
     text-align: center;
+    font-size: 100%;
+    vertical-align: middle;
+}
+
+table tr td{
+    text-align: center;
+    font-size: 100%;
+    vertical-align: middle;
 }
