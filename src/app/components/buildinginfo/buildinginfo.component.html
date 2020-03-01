@@ -4,7 +4,8 @@
 <hr class="col-md-12">
 <div class="col-md-12" style="text-align: center">
   <mat-radio-group aria-label="Select an option" [(ngModel)]="selectoption">
-    <mat-radio-button *ngFor="let option of designoption" [value]="option">{{option == "filldesign" ? "Fill Design" : "Choose Existed Design"}}</mat-radio-button>
+    <mat-radio-button *ngFor="let option of designoption" [value]="option">
+      {{option == "filldesign" ? "Fill Design" : "Choose Existed Design"}}</mat-radio-button>
   </mat-radio-group>
 </div>
 <hr class="col-md-12">
@@ -38,35 +39,35 @@
       </select>
       <div class="validation-error" *ngIf="climatetype.invalid && climatetype.touched">Please choose climate type.</div>
     </div>
-    <div class="form-group col-md-4">
-      <input class="form-control" name="street" #street="ngModel"
-        placeholder="Street Number and Name (Physical Address)" [(ngModel)]="design.StreetName" required>
-      <div class="validation-error" *ngIf="street.invalid && street.touched">Please fill your street number and name.
-      </div>
-    </div>
-    <div class="form-group col-md-4">
-      <input class="form-control" name="city" #city="ngModel" placeholder="City" [(ngModel)]="design.City" required>
-      <div class="validation-error" *ngIf="city.invalid && city.touched">Please fill your city name.</div>
-    </div>
-    <div class="form-group col-md-4">
-      <input class="form-control" name="postcode" #postcode="ngModel" placeholder="Post Code" [(ngModel)]="design.Postcode"
-        required>
-      <div class="validation-error" *ngIf="postcode.invalid && postcode.touched">Please fill postcode name.</div>
-    </div>
-    <div class="form-group col-md-6">
-      <input class="form-control" type="text" name="drawingset" #drawingset="ngModel" placeholder="Drawing Set"
-        [(ngModel)]="design.DrawingSet" required>
-      <div class="validation-error" *ngIf="drawingset.invalid && drawingset.touched">Please fill your drawing set.</div>
-    </div>
-    <div class="form-group col-md-6">
-      <input class="form-control" type="text" name="typology" #typology="ngModel" placeholder="Typology/Dwelling"
-        [(ngModel)]="design.Typology" required>
-      <div class="validation-error" *ngIf="typology.invalid && typology.touched">Please fill your typology.</div>
-    </div>
     <div class="form-group col-md-12">
       <input class="form-control" type="text" name="floorarea" #floorarea="ngModel" placeholder="Floor Area"
         [(ngModel)]="design.FloorArea" required>
       <div class="validation-error" *ngIf="floorarea.invalid && floorarea.touched">Please fill your floor area.</div>
+    </div>
+    <div class="form-group col-md-4">
+      <input class="form-control" name="street" #street="ngModel"
+        placeholder="Street Number and Name (Physical Address) (Optional)" [(ngModel)]="design.StreetName">
+      <!-- <div class="validation-error" *ngIf="street.invalid && street.touched">Please fill your street number and name.
+      </div> -->
+    </div>
+    <div class="form-group col-md-4">
+      <input class="form-control" name="city" #city="ngModel" placeholder="City (Optional)" [(ngModel)]="design.City">
+      <!-- <div class="validation-error" *ngIf="city.invalid && city.touched">Please fill your city name.</div> -->
+    </div>
+    <div class="form-group col-md-4">
+      <input class="form-control" name="postcode" #postcode="ngModel" placeholder="Post Code (Optional)"
+        [(ngModel)]="design.Postcode">
+      <!-- <div class="validation-error" *ngIf="postcode.invalid && postcode.touched">Please fill postcode name.</div> -->
+    </div>
+    <div class="form-group col-md-6">
+      <input class="form-control" type="text" name="drawingset" #drawingset="ngModel"
+        placeholder="Drawing Set (Optional)" [(ngModel)]="design.DrawingSet">
+      <!-- <div class="validation-error" *ngIf="drawingset.invalid && drawingset.touched">Please fill your drawing set.</div> -->
+    </div>
+    <div class="form-group col-md-6">
+      <input class="form-control" type="text" name="typology" #typology="ngModel"
+        placeholder="Typology/Dwelling (Optional)" [(ngModel)]="design.Typology">
+      <!-- <div class="validation-error" *ngIf="typology.invalid && typology.touched">Please fill your typology.</div> -->
     </div>
   </div>
   <div class="form-row" *ngIf="selectoption == 'selectexisted'">
@@ -78,7 +79,8 @@
     </div>
   </div>
   <div class="form-group col-md-12" style="text-align: right;">
-    <button type="submit" class="btn btn-outline-primary" [disabled]="!designform.valid"><i
+    <button type="submit" class="btn btn-outline-primary"
+      [disabled]="design.DesignName == null || design.CompletedBy == null || design.FloorArea == null"><i
         class="far fa-check-circle"></i> Save</button>
     <a class="btn btn-outline-primary" routerLink="/main/{{registeruser.ID}}/project">Back To Project</a>
   </div>

@@ -9,7 +9,7 @@
                         (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></th>
                 <th *ngIf="!isedit"><button class="btn btn-primary" (click)="selecttoEdit(flooritem)"><i
                             class="far fa-edit"></i> Edit</button></th>
-                <th *ngIf="isedit">
+                <th *ngIf="isedit" rowspan="2">
                     <button class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-ban"></i> Cancel</button>
                     <button class="btn btn-primary" (click)="onSave(flooritem.id)"><i
                             class="far fa-save"></i> Save</button>

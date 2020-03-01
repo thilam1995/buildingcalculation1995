@@ -80,17 +80,17 @@ export class BuildinginfoComponent implements OnInit {
   setdefault() {
     this.designSelect = null;
     this.design = {
-      DesignName: "",
+      DesignName: null,
       TargetRating: null,
       Climatetype: null,
-      CompletedBy: "",
-      DrawingSet: "",
-      Typology: "",
+      CompletedBy: null,
+      DrawingSet: null,
+      Typology: null,
       DateUpdate: "",
       DateCreated: "",
-      City: "",
-      StreetName: "",
-      Postcode: "",
+      City: null,
+      StreetName: null,
+      Postcode: null,
       FloorArea: null
     };
     this.design1 = {
