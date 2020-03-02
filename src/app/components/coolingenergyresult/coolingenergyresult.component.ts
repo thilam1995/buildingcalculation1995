@@ -280,10 +280,18 @@ export class CoolingenergyresultComponent implements OnInit {
 
     this.isallpass.push(this.part1pass, this.part2pass, this.part3pass);
 
-    this.isallpass.forEach(e => {
-      if(e){
-        this.numberpoint++;
-      }
-    })
+
+    let numofpass = 0;
+
+    numofpass = this.isallpass.filter(x => x).length;
+
+    if(numofpass === 3){
+      this.numberpoint = 2;
+    } else if(numofpass === 2){
+      this.numberpoint = 1;
+    } else{
+      this.numberpoint = 0;
+    }
+
   }
 }

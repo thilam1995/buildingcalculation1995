@@ -150,17 +150,14 @@
       <mat-step>
         <ng-template matStepLabel matStepperIcon="done">Done & Start Calculate</ng-template>
         <div style="text-align: center">
-          <button class="btn btn-danger" (click)="getcalculateheatloss()"><i class="fas fa-calculator"></i> Heat Loss
-            Calculate 🌡</button>
+          <button class="btn btn-danger" (click)="getcalculateheatloss()"><i class="fas fa-calculator"></i> Calculate
+            EHC 1 (Heat loss) 🌡</button>
           <button class="btn btn-primary" (click)="getcalculatecoolingenergy()"><i class="fas fa-calculator"></i>
-            Cooling
-            Calculate 🌬</button>
+            Calculate EHC1 (Cooling) 🌬</button>
           <button class="btn btn-warning" (click)="getcalculatenaturallighting()"><i class="fas fa-calculator"></i>
-            Natural Lighting
-            Calculate ☀</button>
-          <button class="btn btn-success" (click)="getcalculatepassive()"><i class="fas fa-calculator"></i> Passive
-            Ventilation
-            Calculate 🌫</button>
+            Calculate EHC 7 (Natural Lighting) ☀</button>
+          <button class="btn btn-success" (click)="getcalculatepassive()"><i class="fas fa-calculator"></i>
+            Calculate EHC 3 (Ventilation) 🌫</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>

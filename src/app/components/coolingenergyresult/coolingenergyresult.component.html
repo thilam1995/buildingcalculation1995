@@ -1,14 +1,12 @@
 <div class="row">
     <div style="text-align: center;" class="col-md-12">
         <button class="btn btn-danger" style="margin: 10px" (click)="getcalculateheatloss()"><i
-                class="fas fa-calculator"></i> Heat Loss
-            Calculate 🌡</button>
+                class="fas fa-calculator"></i> Calculate
+            EHC 1 (Heat loss) 🌡</button>
         <button class="btn btn-warning" style="margin: 10px" (click)="getcalculatenaturallighting()"><i
-                class="fas fa-calculator"></i> Natural Lighting
-            Calculate ☀</button>
+                class="fas fa-calculator"></i> Calculate EHC 7 (Natural Lighting) ☀</button>
         <button class="btn btn-success" style="margin: 10px" (click)="getcalculatepassive()"><i
-                class="fas fa-calculator"></i> Passive Ventilation
-            Calculate 🌫</button>
+                class="fas fa-calculator"></i> Calculate EHC 3 (Ventilation) 🌫</button>
     </div>
     <div class="col-md-12" style="text-align: center;">
         <button class="btn btn-primary" style="margin: 10px" (click)="returntoSchedule()"><i
@@ -58,18 +56,6 @@
                             <td [ngStyle]="{'color': part1pass ? 'lime' : 'red'}">{{part1pass ? "Compiles" : "Failed"}}
                             </td>
                         </tr>
-                        <!-- <tr>
-                            <td>Part 2 (i)</td>
-                            <td>Habitable Room O.W.A</td>
-                            <td [ngStyle]="{'color': part2of1pass ? 'lime' : 'red'}">
-                                {{part2of1pass ? "Compiles" : "Failed"}}</td>
-                        </tr>
-                        <tr>
-                            <td>Part 2 (ii)</td>
-                            <td>Cross Ventilation</td>
-                            <td [ngStyle]="{'color': part2of2pass ? 'lime' : 'red'}">
-                                {{part2of2pass ? "Compiles" : "Failed"}}</td>
-                        </tr> -->
                         <tr>
                             <td>Part 2 (i) & (ii)</td>
                             <td>Habitable Room O.W.A & Cross Ventilation</td>
@@ -238,7 +224,8 @@
                     </table>
                 </div>
 
-                <app-coolinghabitwindowitem class="col-md-4" *ngFor="let i of roomlist" [i]="i"></app-coolinghabitwindowitem>
+                <app-coolinghabitwindowitem class="col-md-4" *ngFor="let i of roomlist" [i]="i">
+                </app-coolinghabitwindowitem>
 
             </div>
         </div>

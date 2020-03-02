@@ -124,6 +124,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   isfloorpasslist: Array<boolean> = [];
   iswindowpasslist: Array<boolean> = [];
 
+  numberpoint: number = 0;
 
   walldistinct = [];
   roofdistinct = [];
@@ -132,9 +133,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
   windowdistinct = [];
   doordistinct = [];
   doornamelist = [];
-
-
   registeruser: Register;
+
   constructor(public route: ActivatedRoute,
     private router: Router, private loginservice: LoginserviceService,
     private buildingmodelservice: BuildingmodelService, private designservice: DesignService,
@@ -605,7 +605,6 @@ export class Ehc1heatingenergyComponent implements OnInit {
         + Number(this.skylightrvaluecondition.toFixed(2))
         + Number(this.wallrvaluecondition.toFixed(2)) + (Number(this.totalareawindowless30.toFixed(2)) / this.windowrvalue)
         + Number((this.totalareawindowmore30 / this.wallrvalue).toFixed(2)) + Number((this.totalareafloor / this.floorrvalue).toFixed(2));
-      console.log(this.totalschedule);
     }
     this.wallbalancecheck_proposed = this.totalareawall + this.totalareawindow + this.totalareadoor;
     if (0.30 > ((this.totalwindowsouth + this.totalwindoweast + this.totalwindowwest + this.totalwindownorth) / (this.totalwallsouth + this.totalwalleast + this.totalwallwest + this.totalwallnorth))) {
@@ -641,7 +640,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.isech1pass = ehc1result.every(Boolean);
     }
 
-
+    this.numberpoint = this.isech1pass ? (this.climatezone === "6 Homestar" ? 13 : 12) : 0;
   }
 
 
