@@ -638,6 +638,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
 
     if (ehc1result.length > 0) {
       this.isech1pass = ehc1result.every(Boolean);
+      console.log(ehc1result);
     }
 
     let climatepoint = 0
@@ -648,7 +649,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
     }else{
       climatepoint = 13
     }
-    this.numberpoint = this.isech1pass || this.totalproposed > this.totalschedule ? climatepoint : 0;
+
+    this.numberpoint = (this.totalproposed < this.totalschedule) || this.isech1pass ? climatepoint : 0;
   }
 
 
