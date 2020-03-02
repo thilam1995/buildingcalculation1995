@@ -1,10 +1,13 @@
 <div class="row">
     <div style="text-align: center" class="col-md-12">
-        <button class="btn btn-danger" style="margin: 10px" (click)="getcalculateheatloss()"><i class="fas fa-calculator"></i> Calculate
+        <button class="btn btn-danger" style="margin: 10px" (click)="getcalculateheatloss()"><i
+                class="fas fa-calculator"></i> Calculate
             EHC 1 (Heat loss) 🌡</button>
-        <button class="btn btn-primary" style="margin: 10px" (click)="getcalculatecoolingenergy()"><i class="fas fa-calculator"></i> Calculate EHC1 (Cooling) 🌬</button>
-        <button class="btn btn-success" style="margin: 10px" (click)="getcalculatepassive()"><i class="fas fa-calculator"></i> Calculate EHC 3 (Ventilation) 🌫</button>
-      </div>
+        <button class="btn btn-primary" style="margin: 10px" (click)="getcalculatecoolingenergy()"><i
+                class="fas fa-calculator"></i> Calculate EHC1 (Cooling) 🌬</button>
+        <button class="btn btn-success" style="margin: 10px" (click)="getcalculatepassive()"><i
+                class="fas fa-calculator"></i> Calculate EHC 3 (Ventilation) 🌫</button>
+    </div>
     <div class="col-md-12" style="text-align: center;">
         <button class="btn btn-primary" style="margin: 10px" (click)="returntoSchedule()"><i
                 class="fas fa-undo-alt"></i>
@@ -55,12 +58,12 @@
                         </tr>
                     </table>
                 </div>
-    
+
                 <div class="col-md-12">
                     <app-naturallightingitem *ngFor="let i of roomserv.roomlist" [i]="i"></app-naturallightingitem>
                 </div>
             </div>
-    
+
         </div>
     </div>
 
