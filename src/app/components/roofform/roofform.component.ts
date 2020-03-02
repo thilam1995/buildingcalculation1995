@@ -139,7 +139,7 @@ export class RoofformComponent implements OnInit {
           this.deleteroofmodel(this.designid, roofi);
           setTimeout(() => {
             this.fetchingroof();
-          }, 1500);
+          }, 1800);
         }, err => {
           this.toastr.error("Something wrong!", "Error Message!");
         }
@@ -169,13 +169,15 @@ export class RoofformComponent implements OnInit {
 
   deleteroofmodel(id: string, roofi: any){
     this.buildingmodelservice.fetchroofskylightmodelGet(id);
-    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
+    if(this.buildingmodelservice.roofskylightmodellist.length !== 0){
       for(let i of this.buildingmodelservice.wallwindowdoormodellist){
         if(i.data.Roof.RoofName === roofi.Roof.RoofName){
           i.data.Roof = {};
           this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
             this.toastr.success("Update model successfully", "Info Message");
-
+            setTimeout(() => {
+              this.fetchingroof();
+            }, 1300);
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
             this.toastr.error("Update model failed", "Info Message");
