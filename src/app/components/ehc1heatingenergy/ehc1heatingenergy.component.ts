@@ -640,7 +640,15 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.isech1pass = ehc1result.every(Boolean);
     }
 
-    this.numberpoint = this.isech1pass ? (this.climatezone === "6 Homestar" ? 13 : 12) : 0;
+    let climatepoint = 0
+    if(this.targeting === "NZBC - H1 Compliance Assessment"){
+      climatepoint = 0
+    }else if (this.targeting === "6 Homestar"){
+      climatepoint = 12
+    }else{
+      climatepoint = 13
+    }
+    this.numberpoint = this.isech1pass || this.totalproposed > this.totalschedule ? climatepoint : 0;
   }
 
 
