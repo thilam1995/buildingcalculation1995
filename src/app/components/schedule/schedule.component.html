@@ -7,7 +7,7 @@
                 <p>Please enter your different wall constructions below, and their calculated R value.</p>
                 <app-wallform></app-wallform>
                 <div style="text-align: right">
-                    <button type="button" color="default" [disabled]="wallservice.walllist.length === 0" class="button"
+                    <button type="button" color="default" [disabled]="wallservice.walllist.length === 0" class="btn btn-primary btn-lg"
                         matStepperNext> Go to Next Section <i class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
@@ -20,7 +20,7 @@
                 <app-windowform></app-windowform>
                 <div style="text-align: right">
                     <button type="button" color="default" [disabled]="wallservice.windowlist.length === 0"
-                        class="button" matStepperNext>Go to Next Section <i class="fas fa-arrow-right"></i></button>
+                        class="btn btn-primary btn-lg" matStepperNext>Go to Next Section <i class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
             <mat-step>
@@ -30,7 +30,7 @@
                     remember to include the door between the house and the garage)</p>
                 <app-doorform></app-doorform>
                 <div style="text-align: right">
-                    <button type="button" color="default" [disabled]="wallservice.doorlist.length === 0" class="button"
+                    <button type="button" color="default" [disabled]="wallservice.doorlist.length === 0" class="btn btn-primary btn-lg"
                         matStepperNext>Go to Next Section <i class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
@@ -42,14 +42,14 @@
                 <app-roofform></app-roofform>
                 <div style="text-align: right">
                     <button type="button" color="default"
-                        class="button" matStepperNext>Go to Next Section <i class="fas fa-arrow-right"></i></button>
+                        class="btn btn-primary btn-lg" matStepperNext>Go to Next Section <i class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel matStepperIcon="done">Skylight</ng-template>
                 <app-skylightform></app-skylightform>
                 <div style="text-align: right">
-                    <button type="button" color="default" class="button" matStepperNext>
+                    <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>
                         Go to Next Section <i class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
