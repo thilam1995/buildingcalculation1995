@@ -157,8 +157,8 @@ export class SkylightformComponent implements OnInit {
 
   updateskylightmodel(id: string, skylight: Skylights){
     this.buildingmodelservice.fetchroofskylightmodelGet(this.designid);
-    if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
-      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+    if(this.buildingmodelservice.roofskylightmodellist.length !== 0){
+      for(let i of this.buildingmodelservice.roofskylightmodellist){
         let skylightmodellist:Array<any> = i.data.Skylight;
         const found = skylightmodellist.some(x => {
           return x.SkylightsName === skylight.SkylightsName

@@ -170,7 +170,7 @@ export class RoofformComponent implements OnInit {
   deleteroofmodel(id: string, roofi: any){
     this.buildingmodelservice.fetchroofskylightmodelGet(id);
     if(this.buildingmodelservice.roofskylightmodellist.length !== 0){
-      for(let i of this.buildingmodelservice.wallwindowdoormodellist){
+      for(let i of this.buildingmodelservice.roofskylightmodellist){
         if(i.data.Roof.RoofName === roofi.Roof.RoofName){
           i.data.Roof = {};
           this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
