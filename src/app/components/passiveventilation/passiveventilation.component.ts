@@ -35,6 +35,8 @@ export class PassiveventilationComponent implements OnInit {
 
   iscomplied: boolean = false;
 
+  currentroute: string = "";
+
   constructor(public route: ActivatedRoute,
     private router: Router, private loginservice: LoginserviceService,
     private buildingmodelservice: BuildingmodelService, private designservice: DesignService,
@@ -52,6 +54,8 @@ export class PassiveventilationComponent implements OnInit {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
     });
+    this.currentroute = this.route.snapshot.url[0].path;
+    console.log(this.route.snapshot.url[0].path);
   }
 
   ngOnInit() {
@@ -190,5 +194,12 @@ export class PassiveventilationComponent implements OnInit {
 
   getcalculatecoolingenergy() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1coolingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+  
+  getcalculatepassive() {
+    if(this.currentroute === "ehc1passiveventilation"){
+      alert("You are now in EHC-7 Passive Ventilation!");
+    }
+    // this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 }

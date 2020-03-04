@@ -41,6 +41,7 @@ export class NaturallightingComponent implements OnInit {
   studioroomnum: number = 0;
   studioroompassnum: number = 0;
 
+  currentroute: string = "";
 
   constructor(public route: ActivatedRoute,
     private router: Router, private loginservice: LoginserviceService,
@@ -60,6 +61,8 @@ export class NaturallightingComponent implements OnInit {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
     });
+    this.currentroute = this.route.snapshot.url[0].path;
+    console.log(this.route.snapshot.url[0].path);
   }
 
   ngOnInit() {
@@ -306,6 +309,13 @@ export class NaturallightingComponent implements OnInit {
 
   getcalculateheatloss() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1heatingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  getcalculatenaturallighting() {
+    if(this.currentroute === "ehc1naturallightingenergy"){
+      alert("You are now in EHC-3 Natural Lighting!");
+    }
+    // this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1naturallightingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 
   getcalculatecoolingenergy() {

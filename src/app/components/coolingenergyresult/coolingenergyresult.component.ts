@@ -56,6 +56,7 @@ export class CoolingenergyresultComponent implements OnInit {
 
   numberpoint: number = 0;
 
+  currentroute: string = "";
   constructor(public route: ActivatedRoute,
     private router: Router, private loginservice: LoginserviceService,
     private buildingmodelservice: BuildingmodelService, private designservice: DesignService,
@@ -74,6 +75,8 @@ export class CoolingenergyresultComponent implements OnInit {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
     });
+    this.currentroute = this.route.snapshot.url[0].path;
+    console.log(this.route.snapshot.url[0].path);
   }
 
   ngOnInit() {
@@ -217,6 +220,13 @@ export class CoolingenergyresultComponent implements OnInit {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1naturallightingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
 
+  getcalculatecoolingenergy() {
+    if(this.currentroute === "ehc1coolingenergy"){
+      alert("You are now in EHC-1 Cooling Energy!")
+    }
+    // this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1coolingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+  
   getcalculatepassive() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }

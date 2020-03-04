@@ -135,6 +135,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
   doornamelist = [];
   registeruser: Register;
 
+  currentroute: string = "";
+
   constructor(public route: ActivatedRoute,
     private router: Router, private loginservice: LoginserviceService,
     private buildingmodelservice: BuildingmodelService, private designservice: DesignService,
@@ -152,6 +154,8 @@ export class Ehc1heatingenergyComponent implements OnInit {
       this.projectid = params['projectid'];
       this.designid = params['designid'];
     });
+    this.currentroute = this.route.snapshot.url[0].path;
+    console.log(this.route.snapshot.url[0].path);
   }
 
   ngOnInit() {
@@ -681,6 +685,13 @@ export class Ehc1heatingenergyComponent implements OnInit {
     });
   }
 
+  getcalculateheatloss() {
+    if(this.currentroute === "ehc1heatingenergy"){
+      alert("You are now in EHC-1 Heat Loss!")
+    }
+    // this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1heatingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
   getcalculatenaturallighting() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1naturallightingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
@@ -688,7 +699,7 @@ export class Ehc1heatingenergyComponent implements OnInit {
   getcalculatecoolingenergy() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1coolingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
-
+  
   getcalculatepassive() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
