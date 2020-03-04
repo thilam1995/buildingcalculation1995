@@ -9,6 +9,8 @@ import { RoomserviceService } from 'src/app/service/roomservice.service';
 import { Register } from 'src/app/models/register';
 import { Design } from 'src/app/models/design';
 import { Project } from 'src/app/models/project';
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-passiveventilation',
@@ -201,5 +203,31 @@ export class PassiveventilationComponent implements OnInit {
       alert("You are now in EHC-7 Passive Ventilation!");
     }
     // this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
+  }
+
+  downloadresult() {
+    let date = new Date();
+    let stringdate: string = "";
+    stringdate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + "_" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds();
+    this.toastr.info("Please wait until finishing rendering!");
+    html2canvas(document.querySelector('#content'),
+      { scale: 2 }
+    ).then(canvas => {
+
+      let pdf = new jsPDF('p', 'mm', 'a4'), margin = {
+        top: 100,
+        bottom: 10,
+        left: 10,
+        width: 600,
+      };
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 100);
+      pdf.fromHTML(canvas, margin.left, margin.top, {
+        // y coord
+        width: margin.width // max width of content on PDF
+      }, dispose => {
+        this.toastr.success("Rendering Completed!");
+        pdf.save("passiveventilation_" + stringdate);
+      }, margin)
+    });
   }
 }
