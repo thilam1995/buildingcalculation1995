@@ -162,19 +162,25 @@ export class DoorformComponent implements OnInit {
     this.buildingmodelservice.fetchwallwindowdoormodel(this.designid);
     if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
       for(let i of this.buildingmodelservice.wallwindowdoormodellist){
-        if(i.data.Door.DoorName === door.DoorName){
-          if(i.data.Door.ConstructionRValue !== door.ConstructionRValue){
-            i.data.Door.ConstructionRValue = door.ConstructionRValue;
-          }
-          if(i.data.Door.Width !== door.Width){
-            i.data.Door.Width = door.Width;
-          }
-          if(i.data.Door.Height !== door.Height){
-            i.data.Door.Height = door.Height;
-          }
-          this.buildingmodelservice.wallwindowdoormodelUpdate(id, i, this.designid).subscribe(res => {
+        let doormodellist: Array<any> = i.data.Door;
+        //console.log(windowmodellist);
+        const found = doormodellist.some(x => {
+          return x.DoorName === door.DoorName
+        }); //This boolean will detect if the name is existed to prevent duplicate with different value
+        if (found) {
+          doormodellist.forEach((element, index) => {
+            if (element.DoorName === door.DoorName) {
+              element.ConstructionRValue = door.ConstructionRValue;
+              element.Width = door.Width;
+              element.Height = door.Height;
+            }
+          });
+
+          i.data.Window = doormodellist;
+          //console.log(windowmodellist);
+          this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
             this.toastr.success("Update model successfully", "Info Message");
-  
+
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
             this.toastr.error("Update model failed", "Info Message");
@@ -189,11 +195,16 @@ export class DoorformComponent implements OnInit {
     this.buildingmodelservice.fetchwallwindowdoormodel(this.designid);
     if(this.buildingmodelservice.wallwindowdoormodellist.length !== 0){
       for(let i of this.buildingmodelservice.wallwindowdoormodellist){
-        if(i.data.Door.DoorName === doori.DoorName){
-          i.data.Door = {};
-          this.buildingmodelservice.wallwindowdoormodelUpdate(id, i, this.designid).subscribe(res => {
+        let doormodellist: Array<any> = i.data.Door;
+        const found = doormodellist.some(x => {
+          return x.DoorName === doori.DoorName
+        }); //This boolean will detect if the name is existed to prevent duplicate with different value
+        if (found) {
+          i.data.Door = doormodellist.filter(x => x.DoorName !== doori.DoorName);
+          //this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid);
+          this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
             this.toastr.success("Update model successfully", "Info Message");
-  
+
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
             this.toastr.error("Update model failed", "Info Message");

@@ -140,15 +140,14 @@
         </p>
 
         <app-buildingmodel numberofhabitroom="numberofhabitroom"></app-buildingmodel>
-        <div style="text-align: center">
-          <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext><i
-              class="far fa-check-circle"></i> View Result</button>
-        </div>
+        <!-- <div style="text-align: center">
+          <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext></button>
+        </div> -->
       </mat-step>
 
 
       <mat-step>
-        <ng-template matStepLabel matStepperIcon="done">Done & Start Calculate</ng-template>
+        <ng-template matStepLabel matStepperIcon="done"><i class="far fa-check-circle"></i> View Result</ng-template>
         <div style="text-align: center">
           <button class="btn btn-danger" (click)="getcalculateheatloss()"><i class="fas fa-calculator"></i> Calculate
             EHC 1 (Heat loss) 🌡</button>

@@ -264,8 +264,6 @@ export class WindowformComponent implements OnInit {
     if (this.roomserv.roomlist.length !== 0) {
       for (let e of this.roomserv.roomlist) {
         let windowroomlist: Array<any> = e.data.WindowList;
-        console.log(windowroomlist);
-        console.log(window.WindowName);
         const found = windowroomlist.some(x => {
           return x.WindowID.Name === window.WindowName
         });
