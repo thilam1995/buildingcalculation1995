@@ -6,7 +6,7 @@
       <form class="buildingform">
         <div class="form-row">
           <div class="form-group col-md-6"><input type="text" class="form-control" name="floorsection"
-              #floorsection="ngModel" placeholder="Floor Section" [(ngModel)]="floorextendobject.FloorSection"></div>
+              #floorsection="ngModel" placeholder="Floor Description" [(ngModel)]="floorextendobject.FloorSection"></div>
           <div class="form-group col-md-6"> <select class="form-control" name="Floorobject" [(ngModel)]="floorobject">
               <option [ngValue]="null">Select Floor...</option>
               <option *ngFor="let i of floorservice.floorlist" [ngValue]="i.data">{{i.data.FloorName}}</option>

@@ -1,6 +1,6 @@
 <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step>
-        <ng-template matStepLabel matStepperIcon="done">Room Breakdown</ng-template>
+        <ng-template matStepLabel matStepperIcon="done"><i class="fas fa-home"></i> Room Breakdown</ng-template>
         <hr class="col-md-12">
         <app-roombreakdown numberofhabitroom="numberofhabitroom"></app-roombreakdown>
         <div style="text-align: right">
@@ -9,7 +9,7 @@
         </div>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Wall, Windows & Door Model</ng-template>
+        <ng-template matStepLabel>🧱 🚪 🪟Wall, Windows & Door Model</ng-template>
         <app-walldoorwindowmodel>
         </app-walldoorwindowmodel>
         <!-- <div style="text-align: center">
@@ -22,7 +22,7 @@
     </mat-step>
 
     <mat-step>
-        <ng-template matStepLabel>Roof & Skylights Model</ng-template>
+        <ng-template matStepLabel>🏠 Roof & Skylights Model</ng-template>
         <app-roofskylightmodel>
         </app-roofskylightmodel>
         <!-- <div style="text-align: center">
@@ -35,7 +35,7 @@
         </div>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Floor Model</ng-template>
+        <ng-template matStepLabel>🧱 Floor Model</ng-template>
         <app-floormodel></app-floormodel>
         <!-- <div style="text-align: center">
             <button  type="button" color="default"  mat-button matStepperPrevious>Back</button>
