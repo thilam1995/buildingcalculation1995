@@ -219,66 +219,69 @@ export class NaturallightingComponent implements OnInit {
             this.livingroomnum += 1;
           }
         });
-
-        console.log("Studio: " + this.studioroomnum + " Pass: " + this.studioroompassnum);
-        console.log("Living: " + this.livingroomnum + " Pass: " + this.livingroompassnum);
-        console.log("Primary: " + this.primarybednum + " Pass: " + this.primarybedpassnum);
-        console.log("Other habitable Room: " + this.otherhabitnum + " Pass: " + this.otherhabitpassnum);
-
-
-        if (this.roomserv.numofroom === 1) {
-          if ((this.studioroompassnum === 1 && this.studioroomnum === 1) && this.studioroompassnum === this.studioroomnum) {
-            this.compliancepoint += 3;
-          } else if ((this.primarybednum === 1 && this.primarybednum === 1) && this.primarybednum === this.primarybednum) {
-            this.compliancepoint += 3;
-          } else if ((this.livingroomnum === 1 && this.livingroompassnum === 1) && this.livingroomnum === this.livingroompassnum) {
-            this.compliancepoint += 3;
-          }
-          else if (this.otherhabitnum === 1 && this.otherhabitnum === this.otherhabitpassnum) {
-            this.compliancepoint += 3;
-          }
-        } else {
-          if (this.livingroompassnum === 1 && this.livingroomnum === 1 && this.livingroompassnum === this.livingroomnum) {
-            let livingpoint = 0;
-            if (this.primarybednum === 1 && this.otherhabitnum === 0) {
-              livingpoint = 2;
-            } else if (this.primarybednum === 1 && this.primarybednum === this.primarybedpassnum && (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum)){
-              livingpoint = 1;
-            } else if (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum){
-              livingpoint = 1;
-            }
-
-            this.compliancepoint += livingpoint;
-          }
-
-          if (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum) {
-            this.compliancepoint += 1;
-          }
-          if (this.primarybednum === 1 && this.primarybednum === this.primarybedpassnum) {
-            this.compliancepoint += 1;
-          }
-        }
       }
 
-
-
-      this.ispasslist.forEach(e => {
-        if (e.roomname === "Bedroom") {
-          this.isbedpassedlist.push(e.iscompliance);
-        }
-      });
-      this.iscompliance = this.isbedpassedlist.every(Boolean);
-      console.log(this.ispasslist);
-
-      if (this.ispasslist.length !== 0) {
-        this.count = this.ispasslist.reduce((c, { roomname: key }) =>
-          (c[key] = (c[key] || 0) + 1, c), {}
-        );
-        console.log(this.count);
-      }
-
+      setTimeout(() => {
+        this.finalcalculate();
+      }, 1500);
     });
+  }
 
+  finalcalculate(){
+    console.log("Studio: " + this.studioroomnum + " Pass: " + this.studioroompassnum);
+    console.log("Living: " + this.livingroomnum + " Pass: " + this.livingroompassnum);
+    console.log("Primary: " + this.primarybednum + " Pass: " + this.primarybedpassnum);
+    console.log("Other habitable Room: " + this.otherhabitnum + " Pass: " + this.otherhabitpassnum);
+
+    this.ispasslist.forEach(e => {
+      if (e.roomname === "Bedroom") {
+        this.isbedpassedlist.push(e.iscompliance);
+      }
+    });
+    this.iscompliance = this.isbedpassedlist.every(Boolean);
+    console.log(this.ispasslist);
+
+    if (this.ispasslist.length !== 0) {
+      this.count = this.ispasslist.reduce((c, { roomname: key }) =>
+        (c[key] = (c[key] || 0) + 1, c), {}
+      );
+      console.log(this.count);
+    }
+
+    if (this.roomserv.numofroom === 1) {
+      if ((this.studioroompassnum === 1 && this.studioroomnum === 1) && this.studioroompassnum === this.studioroomnum) {
+        this.compliancepoint += 3;
+      } else if ((this.primarybednum === 1 && this.primarybednum === 1) && this.primarybednum === this.primarybednum) {
+        this.compliancepoint += 3;
+      } else if ((this.livingroomnum === 1 && this.livingroompassnum === 1) && this.livingroomnum === this.livingroompassnum) {
+        this.compliancepoint += 3;
+      }
+      else if (this.otherhabitnum === 1 && this.otherhabitnum === this.otherhabitpassnum) {
+        this.compliancepoint += 3;
+      }
+    } else {
+      if ((this.livingroompassnum === 1 && this.livingroomnum === 1) && this.livingroompassnum === this.livingroomnum) {
+        if ((this.primarybednum === 1 && this.otherhabitnum === 0)) {
+          this.compliancepoint += 2;
+        } if (this.primarybednum === 1 && this.primarybednum === this.primarybedpassnum && (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum)) {
+          this.compliancepoint += 1;
+        } if (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum) {
+          this.compliancepoint += 1;
+        }
+      }
+
+      if (this.otherhabitnum >= 1 && this.otherhabitnum === this.otherhabitpassnum) {
+        this.compliancepoint += 1;
+      }
+
+      if (this.primarybednum === 1 && this.primarybednum === this.primarybedpassnum) {
+        this.compliancepoint += 1;
+      }
+    }
+
+    if (this.otherhabitnum >= 1 && this.otherhabitpassnum >= 1 && this.otherhabitnum === this.otherhabitpassnum) {
+      this.compliancepoint += 1;
+    }
   }
 
   downloadresult() {
@@ -312,7 +315,7 @@ export class NaturallightingComponent implements OnInit {
   }
 
   getcalculatenaturallighting() {
-    if(this.currentroute === "ehc1naturallightingenergy"){
+    if (this.currentroute === "ehc1naturallightingenergy") {
       alert("You are now in EHC-3 Natural Lighting!");
     }
     // this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1naturallightingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
@@ -321,7 +324,7 @@ export class NaturallightingComponent implements OnInit {
   getcalculatecoolingenergy() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1coolingenergy"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }
-  
+
   getcalculatepassive() {
     this.router.navigate(["/main/" + `${this.registeruser.ID}` + "/ehc1passiveventilation"], { queryParams: { projectid: this.projectid, designid: this.designid } });
   }

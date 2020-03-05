@@ -82,9 +82,12 @@ export class RoomserviceService {
       return data as any;
     })).toPromise().then(res => {
       this.roomlist = res;
-      // this.roomlist.sort((a: any, b: any) =>{
-      //   return (a.data.RoomID > b.data.RoomID) ? 1 : ((b.data.RoomID > a.data.RoomID) ? -1 : 0)
-      // });
+      this.roomlist.sort((a: any, b: any) =>{
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
+      });
       this.numofroom = this.roomlist.length;
     }).catch(err => this.handleError);
   }

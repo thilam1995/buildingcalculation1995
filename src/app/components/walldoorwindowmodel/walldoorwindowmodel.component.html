@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-md-12">
+  <div class="col-md-5">
     <button class="btn btn-primary" (click)="addwalltoggle()">{{display ? "Cancel" : "+ Add Wall"}}</button>
     <form *ngIf="display" class="buildingform" #wallmodelform="ngForm">
       <div class="form-row">
@@ -115,9 +115,8 @@
     </form>
   </div>
 
-  <hr class="col-md-12">
 
-  <div class="col-md-12 overflowdiv">
+  <div class="col-md-7 overflowdiv">
     <app-walldoorwindowmodelitem *ngFor="let i of buildingmodelservice.wallwindowdoormodellist" [i]="i">
     </app-walldoorwindowmodelitem>
   </div>

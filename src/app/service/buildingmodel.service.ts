@@ -12,9 +12,9 @@ import { environment } from '../../environments/environment';
 })
 export class BuildingmodelService {
 
-  url: string = environment.uri+"wallwindowdoormodel";
-  url1: string = environment.uri+"roofskylightmodel";
-  url2: string = environment.uri+"floormodel";
+  url: string = environment.uri + "wallwindowdoormodel";
+  url1: string = environment.uri + "roofskylightmodel";
+  url2: string = environment.uri + "floormodel";
 
   wallwindowdoormodellist = [];
   roofskylightmodellist = [];
@@ -28,10 +28,13 @@ export class BuildingmodelService {
       return data as any;
     })).toPromise().then(x => {
       this.wallwindowdoormodellist = x;
-      // this.wallwindowdoormodellist.sort((a: any, b: any) => {
-      //   return (a.data.Wall.Orientation > b.data.Wall.Orientation) ? 1 : ((b.data.Wall.Orientation > a.data.Wall.Orientation) ? -1 : 0)
-      // });
-    }).catch(e =>{
+      this.wallwindowdoormodellist.sort((a: any, b: any) => {
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
+      });
+    }).catch(e => {
       catchError(this.handleError);
     });
   }
@@ -83,10 +86,13 @@ export class BuildingmodelService {
       return data as any;
     })).toPromise().then(x => {
       this.roofskylightmodellist = x;
-      // this.roofskylightmodellist.sort((a: any, b: any) => {
-      //   return (a.data.Roof.RoofSection > b.data.Roof.RoofSection) ? 1 : ((b.data.Roof.RoofSection > a.data.Roof.RoofSection) ? -1 : 0)
-      // });
-    }).catch(e =>{
+      this.roofskylightmodellist.sort((a: any, b: any) => {
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
+      });
+    }).catch(e => {
       catchError(this.handleError);
     });
   }
@@ -138,10 +144,13 @@ export class BuildingmodelService {
       return data as any;
     })).toPromise().then(x => {
       this.floormodellist = x;
-      // this.floormodellist.sort((a: any, b: any) => {
-      //   return (a.data.Floor.FloorSection > b.data.Floor.FloorSection) ? 1 : ((b.data.Floor.FloorSection > a.data.Floor.FloorSection) ? -1 : 0)
-      // });
-    }).catch(e =>{
+      this.floormodellist.sort((a: any, b: any) => {
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
+      });
+    }).catch(e => {
       catchError(this.handleError);
     });
   }

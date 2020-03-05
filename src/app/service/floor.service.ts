@@ -27,7 +27,10 @@ export class FloorService {
     })).toPromise().then(res => {
       this.floorlist = res;
       this.floorlist.sort((a: any, b: any) => {
-        return (a.data.FloorName > b.data.FloorName) ? 1 : ((b.data.SkylightsName > a.data.FloorName) ? -1 : 0)
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
       })
     });
   }

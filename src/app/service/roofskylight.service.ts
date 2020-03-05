@@ -26,7 +26,10 @@ export class RoofskylightService {
     })).toPromise().then(res => {
       this.rooflist = res;
       this.rooflist.sort((a: any, b: any) => {
-        return (a.data.RoofName > b.data.RoofName) ? 1 : ((b.data.RoofName > a.data.RoofName) ? -1 : 0)
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
       });
     });
   }
@@ -37,7 +40,10 @@ export class RoofskylightService {
     })).toPromise().then(res => {
       this.skylightlist = res;
       this.skylightlist.sort((a: any, b: any) => {
-        return (a.data.SkylightsName > b.data.SkylightsName) ? 1 : ((b.data.SkylightsName > a.data.SkylightsName) ? -1 : 0)
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
       });
     });
   }

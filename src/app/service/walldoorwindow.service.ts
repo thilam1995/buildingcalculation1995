@@ -13,10 +13,10 @@ import { environment } from '../../environments/environment';
 export class WalldoorwindowService {
 
 
-  url1: string = environment.uri+"wall";
-  url2: string = environment.uri+"window";
-  url3: string = environment.uri+"door";
-  
+  url1: string = environment.uri + "wall";
+  url2: string = environment.uri + "window";
+  url3: string = environment.uri + "door";
+
   windowlist = [];
   walllist = [];
   doorlist = [];
@@ -27,58 +27,50 @@ export class WalldoorwindowService {
 
   constructor(private http: HttpClient) { }
 
-  // windowlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-  //   return this.http.get(this.url2 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
-  //     return data as any;
-  //   }));
-  // }
-
-  // walllistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-  //   return this.http.get(this.url1 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
-  //     return data as any;
-  //   }));
-  // }
-
-  // doorlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-  //   return this.http.get(this.url3 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
-  //     return data as any;
-  //   }));
-  // }
 
   windowlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-    this.http.get(this.url2 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+    this.http.get(this.url2 + "/" + `${DesignID}`).pipe(map((data: Response) => {
       return data as any;
-    })).toPromise().then(res =>{
+    })).toPromise().then(res => {
       this.windowlist = res;
-      this.windowlist.sort((a: any, b: any) =>{
-        return (a.data.WindowName > b.data.WindowName) ? 1 : ((b.data.WindowName > a.data.WindowName) ? -1 : 0)
+      this.windowlist.sort((a: any, b: any) => {
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
       });
     }).catch(err => this.handleError);
   }
 
   walllistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-    this.http.get(this.url1 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+    this.http.get(this.url1 + "/" + `${DesignID}`).pipe(map((data: Response) => {
       return data as any;
-    })).toPromise().then(res =>{
+    })).toPromise().then(res => {
       this.walllist = res;
-      this.walllist.sort((a: any, b: any) =>{
-        return (a.data.WallName > b.data.WallName) ? 1 : ((b.data.WallName > a.data.WallName) ? -1 : 0)
+      this.walllist.sort((a: any, b: any) => {
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
       });
     }).catch(err => this.handleError);
   }
 
   doorlistdata(DesignID: string, UserID?: string, ProjectID?: string) {
-    this.http.get(this.url3 + "/" + `${DesignID}`).pipe(map((data: Response) =>{
+    this.http.get(this.url3 + "/" + `${DesignID}`).pipe(map((data: Response) => {
       return data as any;
-    })).toPromise().then(res =>{
+    })).toPromise().then(res => {
       this.doorlist = res;
-      this.doorlist.sort((a: any, b: any) =>{
-        return (a.data.DoorName > b.data.DoorName) ? 1 : ((b.data.DoorName > a.data.DoorName) ? -1 : 0)
+      this.doorlist.sort((a: any, b: any) => {
+        let datea = new Date(a.data.DateCreated), dateb = new Date(b.data.DateCreated);
+        if (datea > dateb) return 1;
+        if (datea < dateb) return -1;
+        return 0;
       });
     }).catch(err => this.handleError);
   }
 
-  doorposting(Door: Door, DesignID?: string){
+  doorposting(Door: Door, DesignID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -90,7 +82,7 @@ export class WalldoorwindowService {
     }), catchError(this.handleError));
   }
 
-  wallposting(Wall: Wall, DesignID?: string){
+  wallposting(Wall: Wall, DesignID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -102,7 +94,7 @@ export class WalldoorwindowService {
     }), catchError(this.handleError));
   }
 
-  windowposting(WindowObject: WindowObject, designID?: string){
+  windowposting(WindowObject: WindowObject, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -114,7 +106,7 @@ export class WalldoorwindowService {
     }), catchError(this.handleError));
   }
 
-  doorput(Door: Door, designid?: string, userid?: string){
+  doorput(Door: Door, designid?: string, userid?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -126,7 +118,7 @@ export class WalldoorwindowService {
     }), catchError(this.handleError));;
   }
 
-  wallput(Wall: Wall, DesignID?: string, userid?: string){
+  wallput(Wall: Wall, DesignID?: string, userid?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -138,7 +130,7 @@ export class WalldoorwindowService {
     }), catchError(this.handleError));
   }
 
-  windowput(Window: WindowObject, DesignID?: string, userid?: string){
+  windowput(Window: WindowObject, DesignID?: string, userid?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -150,33 +142,33 @@ export class WalldoorwindowService {
     }), catchError(this.handleError));
   }
 
-  doordelete(doorid: string, designID?: string){
+  doordelete(doorid: string, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.delete(this.url3 + "/" + `${doorid}`, httpOptions).pipe(map(res =>{
+    return this.http.delete(this.url3 + "/" + `${doorid}`, httpOptions).pipe(map(res => {
       console.log("Deleted");
       this.doorlistdata(designID);
     },
       catchError(this.handleError)));
   }
 
-  walldelete(wallid: string, designID?: string){
+  walldelete(wallid: string, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.delete(this.url1 + "/" + `${wallid}`, httpOptions).pipe(map(res =>{
+    return this.http.delete(this.url1 + "/" + `${wallid}`, httpOptions).pipe(map(res => {
       console.log("Deleted");
       this.walllistdata(designID);
     },
       catchError(this.handleError)));
   }
 
-  windowdelete(windowid: string, designID?: string){
+  windowdelete(windowid: string, designID?: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
