@@ -170,7 +170,7 @@ export class PassiveventilationComponent implements OnInit {
 
     setTimeout(() => {
       this.finalcalculation();
-    }, 1200);
+    }, 1500);
   }
 
   finalcalculation(){
