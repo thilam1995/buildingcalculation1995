@@ -1,7 +1,7 @@
 <div class="row board">
     <div class="boardheader col-md-12">
         <span class="projectname" style="float: left; margin-right: 60px;">
-            <h2 *ngIf="!isedit" matTooltip="{{project.data.ProjectName}}">{{20 > project.data.ProjectName.length ? project.data.ProjectName : project.data.ProjectName.substring(0, 25)+"..."}}</h2>
+            <h2 *ngIf="!isedit" ngbTooltip="{{project.data.ProjectName}}">{{20 > project.data.ProjectName.length ? project.data.ProjectName : project.data.ProjectName.substring(0, 25)+"..."}}</h2>
             <input style="float: left; width: 300px;" type="text" class="form-control" *ngIf="isedit" name="projectname"
                 #projectname="ngModel" [(ngModel)]="projecttitle" maxlength="30" required placeholder="Project name">
 
@@ -45,11 +45,11 @@
                 <li *ngFor="let i of designsetlist">
                     <div>
                         <a (click)="redirecttoSchedule(i, project.id)" class="btn btn-outline-primary buttonoverflow"
-                            style="margin-right: 10px;"><span class="buttontext">{{i.data.DesignName}}</span></a>
+                            style="margin-right: 10px;" size="sm"><span class="buttontext">{{i.data.DesignName}}</span></a>
                         <!-- <a class="btn btn-outline-success" (click)="seeResult(i, project.id)" matTooltip="Show Result"
                             style="margin-right: 10px;"><i class="far fa-chart-bar"></i></a> -->
                         <a class="btn btn-outline-danger" (click)="deleteselecteddesign(i.id)" matTooltip="Delete"
-                            style="margin-right: 10px;"><i class="fas fa-trash-alt"></i>
+                            style="margin-right: 10px;" size="sm"><i class="fas fa-trash-alt"></i>
                         </a>
                         <span style="margin-right: 10px;">{{i.data.DateUpdate}}</span>
                     </div>
