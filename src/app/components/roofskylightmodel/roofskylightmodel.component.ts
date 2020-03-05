@@ -189,13 +189,13 @@ export class RoofskylightmodelComponent implements OnInit {
 
         console.log(this.roofskylightmodel);
         this.buildingmodelservice.roofskylightmodelPost(this.roofskylightmodel, this.designid).subscribe(res => {
-          this.toastr.success("Insert Roof Successfully", "Info");
+          this.toastr.success("Roof Model Has Been Added Successfully", "Info");
           this.setDefault();
           this.display = false;
           this.display1 = false;
           this.fetchingroofskylightmodel();
         }, err => {
-          this.toastr.error("Insert Roof and Skylight failed", "Error");
+          this.toastr.error("Roof Model Has Been Failed To Added", "Error");
         });
       }
 

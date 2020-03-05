@@ -82,13 +82,13 @@ export class FloorsformComponent implements OnInit {
 
       if(!found){
         this.floorservice.addfloor(this.floorobject).subscribe(res => {
-          this.toastr.success("Completed Floor Success!", "Info Message");
+          this.toastr.success("Floor Has Been Added Successfully!", "Info Message");
           setTimeout(() => {
             this.fetchingfloordata();
           }, 1500);
           this.setDefault();
         }, err => {
-          this.toastr.error("Completed Floor failed!", "Info Message");
+          this.toastr.error("Floor Has Been failed To Add!", "Info Message");
         });
       }else{
         this.toastr.warning("The floor name is existed.", "No Duplicate Name");
@@ -107,14 +107,14 @@ export class FloorsformComponent implements OnInit {
         UserID: this.registeruser.ID
       };
       this.floorservice.updatefloor(this.floorobject).subscribe(res => {
-        this.toastr.success("Updated Floor Success!", "Info Message");
+        this.toastr.success("Floor Has Been Successfully Updated!", "Info Message");
         this.updatefloormodel(this.designid, this.floorobject);
         setTimeout(() => {
           this.fetchingfloordata();
         }, 1500);
         this.setDefault();
       }, err => {
-        this.toastr.error("Updated Floor failed!", "Info Message");
+        this.toastr.error("Floor Has Been failed to Update!", "Info Message");
       });;
     }
   }
@@ -139,7 +139,7 @@ export class FloorsformComponent implements OnInit {
   deleteFieldValue(id: string, floori: any) {
     if (confirm("Are you sure to delete this item?") === true) {
       this.floorservice.deletefloor(id).subscribe(res => {
-        this.toastr.success("Deleted floor!", "Info Message!");
+        this.toastr.success("Floor has been deleted!", "Info Message!");
         this.deletefloormodel(this.designid, floori);
         setTimeout(() => {
           this.fetchingfloordata();
@@ -158,11 +158,11 @@ export class FloorsformComponent implements OnInit {
           if(i.data.Floor.ConstructionRValue === floor.ConstructionRValue){
             i.data.Floor.ConstructionRValue = floor.ConstructionRValue;
             this.buildingmodelservice.floormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-              this.toastr.success("Update model successfully", "Info Message");
+              this.toastr.success("Floor model successfully updated!", "Info Message");
 
               this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
             }, err => {
-              this.toastr.error("Update model failed", "Info Message");
+              this.toastr.error("Floor model failed to updated!", "Info Message");
             });
           }
         }

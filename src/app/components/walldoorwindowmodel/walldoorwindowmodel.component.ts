@@ -301,7 +301,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
 
       console.log(this.wallwindowdoormodel);
       this.buildingmodelservice.wallwindowdoormodelPost(this.wallwindowdoormodel, this.designid).subscribe(res => {
-        this.toastr.success("Insert new model successfully", "Info Message");
+        this.toastr.success("Wall Model Has Been Successfully Added!", "Info Message");
         this.setdefault();
         this.cleardoor();
         this.display = false;
@@ -311,7 +311,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
         this.windowobjectmodellist = [];
         this.doorobjectmodellist = [];
       }, err => {
-        this.toastr.error("Insert new model failed", "Info Message");
+        this.toastr.error("Wall Model Has Been Failed To Added!", "Info Message");
       });
     }
 

@@ -127,12 +127,12 @@ export class FloormodelComponent implements OnInit {
   
         console.log(this.floormodel)
         this.buildingmodelservice.floormodelPost(this.floormodel, this.designid).subscribe(res => {
-          this.toastr.success("Insert Floor Successfully!", "Info");
+          this.toastr.success("Floor Model Successfully Add!", "Info");
           this.setdefault();
           this.display = false;
           this.fetchingfloormodel();
         }, err => {
-          this.toastr.error("Insert Floor failed!", "Info");
+          this.toastr.error("Floor model failed to add!", "Info");
         });
       }
     }

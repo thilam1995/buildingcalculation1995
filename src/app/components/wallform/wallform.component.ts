@@ -86,14 +86,14 @@ export class WallformComponent implements OnInit {
       console.log(found);
       if (!found) {
         this.wallservice.wallposting(this.wallobject, this.designid).subscribe(res => {
-          this.toastr.success("Complete Wall Success.", "Successful");
+          this.toastr.success("Wall Has Been Successfully Added.", "Successful");
           setTimeout(() => {
             this.fetchingwalldata(); //Refresh Component
           }, 1500);
           this.setdefault();
 
         }, err => {
-          this.toastr.error("Complete Wall failed.", "Successful");
+          this.toastr.error("Wall Has Been Successfully Added.", "Successful");
         });
       } else {
         this.toastr.warning("The wall name is existed.", "No Duplicate Name");
@@ -114,14 +114,14 @@ export class WallformComponent implements OnInit {
       };
       console.log(this.wallobject);
       this.wallservice.wallput(this.wallobject, this.designid).subscribe(res => {
-        this.toastr.success("Update Wall Successfully", "Info Message!");
+        this.toastr.success("Wall Has Been Successfully Updated!", "Info Message!");
         this.updatewallmodel(this.designid, this.wallobject);
         setTimeout(() => {
           this.fetchingwalldata();
         }, 1500);
         this.setdefault();
       }, err => {
-        this.toastr.error("Update Wall failed", "Info Message!");
+        this.toastr.error("Wall Has Been Failed To Update!", "Info Message!");
       });
     }
   }
@@ -134,11 +134,11 @@ export class WallformComponent implements OnInit {
           if (i.data.Wall.ConstructionRValue !== wall.ConstructionRValue) {
             i.data.Wall.ConstructionRValue = wall.ConstructionRValue;
             this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-              this.toastr.success("Update model successfully", "Info Message");
+              this.toastr.success("Wall Model Has Been Successfully Update!", "Info Message");
 
               this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
             }, err => {
-              this.toastr.error("Update model failed", "Info Message");
+              this.toastr.error("Wall Model Has Been Failed To Update!", "Info Message");
             });
           }
         }
@@ -154,11 +154,11 @@ export class WallformComponent implements OnInit {
         if (i.data.Wall.WallName === walli.WallName) {
           i.data.Wall.WallName = {};
           this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-            this.toastr.success("Update model successfully", "Info Message");
+            this.toastr.success("Wall Model Has Been Successfully Update!", "Info Message");
 
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
-            this.toastr.error("Update model failed", "Info Message");
+            this.toastr.error("Wall Model Has Been Failed To Update!", "Info Message");
           });
         }
       }
@@ -185,14 +185,14 @@ export class WallformComponent implements OnInit {
     if (confirm("Do you want to delete the selected wall?") === true) {
       this.wallservice.walldelete(id, this.designid).subscribe(
         res => {
-          this.toastr.success("Delete successfully", "Info Message!");
+          this.toastr.success("Wall Has Been Deleted Successfully!", "Info Message!");
           this.deletewallmodel(this.designid, wall);
           setTimeout(() => {
             this.fetchingwalldata();
 
           }, 1500);
         }, err => {
-          this.toastr.error("Delete failed", "Info Message!");
+          this.toastr.error("Wall Has Been Failed To Delete!", "Info Message!");
         }
       );
     }

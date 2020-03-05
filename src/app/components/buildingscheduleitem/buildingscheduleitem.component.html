@@ -1,7 +1,7 @@
 <div class="row board">
     <div class="boardheader col-md-12">
         <span class="projectname" style="float: left; margin-right: 60px;">
-            <h2 *ngIf="!isedit">{{project.data.ProjectName}}</h2>
+            <h2 *ngIf="!isedit" matTooltip="{{project.data.ProjectName}}">{{20 > project.data.ProjectName.length ? project.data.ProjectName : project.data.ProjectName.substring(0, 25)+"..."}}</h2>
             <input style="float: left; width: 300px;" type="text" class="form-control" *ngIf="isedit" name="projectname"
                 #projectname="ngModel" [(ngModel)]="projecttitle" maxlength="30" required placeholder="Project name">
 

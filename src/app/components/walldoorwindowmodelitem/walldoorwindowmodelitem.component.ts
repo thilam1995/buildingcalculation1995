@@ -162,12 +162,12 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
 
       console.log(this.wallwindowdoormodel);
       this.buildingmodelservice.wallwindowdoormodelUpdate(id, this.wallwindowdoormodel, this.designid).subscribe(res => {
-        this.toastr.success("Update model successfully", "Info Message");
+        this.toastr.success("Wall Model Has Been Successfully Update!", "Info Message");
         this.setdefault();
 
         this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
       }, err => {
-        this.toastr.error("Update model failed", "Info Message");
+        this.toastr.error("Wall Model Has Been Failed To Update!", "Info Message");
       });
     }
   }
@@ -175,10 +175,10 @@ export class WalldoorwindowmodelitemComponent implements OnInit {
   deleleselectmodel(id: string) {
     if (confirm("Do you want to delete this section") === true) {
       this.buildingmodelservice.wallwindowdoormodelDelete(id, this.designid).subscribe(res => {
-        this.toastr.success("Delete Successfully", "Info");
+        this.toastr.success("Wall Model Has Been Successfully Deleted!", "Info");
         this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
       }, err => {
-        this.toastr.error("Delete Failed", "Error");
+        this.toastr.error("Wall Model Has Been Failed To Update!", "Error");
       });
     }
   }

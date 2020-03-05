@@ -109,13 +109,13 @@ export class WindowformComponent implements OnInit {
       }); //This boolean will detect if the window name is existed to prevent duplicate with different value
       if (!found) {
         this.wallservice.windowposting(this.windowobject, this.designid).subscribe(res => {
-          this.toastr.success("Complete Wall Success.", "Successful");
+          this.toastr.success("Windows Has Been Added Successfully!.", "Successful");
           setTimeout(() => {
             this.fetchingwindowdata();
           }, 1500);
           this.setDefault();
         }, err => {
-          this.toastr.error("Complete window failed.", "Successful");
+          this.toastr.error("Windows Has Been Failed To Added.", "Successful");
         });
       } else {
         this.toastr.warning("The window name is existed.", "No Duplicate Name");
@@ -139,7 +139,7 @@ export class WindowformComponent implements OnInit {
       //console.log(this.windowobject);
 
       this.wallservice.windowput(this.windowobject, this.designid).subscribe(res => {
-        this.toastr.success("Update Window Successfully", "Info Message!");
+        this.toastr.success("Window Has Been Updated Successfully", "Info Message!");
         let objectbackup = this.windowobject;
         console.log(objectbackup);
         this.updatewindowvaluemodel(this.designid, this.windowobject);
@@ -149,7 +149,7 @@ export class WindowformComponent implements OnInit {
           this.fetchingwindowdata();
         }, 1500);
       }, err => {
-        this.toastr.error("Update Wall failed", "Info Message!");
+        this.toastr.error("Window Has Been Failed To Update", "Info Message!");
       });
     }
   }
@@ -177,7 +177,7 @@ export class WindowformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.deletewindowvalue(this.designid, window);
       this.wallservice.windowdelete(id, this.designid).subscribe(res => {
-        this.toastr.success("Delete successfully", "Info Message!");
+        this.toastr.success("Window Has Been Successfully Deleted!", "Info Message!");
         //this.fetchingwindowdata();
         this.deletewindowvalue(this.designid, window);
         setTimeout(() => {
@@ -185,7 +185,7 @@ export class WindowformComponent implements OnInit {
         }, 1500);
 
       }, err => {
-        this.toastr.error("Delete failed", "Info Message!");
+        this.toastr.error("Window Has Been Failed To Deleted!", "Info Message!");
       });
     }
   }
@@ -202,11 +202,11 @@ export class WindowformComponent implements OnInit {
           i.data.Window = windowmodellist.filter(x => x.WindowName !== windowi.WindowName);
           //this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid);
           this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-            this.toastr.success("Update model successfully", "Info Message");
+            this.toastr.success("Wall Model Has Been Successfully Update!", "Info Message");
 
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
-            this.toastr.error("Update model failed", "Info Message");
+            this.toastr.error("Wall Model Has Been Failed To Update!", "Info Message");
           });
         }
       }
@@ -235,11 +235,11 @@ export class WindowformComponent implements OnInit {
           i.data.Window = windowmodellist;
           //console.log(windowmodellist);
           this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-            this.toastr.success("Update model successfully", "Info Message");
+            this.toastr.success("Wall Model Has Been Successfully Update!", "Info Message");
 
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
-            this.toastr.error("Update model failed", "Info Message");
+            this.toastr.error("Wall Model Has Been Failed To Update!", "Info Message");
           });
         }
 

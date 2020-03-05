@@ -167,10 +167,10 @@ export class RoofskylightmodelitemComponent implements OnInit {
   onDelete(id: string) {
     if (confirm("Do you want to delete this section") === true) {
       this.buildingmodelservice.roofskylightmodelDelete(id, this.designid).subscribe(res => {
-        this.toastr.success("Delete Successfully", "Info");
+        this.toastr.success("Roof Model Has Been Deleted Successfully", "Info");
         this.buildingmodelservice.roofskylightmodelGet(this.designid);
       }, err => {
-        this.toastr.error("Delete failed", "Info");
+        this.toastr.error("Roof Model Has Been Failed To Delete", "Info");
       });
     }
   }
@@ -192,11 +192,11 @@ export class RoofskylightmodelitemComponent implements OnInit {
 
       console.log(this.roofskylightmodel);
       this.buildingmodelservice.roofskylightmodelUpdate(id, this.roofskylightmodel, this.designid).subscribe(res => {
-        this.toastr.success("Insert Roof Successfully", "Info");
+        this.toastr.success("Roof Model Has Been Updated Successfully", "Info");
         this.setDefault();
         this.buildingmodelservice.roofskylightmodelGet(this.designid);
       }, err => {
-        this.toastr.error("Insert Roof and Skylight failed", "Error");
+        this.toastr.error("Roof Model Has Been Failed To Update", "Error");
       });
     }
   }

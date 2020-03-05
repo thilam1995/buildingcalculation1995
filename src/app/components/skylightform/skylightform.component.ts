@@ -110,7 +110,7 @@ export class SkylightformComponent implements OnInit {
         UserID: this.registeruser.ID
       };
       this.roofskylightservice.updateskylight(this.skylightsobject, this.designid).subscribe(res => {
-        this.toastr.success("Add skylight!", "Info Message!");
+        this.toastr.success("Skylight Has Been Added Successfully!", "Info Message!");
         this.updateskylightmodel(this.designid, this.skylightsobject);
         setTimeout(() => {
           this.fetchingskylight();
@@ -143,7 +143,7 @@ export class SkylightformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.roofskylightservice.deleteskylight(id).subscribe(
         res => {
-          this.toastr.success("Deleted skylight!", "Info Message!");
+          this.toastr.success("Skylight Has Been Deleted Successfully!", "Info Message!");
           this.deleteskylightmodel(this.designid, skylight);
           setTimeout(() => {
             this.fetchingskylight();
@@ -174,11 +174,11 @@ export class SkylightformComponent implements OnInit {
           });
           i.data.Skylight = skylightmodellist;
           this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-            this.toastr.success("Update model successfully", "Info Message");
+            this.toastr.success("Roof Model Has Been Successfully Updated", "Info Message");
   
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
-            this.toastr.error("Update model failed", "Info Message");
+            this.toastr.error("Roof Model Has Been Failed to Update", "Info Message");
           });
         }
       }
@@ -198,11 +198,11 @@ export class SkylightformComponent implements OnInit {
         if(found){
           i.data.Skylight = skylightmodellist.filter(x => x.SkylightsName !== roofi.SkylightsName);
           this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-            this.toastr.success("Update model successfully", "Info Message");
+            this.toastr.success("Roof Model Has Been Successfully Updated", "Info Message");
   
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
-            this.toastr.error("Update model failed", "Info Message");
+            this.toastr.error("Roof Model Has Been Failed To Update", "Info Message");
           });
         }
 

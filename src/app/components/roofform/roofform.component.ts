@@ -80,7 +80,7 @@ export class RoofformComponent implements OnInit {
 
       if(!found){
         this.roofskylightservice.addroof(this.roofobject).subscribe(res => {
-          this.toastr.success("Added roof!", "Info Message!");
+          this.toastr.success("Roof had been added!", "Info Message!");
           setTimeout(() => {
             this.fetchingroof();
           }, 1500);
@@ -106,7 +106,7 @@ export class RoofformComponent implements OnInit {
         UserID: this.registeruser.ID
       };
       this.roofskylightservice.updateroof(this.roofobject).subscribe(res => {
-        this.toastr.success("Updated Roof!", "Success Message!");
+        this.toastr.success("Roof has been updated!", "Success Message!");
         this.updateroofmodel(this.designid, this.roofobject);
         setTimeout(() => {
           this.fetchingroof();
@@ -135,7 +135,7 @@ export class RoofformComponent implements OnInit {
     if (confirm("Are you sure to delete this item?") === true) {
       this.roofskylightservice.deleteroof(id).subscribe(
         res => {
-          this.toastr.success("Deleted roof!", "Info Message!");
+          this.toastr.success("Roof model has been deleted successfully!", "Info Message!");
           this.deleteroofmodel(this.designid, roofi);
           setTimeout(() => {
             this.fetchingroof();
@@ -156,10 +156,10 @@ export class RoofformComponent implements OnInit {
           if(i.data.Roof.ConstructionRValue !== roof.ConstructionRValue){
             i.data.Roof.ConstructionRValue = roof.ConstructionRValue;
             this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-              this.toastr.success("Update model successfully", "Info Message");
+              this.toastr.success("Roof model has been successfully!", "Info Message");
               this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
             }, err => {
-              this.toastr.error("Update model failed", "Info Message");
+              this.toastr.error("Roof model has been failed to update!", "Info Message");
             });
           }
         }
@@ -174,13 +174,13 @@ export class RoofformComponent implements OnInit {
         if(i.data.Roof.RoofName === roofi.Roof.RoofName){
           i.data.Roof = {};
           this.buildingmodelservice.roofskylightmodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-            this.toastr.success("Update model successfully", "Info Message");
+            this.toastr.success("Roof model has been successfully!", "Info Message");
             setTimeout(() => {
               this.fetchingroof();
             }, 1300);
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
-            this.toastr.error("Update model failed", "Info Message");
+            this.toastr.error("Roof model has been failed to update!", "Info Message");
           });
         }
       }

@@ -116,7 +116,7 @@ export class FloormodelitemComponent implements OnInit {
     this.floorextendobject.ExposedArea = Number(this.floorextendobject.ExposedArea);
     if (this.floorextendobject.FloorName === null || this.floorextendobject.ExposedArea === null ||
       this.floorextendobject.FloorSection === null) {
-        this.toastr.error("Please Complete Floor Info", "Error");
+        this.toastr.error("Please Complete Floor Info!", "Error");
     } else {
       this.floormodel = {
         Floor: this.floorextendobject,
@@ -127,7 +127,7 @@ export class FloormodelitemComponent implements OnInit {
 
       console.log(this.floormodel)
       this.buildingmodelservice.floormodelUpdate(id, this.floormodel, this.designid).subscribe(res => {
-        this.toastr.success("Update Floor Successfully!", "Info");
+        this.toastr.success("Floor Model Successfully Updated!", "Info");
         this.setdefault();
         this.fetchingfloormodel();
       }, err => {
@@ -139,7 +139,7 @@ export class FloormodelitemComponent implements OnInit {
   onDelete(id: string){
     if (confirm("Do you want to delete this section") === true) {
       this.buildingmodelservice.floormodelDelete(id, this.designid).subscribe(res =>{
-        this.toastr.success("Delete Successfully", "Info");
+        this.toastr.success("Floor Model Successfully Deleted!", "Info");
         this.fetchingfloormodel();
       }, err =>{
         this.toastr.error("Delete failed", "Info");

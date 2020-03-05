@@ -87,13 +87,13 @@ export class DoorformComponent implements OnInit {
 
       if (!found) {
         this.wallservice.doorposting(this.doorobject, this.designid).subscribe(res => {
-          this.toastr.success("Complete door Success.", "Successful");
+          this.toastr.success("Door Has Been Added Successfully!", "Successful");
           setTimeout(() => {
             this.fetchingdoordata();
           }, 1500);
           this.setDefault();
         }, err => {
-          this.toastr.error("Complete door failed.", "Successful");
+          this.toastr.error("Door Has Been Failed To Add!", "Successful");
         });
       } else {
         this.toastr.warning("The door name is existed.", "No Duplicate Name");
@@ -114,13 +114,14 @@ export class DoorformComponent implements OnInit {
       };
 
       this.wallservice.doorput(this.doorobject, this.designid).subscribe(res => {
-        this.toastr.success("Update Door Successfully", "Info Message!");
+        this.toastr.success("Door Has Been Updated Successfully!", "Info Message!");
+        this.updatedoormodel(this.designid, this.doorobject);
         setTimeout(() => {
           this.fetchingdoordata();
         }, 1500);
 
       }, err => {
-        this.toastr.error("Update Door failed", "Info Message!");
+        this.toastr.error("Door Has Been Failed To Update!", "Info Message!");
       });
     }
   }
@@ -145,15 +146,16 @@ export class DoorformComponent implements OnInit {
 
 
 
-  deleteFieldValue(id: string) {
+  deleteFieldValue(id: string, door: any) {
     if (confirm("Are you sure to delete this item?") === true) {
       this.wallservice.doordelete(id, this.designid).subscribe(res => {
-        this.toastr.success("Delete successfully", "Info Message!");
+        this.toastr.success("Door Has Been Deleted Successfully!", "Info Message!");
+        this.deletedoormodel(this.designid, door);
         setTimeout(() => {
           this.fetchingdoordata();
         }, 1500);
       }, err => {
-        this.toastr.error("Delete failed", "Info Message!");
+        this.toastr.error("Door Has Been Failed To Delete!", "Info Message!");
       });
     }
   }
@@ -179,11 +181,11 @@ export class DoorformComponent implements OnInit {
           i.data.Window = doormodellist;
           //console.log(windowmodellist);
           this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-            this.toastr.success("Update model successfully", "Info Message");
+            this.toastr.success("Wall Model Has Been Successfully Update!", "Info Message");
 
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
-            this.toastr.error("Update model failed", "Info Message");
+            this.toastr.error("Wall Model Has Been Failed To Update!", "Info Message");
           });
         }
       }
@@ -203,11 +205,11 @@ export class DoorformComponent implements OnInit {
           i.data.Door = doormodellist.filter(x => x.DoorName !== doori.DoorName);
           //this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid);
           this.buildingmodelservice.wallwindowdoormodelUpdate(i.id, i.data, this.designid).subscribe(res => {
-            this.toastr.success("Update model successfully", "Info Message");
+            this.toastr.success("Wall Model Has Been Successfully Update!", "Info Message");
 
             this.buildingmodelservice.wallwindowdoormodelGet(this.designid);
           }, err => {
-            this.toastr.error("Update model failed", "Info Message");
+            this.toastr.error("Wall Model Has Been Failed To Update!", "Info Message");
           });
         }
       }
