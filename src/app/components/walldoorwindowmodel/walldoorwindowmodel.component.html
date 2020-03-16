@@ -1,8 +1,8 @@
 <div class="row">
 
   <div class="col-md-5">
-    <button class="btn btn-primary" (click)="addwalltoggle()">{{display ? "Cancel" : "+ Add Wall"}}</button>
-    <form *ngIf="display" class="buildingform" #wallmodelform="ngForm">
+    <!-- <button class="btn btn-primary" (click)="addwalltoggle()">{{display ? "Cancel" : "+ Add Wall"}}</button> -->
+    <form class="buildingform" #wallmodelform="ngForm">
       <div class="form-row">
         <legend>Wall</legend>
         <div class="form-group col-md-12">
@@ -106,7 +106,7 @@
         </div>
 
         <div class="form-group col-md-12">
-          <button class="btn btn-primary col-md-12" (click)="onSubmitModel()"><i class="far fa-check-circle"></i>
+          <button class="btn btn-primary" style="float: right;" (click)="onSubmitModel()"><i class="far fa-check-circle"></i>
             Complete Wall
             Model</button>
         </div>

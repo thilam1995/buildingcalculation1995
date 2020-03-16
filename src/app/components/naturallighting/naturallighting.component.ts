@@ -26,11 +26,17 @@ export class NaturallightingComponent implements OnInit {
   projectobject: Project;
 
   iscompliance: boolean = false;
+  pointforlivingroom: number = 0;
+  pointformainbedroom: number = 0;
+  pointforotherhabitroom: number = 0;
   compliancepoint: number = 0;
 
   ispasslist = [];
-  isbedpassedlist = [];
   roomlist = [];
+  livingroompasslist = [];
+  mainbedpasslist = [];
+  otherhabitpasslist = [];
+  studioroompasslist = [];
   count: any = {};
   otherhabitnum: number = 0;
   otherhabitpassnum: number = 0;
@@ -137,7 +143,7 @@ export class NaturallightingComponent implements OnInit {
     }, err => {
       this.toastr.error("Something wrong!", "Error Message");
     });
-    this.roomserv.getallroombydesignid(this.designid);
+    //this.roomserv.getallroombydesignid(this.designid);
 
     this.roomserv.fetchroombyid(this.designid).subscribe(res => {
       this.roomlist = res;
@@ -227,61 +233,105 @@ export class NaturallightingComponent implements OnInit {
     });
   }
 
-  finalcalculate(){
+  finalcalculate() {
     console.log("Studio: " + this.studioroomnum + " Pass: " + this.studioroompassnum);
     console.log("Living: " + this.livingroomnum + " Pass: " + this.livingroompassnum);
     console.log("Primary: " + this.primarybednum + " Pass: " + this.primarybedpassnum);
     console.log("Other habitable Room: " + this.otherhabitnum + " Pass: " + this.otherhabitpassnum);
 
-    this.ispasslist.forEach(e => {
-      if (e.roomname === "Bedroom") {
-        this.isbedpassedlist.push(e.iscompliance);
-      }
-    });
-    this.iscompliance = this.isbedpassedlist.every(Boolean);
-    console.log(this.ispasslist);
-
     if (this.ispasslist.length !== 0) {
-      this.count = this.ispasslist.reduce((c, { roomname: key }) =>
-        (c[key] = (c[key] || 0) + 1, c), {}
-      );
-      console.log(this.count);
+      this.ispasslist.forEach(e => {
+        if (e.roomname === "MainBedroom") {
+          if (e.iscompliance) {
+            this.mainbedpasslist.push(e.iscompliance);
+          }
+        } else if (e.roomname === "OtherHabitableroom") {
+          if (e.iscompliance) {
+            this.otherhabitpasslist.push(e.iscompliance);
+          }
+        } else if (e.roomname === "Mainlivingroomarea") {
+          if (e.iscompliance) {
+            this.livingroompasslist.push(e.iscompliance);
+          }
+        } else if (e.roomname === "studiodwelling") {
+          if (e.iscompliance) {
+            this.studioroompasslist.push(e.iscompliance);
+          }
+        }
+      });
     }
 
-    if (this.roomserv.numofroom === 1) {
-      if ((this.studioroompassnum === 1 && this.studioroomnum === 1) && this.studioroompassnum === this.studioroomnum) {
-        this.compliancepoint += 3;
-      } else if ((this.primarybednum === 1 && this.primarybednum === 1) && this.primarybednum === this.primarybednum) {
-        this.compliancepoint += 3;
-      } else if ((this.livingroomnum === 1 && this.livingroompassnum === 1) && this.livingroomnum === this.livingroompassnum) {
-        this.compliancepoint += 3;
-      }
-      else if (this.otherhabitnum === 1 && this.otherhabitnum === this.otherhabitpassnum) {
-        this.compliancepoint += 3;
-      }
-    } else {
-      if ((this.livingroompassnum === 1 && this.livingroomnum === 1) && this.livingroompassnum === this.livingroomnum) {
-        if ((this.primarybednum === 1 && this.otherhabitnum === 0)) {
-          this.compliancepoint += 2;
-        } if (this.primarybednum === 1 && this.primarybednum === this.primarybedpassnum && (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum)) {
-          this.compliancepoint += 1;
-        } if (this.otherhabitnum > 0 && this.otherhabitnum === this.otherhabitpassnum) {
-          this.compliancepoint += 1;
+    console.log(this.mainbedpasslist);
+    console.log(this.otherhabitpasslist);
+    console.log(this.livingroompasslist);
+    console.log(this.studioroompasslist);
+
+    if (this.ispasslist.length === 1) {
+      if (this.studioroompasslist.length === 1) {
+        if (this.studioroompasslist.every(Boolean)) {
+          this.compliancepoint = 3;
+        }
+      } else if (this.mainbedpasslist.length === 1) {
+        if (this.mainbedpasslist.every(Boolean)) {
+          this.compliancepoint = 3;
+        }
+      } else if (this.livingroompasslist.length === 1) {
+        if (this.livingroompasslist.every(Boolean)) {
+          this.compliancepoint = 3;
+        }
+      } else if (this.otherhabitpasslist.length === 1) {
+        if (this.otherhabitpasslist.every(Boolean)) {
+          this.compliancepoint = 3;
         }
       }
-
-      if (this.otherhabitnum >= 1 && this.otherhabitnum === this.otherhabitpassnum) {
-        this.compliancepoint += 1;
-      }
-
-      if (this.primarybednum === 1 && this.primarybednum === this.primarybedpassnum) {
-        this.compliancepoint += 1;
+    } else {
+      if (this.ispasslist.length === 2) {
+        if (this.livingroompasslist.length === 1 && this.livingroompasslist.every(Boolean)) {
+          this.compliancepoint += 2;
+          if (this.mainbedpasslist.length === 1 && this.mainbedpasslist.every(Boolean)) {
+            this.compliancepoint += 1;
+          } else if (this.otherhabitpasslist.length === 1 && this.otherhabitpasslist.every(Boolean)) {
+            this.compliancepoint += 1;
+          }
+        } else if (this.livingroompasslist.length === 0) {
+          if (this.mainbedpasslist.length === 1 && this.mainbedpasslist.every(Boolean)) {
+            this.compliancepoint += 2;
+            if (this.otherhabitpasslist.length === 1 && this.otherhabitpasslist.every(Boolean)) {
+              this.compliancepoint += 1;
+            }
+          }
+        } else if(this.livingroompasslist.length === 0 && this.mainbedpasslist.length === 0){
+          if(this.otherhabitpasslist.every(Boolean)){
+            this.compliancepoint += 3;
+          }
+        }
+      } else if (this.ispasslist.length >= 3) {
+        if(this.livingroompasslist.length === 1 || this.mainbedpasslist.length === 1 || this.otherhabitpasslist.length >= 1){
+          this.compliancepoint += (this.livingroompasslist.every(Boolean) ? 1 : 0) + (this.mainbedpasslist.every(Boolean) ? 1 : 0) + (this.otherhabitpasslist.every(Boolean) ? 1 : 0);
+        }else if (this.livingroompasslist.length === 0 && this.mainbedpasslist.length === 0 && this.otherhabitpasslist.length >= 1){
+          this.compliancepoint = 3;
+        }
+        
       }
     }
 
-    if (this.otherhabitnum >= 1 && this.otherhabitpassnum >= 1 && this.otherhabitnum === this.otherhabitpassnum) {
-      this.compliancepoint += 1;
-    }
+
+
+    // this.ispasslist.forEach(e => {
+    //   if (e.roomname === "Bedroom") {
+    //     this.isbedpassedlist.push(e.iscompliance);
+    //   }
+    // });
+    // this.iscompliance = this.isbedpassedlist.every(Boolean);
+    // console.log(this.ispasslist);
+
+    // if (this.ispasslist.length !== 0) {
+    //   this.count = this.ispasslist.reduce((c, { roomname: key }) =>
+    //     (c[key] = (c[key] || 0) + 1, c), {}
+    //   );
+    //   console.log(this.count);
+    // }
+
   }
 
   downloadresult() {

@@ -1,10 +1,11 @@
 <div class="row">
 
   <div class="col-md-5">
-    <button class="btn btn-primary" (click)="addfloortoggle()">{{display ? "Cancel" : "+ Add Floor"}}</button>
-    <div *ngIf="display">
+    <!-- <button class="btn btn-primary" (click)="addfloortoggle()">{{display ? "Cancel" : "+ Add Floor"}}</button> -->
+    <div>
       <form class="buildingform">
         <div class="form-row">
+          <legend>Floor</legend>
           <div class="form-group col-md-6"><input type="text" class="form-control" name="floorsection"
               #floorsection="ngModel" placeholder="Floor Description" [(ngModel)]="floorextendobject.FloorSection"></div>
           <div class="form-group col-md-6"> <select class="form-control" name="Floorobject" [(ngModel)]="floorobject">
@@ -15,7 +16,7 @@
               #exposedarea="ngModel" placeholder="Exposed Area" [(ngModel)]="floorextendobject.ExposedArea"></div>
         </div>
         <div class="form-group col-md-12">
-          <button class="btn btn-primary col-md-12" (click)="addFieldValue()"><i class="far fa-check-circle"></i>
+          <button class="btn btn-primary" style="float: right;" (click)="addFieldValue()"><i class="far fa-check-circle"></i>
             Complete Floor Model</button>
         </div>
       </form>

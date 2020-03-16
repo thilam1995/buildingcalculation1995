@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-5">
-        <button class="btn btn-primary" (click)="isshowed = !isshowed">{{isshowed ? "Cancel" : "+ Add Room"}}</button>
-        <form class="buildingform" #roomform="ngForm" (ngSubmit)="onSubmit(roomform)" *ngIf="isshowed">
+        <!-- <button class="btn btn-primary" (click)="isshowed = !isshowed">{{isshowed ? "Cancel" : "+ Add Room"}}</button> -->
+        <form class="buildingform" #roomform="ngForm" (ngSubmit)="onSubmit(roomform)">
             <div class="form-row">
                 <legend>Customize Room</legend>
                 <!-- <div class="form-group col-md-6">

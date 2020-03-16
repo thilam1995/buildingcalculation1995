@@ -119,11 +119,10 @@ export class RoombreakdownComponent implements OnInit {
                 DateCreated: date.toString()
               };
               this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
-                this.toastr.success("Insert new room successfully", "Info Message");
-                this.toastr.success("Insert new room successfully", "Info Message");
+                this.toastr.success("New room added successfully", "Info Message");
                 this.setDefault();
               }, err => {
-                this.toastr.error("Insert new model failed", "Info Message");
+                this.toastr.error("New room added failed", "Info Message");
               })
             }
           }
@@ -141,10 +140,10 @@ export class RoombreakdownComponent implements OnInit {
               DateCreated: date.toString()
             };
             this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
-              this.toastr.success("Insert new room successfully", "Info Message");
+              this.toastr.success("New room added successfully", "Info Message");
               this.setDefault();
             }, err => {
-              this.toastr.error("Insert new model failed", "Info Message");
+              this.toastr.error("New room added failed", "Info Message");
             })
           }
         }
@@ -179,10 +178,10 @@ export class RoombreakdownComponent implements OnInit {
                 DateCreated: date.toString()
               };
               this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
-                this.toastr.success("Insert new room successfully", "Info Message");
+                this.toastr.success("New room added successfully", "Info Message");
                 this.setDefault();
               }, err => {
-                this.toastr.error("Insert new model failed", "Info Message");
+                this.toastr.error("New room added failed", "Info Message");
               })
             }
           }
@@ -200,10 +199,10 @@ export class RoombreakdownComponent implements OnInit {
               DateCreated: date.toString()
             };
             this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
-              this.toastr.success("Insert new room successfully", "Info Message");
+              this.toastr.success("New room added successfully", "Info Message");
               this.setDefault();
             }, err => {
-              this.toastr.error("Insert new model failed", "Info Message");
+              this.toastr.error("New room added failed", "Info Message");
             })
           }
         }
@@ -227,10 +226,10 @@ export class RoombreakdownComponent implements OnInit {
               DateCreated: date.toString()
             };
             this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
-              this.toastr.success("Insert new room successfully", "Info Message");
+              this.toastr.success("New room added successfully", "Info Message");
               this.setDefault();
             }, err => {
-              this.toastr.error("Insert new model failed", "Info Message");
+              this.toastr.error("New room added failed", "Info Message");
             })
           }
         }
@@ -248,10 +247,10 @@ export class RoombreakdownComponent implements OnInit {
             DateCreated: date.toString()
           };
           this.roomserv.postingroom(this.room, this.designid).subscribe(x => {
-            this.toastr.success("Insert new room successfully", "Info Message");
+            this.toastr.success("New room added successfully", "Info Message");
             this.setDefault();
           }, err => {
-            this.toastr.error("Insert new model failed", "Info Message");
+            this.toastr.error("New room added failed", "Info Message");
           })
         }
       }
