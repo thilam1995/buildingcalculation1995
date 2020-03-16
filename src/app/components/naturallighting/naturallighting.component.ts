@@ -261,76 +261,61 @@ export class NaturallightingComponent implements OnInit {
       });
     }
 
-    console.log(this.mainbedpasslist);
-    console.log(this.otherhabitpasslist);
-    console.log(this.livingroompasslist);
-    console.log(this.studioroompasslist);
+    console.log(this.mainbedpasslist.length > 0 ? this.mainbedpasslist.every(Boolean) : false);
+    console.log(this.otherhabitpasslist.length > 0 ? this.otherhabitpasslist.every(Boolean) : false);
+    console.log(this.livingroompasslist.length > 0 ? this.livingroompasslist.every(Boolean) : false);
+    console.log(this.studioroompasslist.length > 0 ? this.studioroompasslist.every(Boolean) : false);
+  
 
     if (this.ispasslist.length === 1) {
-      if (this.studioroompasslist.length === 1) {
-        if (this.studioroompasslist.every(Boolean)) {
+      console.log(1);
+      if (this.studioroompasslist.length === 1 ? this.studioroompasslist.every(Boolean) : false) {
           this.compliancepoint = 3;
-        }
-      } else if (this.mainbedpasslist.length === 1) {
-        if (this.mainbedpasslist.every(Boolean)) {
+      } else if (this.mainbedpasslist.length === 1 ? this.mainbedpasslist.every(Boolean) : false) {
           this.compliancepoint = 3;
-        }
-      } else if (this.livingroompasslist.length === 1) {
-        if (this.livingroompasslist.every(Boolean)) {
+      } else if (this.livingroompasslist.length === 1 ? this.livingroompasslist.every(Boolean) : false) {
           this.compliancepoint = 3;
-        }
-      } else if (this.otherhabitpasslist.length === 1) {
-        if (this.otherhabitpasslist.every(Boolean)) {
+
+      } else if (this.otherhabitpasslist.length === 1 ? this.otherhabitpasslist.every(Boolean) : false) {
           this.compliancepoint = 3;
-        }
       }
     } else {
+
       if (this.ispasslist.length === 2) {
-        if (this.livingroompasslist.length === 1 && this.livingroompasslist.every(Boolean)) {
+        if (this.livingroompasslist.length === 1 ? this.livingroompasslist.every(Boolean) : false) {
           this.compliancepoint += 2;
-          if (this.mainbedpasslist.length === 1 && this.mainbedpasslist.every(Boolean)) {
+          if (this.mainbedpasslist.length === 1 ? this.mainbedpasslist.every(Boolean) : false) {
             this.compliancepoint += 1;
-          } else if (this.otherhabitpasslist.length === 1 && this.otherhabitpasslist.every(Boolean)) {
+          } else if (this.otherhabitpasslist.length === 1 ? this.otherhabitpasslist.every(Boolean) : false) {
             this.compliancepoint += 1;
           }
         } else if (this.livingroompasslist.length === 0) {
-          if (this.mainbedpasslist.length === 1 && this.mainbedpasslist.every(Boolean)) {
-            this.compliancepoint += 2;
-            if (this.otherhabitpasslist.length === 1 && this.otherhabitpasslist.every(Boolean)) {
-              this.compliancepoint += 1;
+          console.log(2);
+          if (this.mainbedpasslist.length === 1 ? this.mainbedpasslist.every(Boolean) : false) {
+            this.compliancepoint += (this.mainbedpasslist.every(Boolean) ? 2 : 0);
+            if (this.otherhabitpasslist.length === 1 ? this.otherhabitpasslist.every(Boolean) : false) {
+              this.compliancepoint += (this.otherhabitpasslist.every(Boolean) ? 1 : 0);
             }
           }
-        } else if(this.livingroompasslist.length === 0 && this.mainbedpasslist.length === 0){
-          if(this.otherhabitpasslist.every(Boolean)){
-            this.compliancepoint += 3;
+          else if (this.otherhabitpasslist.length === 2) {
+            this.compliancepoint = ((this.otherhabitpasslist.length === 2 ? this.otherhabitpasslist.every(Boolean) : false) ? 3 : 0);
           }
-        }
+        } 
       } else if (this.ispasslist.length >= 3) {
-        if(this.livingroompasslist.length === 1 || this.mainbedpasslist.length === 1 || this.otherhabitpasslist.length >= 1){
-          this.compliancepoint += (this.livingroompasslist.every(Boolean) ? 1 : 0) + (this.mainbedpasslist.every(Boolean) ? 1 : 0) + (this.otherhabitpasslist.every(Boolean) ? 1 : 0);
-        }else if (this.livingroompasslist.length === 0 && this.mainbedpasslist.length === 0 && this.otherhabitpasslist.length >= 1){
-          this.compliancepoint = 3;
+        console.log(3);
+        if (this.livingroompasslist.length === 1 && this.mainbedpasslist.length === 1 && this.otherhabitpasslist.length >= 1) {
+          this.compliancepoint += ((this.livingroompasslist.length === 1 ? this.livingroompasslist.every(Boolean) : false) ? 1 : 0) + ((this.mainbedpasslist.length === 1 ? this.mainbedpasslist.every(Boolean) : false) ? 1 : 0) + ((this.otherhabitpasslist.length >= 1 ? this.otherhabitpasslist.every(Boolean) : false) ? 1 : 0);
+        } else if (this.livingroompasslist.length === 1 && this.otherhabitpasslist.length >= 2) {
+          this.compliancepoint += ((this.livingroompasslist.length === 1 ? this.livingroompasslist.every(Boolean) : false) ? 2 : 0) + ((this.otherhabitpasslist.length >= 2 ? this.otherhabitpasslist.every(Boolean) : false) ? 1 : 0);
+        } else if(this.mainbedpasslist.length === 1 && this.otherhabitpasslist.length >= 2){
+          this.compliancepoint += ((this.mainbedpasslist.length === 1 ? this.mainbedpasslist.every(Boolean) : false) ? 2 : 0) + ((this.otherhabitpasslist.length >= 2 ? this.otherhabitpasslist.every(Boolean) : false) ? 1 : 0);
+        }else if (this.otherhabitpasslist.length >= 3){
+          this.compliancepoint = ((this.otherhabitpasslist.length > 2 ? this.otherhabitpasslist.every(Boolean) : false) ? 3 : 0);
         }
-        
+
       }
     }
 
-
-
-    // this.ispasslist.forEach(e => {
-    //   if (e.roomname === "Bedroom") {
-    //     this.isbedpassedlist.push(e.iscompliance);
-    //   }
-    // });
-    // this.iscompliance = this.isbedpassedlist.every(Boolean);
-    // console.log(this.ispasslist);
-
-    // if (this.ispasslist.length !== 0) {
-    //   this.count = this.ispasslist.reduce((c, { roomname: key }) =>
-    //     (c[key] = (c[key] || 0) + 1, c), {}
-    //   );
-    //   console.log(this.count);
-    // }
 
   }
 
