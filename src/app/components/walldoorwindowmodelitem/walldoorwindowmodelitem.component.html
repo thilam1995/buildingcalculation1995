@@ -10,14 +10,14 @@
       <td *ngIf="!isedit" rowspan="2"><button class="btn btn-primary" (click)="selecttoEdit(i)"><i
             class="far fa-edit"></i> Edit</button>
       </td>
-      <td rowspan="2" *ngIf="isedit">
+      <!-- <td rowspan="2" *ngIf="isedit">
         <button class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-ban"></i> Cancel</button>
         <button class="btn btn-primary" (click)="updateselectedmodel(i.id)">
           <i class="far fa-save"></i> Save
         </button>
         <button class="btn btn-danger" (click)="deleleselectmodel(i.id)"><i class="fas fa-trash-alt"></i>
           Delete</button>
-      </td>
+      </td> -->
     </tr>
     <tr>
       <th style="font-weight: normal">Width: {{i.data.Wall.Width | number: '1.0-2'}}m</th>
@@ -128,6 +128,14 @@
             </tr>
           </table>
         </div>
+        <div class="form-group col-md-12">
+          <button class="btn btn-secondary" style="float: right;" (click)="onCancel()"><i class="fas fa-ban"></i> Cancel</button>
+          <button class="btn btn-primary" style="float: right;" (click)="updateselectedmodel(i.id)">
+            <i class="far fa-save"></i> Save
+          </button>
+          <button class="btn btn-danger" style="float: right;" (click)="deleleselectmodel(i.id)"><i class="fas fa-trash-alt"></i>
+            Delete</button>
+      </div>
 
 
       </div>

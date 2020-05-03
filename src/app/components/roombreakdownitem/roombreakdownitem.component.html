@@ -7,11 +7,11 @@
                 <th *ngIf="!isedit"><button class="btn btn-primary"
                         (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></th>
                 <th *ngIf="!isedit"><button class="btn btn-primary" (click)="onEdit(i)"><i class="far fa-edit"></i> Edit</button></th>
-                <th *ngIf="isedit"><button class="btn btn-secondary" (click)="onCancel()"><i
+                <!-- <th *ngIf="isedit"><button class="btn btn-secondary" (click)="onCancel()"><i
                             class="fas fa-ban"></i>Cancel</button>
                     <button class="btn btn-danger" (click)="onDelete(i.id)"><i class="fas fa-trash-alt"></i> Delete</button>
                     <button class="btn btn-primary" (click)="onUpdate(i.id)"><i class="far fa-save"></i> Save</button>
-                </th>
+                </th> -->
             </tr>
         </table>
     </div>
@@ -135,6 +135,12 @@
                                     matTooltip="Delete"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>
                     </table>
+                </div>
+                <div class="form-group col-md-12">
+                    <button class="btn btn-secondary" style="float: right;" (click)="onCancel()"><i
+                        class="fas fa-ban"></i>Cancel</button>
+                <button class="btn btn-danger" style="float: right;" (click)="onDelete(i.id)"><i class="fas fa-trash-alt"></i> Delete</button>
+                <button class="btn btn-primary" style="float: right;" (click)="onUpdate(i.id)"><i class="far fa-save"></i> Save</button>
                 </div>
             </div>
 
