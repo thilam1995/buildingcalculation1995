@@ -52,7 +52,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
 
 
   constructor(private toastr: ToastrService, public route: ActivatedRoute,
-    private loginservice: LoginserviceService, private wallservice: WalldoorwindowService,
+    private loginservice: LoginserviceService, public wallservice: WalldoorwindowService,
     public buildingmodelservice: BuildingmodelService) {
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     this.loginservice.currentUser.subscribe(x => {

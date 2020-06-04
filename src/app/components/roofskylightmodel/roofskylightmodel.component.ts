@@ -43,7 +43,7 @@ export class RoofskylightmodelComponent implements OnInit {
   registeruser: Register;
 
   constructor(private toastr: ToastrService, public route: ActivatedRoute,
-    private loginservice: LoginserviceService, private roofskylightservice: RoofskylightService,
+    private loginservice: LoginserviceService, public roofskylightservice: RoofskylightService,
     public buildingmodelservice: BuildingmodelService) {
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
     this.loginservice.currentUser.subscribe(x => {
