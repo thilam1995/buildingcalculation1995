@@ -22,6 +22,8 @@ import { Design } from 'src/app/models/design';
 import { RoofskylightService } from 'src/app/service/roofskylight.service';
 import { FloorService } from 'src/app/service/floor.service';
 import { RoomserviceService } from 'src/app/service/roomservice.service';
+import { Project } from 'src/app/models/project';
+import { ProjectService } from 'src/app/service/project.service';
 
 @Component({
   selector: 'app-buildingschedule',
@@ -37,7 +39,7 @@ export class BuildingscheduleComponent implements OnInit {
   designobject: Design;
   designobject1: Design;
   isedit: boolean = false;
-
+  projectobject: Project;
 
   numberofhabitroom:number = 0;
   registeruser: Register;
@@ -60,7 +62,7 @@ export class BuildingscheduleComponent implements OnInit {
     private router: Router, private toastr: ToastrService, private localSt: LocalStorageService,
     private loginservice: LoginserviceService, private designservice: DesignService,
     private wallservice: WalldoorwindowService, private roofskylightservice: RoofskylightService,
-    private floorservice: FloorService,
+    private floorservice: FloorService, private projectservice: ProjectService,
     private roomserv: RoomserviceService) {
     //this.setdefault();
     let loginapp = JSON.parse(localStorage.getItem('currentUser'));
@@ -84,7 +86,15 @@ export class BuildingscheduleComponent implements OnInit {
     this.locationService.getallLocation();
     this.climateservice.getallhomestarlist();
     this.climateservice.getclimatelist();
-    //this.fetchingallhousecomponent();
+    this.projectservice.getprojectid(this.projectid).subscribe(x => {
+      this.projectobject = {
+        ProjectID: x.id,
+        ProjectName: x.data.ProjectName,
+        DateCreated: x.data.DateCreated,
+        DateModified: x.data.DateModified,
+        UserID: x.data.UserID
+      }
+    });
     this.designservice.getdesignbyID(this.designid).subscribe(res => {
       //console.log(res);
       this.designobject = {
@@ -223,7 +233,14 @@ export class BuildingscheduleComponent implements OnInit {
       ID: null,
       ProjectID: null,
       UserID: null
-    }
+    };
+    this.projectobject = {
+      ProjectID: "",
+      ProjectName: "",
+      DateCreated: "",
+      DateModified: "",
+      UserID: ""
+    };
   }
 
   changeoption1() {
