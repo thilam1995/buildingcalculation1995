@@ -19,5 +19,7 @@
       "dom"
     ]
   },
-  "disableTypeScriptVersionCheck": true,
+  "angularCompilerOptions": {
+    "disableTypeScriptVersionCheck": true
+  }
 }

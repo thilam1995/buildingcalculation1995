@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <mat-horizontal-stepper labelPosition="bottom" #stepper>
             <mat-step>
-                <ng-template matStepLabel matStepperIcon="done">🧱 Wall</ng-template>
+                <ng-template matStepLabel matStepperIcon="done">🧱 Walls</ng-template>
                 <!-- <app-wallform [wallobject]="wallobject" [wallobjectlist]="wallobjectlist"></app-wallform> -->
                 <p>Please enter your different wall constructions below, and their calculated R value.</p>
                 <app-wallform></app-wallform>
@@ -23,7 +23,7 @@
                 </div>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel matStepperIcon="done">🚪 Door</ng-template>
+                <ng-template matStepLabel matStepperIcon="done">🚪 Doors</ng-template>
                 <!-- <app-doorform [doorobject]="doorobject" [doorobjectlist]="doorobjectlist"></app-doorform> -->
                 <p>Please enter your solid (non glazed) doors. (If you are deeming the garage as an unconditioned space,
                     remember to include the door between the house and the garage)</p>
@@ -45,7 +45,7 @@
                 </div>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel matStepperIcon="done">🌄 Skylight</ng-template>
+                <ng-template matStepLabel matStepperIcon="done">🌄 Skylights</ng-template>
                 <app-skylightform></app-skylightform>
                 <div style="text-align: right">
                     <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>
