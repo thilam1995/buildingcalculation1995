@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Floors } from 'src/app/models/floors';
-import { NgFormSelectorWarning } from '@angular/forms';
 
 @Component({
   selector: 'app-heatlossfloor',

@@ -10,7 +10,6 @@ import { Wall } from 'src/app/models/wall';
 import { Skylights } from 'src/app/models/skylights';
 import { Roof } from 'src/app/models/roof';
 import { Floors } from 'src/app/models/floors';
-import { NullAstVisitor } from '@angular/compiler';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
