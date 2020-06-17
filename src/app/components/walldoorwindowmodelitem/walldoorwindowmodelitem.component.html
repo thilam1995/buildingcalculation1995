@@ -3,25 +3,17 @@
     <tr>
       <th style="font-weight: bold">Wall Description: {{i.data.Wall.WallSection}}</th>
       <th style="font-weight: bold">Wall Type: {{i.data.Wall.WallName}}</th>
-      <th style="font-weight: bold">Orientation: {{i.data.Orientation}}</th>
+      <th colspan="1" style="font-weight: bold">Orientation: {{i.data.Orientation}}</th>
 
       <td rowspan="2" *ngIf="!isedit"><button class="btn btn-primary"
           (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide" : "Show"}}</button></td>
       <td *ngIf="!isedit" rowspan="2"><button class="btn btn-primary" (click)="selecttoEdit(i)"><i
             class="far fa-edit"></i> Edit</button>
       </td>
-      <!-- <td rowspan="2" *ngIf="isedit">
-        <button class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-ban"></i> Cancel</button>
-        <button class="btn btn-primary" (click)="updateselectedmodel(i.id)">
-          <i class="far fa-save"></i> Save
-        </button>
-        <button class="btn btn-danger" (click)="deleleselectmodel(i.id)"><i class="fas fa-trash-alt"></i>
-          Delete</button>
-      </td> -->
     </tr>
     <tr>
-      <th style="font-weight: normal">Width: {{i.data.Wall.Width | number: '1.0-2'}}m</th>
-      <th style="font-weight: normal">Height: {{i.data.Wall.Height | number: '1.0-2'}}m</th>
+      <th style="font-weight: normal">Width: {{i.data.Wall.Width | number: '1.0-2'}} m</th>
+      <th style="font-weight: normal">Height: {{i.data.Wall.Height | number: '1.0-2'}} m</th>
       <th style="font-weight: normal">Area: {{i.data.Wall.Area | number: '1.0-2'}} m2</th>
 
     </tr>

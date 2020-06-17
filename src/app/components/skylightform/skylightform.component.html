@@ -13,14 +13,14 @@
                 </div>
                 <div class="form-group col-md-6">
                     <input type="text" name="length" class="form-control" #length="ngModel"
-                        [(ngModel)]="skylightsobject.Length" placeholder="Length" (keyup)="onKeyLengthSkylight($event)">
+                        [(ngModel)]="skylightsobject.Length" placeholder="Length (m)" (keyup)="onKeyLengthSkylight($event)">
                 </div>
                 <div class="form-group col-md-6">
                     <input type="text" name="width" class="form-control" #width="ngModel"
-                        [(ngModel)]="skylightsobject.Width" placeholder="Width" (keyup)="onKeyWidthSkylight($event)">
+                        [(ngModel)]="skylightsobject.Width" placeholder="Width (m)" (keyup)="onKeyWidthSkylight($event)">
                 </div>
                 <div class="form-group col-md-12">
-                    Area: <span>{{skylightsobject.Area | number: '1.0-2'}}</span>
+                    Area: <span>{{skylightsobject.Area | number: '1.0-2'}} m2</span>
                 </div>
                 <div class="form-group col-md-12">
                     <button [disabled]="skylightsobject.SkylightsName == null || skylightsobject.ConstructionRValue == null ||
@@ -39,9 +39,9 @@
             <tr>
                 <th>Skylight Name</th>
                 <th>R-Value</th>
-                <th>Length</th>
-                <th>Width</th>
-                <th>Area</th>
+                <th>Length (m)</th>
+                <th>Width (m)</th>
+                <th>Area (m2)</th>
                 <td>Action</td>
             </tr>
             <tr *ngFor="let i of roofskylightservice.skylightlist">

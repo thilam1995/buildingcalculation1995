@@ -14,7 +14,7 @@
             </option>
           </select></div>
         <div class="form-group col-md-12"><input type="text" class="form-control" name="exposedearea"
-            #exposedearea="ngModel" [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></div>
+            #exposedearea="ngModel" [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area (m2)"></div>
         <div class="form-group col-md-12">
           <button class="btn btn-primary"
             (click)="addskylighttoggle()">{{display1 ? "Cancel" : "+ Add Skylight"}}</button>
@@ -35,8 +35,8 @@
           <table class="table table-sm table-hover">
             <tr>
               <th>Skylight ID</th>
-              <th>Width</th>
-              <th>Length</th>
+              <th>Width (m2)</th>
+              <th>Length (m2)</th>
               <th>R-Value</th>
               <th>Option</th>
             </tr>

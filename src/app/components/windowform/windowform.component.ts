@@ -87,7 +87,15 @@ export class WindowformComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if (form.value.id === null) {
+    if(Number(form.value.owa) > 100){
+      this.toastr.error("Error! The number must be less or equal to 100.");
+    }else if(Number.isNaN(Number(form.value.owa))){
+      this.toastr.error("Error! The input is not a number!");
+    }else if(Number.isNaN(Number(form.value.constructionRValue))){
+      this.toastr.error("Error! The input is not a number!");
+    }
+    else{
+      if (form.value.id === null) {
         let date = new Date();
         this.windowobject = {
           WindowName: form.value.windowName,
@@ -95,7 +103,7 @@ export class WindowformComponent implements OnInit {
           Width: Number(form.value.windowWidth),
           Height: Number(form.value.windowsHeight),
           Area: Number(this.windowobject.Area),
-          OWA: Number(form.value.owa),
+          OWA: Number(form.value.owa) / 100,
           DesignID: this.designid,
           ProjectID: this.projectid,
           UserID: this.registeruser.ID,
@@ -131,7 +139,7 @@ export class WindowformComponent implements OnInit {
         Width: Number(form.value.windowWidth),
         Height: Number(form.value.windowsHeight),
         Area: Number(this.windowobject.Area),
-        OWA: Number(form.value.owa),
+        OWA: Number(form.value.owa)/100,
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID
@@ -152,6 +160,8 @@ export class WindowformComponent implements OnInit {
         this.toastr.error("Window Has Been Failed To Update", "Info Message!");
       });
     }
+    }
+
   }
 
 

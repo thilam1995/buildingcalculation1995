@@ -4,7 +4,7 @@
       <tr>
         <th>Roof Description: {{i.data.Roof.RoofSection}}</th>
         <th>Roof Name: {{i.data.Roof.RoofName}}</th>
-        <th style="font-weight: normal">Exposed Area: {{i.data.Roof.ExposedArea | number: '1.0-2'}}</th>
+        <th style="font-weight: normal">Exposed Area (m2): {{i.data.Roof.ExposedArea | number: '1.0-2'}}</th>
         <th *ngIf="!isedit"><button class="btn btn-primary" (click)="isdisplay = !isdisplay">{{isdisplay ? "Hide": "Show"}}</button>
         </th>
         <th *ngIf="!isedit"><button class="btn btn-primary" (click)="onEdit(i)"><i class="far fa-edit"></i>Edit</button>
@@ -37,7 +37,7 @@
                 </option>
               </select></div>
             <div class="form-group col-md-12"><input type="text" class="form-control" name="exposedearea"
-                #exposedearea="ngModel" [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area"></div>
+                #exposedearea="ngModel" [(ngModel)]="roofextendobject.ExposedArea" placeholder="Exposed Area (m2)"></div>
 
             <legend>Skylight</legend>
             <div class="form-group col-md-12">
@@ -53,8 +53,8 @@
               <table class="table table-sm table-hover">
                 <tr>
                   <th>Skylight ID</th>
-                  <th>Width</th>
-                  <th>Length</th>
+                  <th>Width (m2)</th>
+                  <th>Length (m2)</th>
                   <th>R-Value</th>
                   <th>Option</th>
                 </tr>

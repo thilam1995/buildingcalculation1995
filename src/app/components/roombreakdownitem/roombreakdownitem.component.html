@@ -19,7 +19,7 @@
         <table class="table table-sm" *ngIf="i.data.WindowList.length != 0">
             <tr>
                 <th>WindowID</th>
-                <th>Area</th>
+                <th>Area (m2)</th>
                 <th>Orientation</th>
                 <th>Safely Secured</th>
                 <th>Shading</th>
@@ -54,7 +54,7 @@
                         [(ngModel)]="room.RoomID">
                 </div>
                 <div class="form-group col-md-12">
-                    <input type="text" class="form-control" placeholder="Room Area" name="roomarea" #roomarea="ngModel"
+                    <input type="text" class="form-control" placeholder="Room Area (m2)" name="roomarea" #roomarea="ngModel"
                         [(ngModel)]="room.RoomArea">
                 </div>
 

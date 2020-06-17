@@ -1,32 +1,42 @@
 <div class="row board">
     <div class="boardheader col-md-12">
-        <span class="projectname" style="float: left; margin-right: 60px;">
-            <h2 *ngIf="!isedit" ngbTooltip="{{project.data.ProjectName}}">{{20 > project.data.ProjectName.length ? project.data.ProjectName : project.data.ProjectName.substring(0, 25)+"..."}}</h2>
-            <input style="float: left; width: 300px;" type="text" class="form-control" *ngIf="isedit" name="projectname"
-                #projectname="ngModel" [(ngModel)]="projecttitle" maxlength="30" required placeholder="Project name">
+        <div class="row">
+            <div class="col-md-3">
+                <span class="projectname" style="float: left; margin-right: 60px;">
+                    <h2 *ngIf="!isedit" ngbTooltip="{{project.data.ProjectName}}">
+                        {{20 > project.data.ProjectName.length ? project.data.ProjectName : project.data.ProjectName.substring(0, 10)+"..."}}
+                    </h2>
+                    <input style="float: left; width: 300px;" type="text" class="form-control" *ngIf="isedit"
+                        name="projectname" #projectname="ngModel" [(ngModel)]="projecttitle" required
+                        placeholder="Project name">
 
-        </span>
-        <span class="b">
-            <button class="btn btn-link" *ngIf="isedit" (click)="renameedit(project)">Update <i
-                    class="fas fa-edit"></i></button>
-            <button (click)="edittoggle()" class="btn btn-link"><i class="far fa-edit" *ngIf="!isedit"></i>
-                <i *ngIf="isedit" class="far fa-window-close"></i> {{isedit ? "Cancel" : "Rename"}}
-            </button>
-        </span>
-        <span class="b">
-            <a (click)="deleteproject(project.id)" matTooltip="Delete" class="btn btn-link text-danger"><i
-                    class="fas fa-trash-alt"></i> Delete</a>
-        </span>
-        <div style="float: right;" class="optionstyle">
-
-            <span class="b">
-                <button class="button customcolor" [routerLink]="['../createdesign', project.id]"
-                    [queryParams]="{ projectname: encodeparam }"><i class="fas fa-plus-square"></i> Create New
-                    Design</button>
-            </span>
+                </span>
+            </div>
+            <div class="col-md-3">
+                <span class="b">
+                    <button class="btn btn-link" *ngIf="isedit" (click)="renameedit(project)">Update <i
+                            class="fas fa-edit"></i></button>
+                    <button (click)="edittoggle()" class="btn btn-link"><i class="far fa-edit" *ngIf="!isedit"></i>
+                        <i *ngIf="isedit" class="far fa-window-close"></i> {{isedit ? "Cancel" : "Rename"}}
+                    </button>
+                </span>
+            </div>
+            <div class="col-md-3">
+                <span class="b">
+                    <a (click)="deleteproject(project.id)" matTooltip="Delete" class="btn btn-link text-danger"><i
+                            class="fas fa-trash-alt"></i> Delete</a>
+                </span>
+            </div>
+            <div class="col-md-3">
+                <div style="float: right;" class="optionstyle">
+                    <span class="b">
+                        <button class="button customcolor" [routerLink]="['../createdesign', project.id]"
+                            [queryParams]="{ projectname: encodeparam }"><i class="fas fa-plus-square"></i> Create New
+                            Design</button>
+                    </span>
+                </div>
+            </div>
         </div>
-
-
     </div>
     <div class="col-md-12">
         <table class="table table-sm table-borderless">
@@ -45,13 +55,13 @@
                 <li *ngFor="let i of designsetlist">
                     <div>
                         <a (click)="redirecttoSchedule(i, project.id)" class="btn btn-outline-primary buttonoverflow"
-                            style="margin-right: 10px;" size="sm"><span class="buttontext">{{i.data.DesignName}}</span></a>
-                        <!-- <a class="btn btn-outline-success" (click)="seeResult(i, project.id)" matTooltip="Show Result"
-                            style="margin-right: 10px;"><i class="far fa-chart-bar"></i></a> -->
+                            style="margin-right: 10px;" size="sm"><span
+                                class="buttontext">{{10 > i.data.DesignName.length ? i.data.DesignName : i.data.DesignName.substring(0, 10)+"..."}}</span></a>
                         <a class="btn btn-outline-danger" (click)="deleteselecteddesign(i.id)" matTooltip="Delete"
                             style="margin-right: 10px;" size="sm"><i class="fas fa-trash-alt"></i>
                         </a>
-                        <span style="margin-right: 10px;">{{i.data.DateUpdate}}</span>
+                        <span style="margin-right: 10px;"
+                            matTooltip="{{i.data.DateUpdate}}">{{10 > i.data.DateUpdate.legnth ? i.data.DateUpdate : i.data.DateUpdate.substring(0, 10)+"..."}}</span>
                     </div>
                 </li>
             </ul>

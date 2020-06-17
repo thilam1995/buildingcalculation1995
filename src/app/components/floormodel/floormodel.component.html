@@ -14,7 +14,7 @@
               <option *ngFor="let i of floorservice.floorlist" [ngValue]="i.data">{{i.data.FloorName}}</option>
             </select></div>
           <div class="form-group col-md-12"> <input type="text" class="form-control" name="exposedarea"
-              #exposedarea="ngModel" placeholder="Exposed Area" [(ngModel)]="floorextendobject.ExposedArea"></div>
+              #exposedarea="ngModel" placeholder="Exposed Area (m2)" [(ngModel)]="floorextendobject.ExposedArea"></div>
           <div class="form-group col-md-12">
             <button class="btn btn-primary" style="float: right;" (click)="addFieldValue()"><i
                 class="far fa-check-circle"></i>

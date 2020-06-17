@@ -15,6 +15,7 @@ export class RecentprojectComponent implements OnInit {
   registeruser: Register;
   registerID: string = "";
   loading: boolean = false;
+  isopen: boolean = false;
   constructor(private projectservice: ProjectService, private loginservice: LoginserviceService,
     public route: ActivatedRoute) { }
 
