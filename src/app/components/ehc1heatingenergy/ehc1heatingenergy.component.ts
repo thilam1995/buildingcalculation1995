@@ -503,27 +503,27 @@ export class Ehc1heatingenergyComponent implements OnInit {
     for (var x of this.windowlist) {
       this.totalareawindow += Number(x.totalarea);
       this.totalheatlosswindow += Number(x.totalheatloss);
-      this.iswindowpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.windowrvalue));
+      this.iswindowpasslist.push((x.totalarea / x.totalrvalue) <= (x.totalarea / this.windowrvalue));
     }
 
     for (var x of this.rooflist) {
       this.totalarearoof += x.totalarea;
       this.totalnetarearoof += Number(x.totalnetarea);
       this.totalheatlossroof += Number(x.totalheatloss);
-      this.isroofpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.roofrvalue));
+      this.isroofpasslist.push((x.totalarea / x.totalrvalue) <= (x.totalarea / this.roofrvalue));
       console.log(this.totalarearoof);
     }
 
     for (var x of this.skylightlist) {
       this.totalareaskylight += Number(x.totalarea);
       this.totalheatlossskylight += Number(x.totalheatloss);
-      this.isskylightpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.skylightrvalue));
+      this.isskylightpasslist.push((x.totalarea / x.totalrvalue) <= (x.totalarea / this.skylightrvalue));
     }
 
     for (var x of this.floorlist) {
       this.totalareafloor += Number(x.totalarea);
       this.totalheatlossfloor += Number(x.totalheatloss);
-      this.isfloorpasslist.push((x.totalarea / x.totalrvalue) < (x.totalarea / this.floorrvalue));
+      this.isfloorpasslist.push((x.totalarea / x.totalrvalue) <= (x.totalarea / this.floorrvalue));
     }
 
     //Get minimum r value

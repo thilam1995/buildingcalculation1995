@@ -31,6 +31,7 @@ export class NaturallightingComponent implements OnInit {
   pointforotherhabitroom: number = 0;
   compliancepoint: number = 0;
 
+  numbofroom: number = 0;
   ispasslist = [];
   roomlist = [];
   livingroompasslist = [];
@@ -148,7 +149,6 @@ export class NaturallightingComponent implements OnInit {
     this.roomserv.fetchroombyid(this.designid).subscribe(res => {
       this.roomlist = res;
 
-
       this.roomlist.forEach(e => {
         if (e.data.RoomID !== "Bathroom") {
           let object = { roomname: "", totalwindowarea: 0, roomfloorarea: 0, shadinglevel: "", naturalrequire: 0, naturalachieved: 0, iscompliance: false };
@@ -229,11 +229,12 @@ export class NaturallightingComponent implements OnInit {
 
       setTimeout(() => {
         this.finalcalculate();
-      }, 1500);
+      }, 1600);
     });
   }
 
   finalcalculate() {
+    
     console.log("Studio: " + this.studioroomnum + " Pass: " + this.studioroompassnum);
     console.log("Living: " + this.livingroomnum + " Pass: " + this.livingroompassnum);
     console.log("Primary: " + this.primarybednum + " Pass: " + this.primarybedpassnum);
