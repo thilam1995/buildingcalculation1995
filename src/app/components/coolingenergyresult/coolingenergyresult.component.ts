@@ -235,15 +235,17 @@ export class CoolingenergyresultComponent implements OnInit {
 
   finalcalculation() {
     this.part1pass = (0.27 > (this.totalwindoweast / this.totalwalleast)) && (0.27 > (this.totalwindownorth / this.totalwallnorth)) && (0.27 > (this.totalwindowwest / this.totalwallwest));
+
     this.roomlist.forEach(e => {
       let iscomplied: boolean = false;
       let netowa: number = 0;
       if (e.data.WindowList.length !== 0) {
         e.data.WindowList.forEach(a => {
-          netowa = Number(Number(a.WindowID.OWA * a.WindowID.Area).toFixed(2));
+          netowa += Number(Number(a.WindowID.OWA * a.WindowID.Area).toFixed(2));
         });
         iscomplied = (netowa / e.data.RoomArea) >= 0.05;
       }
+      
       this.windowhabitgreatthan5percentlist.push(iscomplied);
     });
 
@@ -266,6 +268,7 @@ export class CoolingenergyresultComponent implements OnInit {
       this.isallwindowsecurelist.push(isallsecure);
     });
 
+    console.log(this.windowhabitgreatthan5percentlist);
     this.part2of1pass = this.windowhabitgreatthan5percentlist.every(Boolean);
 
     if(this.owawindownorth > ((this.designobject.FloorArea * 0.05) * 0.3)){
@@ -284,7 +287,7 @@ export class CoolingenergyresultComponent implements OnInit {
       this.isallwindowmore30.push(this.owawindowwest > ((this.designobject.FloorArea * 0.05) * 0.3));
     }
 
-
+    console.log(this.isallwindowmore30.length);
     this.part2of2pass = this.isallwindowmore30.length >= 2;
 
     this.part2pass = this.part2of1pass && this.part2of2pass;

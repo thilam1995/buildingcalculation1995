@@ -53,7 +53,7 @@
 
             <ul class="itemHolder">
                 <li *ngFor="let i of designsetlist">
-                    <div>
+                    <div class="designbox">
                         <a (click)="redirecttoSchedule(i, project.id)" class="btn btn-outline-primary buttonoverflow"
                             style="margin-right: 10px;" size="sm"><span
                                 class="buttontext">{{10 > i.data.DesignName.length ? i.data.DesignName : i.data.DesignName.substring(0, 10)+"..."}}</span></a>

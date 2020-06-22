@@ -134,15 +134,15 @@ export class WindowformComponent implements OnInit {
     } else {
       this.windowobject = {
         ID: form.value.id,
-        WindowName: form.value.windowName,
+        WindowName: form.value.windowName.trim(),
         ConstructionRValue: Number(form.value.constructionRValue),
         Width: Number(form.value.windowWidth),
         Height: Number(form.value.windowsHeight),
         Area: Number(this.windowobject.Area),
         OWA: Number(form.value.owa)/100,
-        DesignID: this.designid,
-        ProjectID: this.projectid,
-        UserID: this.registeruser.ID
+        DesignID: this.designid.trim(),
+        ProjectID: this.projectid.trim(),
+        UserID: this.registeruser.ID.trim()
       };
       //console.log(this.windowobject);
 
@@ -173,7 +173,7 @@ export class WindowformComponent implements OnInit {
       Height: window.data.Height,
       Area: window.data.Area,
       ID: window.id,
-      OWA: window.data.OWA,
+      OWA: window.data.OWA * 100,
       DesignID: window.data.DesignID,
       ProjectID: window.data.ProjectID,
       UserID: window.data.UserID
@@ -188,7 +188,6 @@ export class WindowformComponent implements OnInit {
       this.deletewindowvalue(this.designid, window);
       this.wallservice.windowdelete(id, this.designid).subscribe(res => {
         this.toastr.success("Window Has Been Successfully Deleted!", "Info Message!");
-        //this.fetchingwindowdata();
         this.deletewindowvalue(this.designid, window);
         setTimeout(() => {
           this.fetchingwindowdata();

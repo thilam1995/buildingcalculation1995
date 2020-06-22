@@ -120,18 +120,19 @@
   <div class="col-md-12">
     <mat-horizontal-stepper labelPosition="bottom" #stepper>
       <mat-step>
-        <ng-template matStepLabel matStepperIcon="done"><i class="fas fa-clipboard-list"></i> Building Schedule</ng-template>
+        <ng-template matStepLabel matStepperIcon="done"><i class="fas fa-clipboard-list"></i> Building Schedule
+        </ng-template>
         <p>
           Please use the below to enter your wall, floor and roof types, and any windows to match the window schedule on
           your drawings. You will then be able to use all this information in the next phase when you construct your
           building model.
         </p>
-
-        <app-schedule></app-schedule>
-        <!-- <div style="text-align: center">
-          <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Complete Schedule <i
+        <div style="text-align: center">
+          <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Go to Model <i
               class="fas fa-arrow-right"></i></button>
-        </div> -->
+        </div>
+        <app-schedule></app-schedule>
+
       </mat-step>
       <mat-step>
         <ng-template matStepLabel matStepperIcon="done"><i class="fas fa-tasks"></i> Building Model</ng-template>
@@ -140,24 +141,29 @@
           windows, roof and floor that you have previously entered into the “schedule” section and adding dimensions and
           orientations as required.
         </p>
-
+        <div style="text-align: center">
+          <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Go to Result <i
+              class="fas fa-arrow-right"></i></button>
+        </div>
         <app-buildingmodel numberofhabitroom="numberofhabitroom"></app-buildingmodel>
-        <!-- <div style="text-align: center">
-          <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext></button>
-        </div> -->
+
       </mat-step>
 
 
       <mat-step>
         <ng-template matStepLabel matStepperIcon="done"><i class="fas fa-poll"></i> View Result</ng-template>
         <div style="text-align: center">
-          <button class="btn btn-outline-danger" style="margin: 10px" (click)="getcalculateheatloss()"><i class="fas fa-calculator"></i> Calculate
+          <button class="btn btn-outline-danger" style="margin: 10px" (click)="getcalculateheatloss()"><i
+              class="fas fa-calculator"></i> Calculate
             EHC-1 (Heat loss) 🌡</button>
-          <button class="btn btn-outline-primary" style="margin: 10px" (click)="getcalculatecoolingenergy()"><i class="fas fa-calculator"></i>
+          <button class="btn btn-outline-primary" style="margin: 10px" (click)="getcalculatecoolingenergy()"><i
+              class="fas fa-calculator"></i>
             Calculate EHC1 (Cooling) 🌬</button>
-          <button class="btn btn-outline-success" style="margin: 10px" (click)="getcalculatepassive()"><i class="fas fa-calculator"></i>
+          <button class="btn btn-outline-success" style="margin: 10px" (click)="getcalculatepassive()"><i
+              class="fas fa-calculator"></i>
             Calculate EHC-3 (Ventilation) 🌫</button>
-          <button class="btn btn-outline-warning" (click)="getcalculatenaturallighting()"><i class="fas fa-calculator"></i>
+          <button class="btn btn-outline-warning" (click)="getcalculatenaturallighting()"><i
+              class="fas fa-calculator"></i>
             Calculate EHC-7 (Natural Lighting) ☀</button>
         </div>
       </mat-step>

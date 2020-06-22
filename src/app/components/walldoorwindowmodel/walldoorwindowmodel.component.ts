@@ -295,7 +295,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID,
-        Orientation: this.orientationselect,
+        Orientation: this.orientationselect.trim(),
         DateCreated: date.toString()
       };
 
