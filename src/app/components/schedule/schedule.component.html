@@ -1,47 +1,106 @@
 <div class="row">
     <div class="col-md-12">
-        <mat-horizontal-stepper labelPosition="bottom" #stepper>
+        <nb-card>
+            <nb-card-body>
+                <nb-stepper orientation="horizontal">
+                    <nb-step [label]="wall">
+                        <ng-template #wall>🧱 Walls</ng-template>
+                        <p>Please enter your different wall constructions below, and their calculated R value.</p>
+                        <app-wallform></app-wallform>
+                        <div style="text-align: center">
+                            <button nbButton disabled nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                    <nb-step [label]="windows">
+                        <ng-template #windows>🏠 Windows</ng-template>
+                        <p>Please enter your window details as they would appear on the window schedule and/or on your drawings,
+                            including all ranch sliders and fully glazed doors. (Note: do not enter solid doors as these will
+                            entered in the next section)</p>
+                        <app-windowform></app-windowform>
+                        <div style="text-align: center">
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                    <nb-step [label]="door">
+                        <ng-template #door>🚪 Doors</ng-template>
+                        <p>Please enter your solid (non glazed) doors. (If you are deeming the garage as an unconditioned space,
+                            remember to include the door between the house and the garage)</p>
+                        <app-doorform></app-doorform>
+                        <div style="text-align: center">
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                    <nb-step [label]="roof">
+                        <ng-template #roof>🏠 Roof</ng-template>
+                        <app-roofform></app-roofform>
+                        <div style="text-align: center">
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                    <nb-step [label]="skylight">
+                        <ng-template #skylight>🌄 Skylights</ng-template>
+                        <app-skylightform></app-skylightform>
+                        <div style="text-align: center">
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                    <nb-step [label]="floor">
+                        <ng-template #floor>🧱 Floor</ng-template>
+                        <app-floorsform></app-floorsform>
+                        <div style="text-align: center">
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton disabled nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                </nb-stepper>
+            </nb-card-body>
+        </nb-card>
+        <!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>
             <mat-step>
                 <ng-template matStepLabel matStepperIcon="done">🧱 Walls</ng-template>
-                <!-- <app-wallform [wallobject]="wallobject" [wallobjectlist]="wallobjectlist"></app-wallform> -->
+
                 <p>Please enter your different wall constructions below, and their calculated R value.</p>
                 <app-wallform></app-wallform>
                 <div style="text-align: right">
-                    <button type="button" color="default" [disabled]="wallservice.walllist.length === 0" class="btn btn-primary btn-lg"
-                        matStepperNext> Go to Next Section <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" color="default" [disabled]="wallservice.walllist.length === 0"
+                        class="btn btn-primary btn-lg" matStepperNext> Go to Next Section <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel matStepperIcon="done">🏠 Windows</ng-template>
-                <!-- <app-windowform [windowobject]="windowobject" [windowobjectlist]="windowobjectlist"></app-windowform> -->
+
                 <p>Please enter your window details as they would appear on the window schedule and/or on your drawings,
                     including all ranch sliders and fully glazed doors. (Note: do not enter solid doors as these will
                     entered in the next section)</p>
                 <app-windowform></app-windowform>
                 <div style="text-align: right">
-                    <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Go to Next Section <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Go to Next
+                        Section <i class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel matStepperIcon="done">🚪 Doors</ng-template>
-                <!-- <app-doorform [doorobject]="doorobject" [doorobjectlist]="doorobjectlist"></app-doorform> -->
                 <p>Please enter your solid (non glazed) doors. (If you are deeming the garage as an unconditioned space,
                     remember to include the door between the house and the garage)</p>
                 <app-doorform></app-doorform>
                 <div style="text-align: right">
-                    <button type="button" color="default" class="btn btn-primary btn-lg"
-                        matStepperNext>Go to Next Section <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Go to Next
+                        Section <i class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel matStepperIcon="done">🏠 Roof</ng-template>
-                <!-- <app-roofskylineform [skylightsobject]="skylightsobject" [roofobject]="roofobject"
-                    [skylightsobjectlist]="skylightsobjectlist" [roofobjectlist]="roofobjectlist"></app-roofskylineform> -->
-                <!-- <app-roofskylineform></app-roofskylineform> -->
+
                 <app-roofform></app-roofform>
                 <div style="text-align: right">
-                    <button type="button" color="default"
-                        class="btn btn-primary btn-lg" matStepperNext>Go to Next Section <i class="fas fa-arrow-right"></i></button>
+                    <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>Go to Next
+                        Section <i class="fas fa-arrow-right"></i></button>
                 </div>
             </mat-step>
             <mat-step>
@@ -54,13 +113,12 @@
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel matStepperIcon="done">🧱 Floor</ng-template>
-                <!-- <app-floorsform [floorobject]="floorobject" [floorobjectlist]="floorobjectlist"></app-floorsform> -->
+
                 <app-floorsform></app-floorsform>
                 <div style="text-align: right">
-                    <!-- <button type="button" color="default" [disabled]="floorservice.floorlist.length === 0" mat-button
-                        matStepperNext>Next</button> -->
+
                 </div>
             </mat-step>
-        </mat-horizontal-stepper>
+        </mat-horizontal-stepper> -->
     </div>
 </div>

@@ -1,4 +1,52 @@
-<mat-horizontal-stepper labelPosition="bottom" #stepper>
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-body>
+                <nb-stepper orientation="horizontal">
+                    <nb-step [label]="roombreak">
+                        <ng-template #roombreak><i class="fas fa-home"></i> Room Breakdown</ng-template>
+                        <hr class="col-md-12">
+                        <app-roombreakdown numberofhabitroom="numberofhabitroom"></app-roombreakdown>
+                        <div style="text-align: center">
+                            <button nbButton disabled nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                    <nb-step [label]="wallmodel">
+                        <ng-template #wallmodel>🧱🚪🏠 Wall, Windows & Door Model</ng-template>
+                        <hr class="col-md-12">
+                        <app-walldoorwindowmodel>
+                        </app-walldoorwindowmodel>
+                        <div style="text-align: center">
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                    <nb-step [label]="roofmodel">
+                        <ng-template #roofmodel>🏠 Roof & Skylights Model</ng-template>
+                        <hr class="col-md-12">
+                        <app-roofskylightmodel>
+                        </app-roofskylightmodel>
+                        <div style="text-align: center">
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                    <nb-step [label]="floormodel">
+                        <ng-template #floormodel>🧱 Floor Model</ng-template>
+                        <hr class="col-md-12">
+                        <app-floormodel></app-floormodel>
+                        <div style="text-align: center">
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton disabled nbStepperNext>next</button>
+                        </div>
+                    </nb-step>
+                </nb-stepper>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+<!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step>
         <ng-template matStepLabel matStepperIcon="done"><i class="fas fa-home"></i> Room Breakdown</ng-template>
         <hr class="col-md-12">
@@ -12,9 +60,6 @@
         <ng-template matStepLabel>🧱🚪🏠 Wall, Windows & Door Model</ng-template>
         <app-walldoorwindowmodel>
         </app-walldoorwindowmodel>
-        <!-- <div style="text-align: center">
-            <button type="button" color="default" mat-button matStepperNext>Next</button>
-        </div> -->
         <div style="text-align: right">
             <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>
                 Go to Next Section <i class="fas fa-arrow-right"></i></button>
@@ -25,10 +70,6 @@
         <ng-template matStepLabel>🏠 Roof & Skylights Model</ng-template>
         <app-roofskylightmodel>
         </app-roofskylightmodel>
-        <!-- <div style="text-align: center">
-            <button  type="button" color="default"  mat-button matStepperPrevious>Back</button>
-            <button  type="button" color="default"  mat-button matStepperNext>Next</button>
-        </div> -->
         <div style="text-align: right">
             <button type="button" color="default" class="btn btn-primary btn-lg" matStepperNext>
                 Go to Next Section <i class="fas fa-arrow-right"></i></button>
@@ -37,9 +78,6 @@
     <mat-step>
         <ng-template matStepLabel>🧱 Floor Model</ng-template>
         <app-floormodel></app-floormodel>
-        <!-- <div style="text-align: center">
-            <button  type="button" color="default"  mat-button matStepperPrevious>Back</button>
-            <button  type="button" color="default"  mat-button matStepperNext>Next</button>
-        </div> -->
+
     </mat-step>
-</mat-horizontal-stepper>
+</mat-horizontal-stepper> -->
