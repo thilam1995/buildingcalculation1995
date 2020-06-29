@@ -116,13 +116,16 @@ export class WalldoorwindowmodelComponent implements OnInit {
     this.windowobject = null;
     this.wallextendobject = {
       WallSection: null,
-      WallName: null,
+      WallName: "",
       ConstructionRValue: null,
       Area: 0,
       Height: null,
       Width: null
     };
-    this.wallobject = null;
+    this.wallobject = {
+      WallName: "",
+      ConstructionRValue: null,
+    };
     this.orientationselect = null;
   }
 
@@ -277,16 +280,18 @@ export class WalldoorwindowmodelComponent implements OnInit {
 
 
   onSubmitModel() {
-    this.wallextendobject.WallName = this.wallobject.WallName;
-    this.wallextendobject.ConstructionRValue = this.wallobject.ConstructionRValue;
+    console.log(this.wallextendobject.WallName);
+    console.log(this.wallobject.WallName);
     if (this.wallextendobject.WallSection === null || this.orientationselect === null ||
       this.wallextendobject.WallName === null || this.wallextendobject.WallName === undefined || this.wallextendobject.Height === 0 ||
-      this.wallextendobject.Width === 0 || this.wallobject === null) {
+      this.wallextendobject.Width === 0 || this.wallobject.WallName === null || this.wallobject.WallName === '') {
       this.toastr.error("Please complete wall information", "Error Message");
     } else if(this.checkifwindowareamorethanwallarea()){
       this.toastr.error("The area of windows and doors is more than wall area! Please make it less!", "Error Message");
     }
     else {
+      this.wallextendobject.ConstructionRValue = this.wallobject.ConstructionRValue;
+      this.wallextendobject.WallName = this.wallobject.WallName;
       let date = new Date();
       this.wallwindowdoormodel = {
         Wall: this.wallextendobject,
@@ -295,7 +300,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID,
-        Orientation: this.orientationselect.trim(),
+        Orientation: this.orientationselect,
         DateCreated: date.toString()
       };
 
