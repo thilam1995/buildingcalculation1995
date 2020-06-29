@@ -33,7 +33,7 @@
               "node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
               "./node_modules/ngx-toastr/toastr.css",
               "node_modules/jquery.flipster/dist/jquery.flipster.min.css",
-              "node_modules/@nebular/theme/styles/prebuilt/default.css"
+              "node_modules/semantic-ui-css/components/button.min.css"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",

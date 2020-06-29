@@ -1,49 +1,37 @@
 <div class="row">
     <div class="col-md-12">
-        <nb-card>
-            <nb-card-body>
-                <nb-stepper orientation="horizontal">
-                    <nb-step [label]="roombreak">
-                        <ng-template #roombreak><i class="fas fa-home"></i> Room Breakdown</ng-template>
-                        <hr class="col-md-12">
-                        <app-roombreakdown numberofhabitroom="numberofhabitroom"></app-roombreakdown>
-                        <div style="text-align: center">
-                            <button nbButton disabled nbStepperPrevious>prev</button>
-                            <button nbButton nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                    <nb-step [label]="wallmodel">
-                        <ng-template #wallmodel>🧱🚪🏠 Wall, Windows & Door Model</ng-template>
-                        <hr class="col-md-12">
-                        <app-walldoorwindowmodel>
-                        </app-walldoorwindowmodel>
-                        <div style="text-align: center">
-                            <button nbButton nbStepperPrevious>prev</button>
-                            <button nbButton nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                    <nb-step [label]="roofmodel">
-                        <ng-template #roofmodel>🏠 Roof & Skylights Model</ng-template>
-                        <hr class="col-md-12">
-                        <app-roofskylightmodel>
-                        </app-roofskylightmodel>
-                        <div style="text-align: center">
-                            <button nbButton nbStepperPrevious>prev</button>
-                            <button nbButton nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                    <nb-step [label]="floormodel">
-                        <ng-template #floormodel>🧱 Floor Model</ng-template>
-                        <hr class="col-md-12">
-                        <app-floormodel></app-floormodel>
-                        <div style="text-align: center">
-                            <button nbButton nbStepperPrevious>prev</button>
-                            <button nbButton disabled nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                </nb-stepper>
-            </nb-card-body>
-        </nb-card>
+        <ng-stepper #cdkStepper [linear]="true">
+            <cdk-step [optional]="true">
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">1</div>
+                    <div class="step-title"><i class="fas fa-home"></i> Room Breakdown</div>
+                </ng-template>
+                <app-roombreakdown numberofhabitroom="numberofhabitroom"></app-roombreakdown>
+            </cdk-step>
+            <cdk-step [optional]="true">
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">2</div>
+                    <div class="step-title">🧱🚪🏠 Wall, Windows & Door Model</div>
+                </ng-template>
+                <app-walldoorwindowmodel>
+                </app-walldoorwindowmodel>
+            </cdk-step>
+            <cdk-step>
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">3</div>
+                    <div class="step-title">🏠 Roof & Skylights Model</div>
+                </ng-template>
+                <app-roofskylightmodel>
+                </app-roofskylightmodel>
+            </cdk-step>
+            <cdk-step>
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">4</div>
+                    <div class="step-title">🧱 Floor Model</div>
+                </ng-template>
+                <app-floormodel></app-floormodel>
+            </cdk-step>
+        </ng-stepper>
     </div>
 </div>
 <!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>

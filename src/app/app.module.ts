@@ -4,7 +4,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {SuiModule} from 'ng2-semantic-ui';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -75,14 +74,11 @@ import { ResultcarouselComponent } from './components/resultcarousel/resultcarou
 import { NaturallightingitemComponent } from './components/naturallightingitem/naturallightingitem.component';
 import { RoomfilterPipe } from './pipe/roomfilter.pipe';
 import {MatRadioModule} from '@angular/material/radio';
-import { NbThemeModule } from '@nebular/theme';
-import { NbStepperModule } from '@nebular/theme';
 import { HelpguideComponent } from './components/helpguide/helpguide.component';
 import { CoolingroomitemComponent } from './components/coolingroomitem/coolingroomitem.component';
 import { CoolinghabitwindowitemComponent } from './components/coolinghabitwindowitem/coolinghabitwindowitem.component';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbIconModule } from '@nebular/theme';
-import { NbSidebarModule, NbLayoutModule, NbButtonModule, NbCardModule } from '@nebular/theme';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {NgStepperModule} from 'angular-ng-stepper';
 
 @NgModule({
   declarations: [
@@ -151,20 +147,12 @@ import { NbSidebarModule, NbLayoutModule, NbButtonModule, NbCardModule } from '@
     MatStepperModule,
     ToastrModule.forRoot(),
     NgxWebstorageModule.forRoot(),
-    SuiModule,
     NgbPaginationModule,
     MatTooltipModule,
     MatIconModule,
     MatCheckboxModule,
     MatRadioModule,
-    NbThemeModule.forRoot(),
-    NbLayoutModule,
-    NbSidebarModule, // NbSidebarModule.forRoot(), //if this is your app.module
-    NbButtonModule,
-    NbStepperModule,
-    NbCardModule,
-    NbEvaIconsModule,
-    NbIconModule
+    CdkStepperModule,NgStepperModule
   ],
   providers: [LocationService, ClimateService, 
     WalldoorwindowService, AuthGuard, LoginserviceService,

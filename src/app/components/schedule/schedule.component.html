@@ -1,65 +1,59 @@
 <div class="row">
     <div class="col-md-12">
-        <nb-card>
-            <nb-card-body>
-                <nb-stepper orientation="horizontal">
-                    <nb-step [label]="wall">
-                        <ng-template #wall>🧱 Walls</ng-template>
-                        <p>Please enter your different wall constructions below, and their calculated R value.</p>
-                        <app-wallform></app-wallform>
-                        <div style="text-align: center">
-                            <button nbButton disabled nbStepperPrevious>prev</button>
-                            <button nbButton nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                    <nb-step [label]="windows">
-                        <ng-template #windows>🏠 Windows</ng-template>
-                        <p>Please enter your window details as they would appear on the window schedule and/or on your drawings,
-                            including all ranch sliders and fully glazed doors. (Note: do not enter solid doors as these will
-                            entered in the next section)</p>
-                        <app-windowform></app-windowform>
-                        <div style="text-align: center">
-                            <button nbButton nbStepperPrevious>prev</button>
-                            <button nbButton nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                    <nb-step [label]="door">
-                        <ng-template #door>🚪 Doors</ng-template>
-                        <p>Please enter your solid (non glazed) doors. (If you are deeming the garage as an unconditioned space,
-                            remember to include the door between the house and the garage)</p>
-                        <app-doorform></app-doorform>
-                        <div style="text-align: center">
-                            <button nbButton nbStepperPrevious>prev</button>
-                            <button nbButton nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                    <nb-step [label]="roof">
-                        <ng-template #roof>🏠 Roof</ng-template>
-                        <app-roofform></app-roofform>
-                        <div style="text-align: center">
-                            <button nbButton nbStepperPrevious>prev</button>
-                            <button nbButton nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                    <nb-step [label]="skylight">
-                        <ng-template #skylight>🌄 Skylights</ng-template>
-                        <app-skylightform></app-skylightform>
-                        <div style="text-align: center">
-                            <button nbButton nbStepperPrevious>prev</button>
-                            <button nbButton nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                    <nb-step [label]="floor">
-                        <ng-template #floor>🧱 Floor</ng-template>
-                        <app-floorsform></app-floorsform>
-                        <div style="text-align: center">
-                            <button nbButton nbStepperPrevious>prev</button>
-                            <button nbButton disabled nbStepperNext>next</button>
-                        </div>
-                    </nb-step>
-                </nb-stepper>
-            </nb-card-body>
-        </nb-card>
+        <ng-stepper #cdkStepper [linear]="true">
+
+            <cdk-step [optional]="true">
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">1</div>
+                    <div class="step-title">🧱 Walls</div>
+                </ng-template>
+                <p [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">Please enter your different wall
+                    constructions below, and their calculated R value.</p>
+                <app-wallform></app-wallform>
+            </cdk-step>
+            <cdk-step [optional]="true">
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">2</div>
+                    <div class="step-title">🏠 Windows</div>
+                </ng-template>
+                <p [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">Please enter your window details as they
+                    would appear on the window schedule and/or on your drawings,
+                    including all ranch sliders and fully glazed doors. (Note: do not enter solid doors as these
+                    will
+                    entered in the next section)</p>
+                <app-windowform></app-windowform>
+            </cdk-step>
+            <cdk-step>
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">3</div>
+                    <div class="step-title">🚪 Doors</div>
+                </ng-template>
+                <p>Please enter your solid (non glazed) doors. (If you are deeming the garage as an unconditioned space,
+                    remember to include the door between the house and the garage)</p>
+                <app-doorform></app-doorform>
+            </cdk-step>
+            <cdk-step>
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">4</div>
+                    <div class="step-title">🏠 Roof</div>
+                </ng-template>
+                <app-roofform></app-roofform>
+            </cdk-step>
+            <cdk-step>
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">5</div>
+                    <div class="step-title">🌄 Skylights</div>
+                </ng-template>
+                <app-skylightform></app-skylightform>
+            </cdk-step>
+            <cdk-step>
+                <ng-template cdkStepLabel>
+                    <div class="step-bullet">6</div>
+                    <div class="step-title">🧱 Floor</div>
+                </ng-template>
+                <app-floorsform></app-floorsform>
+            </cdk-step>
+        </ng-stepper>
         <!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>
             <mat-step>
                 <ng-template matStepLabel matStepperIcon="done">🧱 Walls</ng-template>
