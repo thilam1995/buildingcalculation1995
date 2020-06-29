@@ -1,17 +1,18 @@
 <div class="row">
     <div class="col-md-12">
-        <ng-stepper #cdkStepper [linear]="true">
+        <ng-stepper #cdkStepper>
 
             <cdk-step [optional]="true">
                 <ng-template cdkStepLabel>
                     <div class="step-bullet">1</div>
                     <div class="step-title">🧱 Walls</div>
                 </ng-template>
-                <div class="col-md-6 center" style="text-align: center;" [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
+                <br>
+                <div class="col-md-4" style="text-align: left; font-size: 90%;" [ngStyle]="{'color': 'red'}">
                     Please enter your different wall
                     constructions below, and their calculated R value.
                 </div>
-                <p [ngStyle]="{'color': 'red', 'font-weight': 'bold'}"></p>
+                <br>
                 <app-wallform></app-wallform>
             </cdk-step>
             <cdk-step [optional]="true">
@@ -19,13 +20,15 @@
                     <div class="step-bullet">2</div>
                     <div class="step-title">🏠 Windows</div>
                 </ng-template>
-                <div class="col-md-6 center" style="text-align: center;" [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
+                <br>
+                <div class="col-md-4" style="text-align: left; font-size: 90%;" [ngStyle]="{'color': 'red'}">
                     Please enter your window details as they
                     would appear on the window schedule and/or on your drawings,
                     including all ranch sliders and fully glazed doors. (Note: do not enter solid doors as these
                     will
                     entered in the next section)
                 </div>
+                <br>
                 <app-windowform></app-windowform>
             </cdk-step>
             <cdk-step>
@@ -33,10 +36,13 @@
                     <div class="step-bullet">3</div>
                     <div class="step-title">🚪 Doors</div>
                 </ng-template>
-                <div class="col-md-6 center" style="text-align: center;" [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
+                <br>
+                <div class="col-md-4" style="text-align: left;  font-size: 90%" [ngStyle]="{'color': 'red'}">
                     Please enter your solid (non glazed) doors. (If you are deeming the garage as an unconditioned space,
                     remember to include the door between the house and the garage)
                 </div>
+                <br>
+                <br>
                 <app-doorform></app-doorform>
             </cdk-step>
             <cdk-step>
@@ -44,6 +50,7 @@
                     <div class="step-bullet">4</div>
                     <div class="step-title">🏠 Roof</div>
                 </ng-template>
+                <br>
                 <app-roofform></app-roofform>
             </cdk-step>
             <cdk-step>
@@ -51,6 +58,7 @@
                     <div class="step-bullet">5</div>
                     <div class="step-title">🌄 Skylights</div>
                 </ng-template>
+                <br>
                 <app-skylightform></app-skylightform>
             </cdk-step>
             <cdk-step>
@@ -58,6 +66,7 @@
                     <div class="step-bullet">6</div>
                     <div class="step-title">🧱 Floor</div>
                 </ng-template>
+                <br>
                 <app-floorsform></app-floorsform>
             </cdk-step>
         </ng-stepper>

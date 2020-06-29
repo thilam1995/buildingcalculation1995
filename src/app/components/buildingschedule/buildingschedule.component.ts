@@ -32,6 +32,8 @@ import { ProjectService } from 'src/app/service/project.service';
 })
 export class BuildingscheduleComponent implements OnInit {
 
+  numberofstep: number = 0;
+  outputfromchild: number;
   projectid: string = "";
   designid: string = "";
   //state$: Observable<object>;
@@ -122,6 +124,9 @@ export class BuildingscheduleComponent implements OnInit {
     //this.fetchingdata(this.designid);
   }
 
+  childGetnumberHandler($event){
+    this.outputfromchild = $event;
+  }
   fetchingallhousecomponent() {
     this.wallservice.walllistdata(this.designid);
     this.wallservice.windowlistdata(this.designid);

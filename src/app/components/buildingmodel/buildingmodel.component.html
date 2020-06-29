@@ -1,34 +1,38 @@
 <div class="row">
     <div class="col-md-12">
-        <ng-stepper #cdkStepper [linear]="true">
+        <ng-stepper #cdkStepper>
             <cdk-step [optional]="true">
                 <ng-template cdkStepLabel>
-                    <div class="step-bullet">1</div>
+                    <div class="step-bullet" (click)="childGetnumber(1)">1</div>
                     <div class="step-title"><i class="fas fa-home"></i> Room Breakdown</div>
                 </ng-template>
+                <br>
                 <app-roombreakdown numberofhabitroom="numberofhabitroom"></app-roombreakdown>
             </cdk-step>
             <cdk-step [optional]="true">
                 <ng-template cdkStepLabel>
-                    <div class="step-bullet">2</div>
+                    <div class="step-bullet" (click)="childGetnumber(2)">2</div>
                     <div class="step-title">🧱🚪🏠 Wall, Windows & Door Model</div>
                 </ng-template>
+                <br>
                 <app-walldoorwindowmodel>
                 </app-walldoorwindowmodel>
             </cdk-step>
             <cdk-step>
                 <ng-template cdkStepLabel>
-                    <div class="step-bullet">3</div>
+                    <div class="step-bullet" (click)="childGetnumber(3)">3</div>
                     <div class="step-title">🏠 Roof & Skylights Model</div>
                 </ng-template>
+                <br>
                 <app-roofskylightmodel>
                 </app-roofskylightmodel>
             </cdk-step>
             <cdk-step>
                 <ng-template cdkStepLabel>
-                    <div class="step-bullet">4</div>
+                    <div class="step-bullet" (click)="childGetnumber(4)">4</div>
                     <div class="step-title">🧱 Floor Model</div>
                 </ng-template>
+                <br>
                 <app-floormodel></app-floormodel>
             </cdk-step>
         </ng-stepper>

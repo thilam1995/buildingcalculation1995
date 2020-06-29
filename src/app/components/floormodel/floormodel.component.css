@@ -1,5 +1,5 @@
 .overflowdiv{
-    height: 600px;
+    height: 150px;
     overflow-x: hidden; /* Hide horizontal scrollbar */
     overflow-y: scroll; /* Add vertical scrollbar */
 }

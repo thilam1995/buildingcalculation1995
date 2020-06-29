@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-buildingmodel',
@@ -8,10 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BuildingmodelComponent implements OnInit {
 
 
-  @Input() numberofhabitroom: number;
+  @Input() numberofstep: number;
+  @Output() childnum = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit() {
+  }
+
+  childGetnumber(num: number){
+    this.childnum.emit(num);
   }
 
 }
