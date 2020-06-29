@@ -143,12 +143,13 @@
           <div class="step-bullet">1</div>
           <div class="step-title"><i class="fas fa-clipboard-list"></i> Building Schedule</div>
         </ng-template>
-        <p [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
-          Please use the below to enter your wall, floor and roof types, and any windows to match the window schedule on
-          your drawings. Use Design Navigator or similar to calculate the R values of your construction elements and
-          enter them here. You will then be able to use all this information in the next phase when you construct your
-          building model.
-        </p>
+        <div class="col-md-6 center" style="text-align: center;" [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
+            Please use the below to enter your wall, floor and roof types, and any windows to match the window schedule on
+            your drawings. Use Design Navigator or similar to calculate the R values of your construction elements and
+            enter them here. You will then be able to use all this information in the next phase when you construct your
+            building model.
+        </div>
+
         <app-schedule></app-schedule>
       </cdk-step>
 
@@ -157,11 +158,11 @@
           <div class="step-bullet">2</div>
           <div class="step-title"><i class="fas fa-tasks"></i> Building Model</div>
         </ng-template>
-        <p [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
+        <div class="col-md-6 center" style="text-align: center;" [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
           Please use this section to build up your model, using the drop-down selections for all the different walls,
           windows, roof and floor that you have previously entered into the “schedule” section and adding dimensions and
           orientations as required.
-        </p>
+      </div>
         <app-buildingmodel numberofhabitroom="numberofhabitroom"></app-buildingmodel>
       </cdk-step>
 

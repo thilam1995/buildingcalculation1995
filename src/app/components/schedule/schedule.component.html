@@ -7,8 +7,11 @@
                     <div class="step-bullet">1</div>
                     <div class="step-title">🧱 Walls</div>
                 </ng-template>
-                <p [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">Please enter your different wall
-                    constructions below, and their calculated R value.</p>
+                <div class="col-md-6 center" style="text-align: center;" [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
+                    Please enter your different wall
+                    constructions below, and their calculated R value.
+                </div>
+                <p [ngStyle]="{'color': 'red', 'font-weight': 'bold'}"></p>
                 <app-wallform></app-wallform>
             </cdk-step>
             <cdk-step [optional]="true">
@@ -16,11 +19,13 @@
                     <div class="step-bullet">2</div>
                     <div class="step-title">🏠 Windows</div>
                 </ng-template>
-                <p [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">Please enter your window details as they
+                <div class="col-md-6 center" style="text-align: center;" [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
+                    Please enter your window details as they
                     would appear on the window schedule and/or on your drawings,
                     including all ranch sliders and fully glazed doors. (Note: do not enter solid doors as these
                     will
-                    entered in the next section)</p>
+                    entered in the next section)
+                </div>
                 <app-windowform></app-windowform>
             </cdk-step>
             <cdk-step>
@@ -28,8 +33,10 @@
                     <div class="step-bullet">3</div>
                     <div class="step-title">🚪 Doors</div>
                 </ng-template>
-                <p>Please enter your solid (non glazed) doors. (If you are deeming the garage as an unconditioned space,
-                    remember to include the door between the house and the garage)</p>
+                <div class="col-md-6 center" style="text-align: center;" [ngStyle]="{'color': 'red', 'font-weight': 'bold'}">
+                    Please enter your solid (non glazed) doors. (If you are deeming the garage as an unconditioned space,
+                    remember to include the door between the house and the garage)
+                </div>
                 <app-doorform></app-doorform>
             </cdk-step>
             <cdk-step>
