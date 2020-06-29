@@ -281,7 +281,7 @@ export class WalldoorwindowmodelComponent implements OnInit {
     this.wallextendobject.ConstructionRValue = this.wallobject.ConstructionRValue;
     if (this.wallextendobject.WallSection === null || this.orientationselect === null ||
       this.wallextendobject.WallName === null || this.wallextendobject.WallName === undefined || this.wallextendobject.Height === 0 ||
-      this.wallextendobject.Width === 0) {
+      this.wallextendobject.Width === 0 || this.wallobject === null) {
       this.toastr.error("Please complete wall information", "Error Message");
     } else if(this.checkifwindowareamorethanwallarea()){
       this.toastr.error("The area of windows and doors is more than wall area! Please make it less!", "Error Message");

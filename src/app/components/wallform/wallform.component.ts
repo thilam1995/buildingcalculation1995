@@ -71,9 +71,9 @@ export class WallformComponent implements OnInit {
     if (form.value.ID === null) {
       let date = new Date();
       this.wallobject = {
-        WallName: form.value.wallName.trim(),
+        WallName: form.value.wallName,
         ConstructionRValue: Number(form.value.constructionRValue),
-        Description: form.value.description.trim(),
+        Description: form.value.description,
         DesignID: this.designid,
         ProjectID: this.projectid,
         UserID: this.registeruser.ID,
